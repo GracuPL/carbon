@@ -6,11 +6,18 @@ import type { JSONContent } from "@carbon/react";
 import type { PDF } from "../types";
 import { Header, Note, Summary, Template } from "./components";
 
+type ListItem = {
+  id: string;
+  name: string;
+};
+
 interface IssuePDFProps extends PDF {
   nonConformance: Database["public"]["Tables"]["nonConformance"]["Row"];
   nonConformanceTypes: Database["public"]["Tables"]["nonConformanceType"]["Row"][];
   investigationTasks: Database["public"]["Tables"]["nonConformanceInvestigationTask"]["Row"][];
+  investigationTypes: ListItem[];
   actionTasks: Database["public"]["Tables"]["nonConformanceActionTask"]["Row"][];
+  actionTypes: ListItem[];
   reviewers: Database["public"]["Tables"]["nonConformanceReviewer"]["Row"][];
 }
 
@@ -37,7 +44,9 @@ const IssuePDF = ({
   nonConformance,
   nonConformanceTypes,
   investigationTasks,
+  investigationTypes,
   actionTasks,
+  actionTypes,
   reviewers,
   title = "Issue Report",
 }: IssuePDFProps) => {
@@ -98,7 +107,13 @@ const IssuePDF = ({
                 style={tw("flex flex-col gap-2 border-b border-gray-300 mb-10")}
               >
                 <View style={tw("flex flex-row justify-between")}>
-                  <Text style={tw("font-bold")}>{task.investigationType}</Text>
+                  <Text style={tw("font-bold")}>
+                    {
+                      investigationTypes.find(
+                        (type) => type.id === task.investigationTypeId
+                      )?.name
+                    }
+                  </Text>
                 </View>
                 {task.completedDate && (
                   <Text style={tw("text-sm")}>
@@ -121,7 +136,12 @@ const IssuePDF = ({
                 style={tw("flex flex-col gap-2 border-b border-gray-300 mb-10")}
               >
                 <View style={tw("flex flex-row justify-between")}>
-                  <Text style={tw("font-bold")}>{task.actionType}</Text>
+                  <Text style={tw("font-bold")}>
+                    {
+                      actionTypes.find((type) => type.id === task.actionTypeId)
+                        ?.name
+                    }
+                  </Text>
                 </View>
                 {task.completedDate && (
                   <Text style={tw("text-sm")}>
