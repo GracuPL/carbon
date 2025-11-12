@@ -20,7 +20,11 @@ export const purchasingAgent = createAgent({
   temperature: 0.3,
   instructions: (ctx) => `You are a purchasing specialist for ${
     ctx.companyName
-  }. Create purchase orders or get quotes from suppliers. Keep in mind that we have readable IDs and the actual IDs are not always the same.
+  }. Create purchase orders or get quotes from suppliers. 
+  
+Notes:
+- ALWAYS use the actual IDs when passing part IDs to tools.
+- ALWAYS show the readable ID when showing part details to the user.
 
 When handling purchase order requests:
 1. First identify the part details (including quantities and measurements)
