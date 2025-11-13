@@ -1,6 +1,6 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { getCurrencyByCode } from "~/modules/accounting/accounting.service";
 import {
   plannedOrderValidator,
@@ -9,10 +9,6 @@ import {
   upsertPurchaseOrderLine,
 } from "~/modules/purchasing";
 import { getNextSequence } from "~/modules/settings/settings.service";
-
-export const config = {
-  maxDuration: 300,
-};
 
 const itemsValidator = z
   .object({

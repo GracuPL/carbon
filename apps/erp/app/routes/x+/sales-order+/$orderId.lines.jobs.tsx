@@ -6,8 +6,6 @@ import { redirect } from "@vercel/remix";
 import { convertSalesOrderLinesToJobs } from "~/modules/production/production.service";
 import { path, requestReferrer } from "~/utils/path";
 
-export const config = { maxDuration: 300 };
-
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {

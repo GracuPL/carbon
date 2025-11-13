@@ -6,10 +6,6 @@ import { z } from "zod/v3";
 import { getJobDocuments } from "~/modules/production/production.service";
 import { getCompanyIntegration } from "~/modules/settings/settings.server";
 
-export const config = {
-  maxDuration: 300,
-};
-
 const integrationMetadataParser = z.object({
   processes: z.array(z.string()),
 });
