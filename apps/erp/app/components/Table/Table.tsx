@@ -23,25 +23,33 @@ import {
   VStack,
 } from "@carbon/react";
 import { clamp } from "@carbon/utils";
-import { useNavigation } from "@remix-run/react";
 import { useNumberFormatter } from "@react-aria/i18n";
+import { useNavigation } from "@remix-run/react";
 import type {
   Column,
   ColumnDef,
   ColumnOrderState,
   ColumnPinningState,
+  Table as ReactTable,
   RowData,
   RowSelectionState,
-  Table as ReactTable,
 } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ReactElement, ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { LuArrowDown, LuArrowUp, LuTriangleAlert } from "react-icons/lu";
+import {
+  LuArrowDown,
+  LuArrowUp,
+  LuArrowUpDown,
+  LuHash,
+  LuSigma,
+  LuTrendingUpDown,
+  LuTriangleAlert,
+} from "react-icons/lu";
 import { useSpinDelay } from "spin-delay";
 import type {
   EditableTableCellComponent,
@@ -89,6 +97,23 @@ interface TableProps<T extends object> {
   renderContextMenu?: (row: T) => JSX.Element | null;
 }
 
+type AggregateFunction = "sum" | "average" | "min" | "max" | "median" | "count";
+
+interface AggregateFunctionOption {
+  value: AggregateFunction;
+  label: string;
+  icon: ReactElement;
+}
+
+const aggregateFunctions: AggregateFunctionOption[] = [
+  { value: "sum", label: "Sum", icon: <LuSigma /> },
+  { value: "average", label: "Average", icon: <LuTrendingUpDown /> },
+  { value: "min", label: "Min", icon: <LuArrowDown /> },
+  { value: "max", label: "Max", icon: <LuArrowUp /> },
+  { value: "median", label: "Median", icon: <LuArrowUpDown /> },
+  { value: "count", label: "Count", icon: <LuHash /> },
+];
+
 function numeric(v: unknown): number | null {
   if (v == null) return null;
   const n = typeof v === "number" ? v : Number(String(v).replace(/,/g, ""));
@@ -98,8 +123,8 @@ function numeric(v: unknown): number | null {
 function aggregateForCol<TData extends RowData>(
   table: ReactTable<TData>,
   columnId: string,
+  aggregateFn: AggregateFunction = "sum"
 ): number {
-
   const rows = table.getFilteredRowModel().rows;
 
   const values = rows
@@ -108,9 +133,79 @@ function aggregateForCol<TData extends RowData>(
 
   if (!values.length) return 0;
 
-  return values.reduce((a, b) => a + b, 0);
+  switch (aggregateFn) {
+    case "sum":
+      return values.reduce((a, b) => a + b, 0);
+    case "average":
+      return values.reduce((a, b) => a + b, 0) / values.length;
+    case "min":
+      return Math.min(...values);
+    case "max":
+      return Math.max(...values);
+    case "median": {
+      const sorted = [...values].sort((a, b) => a - b);
+      const mid = Math.floor(sorted.length / 2);
+      return sorted.length % 2 === 0
+        ? (sorted[mid - 1] + sorted[mid]) / 2
+        : sorted[mid];
+    }
+    case "count":
+      return values.length;
+    default:
+      return values.reduce((a, b) => a + b, 0);
+  }
 }
 
+interface AggregateSelectorProps {
+  value: number;
+  aggregateFunction: AggregateFunction;
+  onAggregateFunctionChange: (fn: AggregateFunction) => void;
+  formatter?: (
+    val: number | bigint | `${number}` | "Infinity" | "-Infinity" | "+Infinity"
+  ) => string;
+}
+
+const AggregateSelector = ({
+  value,
+  aggregateFunction,
+  onAggregateFunctionChange,
+  formatter,
+}: AggregateSelectorProps) => {
+  const numberFormatter = useNumberFormatter();
+  const currentFunction = aggregateFunctions.find(
+    (fn) => fn.value === aggregateFunction
+  );
+
+  const formattedValue =
+    aggregateFunction === "count" || !formatter
+      ? numberFormatter.format(value)
+      : formatter(value);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <div className="flex justify-start items-center gap-2 cursor-pointer">
+          {currentFunction?.icon}
+          <span className="font-medium">{formattedValue}</span>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start">
+        <DropdownMenuRadioGroup value={aggregateFunction}>
+          {aggregateFunctions.map((fn) => (
+            <DropdownMenuRadioItem
+              key={fn.value}
+              value={fn.value}
+              onClick={() => onAggregateFunctionChange(fn.value)}
+            >
+              <DropdownMenuIcon icon={fn.icon} />
+              {fn.label}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 const Table = <T extends object>({
   data,
@@ -136,7 +231,6 @@ const Table = <T extends object>({
   renderContextMenu,
 }: TableProps<T>) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const numberFormatter = useNumberFormatter();
 
   const { currentView, view } = useSavedViews();
 
@@ -340,6 +434,11 @@ const Table = <T extends object>({
   const [editMode, setEditMode] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedCell, setSelectedCell] = useState<Position>(null);
+
+  /* Aggregate Functions */
+  const [columnAggregates, setColumnAggregates] = useState<
+    Record<string, AggregateFunction>
+  >({});
 
   const focusOnSelectedCell = useCallback(() => {
     if (selectedCell == null) return;
@@ -947,7 +1046,13 @@ const Table = <T extends object>({
                 {table.getFooterGroups().map((footerGroup) => (
                   <Tr key={footerGroup.id} className="h-10">
                     {footerGroup.headers.map((footer) => {
-                      const total = aggregateForCol(table, footer.column.id);
+                      const aggregateFn =
+                        columnAggregates[footer.column.id] ?? "sum";
+                      const total = aggregateForCol(
+                        table,
+                        footer.column.id,
+                        aggregateFn
+                      );
                       return (
                         <Th
                           key={footer.id}
@@ -955,18 +1060,29 @@ const Table = <T extends object>({
                           id={`header-${footer.id}`}
                           className={cn(
                             "px-4 py-3 whitespace-nowrap",
-                            editMode && "border-r-1 border-border",
+                            editMode && "border-r-1 border-border"
                           )}
                           style={{
                             ...getPinnedStyles(footer.column),
                             width: footer.getSize(),
                           }}
                         >
-                          {!footer.isPlaceholder && footer.column.columnDef.meta?.renderTotal &&
-                            <div className="flex justify-start items-center gap-2">
-                              {footer.column.columnDef.meta?.formatter ? footer.column.columnDef.meta.formatter(total) : numberFormatter.format(total)}
-                            </div>
-                          }
+                          {!footer.isPlaceholder &&
+                            footer.column.columnDef.meta?.renderTotal && (
+                              <AggregateSelector
+                                value={total}
+                                aggregateFunction={aggregateFn}
+                                onAggregateFunctionChange={(fn) => {
+                                  setColumnAggregates((prev) => ({
+                                    ...prev,
+                                    [footer.column.id]: fn,
+                                  }));
+                                }}
+                                formatter={
+                                  footer.column.columnDef.meta?.formatter
+                                }
+                              />
+                            )}
                         </Th>
                       );
                     })}

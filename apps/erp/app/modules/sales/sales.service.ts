@@ -6,7 +6,7 @@ import {
   type PostgrestSingleResponse,
   type SupabaseClient,
 } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { getEmployeeJob } from "~/modules/people";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
@@ -1240,7 +1240,7 @@ export async function getSalesOrders(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "salesOrderId", ascending: false },
+    { column: "createdAt", ascending: false },
   ]);
 
   return query;
