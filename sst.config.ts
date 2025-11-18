@@ -35,9 +35,11 @@ export default $config({
         ],
         interval: "10 seconds",
         timeout: "5 seconds",
-        startPeriod: "60 seconds",
-        retries: 2,
+        // ↑ Increase both of these dramatically for new deploys
+        startPeriod: "300 seconds", // 5 minutes grace period (key fix!)
+        retries: 6,
       },
+      port: 3000,
       scaling: {
         min: 1,
         max: 10,
@@ -108,9 +110,11 @@ export default $config({
         ],
         interval: "10 seconds",
         timeout: "5 seconds",
-        startPeriod: "60 seconds",
-        retries: 2,
+        // ↑ Increase both of these dramatically for new deploys
+        startPeriod: "300 seconds", // 5 minutes grace period (key fix!)
+        retries: 6,
       },
+      port: 3000,
       scaling: {
         min: 1,
         max: 10,
