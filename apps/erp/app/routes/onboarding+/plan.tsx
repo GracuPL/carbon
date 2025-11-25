@@ -24,7 +24,7 @@ import { path } from "~/utils/path";
 
 const PLANS = {
   STARTER: {
-    price: 30,
+    price: 35,
     userMinimum: 0,
     talkToSales: false,
     description: "Perfect for tech-forward businesses and small teams",
