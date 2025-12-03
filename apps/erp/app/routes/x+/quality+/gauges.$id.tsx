@@ -17,7 +17,6 @@ import {
   gaugeValidator,
   getGauge,
   getGaugeCalibrationRecordsByGaugeId,
-  getQualityFiles,
   upsertGauge,
 } from "~/modules/quality";
 import GaugeForm from "~/modules/quality/ui/Gauge/GaugeForm";
@@ -55,7 +54,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return defer({
     gauge: gauge.data,
     records: getGaugeCalibrationRecordsByGaugeId(serviceRole, id),
-    files: await getQualityFiles(serviceRole, gauge.data.id!, companyId),
   });
 }
 
@@ -111,7 +109,7 @@ export default function GaugeRoute() {
   const { id } = useParams();
   if (!id) throw new Error("Could not find id");
 
-  const { gauge, records, files } = useLoaderData<typeof loader>();
+  const { gauge, records } = useLoaderData<typeof loader>();
 
   const routeData = useRouteData<{
     gaugeTypes: GaugeType[];
@@ -145,7 +143,6 @@ export default function GaugeRoute() {
       // @ts-ignore
       initialValues={initialValues}
       records={records}
-      files={files}
       gaugeTypes={routeData?.gaugeTypes ?? []}
       onClose={() => navigate(-1)}
     />

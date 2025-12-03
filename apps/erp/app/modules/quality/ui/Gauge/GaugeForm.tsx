@@ -20,16 +20,13 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  useDisclosure,
   VStack,
 } from "@carbon/react";
 import { formatRelativeTime } from "@carbon/utils";
-import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { Await, Link, useFetcher } from "@remix-run/react";
-import type { FileObject } from "@supabase/storage-js";
+import { parseDate } from "@internationalized/date";
+import { Await, Link, useFetcher, useNavigate } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
-import { nanoid } from "nanoid";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useState } from "react";
 import {
   LuCalendar,
   LuCircleGauge,
@@ -55,7 +52,6 @@ import type { ListItem } from "~/types";
 import { path } from "~/utils/path";
 import { gaugeRole, gaugeValidator } from "../../quality.models";
 import type { GaugeCalibrationRecord } from "../../types";
-import GaugeCalibrationRecordForm from "../Calibrations/GaugeCalibrationRecordForm";
 import { GaugeRole } from "./GaugeStatus";
 
 type GaugeFormValues = z.infer<typeof gaugeValidator>;
@@ -67,7 +63,6 @@ type GaugeFormProps = {
   type?: "modal" | "drawer";
   open?: boolean;
   onClose?: () => void;
-  files?: FileObject[];
 };
 
 const GaugeForm = ({
@@ -77,15 +72,11 @@ const GaugeForm = ({
   open = true,
   type = "drawer",
   onClose,
-  files = [],
 }: GaugeFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<{}>();
+  const navigate = useNavigate();
   const isEditing = initialValues.id !== undefined;
-
-  const id = useMemo(() => {
-    return initialValues.id ?? nanoid();
-  }, [initialValues.id]);
 
   const isDisabled = isEditing
     ? !permissions.can("update", "quality")
@@ -98,7 +89,6 @@ const GaugeForm = ({
   });
 
   const [activeTab, setActiveTab] = useState<string>("gauge");
-  const newRecordDisclosure = useDisclosure();
 
   return (
     <>
@@ -172,7 +162,11 @@ const GaugeForm = ({
                         <div className="flex justify-end">
                           <Button
                             leftIcon={<LuCirclePlus />}
-                            onClick={newRecordDisclosure.onOpen}
+                            onClick={() =>
+                              navigate(
+                                `${path.to.newGaugeCalibrationRecord}?gaugeId=${initialValues.id}`
+                              )
+                            }
                           >
                             Add Calibration Record
                           </Button>
@@ -325,25 +319,6 @@ const GaugeForm = ({
           </ModalDrawerContent>
         </ModalDrawer>
       </ModalDrawerProvider>
-      {newRecordDisclosure.isOpen && (
-        <GaugeCalibrationRecordForm
-          files={files}
-          initialValues={{
-            id,
-            gaugeId: initialValues.id!,
-            dateCalibrated: today(getLocalTimeZone()).toString(),
-            requiresAction: false,
-            requiresAdjustment: false,
-            requiresRepair: false,
-            notes: "{}",
-            measurementStandard: "",
-            calibrationAttempts: [],
-          }}
-          type="drawer"
-          open={newRecordDisclosure.isOpen}
-          onClose={newRecordDisclosure.onClose}
-        />
-      )}
     </>
   );
 };
