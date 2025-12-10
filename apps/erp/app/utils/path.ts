@@ -42,6 +42,8 @@ export const path = {
       departments: `${api}/people/departments`,
       digitalQuote: (id: string) =>
         generatePath(`${api}/sales/digital-quote/${id}`),
+      digitalSupplierQuote: (id: string) =>
+        generatePath(`${api}/purchasing/digital-quote/${id}`),
       docs: `${api}/docs`,
       employeeTypes: `${api}/users/employee-types`,
       emptyPermissions: `${api}/users/empty-permissions`,
@@ -711,6 +713,8 @@ export const path = {
     externalCustomerFile: (id: string, path: string) =>
       generatePath(`/share/customer/${id}/${path}`),
     externalQuote: (id: string) => generatePath(`/share/quote/${id}`),
+    externalSupplierQuote: (id: string) =>
+      generatePath(`/share/supplier-quote/${id}`),
     externalScar: (id: string) => generatePath(`/share/scar/${id}`),
     feedback: `${x}/feedback`,
     fiscalYears: `${x}/accounting/years`,
@@ -1387,6 +1391,12 @@ export const path = {
       generatePath(`${x}/supplier-quote/${id}/exchange-rate`),
     supplierQuoteLine: (id: string, lineId: string) =>
       generatePath(`${x}/supplier-quote/${id}/${lineId}/details`),
+    supplierQuoteFinalize: (id: string) =>
+      generatePath(`${x}/supplier-quote/${id}/finalize`),
+    supplierQuoteSend: (id: string) =>
+      generatePath(`${x}/supplier-quote/${id}/send`),
+    supplierQuoteStatus: (id: string) =>
+      generatePath(`${x}/supplier-quote/${id}/status`),
     supplierRoot: `${x}/supplier`,
     supplierStatus: (id: string) =>
       generatePath(`${x}/purchasing/supplier-statuses/${id}`),
