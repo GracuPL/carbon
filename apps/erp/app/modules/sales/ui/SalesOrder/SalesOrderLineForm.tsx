@@ -1,3 +1,6 @@
+import { useCarbon } from "@carbon/auth";
+
+import { ValidatedForm } from "@carbon/form";
 import {
   Badge,
   CardAction,
@@ -18,15 +21,14 @@ import {
   ModalCardProvider,
   ModalCardTitle,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
-
-import { ValidatedForm } from "@carbon/form";
+import { getItemReadableId } from "@carbon/utils";
 import { useParams } from "@remix-run/react";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { LuTrash } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { MethodIcon } from "~/components";
 import {
   CustomFormFields,
@@ -35,23 +37,21 @@ import {
   InputControlled,
   Item,
   Location,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   NumberControlled,
   SelectControlled,
   Shelf,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import {
   useCurrencyFormatter,
   usePercentFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
-
-import { useCarbon } from "@carbon/auth";
-import { getItemReadableId } from "@carbon/utils";
 import { getDefaultShelfForJob } from "~/modules/inventory/inventory.service";
 import { methodType } from "~/modules/shared";
 import { useItems } from "~/stores";
@@ -60,7 +60,7 @@ import { salesOrderLineValidator } from "../../sales.models";
 import type {
   SalesOrder,
   SalesOrderLine,
-  SalesOrderLineType,
+  SalesOrderLineType
 } from "../../types";
 import DeleteSalesOrderLine from "./DeleteSalesOrderLine";
 
@@ -73,7 +73,7 @@ type SalesOrderLineFormProps = {
 const SalesOrderLineForm = ({
   initialValues,
   type,
-  onClose,
+  onClose
 }: SalesOrderLineFormProps) => {
   const permissions = usePermissions();
   const { carbon } = useCarbon();
@@ -109,7 +109,7 @@ const SalesOrderLineForm = ({
     unitPrice: initialValues.unitPrice ?? 0,
     uom: initialValues.unitOfMeasureCode ?? "",
     shelfId: initialValues.shelfId ?? "",
-    modelUploadId: initialValues.modelUploadId ?? null,
+    modelUploadId: initialValues.modelUploadId ?? null
   });
 
   const isEditing = initialValues.id !== undefined;
@@ -124,7 +124,7 @@ const SalesOrderLineForm = ({
       methodType: "",
       uom: "EA",
       shelfId: "",
-      modelUploadId: null,
+      modelUploadId: null
     });
   };
 
@@ -148,7 +148,7 @@ const SalesOrderLineForm = ({
         .select("unitSalePrice")
         .eq("itemId", itemId)
         .eq("companyId", company.id)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
 
     // Get default shelf or shelf with highest quantity
@@ -163,7 +163,7 @@ const SalesOrderLineForm = ({
       unitPrice: price.data?.unitSalePrice ?? 0,
       uom: item.data?.unitOfMeasureCode ?? "EA",
       shelfId: defaultShelfId ?? "",
-      modelUploadId: item.data?.modelUploadId ?? null,
+      modelUploadId: item.data?.modelUploadId ?? null
     });
   };
 
@@ -185,7 +185,7 @@ const SalesOrderLineForm = ({
 
     setItemData((d) => ({
       ...d,
-      shelfId: defaultShelfId ?? "",
+      shelfId: defaultShelfId ?? ""
     }));
   };
 
@@ -319,7 +319,7 @@ const SalesOrderLineForm = ({
                         onChange={(value) => {
                           setItemData((d) => ({
                             ...d,
-                            description: value,
+                            description: value
                           }));
                         }}
                         value={itemData.description}
@@ -339,7 +339,7 @@ const SalesOrderLineForm = ({
                                   {m}
                                 </span>
                               ),
-                              value: m,
+                              value: m
                             })) ?? []
                           }
                           value={itemData.methodType}
@@ -347,7 +347,7 @@ const SalesOrderLineForm = ({
                             if (newValue)
                               setItemData((d) => ({
                                 ...d,
-                                methodType: newValue?.value,
+                                methodType: newValue?.value
                               }));
                           }}
                         />
@@ -363,12 +363,12 @@ const SalesOrderLineForm = ({
                           value={itemData.unitPrice}
                           formatOptions={{
                             style: "currency",
-                            currency: baseCurrency,
+                            currency: baseCurrency
                           }}
                           onChange={(value) =>
                             setItemData((d) => ({
                               ...d,
-                              unitPrice: value,
+                              unitPrice: value
                             }))
                           }
                         />
@@ -378,7 +378,7 @@ const SalesOrderLineForm = ({
                           minValue={0}
                           formatOptions={{
                             style: "currency",
-                            currency: baseCurrency,
+                            currency: baseCurrency
                           }}
                         />
                         <Number
@@ -386,7 +386,7 @@ const SalesOrderLineForm = ({
                           label="Add-On Cost"
                           formatOptions={{
                             style: "currency",
-                            currency: baseCurrency,
+                            currency: baseCurrency
                           }}
                         />
 
@@ -399,7 +399,7 @@ const SalesOrderLineForm = ({
                           formatOptions={{
                             style: "percent",
                             minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           }}
                         />
 
@@ -409,7 +409,7 @@ const SalesOrderLineForm = ({
                           "Material",
                           "Service",
                           "Tool",
-                          "Consumable",
+                          "Consumable"
                         ].includes(lineType) && (
                           <Location
                             name="locationId"
@@ -422,7 +422,7 @@ const SalesOrderLineForm = ({
                           "Material",
                           "Tool",
                           "Fixture",
-                          "Consumable",
+                          "Consumable"
                         ].includes(lineType) && (
                           <Shelf
                             name="shelfId"
@@ -434,7 +434,7 @@ const SalesOrderLineForm = ({
                               if (newValue) {
                                 setItemData((d) => ({
                                   ...d,
-                                  shelfId: newValue?.id,
+                                  shelfId: newValue?.id
                                 }));
                               }
                             }}

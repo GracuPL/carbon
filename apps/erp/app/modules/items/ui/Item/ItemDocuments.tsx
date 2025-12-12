@@ -18,25 +18,24 @@ import {
   Td,
   Th,
   Thead,
-  toast,
   Tr,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
-import { LuAxis3D, LuEllipsisVertical, LuUpload } from "react-icons/lu";
-import { DocumentPreview, FileDropzone, Hyperlink } from "~/components";
-import DocumentIcon from "~/components/DocumentIcon";
-import type { MethodItemType, OptimisticFileObject } from "~/modules/shared";
-import { getDocumentType } from "~/modules/shared";
-import type { ItemFile } from "../../types";
-
 import { Link, useFetchers, useRevalidator, useSubmit } from "@remix-run/react";
 import type { FileObject } from "@supabase/storage-js";
 import type { ChangeEvent } from "react";
 import { useCallback } from "react";
+import { LuAxis3D, LuEllipsisVertical, LuUpload } from "react-icons/lu";
+import { DocumentPreview, FileDropzone, Hyperlink } from "~/components";
+import DocumentIcon from "~/components/DocumentIcon";
 import { usePermissions, useUser } from "~/hooks";
+import type { MethodItemType, OptimisticFileObject } from "~/modules/shared";
+import { getDocumentType } from "~/modules/shared";
 import type { ModelUpload } from "~/types";
 import { path } from "~/utils/path";
 import { stripSpecialCharacters } from "~/utils/string";
+import type { ItemFile } from "../../types";
 
 type ItemDocumentsProps = {
   files: ItemFile[];
@@ -49,7 +48,7 @@ const ItemDocuments = ({
   files,
   itemId,
   modelUpload,
-  type,
+  type
 }: ItemDocumentsProps) => {
   const {
     canDelete,
@@ -59,10 +58,10 @@ const ItemDocuments = ({
     deleteModel,
     getPath,
     getModelPath,
-    upload,
+    upload
   } = useItemDocuments({
     itemId,
-    type,
+    type
   });
 
   const onDrop = useCallback(
@@ -356,7 +355,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
         console.error(error);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 
@@ -379,7 +378,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
         console.error(error);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [getPath]
   );
 
@@ -405,7 +404,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -423,7 +422,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
             method: "post",
             action: path.to.newDocument,
             navigate: false,
-            fetcherKey: `item:${file.name}`,
+            fetcherKey: `item:${file.name}`
           });
         }
       }
@@ -440,7 +439,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
     downloadModel,
     getPath,
     getModelPath,
-    upload,
+    upload
   };
 };
 
@@ -466,8 +465,8 @@ const usePendingItems = () => {
           bucket: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

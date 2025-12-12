@@ -1,22 +1,22 @@
 import {
   Badge,
   Copy,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  HStack,
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
+  HStack,
   IconButton,
   Input,
   InputGroup,
   InputLeftElement,
   Spinner,
-  VStack,
-  cn,
+  VStack
 } from "@carbon/react";
 import { Link, useFetchers, useNavigate, useParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
@@ -27,7 +27,7 @@ import {
   LuEllipsisVertical,
   LuExternalLink,
   LuSearch,
-  LuTable,
+  LuTable
 } from "react-icons/lu";
 import { MethodIcon, MethodItemTypeIcon } from "~/components";
 import { OnshapeStatus } from "~/components/Icons";
@@ -67,9 +67,10 @@ const JobBoMExplorer = ({ method }: JobBoMExplorerProps) => {
     selectNode,
     collapseAllBelowDepth,
     scrollToNode,
-    virtualizer,
+    virtualizer
   } = useTree({
     tree: method,
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
     onSelectedIdChanged: () => {},
     estimatedRowHeight: () => 32,
     parentRef,
@@ -83,12 +84,13 @@ const JobBoMExplorer = ({ method }: JobBoMExplorerProps) => {
           return true;
         }
         return false;
-      },
+      }
     },
-    isEager: true,
+    isEager: true
   });
 
   const [selectedMaterialId, setSelectedMaterialId] = useBom();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (selectedMaterialId) {
       const node = method.find(
@@ -105,7 +107,6 @@ const JobBoMExplorer = ({ method }: JobBoMExplorerProps) => {
         selectNode(node.id);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMaterialId, methodId]);
 
   return (
@@ -318,6 +319,7 @@ function NodeData({ node }: { node: FlatTreeItem<JobMethod> }) {
   const integrations = useIntegrations();
   const onShapeState = integrations.has("onshape")
     ? // @ts-expect-error
+      // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
       node.data.externalId?.["onshapeData"]?.["State"]
     : null;
 
@@ -341,6 +343,7 @@ function NodePreview({ node }: { node: FlatTreeItem<JobMethod> }) {
   const integrations = useIntegrations();
   const onShapeState = integrations.has("onshape")
     ? // @ts-expect-error
+      // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
       node.data.externalId?.["onshapeData"]?.["State"]
     : null;
 
@@ -434,6 +437,9 @@ function getNodePath(node: FlatTreeItem<JobMethod>) {
   return node.data.isRoot
     ? path.to.jobMethod(node.data.jobId, node.data.jobMaterialMakeMethodId)
     : node.data.methodType === "Make"
-    ? path.to.jobMakeMethod(node.data.jobId, node.data.jobMaterialMakeMethodId)
-    : path.to.jobMakeMethod(node.data.jobId, node.data.jobMakeMethodId);
+      ? path.to.jobMakeMethod(
+          node.data.jobId,
+          node.data.jobMaterialMakeMethodId
+        )
+      : path.to.jobMakeMethod(node.data.jobId, node.data.jobMakeMethodId);
 }

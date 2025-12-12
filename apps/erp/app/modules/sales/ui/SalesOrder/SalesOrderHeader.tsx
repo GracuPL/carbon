@@ -1,3 +1,4 @@
+import { SelectControlled, ValidatedForm } from "@carbon/form";
 import {
   Button,
   Copy,
@@ -7,8 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  HStack,
   Heading,
+  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -17,13 +18,14 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  VStack,
   toast,
   useDisclosure,
+  VStack
 } from "@carbon/react";
-
 import type { FetcherWithComponents } from "@remix-run/react";
 import { Await, Link, useFetcher, useParams } from "@remix-run/react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { CSVLink } from "react-csv";
 import {
   LuCheckCheck,
   LuChevronDown,
@@ -38,37 +40,32 @@ import {
   LuPanelLeft,
   LuPanelRight,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
-
+import { CustomerContact } from "~/components/Form";
 import { usePanels } from "~/components/Layout";
+import Confirm from "~/components/Modals/Confirm/Confirm";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
 import { usePermissions, useRouteData } from "~/hooks";
-import type { action as confirmAction } from "~/routes/x+/sales-order+/$orderId.confirm";
-import type { action as statusAction } from "~/routes/x+/sales-order+/$orderId.status";
-import { path } from "~/utils/path";
-import type { Opportunity, SalesOrder, SalesOrderLine } from "../../types";
-
-import { SelectControlled, ValidatedForm } from "@carbon/form";
-import { Suspense, useEffect, useMemo, useState } from "react";
-import { CSVLink } from "react-csv";
-import { CustomerContact } from "~/components/Form";
-import Confirm from "~/components/Modals/Confirm/Confirm";
 import { useIntegrations } from "~/hooks/useIntegrations";
 import type { Shipment } from "~/modules/inventory/types";
 import { ShipmentStatus } from "~/modules/inventory/ui/Shipments";
 import type { SalesInvoice } from "~/modules/invoicing/types";
 import SalesInvoiceStatus from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceStatus";
 import type { Job } from "~/modules/production/types";
+import type { action as confirmAction } from "~/routes/x+/sales-order+/$orderId.confirm";
+import type { action as statusAction } from "~/routes/x+/sales-order+/$orderId.status";
 import { useCustomers } from "~/stores/customers";
+import { path } from "~/utils/path";
 import { salesConfirmValidator } from "../../sales.models";
+import type { Opportunity, SalesOrder, SalesOrderLine } from "../../types";
 import SalesStatus from "./SalesStatus";
 import { useSalesOrder } from "./useSalesOrder";
 
 const SalesOrderConfirmModal = ({
   fetcher,
   salesOrder,
-  onClose,
+  onClose
 }: {
   fetcher: FetcherWithComponents<{ success: boolean; message: string }>;
   salesOrder?: SalesOrder;
@@ -84,13 +81,13 @@ const SalesOrderConfirmModal = ({
     canEmail ? "Email" : "None"
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success) {
       onClose();
     } else if (fetcher.data?.success === false && fetcher.data?.message) {
       toast.error(fetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   return (
@@ -110,7 +107,7 @@ const SalesOrderConfirmModal = ({
           onSubmit={onClose}
           defaultValues={{
             notification: notificationType,
-            customerContact: salesOrder?.customerContactId ?? undefined,
+            customerContact: salesOrder?.customerContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -131,12 +128,12 @@ const SalesOrderConfirmModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {
@@ -204,7 +201,7 @@ const SalesOrderHeader = () => {
       "Customer #",
       "Sales Order #",
       "Order Date",
-      "Promised Date",
+      "Promised Date"
     ];
     if (!routeData?.lines) return [headers];
     return [
@@ -216,8 +213,8 @@ const SalesOrderHeader = () => {
         routeData?.salesOrder?.customerReference,
         routeData?.salesOrder?.salesOrderId,
         routeData?.salesOrder?.orderDate,
-        item.promisedDate,
-      ]),
+        item.promisedDate
+      ])
     ];
   }, [
     customers,
@@ -225,7 +222,7 @@ const SalesOrderHeader = () => {
     routeData?.salesOrder?.customerId,
     routeData?.salesOrder?.customerReference,
     routeData?.salesOrder?.orderDate,
-    routeData?.salesOrder?.salesOrderId,
+    routeData?.salesOrder?.salesOrderId
   ]);
 
   return (
@@ -409,7 +406,7 @@ const SalesOrderHeader = () => {
                                 ![
                                   "To Ship",
                                   "To Ship and Invoice",
-                                  "To Invoice",
+                                  "To Invoice"
                                 ].includes(routeData?.salesOrder?.status ?? "")
                               }
                               onClick={() => {

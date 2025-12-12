@@ -10,19 +10,20 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate, useParams } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   Process,
   Submit,
-  Supplier,
+  Supplier
 } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import type { SupplierProcess } from "~/modules/purchasing";
@@ -40,7 +41,7 @@ const SupplierProcessForm = ({
   initialValues,
   type = "drawer",
   open = true,
-  onClose,
+  onClose
 }: SupplierProcessFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<SupplierProcess>>();
@@ -118,7 +119,7 @@ const SupplierProcessForm = ({
                   label="Minimum Cost"
                   formatOptions={{
                     style: "currency",
-                    currency: baseCurrency,
+                    currency: baseCurrency
                   }}
                   minValue={0}
                 />

@@ -4,7 +4,7 @@ import {
   InputControlled,
   MultiSelect,
   Select,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Button,
@@ -12,8 +12,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
@@ -22,7 +22,7 @@ import { z } from "zod/v3";
 import {
   Assignee,
   EmployeeAvatar,
-  useOptimisticAssignment,
+  useOptimisticAssignment
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { Tags } from "~/components/Form";
@@ -35,7 +35,7 @@ import { copyToClipboard } from "~/utils/string";
 import {
   nonConformanceApprovalRequirement,
   nonConformancePriority,
-  nonConformanceSource,
+  nonConformanceSource
 } from "../../quality.models";
 import type { Issue } from "../../types";
 import { getPriorityIcon, getSourceIcon } from "./IssueIcons";
@@ -57,7 +57,7 @@ const IssueProperties = () => {
 
   const optimisticAssignment = useOptimisticAssignment({
     id: id,
-    table: "nonConformance",
+    table: "nonConformance"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -73,6 +73,7 @@ const IssueProperties = () => {
     }
   }, [fetcher.data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (
       field:
@@ -101,13 +102,14 @@ const IssueProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateIssue,
+        action: path.to.bulkUpdateIssue
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [id]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -120,13 +122,14 @@ const IssueProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [id]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -137,10 +140,10 @@ const IssueProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [id]
   );
 
@@ -222,10 +225,10 @@ const IssueProperties = () => {
           </span>
           <ValidatedForm
             defaultValues={{
-              name: routeData?.nonConformance?.name ?? undefined,
+              name: routeData?.nonConformance?.name ?? undefined
             }}
             validator={z.object({
-              name: z.string(),
+              name: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -260,17 +263,17 @@ const IssueProperties = () => {
       <ValidatedForm
         defaultValues={{
           nonConformanceTypeId:
-            routeData?.nonConformance?.nonConformanceTypeId ?? "",
+            routeData?.nonConformance?.nonConformanceTypeId ?? ""
         }}
         validator={z.object({
-          nonConformanceTypeId: z.string().optional(),
+          nonConformanceTypeId: z.string().optional()
         })}
         className="w-full"
       >
         <Select
           options={(routeData?.nonConformanceTypes ?? []).map((type) => ({
             value: type.id,
-            label: <Enumerable value={type.name} />,
+            label: <Enumerable value={type.name} />
           }))}
           isReadOnly={disableStructureUpdate}
           label="Issue Type"
@@ -295,10 +298,10 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          source: routeData?.nonConformance?.source ?? "",
+          source: routeData?.nonConformance?.source ?? ""
         }}
         validator={z.object({
-          source: z.string().optional(),
+          source: z.string().optional()
         })}
         className="w-full"
       >
@@ -310,7 +313,7 @@ const IssueProperties = () => {
                 {getSourceIcon(source, false)}
                 <span>{source}</span>
               </div>
-            ),
+            )
           }))}
           isReadOnly={disableStructureUpdate}
           label="Source"
@@ -333,10 +336,10 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          priority: routeData?.nonConformance?.priority ?? "",
+          priority: routeData?.nonConformance?.priority ?? ""
         }}
         validator={z.object({
-          priority: z.string().optional(),
+          priority: z.string().optional()
         })}
         className="w-full"
       >
@@ -348,7 +351,7 @@ const IssueProperties = () => {
                 {getPriorityIcon(priority, false)}
                 <span>{priority}</span>
               </div>
-            ),
+            )
           }))}
           isReadOnly={disableStructureUpdate}
           label="Priority"
@@ -374,17 +377,17 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          requiredActionIds: routeData?.nonConformance?.requiredActionIds ?? [],
+          requiredActionIds: routeData?.nonConformance?.requiredActionIds ?? []
         }}
         validator={z.object({
-          requiredActionIds: z.array(z.string()).optional(),
+          requiredActionIds: z.array(z.string()).optional()
         })}
         className="w-full"
       >
         <MultiSelect
           options={(routeData?.requiredActions ?? []).map((type) => ({
             value: type.id,
-            label: type.name,
+            label: type.name
           }))}
           isReadOnly={disableStructureUpdate}
           label="Required Actions"
@@ -400,17 +403,17 @@ const IssueProperties = () => {
       <ValidatedForm
         defaultValues={{
           approvalRequirements:
-            routeData?.nonConformance?.approvalRequirements ?? [],
+            routeData?.nonConformance?.approvalRequirements ?? []
         }}
         validator={z.object({
-          approvalRequirements: z.array(z.string()).optional(),
+          approvalRequirements: z.array(z.string()).optional()
         })}
         className="w-full"
       >
         <MultiSelect
           options={nonConformanceApprovalRequirement.map((type) => ({
             value: type,
-            label: type,
+            label: type
           }))}
           isReadOnly={disableStructureUpdate}
           label="Approval Requirements"
@@ -427,10 +430,10 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          openDate: routeData?.nonConformance?.openDate ?? "",
+          openDate: routeData?.nonConformance?.openDate ?? ""
         }}
         validator={z.object({
-          openDate: z.string().min(1, { message: "Open date is required" }),
+          openDate: z.string().min(1, { message: "Open date is required" })
         })}
         className="w-full"
       >
@@ -455,10 +458,10 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dueDate: routeData?.nonConformance?.dueDate ?? "",
+          dueDate: routeData?.nonConformance?.dueDate ?? ""
         }}
         validator={z.object({
-          dueDate: z.string().min(1, { message: "Due date is required" }),
+          dueDate: z.string().min(1, { message: "Due date is required" })
         })}
         className="w-full"
       >
@@ -475,10 +478,10 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          closeDate: routeData?.nonConformance?.closeDate ?? "",
+          closeDate: routeData?.nonConformance?.closeDate ?? ""
         }}
         validator={z.object({
-          closeDate: z.string().min(1, { message: "Close date is required" }),
+          closeDate: z.string().min(1, { message: "Close date is required" })
         })}
         className="w-full"
       >
@@ -495,10 +498,10 @@ const IssueProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.nonConformance?.tags ?? [],
+          tags: routeData?.nonConformance?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

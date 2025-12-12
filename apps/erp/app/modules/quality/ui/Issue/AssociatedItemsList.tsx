@@ -1,3 +1,4 @@
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Number, Select, ValidatedForm } from "@carbon/form";
 import { Card, CardContent, CardHeader, CardTitle, toast } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
@@ -16,7 +17,7 @@ type AssociatedItemsListProps = {
 };
 
 export function AssociatedItemsList({
-  associatedItems,
+  associatedItems
 }: AssociatedItemsListProps) {
   const [items] = useItems();
   const permissions = usePermissions();
@@ -37,7 +38,7 @@ export function AssociatedItemsList({
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.updateIssueItem,
+        action: path.to.updateIssueItem
       });
     },
     [fetcher]
@@ -52,7 +53,7 @@ export function AssociatedItemsList({
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.updateIssueItem,
+        action: path.to.updateIssueItem
       });
     },
     [fetcher]
@@ -98,7 +99,7 @@ export function AssociatedItemsList({
                     <div className="flex items-end gap-2 flex-shrink-0">
                       <ValidatedForm
                         defaultValues={{
-                          quantity: (child as any).quantity ?? 0,
+                          quantity: (child as any).quantity ?? 0
                         }}
                         validator={itemQuantityValidator}
                         className="w-24"
@@ -118,17 +119,17 @@ export function AssociatedItemsList({
                       </ValidatedForm>
                       <ValidatedForm
                         defaultValues={{
-                          disposition: (child as any).disposition ?? "Pending",
+                          disposition: (child as any).disposition ?? "Pending"
                         }}
                         validator={z.object({
-                          disposition: z.string().optional(),
+                          disposition: z.string().optional()
                         })}
                         className="flex-shrink-0 items-center"
                       >
                         <Select
                           options={disposition.map((d) => ({
                             value: d,
-                            label: <DispositionStatus disposition={d} />,
+                            label: <DispositionStatus disposition={d} />
                           }))}
                           isReadOnly={!permissions.can("update", "quality")}
                           label="Status"

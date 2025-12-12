@@ -22,7 +22,7 @@ const CarbonContext = createContext<StoreApi<ICarbonStore>>(null);
 
 export const CarbonProvider = ({
   children,
-  session,
+  session
 }: PropsWithChildren<{
   session: Partial<AuthSession>;
 }>) => {
@@ -39,7 +39,7 @@ export const CarbonProvider = ({
         await carbon.realtime.setAuth(accessToken);
 
         set({ accessToken, isRealtimeAuthSet: true });
-      },
+      }
     }));
   }
 
@@ -50,6 +50,7 @@ export const CarbonProvider = ({
   const initialLoad = useRef(true);
   const refresh = useFetcher<{}>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     setAuthToken(session.accessToken);
   }, [carbon, setAuthToken, session.accessToken]);
@@ -59,7 +60,7 @@ export const CarbonProvider = ({
       if (document.visibilityState === "visible") {
         refresh.submit(null, {
           method: "post",
-          action: path.to.refreshSession,
+          action: path.to.refreshSession
         });
       }
     };
@@ -90,7 +91,7 @@ export const CarbonProvider = ({
     if (!initialLoad.current && shouldRefresh && carbon) {
       refresh.submit(null, {
         method: "post",
-        action: path.to.refreshSession,
+        action: path.to.refreshSession
       });
     }
 

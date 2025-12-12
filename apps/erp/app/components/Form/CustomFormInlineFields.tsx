@@ -1,14 +1,15 @@
 import type { Json } from "@carbon/database";
 import {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Boolean,
   DatePicker,
   InputControlled,
   NumberControlled,
   Select,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
-import { z } from 'zod/v3';
 import { useCustomFieldsSchema } from "~/hooks/useCustomFieldsSchema";
 import { DataType } from "~/modules/shared";
 import { Enumerable } from "../Enumerable";
@@ -29,7 +30,7 @@ const CustomFormInlineFields = ({
   table,
   tags = [],
   isDisabled = false,
-  onUpdate,
+  onUpdate
 }: CustomFormInlineFieldsProps) => {
   const customFormSchema = useCustomFieldsSchema();
   const tableFields = customFormSchema?.[table];
@@ -54,15 +55,16 @@ const CustomFormInlineFields = ({
           switch (field.dataTypeId) {
             case DataType.Boolean:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
                     [field.id]:
                       fields && field.id in fields
                         ? (fields[field.id] as boolean)
-                        : false,
+                        : false
                   }}
                   validator={z.object({
-                    [field.id]: zfd.checkbox(),
+                    [field.id]: zfd.checkbox()
                   })}
                   className="w-full"
                 >
@@ -75,7 +77,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: value ? "on" : "",
+                          [field.id]: value ? "on" : ""
                         })
                       );
                     }}
@@ -84,12 +86,13 @@ const CustomFormInlineFields = ({
               );
             case DataType.Date:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -104,7 +107,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: modifiedDate,
+                          [field.id]: modifiedDate
                         })
                       );
                     }}
@@ -113,12 +116,13 @@ const CustomFormInlineFields = ({
               );
             case DataType.List:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -132,14 +136,14 @@ const CustomFormInlineFields = ({
                     options={
                       field.listOptions?.map((option) => ({
                         value: option,
-                        label: option,
+                        label: option
                       })) ?? []
                     }
                     onChange={(value) => {
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: value?.value ?? null,
+                          [field.id]: value?.value ?? null
                         })
                       );
                     }}
@@ -148,14 +152,15 @@ const CustomFormInlineFields = ({
               );
             case DataType.Numeric:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as number,
+                    [field.id]: fields[field.id] as number
                   }}
                   validator={z.object({
                     [field.id]: zfd.numeric(
                       z.number().min(0, { message: "Quantity is required" })
-                    ),
+                    )
                   })}
                   className="w-full"
                 >
@@ -169,7 +174,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: value,
+                          [field.id]: value
                         })
                       );
                     }}
@@ -178,12 +183,13 @@ const CustomFormInlineFields = ({
               );
             case DataType.Text:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -198,7 +204,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: e.target.value,
+                          [field.id]: e.target.value
                         })
                       );
                     }}
@@ -207,12 +213,13 @@ const CustomFormInlineFields = ({
               );
             case DataType.User:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -226,7 +233,7 @@ const CustomFormInlineFields = ({
                         onUpdate(
                           JSON.stringify({
                             ...fields,
-                            [field.id]: value.value,
+                            [field.id]: value.value
                           })
                         );
                       }
@@ -236,12 +243,13 @@ const CustomFormInlineFields = ({
               );
             case DataType.Customer:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -255,7 +263,7 @@ const CustomFormInlineFields = ({
                         onUpdate(
                           JSON.stringify({
                             ...fields,
-                            [field.id]: value.value,
+                            [field.id]: value.value
                           })
                         );
                       }
@@ -265,12 +273,13 @@ const CustomFormInlineFields = ({
               );
             case DataType.Supplier:
               return (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: suppressed due to migration
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -284,7 +293,7 @@ const CustomFormInlineFields = ({
                         onUpdate(
                           JSON.stringify({
                             ...fields,
-                            [field.id]: value.value,
+                            [field.id]: value.value
                           })
                         );
                       }

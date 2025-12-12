@@ -1,3 +1,4 @@
+import { ValidatedForm } from "@carbon/form";
 import {
   Button,
   Drawer,
@@ -7,19 +8,19 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
-
-import { ValidatedForm } from "@carbon/form";
 import { useState } from "react";
 import type { z } from "zod/v3";
 import {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Array,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Boolean,
   Hidden,
   Input,
   Select,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { DataType } from "~/modules/shared";
@@ -43,14 +44,14 @@ type AttributeFormProps = {
 const AttributeForm = ({
   initialValues,
   dataTypes,
-  onClose,
+  onClose
 }: AttributeFormProps) => {
   const permissions = usePermissions();
 
   const options =
     dataTypes?.map((dt) => ({
       value: dt.id.toString(),
-      label: dt.label,
+      label: dt.label
     })) ?? [];
 
   const isEditing = initialValues.id !== undefined;

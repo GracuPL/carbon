@@ -7,14 +7,14 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect, useMemo } from "react";
 import { LuCopy, LuInfo, LuLink, LuRefreshCcw } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, useOptimisticAssignment } from "~/components";
 import {
@@ -23,7 +23,7 @@ import {
   PaymentTerm,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -55,11 +55,12 @@ const PurchaseInvoiceProperties = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (field: keyof PurchaseInvoice, value: string | null) => {
       if (value === routeData?.purchaseInvoice[field]) {
@@ -72,13 +73,14 @@ const PurchaseInvoiceProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdatePurchaseInvoice,
+        action: path.to.bulkUpdatePurchaseInvoice
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [invoiceId, routeData?.purchaseInvoice]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -89,17 +91,17 @@ const PurchaseInvoiceProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [invoiceId]
   );
 
   const permissions = usePermissions();
   const optimisticAssignment = useOptimisticAssignment({
     id: invoiceId,
-    table: "purchaseInvoice",
+    table: "purchaseInvoice"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -176,7 +178,7 @@ const PurchaseInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{ supplierId: routeData?.purchaseInvoice?.supplierId }}
         validator={z.object({
-          supplierId: z.string().min(1, { message: "Supplier is required" }),
+          supplierId: z.string().min(1, { message: "Supplier is required" })
         })}
         className="w-full"
       >
@@ -195,10 +197,10 @@ const PurchaseInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{
           supplierReference:
-            routeData?.purchaseInvoice?.supplierReference ?? undefined,
+            routeData?.purchaseInvoice?.supplierReference ?? undefined
         }}
         validator={z.object({
-          supplierReference: zfd.text(z.string().optional()),
+          supplierReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -216,12 +218,12 @@ const PurchaseInvoiceProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          invoiceSupplierId: routeData?.purchaseInvoice?.invoiceSupplierId,
+          invoiceSupplierId: routeData?.purchaseInvoice?.invoiceSupplierId
         }}
         validator={z.object({
           invoiceSupplierId: z
             .string()
-            .min(1, { message: "Supplier is required" }),
+            .min(1, { message: "Supplier is required" })
         })}
         className="w-full"
       >
@@ -240,10 +242,10 @@ const PurchaseInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{
           invoiceSupplierLocationId:
-            routeData?.purchaseInvoice?.invoiceSupplierLocationId ?? "",
+            routeData?.purchaseInvoice?.invoiceSupplierLocationId ?? ""
         }}
         validator={z.object({
-          invoiceSupplierLocationId: zfd.text(z.string().optional()),
+          invoiceSupplierLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -264,10 +266,10 @@ const PurchaseInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{
           invoiceSupplierContactId:
-            routeData?.purchaseInvoice?.invoiceSupplierContactId ?? "",
+            routeData?.purchaseInvoice?.invoiceSupplierContactId ?? ""
         }}
         validator={z.object({
-          invoiceSupplierContactId: zfd.text(z.string().optional()),
+          invoiceSupplierContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -287,12 +289,10 @@ const PurchaseInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dateIssued: routeData?.purchaseInvoice?.dateIssued ?? "",
+          dateIssued: routeData?.purchaseInvoice?.dateIssued ?? ""
         }}
         validator={z.object({
-          dateIssued: z
-            .string()
-            .min(1, { message: "Invoice date is required" }),
+          dateIssued: z.string().min(1, { message: "Invoice date is required" })
         })}
         className="w-full"
       >
@@ -308,10 +308,10 @@ const PurchaseInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dateDue: routeData?.purchaseInvoice?.dateDue ?? "",
+          dateDue: routeData?.purchaseInvoice?.dateDue ?? ""
         }}
         validator={z.object({
-          dateDue: zfd.text(z.string().optional()),
+          dateDue: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -327,10 +327,10 @@ const PurchaseInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          datePaid: routeData?.purchaseInvoice?.datePaid ?? "",
+          datePaid: routeData?.purchaseInvoice?.datePaid ?? ""
         }}
         validator={z.object({
-          datePaid: zfd.text(z.string().optional()),
+          datePaid: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -347,7 +347,7 @@ const PurchaseInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.purchaseInvoice?.locationId }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -366,12 +366,12 @@ const PurchaseInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          paymentTermId: routeData?.purchaseInvoice?.paymentTermId,
+          paymentTermId: routeData?.purchaseInvoice?.paymentTermId
         }}
         validator={z.object({
           paymentTermId: z
             .string()
-            .min(1, { message: "Payment term is required" }),
+            .min(1, { message: "Payment term is required" })
         })}
         className="w-full"
       >
@@ -390,10 +390,10 @@ const PurchaseInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          currencyCode: routeData?.purchaseInvoice?.currencyCode ?? undefined,
+          currencyCode: routeData?.purchaseInvoice?.currencyCode ?? undefined
         }}
         validator={z.object({
-          currencyCode: zfd.text(z.string().optional()),
+          currencyCode: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -451,7 +451,7 @@ const PurchaseInvoiceProperties = () => {
                   );
                   exchangeRateFetcher.submit(formData, {
                     method: "post",
-                    action: path.to.purchaseInvoiceExchangeRate(invoiceId),
+                    action: path.to.purchaseInvoiceExchangeRate(invoiceId)
                   });
                 }}
               />

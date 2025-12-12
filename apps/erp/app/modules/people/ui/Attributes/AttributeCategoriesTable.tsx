@@ -4,14 +4,14 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
 import { BiAddToQueue } from "react-icons/bi";
 import { BsListUl } from "react-icons/bs";
-import { LuPencil, LuTrash, LuListChecks } from "react-icons/lu";
+import { LuListChecks, LuPencil, LuTrash } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions, useUrlParams } from "~/hooks";
@@ -57,7 +57,7 @@ const AttributeCategoriesTable = memo(
               )}{" "}
               <span>{row.original.name}</span>
             </Hyperlink>
-          ),
+          )
         },
         {
           header: "Attributes",
@@ -66,7 +66,7 @@ const AttributeCategoriesTable = memo(
               <LuListChecks />
               <span>
                 {Array.isArray(row.original.userAttribute)
-                  ? row.original.userAttribute?.length ?? 0
+                  ? (row.original.userAttribute?.length ?? 0)
                   : 0}{" "}
                 Attributes
               </span>
@@ -84,7 +84,7 @@ const AttributeCategoriesTable = memo(
                 Edit
               </Button>
             </HStack>
-          ),
+          )
         },
         {
           accessorKey: "public",
@@ -102,15 +102,16 @@ const AttributeCategoriesTable = memo(
               type: "static",
               options: [
                 { label: "Public", value: "true" },
-                { label: "Private", value: "false" },
-              ],
+                { label: "Private", value: "false" }
+              ]
             },
-            pluralHeader: "Visibilities",
-          },
-        },
+            pluralHeader: "Visibilities"
+          }
+        }
       ];
     }, [navigate, params]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const renderContextMenu = useCallback(
       (row: AttributeCategory) => {
         return (
@@ -158,7 +159,7 @@ const AttributeCategoriesTable = memo(
           </>
         );
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       [navigate, params, permissions]
     );
 

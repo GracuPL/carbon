@@ -8,17 +8,18 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
   Input,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import { path } from "~/utils/path";
@@ -87,7 +88,7 @@ const CurrencyForm = ({ initialValues }: CurrencyFormProps) => {
                 minValue={isBaseCurrency ? 1 : 0}
                 maxValue={isBaseCurrency ? 1 : undefined}
                 formatOptions={{
-                  minimumFractionDigits: decimalPlaces ?? 0,
+                  minimumFractionDigits: decimalPlaces ?? 0
                 }}
                 helperText={exchangeRateHelperText}
               />

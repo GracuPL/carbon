@@ -1,7 +1,7 @@
 import {
   assertIsPost,
   CarbonEdition,
-  getCarbonServiceRole,
+  getCarbonServiceRole
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { setCompanyId } from "@carbon/auth/company.server";
@@ -15,19 +15,19 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Edition } from "@carbon/utils";
 import { getLocalTimeZone } from "@internationalized/date";
 import { Link, useLoaderData } from "@remix-run/react";
 import { tasks } from "@trigger.dev/sdk";
-import { json, redirect, type ActionFunctionArgs } from "@vercel/remix";
+import { type ActionFunctionArgs, json, redirect } from "@vercel/remix";
 import {
   AddressAutocomplete,
   Currency,
   Hidden,
   Input,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { useOnboarding } from "~/hooks";
 import { insertEmployeeJob } from "~/modules/people";
@@ -38,7 +38,7 @@ import {
   insertCompany,
   onboardingCompanyValidator,
   seedCompany,
-  updateCompany,
+  updateCompany
 } from "~/modules/settings";
 
 export async function loader({ request }: ActionFunctionArgs) {
@@ -48,7 +48,7 @@ export async function loader({ request }: ActionFunctionArgs) {
 
   if (company.error || !company.data) {
     return json({
-      company: null,
+      company: null
     });
   }
 
@@ -86,14 +86,14 @@ export async function action({ request }: ActionFunctionArgs) {
     const [companyUpdate, locationUpdate] = await Promise.all([
       updateCompany(serviceRole, company.id!, {
         ...data,
-        updatedBy: userId,
+        updatedBy: userId
       }),
       upsertLocation(serviceRole, {
         ...location,
         ...data,
         timezone: getLocalTimeZone(),
-        updatedBy: userId,
-      }),
+        updatedBy: userId
+      })
     ]);
     if (companyUpdate.error) {
       console.error(companyUpdate.error);
@@ -106,7 +106,7 @@ export async function action({ request }: ActionFunctionArgs) {
   } else {
     if (!companyId) {
       const [companyInsert] = await Promise.all([
-        insertCompany(serviceRole, data, userId),
+        insertCompany(serviceRole, data, userId)
       ]);
       if (companyInsert.error) {
         console.error(companyInsert.error);
@@ -130,10 +130,11 @@ export async function action({ request }: ActionFunctionArgs) {
       tasks.trigger("onboard", {
         type: "lead",
         companyId,
-        userId,
+        userId
       });
     }
 
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
     const { baseCurrencyCode, website, ...locationData } = data;
 
     // TODO: move all of this to transaction
@@ -143,8 +144,8 @@ export async function action({ request }: ActionFunctionArgs) {
         name: "Headquarters",
         companyId,
         timezone: getLocalTimeZone(),
-        createdBy: userId,
-      }),
+        createdBy: userId
+      })
     ]);
 
     if (locationInsert.error) {
@@ -161,8 +162,8 @@ export async function action({ request }: ActionFunctionArgs) {
       insertEmployeeJob(serviceRole, {
         id: userId,
         companyId,
-        locationId,
-      }),
+        locationId
+      })
     ]);
 
     if (job.error) {
@@ -177,8 +178,8 @@ export async function action({ request }: ActionFunctionArgs) {
   throw redirect(next, {
     headers: [
       ["Set-Cookie", sessionCookie],
-      ["Set-Cookie", companyIdCookie],
-    ],
+      ["Set-Cookie", companyIdCookie]
+    ]
   });
 }
 
@@ -193,7 +194,7 @@ export default function OnboardingCompany() {
     stateProvince: company?.stateProvince ?? "",
     postalCode: company?.postalCode ?? "",
     countryCode: company?.countryCode ?? "US",
-    baseCurrencyCode: company?.baseCurrencyCode ?? "USD",
+    baseCurrencyCode: company?.baseCurrencyCode ?? "USD"
   };
 
   return (

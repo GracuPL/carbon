@@ -1,12 +1,11 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { getMaterialTypeList } from "~/modules/items";
-import { path } from "~/utils/path";
-
 import type { ComboboxProps } from "@carbon/form";
 import { CreatableCombobox } from "@carbon/form";
 import { useDisclosure, useMount } from "@carbon/react";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { getMaterialTypeList } from "~/modules/items";
 import MaterialTypeForm from "~/modules/items/ui/MaterialTypes/MaterialTypeForm";
+import { path } from "~/utils/path";
 
 type MaterialTypeSelectProps = Omit<
   ComboboxProps,
@@ -76,7 +75,7 @@ const MaterialType = (props: MaterialTypeSelectProps) => {
             name: created,
             materialSubstanceId: props.substanceId!,
             materialFormId: props.formId!,
-            code: created,
+            code: created
           }}
         />
       )}
@@ -94,11 +93,11 @@ export const useMaterialTypes = (substanceId?: string, formId?: string) => {
     }
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (substanceId && formId) {
       materialTypes.load(path.to.api.materialTypes(substanceId, formId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [substanceId, formId]);
 
   const options = useMemo(() => {
@@ -106,7 +105,7 @@ export const useMaterialTypes = (substanceId?: string, formId?: string) => {
       value: c.id,
       label: c.name,
       helper: c.companyId === null ? "Standard" : undefined,
-      code: c.code,
+      code: c.code
     }));
   }, [materialTypes.data?.data]);
 

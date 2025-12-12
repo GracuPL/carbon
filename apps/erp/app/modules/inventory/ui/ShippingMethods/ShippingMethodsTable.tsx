@@ -8,13 +8,13 @@ import {
   LuGlobe,
   LuPencil,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { usePermissions, useUrlParams } from "~/hooks";
 import { useCustomColumns } from "~/hooks/useCustomColumns";
-import { shippingCarrierType, type ShippingMethod } from "~/modules/inventory";
+import { type ShippingMethod, shippingCarrierType } from "~/modules/inventory";
 import { path } from "~/utils/path";
 
 type ShippingMethodsTableProps = {
@@ -35,6 +35,7 @@ const ShippingMethodsTable = memo(
     const customColumns =
       useCustomColumns<(typeof data)[number]>("shippingMethod");
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const columns = useMemo<ColumnDef<(typeof data)[number]>[]>(() => {
       let result: ColumnDef<(typeof rows)[number]>[] = [
         {
@@ -50,8 +51,8 @@ const ShippingMethodsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "carrier",
@@ -62,20 +63,20 @@ const ShippingMethodsTable = memo(
               type: "static",
               options: shippingCarrierType.map((v) => ({
                 label: v,
-                value: v,
-              })),
+                value: v
+              }))
             },
-            icon: <LuTruck />,
-          },
+            icon: <LuTruck />
+          }
         },
         {
           accessorKey: "trackingUrl",
           header: "Tracking URL",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuGlobe />,
-          },
-        },
+            icon: <LuGlobe />
+          }
+        }
       ];
       result = [...result, ...customColumns];
 
@@ -86,12 +87,11 @@ const ShippingMethodsTable = memo(
               header: "Carrier Account",
               cell: (item) => item.getValue(),
               meta: {
-                icon: <LuBanknote />,
-              },
-            },
+                icon: <LuBanknote />
+              }
+            }
           ])
         : result;
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [permissions, customColumns]);
 
     const renderContextMenu = useCallback(

@@ -9,11 +9,11 @@ import {
   HStack,
   Loading,
   PulsingDot,
-  toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
+  toast,
+  VStack
 } from "@carbon/react";
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
 import { useDateFormatter, useNumberFormatter } from "@react-aria/i18n";
@@ -24,7 +24,7 @@ import {
   useEffect,
   useMemo,
   useState,
-  useTransition,
+  useTransition
 } from "react";
 import {
   LuBookMarked,
@@ -32,7 +32,7 @@ import {
   LuCircleCheck,
   LuCirclePlay,
   LuPackage,
-  LuSquareChartGantt,
+  LuSquareChartGantt
 } from "react-icons/lu";
 import { ItemThumbnail, MethodItemTypeIcon, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -45,7 +45,7 @@ import {
   clearOrdersCache,
   getProductionOrdersFromPlanning,
   getReorderPolicyDescription,
-  ItemReorderPolicy,
+  ItemReorderPolicy
 } from "~/modules/items/ui/Item/ItemReorderPolicy";
 import type { ProductionOrder } from "~/modules/production";
 import type { action as mrpAction } from "~/routes/api+/mrp";
@@ -65,13 +65,13 @@ const ProductionPlanningTable = ({
   data,
   count,
   locationId,
-  periods,
+  periods
 }: ProductionPlanningTableProps) => {
   const permissions = usePermissions();
 
   const dateFormatter = useDateFormatter({
     month: "short",
-    day: "numeric",
+    day: "numeric"
   });
 
   const numberFormatter = useNumberFormatter();
@@ -90,10 +90,12 @@ const ProductionPlanningTable = ({
   }, [mrpFetcher.state, mrpFetcher.data]);
 
   // Clear local state when data changes (e.g., filters, search)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     setOrdersMap({});
   }, [data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (
       bulkUpdateFetcher.data?.success === false &&
@@ -105,7 +107,6 @@ const ProductionPlanningTable = ({
     if (bulkUpdateFetcher.data?.success === true) {
       toast.success("Orders submitted");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bulkUpdateFetcher.data?.success]);
 
   const isDisabled =
@@ -118,6 +119,7 @@ const ProductionPlanningTable = ({
     {}
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onBulkUpdate = useCallback(
     (selectedRows: typeof data, action: "order") => {
       const payload = {
@@ -134,7 +136,7 @@ const ProductionPlanningTable = ({
                 ) {
                   return {
                     ...order,
-                    periodId: periods[0].id,
+                    periodId: periods[0].id
                   };
                 }
 
@@ -149,25 +151,25 @@ const ProductionPlanningTable = ({
                 // If no matching period found (date is after last period), use last period
                 return {
                   ...order,
-                  periodId: period?.id ?? periods[periods.length - 1].id,
+                  periodId: period?.id ?? periods[periods.length - 1].id
                 };
               }
             );
 
             return {
               id: row.id,
-              orders: ordersWithPeriods,
+              orders: ordersWithPeriods
             };
           }),
-        action: action,
+        action: action
       };
       bulkUpdateFetcher.submit(payload, {
         method: "post",
         action: path.to.bulkUpdateProductionPlanning,
-        encType: "application/json",
+        encType: "application/json"
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [bulkUpdateFetcher, locationId, ordersMap]
   );
 
@@ -179,7 +181,7 @@ const ProductionPlanningTable = ({
       if (item.id) {
         setOrdersMap((prev) => ({
           ...prev,
-          [item.id!]: orders,
+          [item.id!]: orders
         }));
       }
     },
@@ -191,6 +193,7 @@ const ProductionPlanningTable = ({
   >(new Map());
   const [isPending, startTransition] = useTransition();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     startTransition(() => {
       const ordersByItemId = new Map<string, ProductionOrder[]>();
@@ -202,9 +205,9 @@ const ProductionPlanningTable = ({
       });
       setOrdersByItemId(ordersByItemId);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const columns = useMemo<ColumnDef<ProductionPlanningItem>[]>(() => {
     const periodColumns: ColumnDef<ProductionPlanningItem>[] = periods.map(
       (period, index) => {
@@ -237,7 +240,7 @@ const ProductionPlanningTable = ({
                 {numberFormatter.format(value)}
               </span>
             );
-          },
+          }
         };
       }
     );
@@ -269,8 +272,8 @@ const ProductionPlanningTable = ({
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "unitOfMeasureCode",
@@ -283,7 +286,7 @@ const ProductionPlanningTable = ({
               )?.label ?? null
             }
           />
-        ),
+        )
       },
       {
         accessorKey: "reorderingPolicy",
@@ -309,11 +312,11 @@ const ProductionPlanningTable = ({
             type: "static",
             options: itemReorderingPolicies.map((policy) => ({
               label: <ItemReorderPolicy reorderingPolicy={policy} />,
-              value: policy,
-            })),
+              value: policy
+            }))
           },
-          icon: <LuCircleCheck />,
-        },
+          icon: <LuCircleCheck />
+        }
       },
       {
         accessorKey: "quantityOnHand",
@@ -321,8 +324,8 @@ const ProductionPlanningTable = ({
         cell: ({ row }) => numberFormatter.format(row.original.quantityOnHand),
         meta: {
           icon: <LuPackage />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       ...periodColumns,
       {
@@ -347,18 +350,18 @@ const ProductionPlanningTable = ({
                     <span>{type}</span>
                   </HStack>
                 ),
-                value: type,
-              })),
+                value: type
+              }))
           },
-          icon: <LuBox />,
-        },
+          icon: <LuBox />
+        }
       },
       {
         id: "Order",
         header: "",
         cell: ({ row }) => {
           const orders = row.original.id
-            ? ordersByItemId.get(row.original.id) ?? []
+            ? (ordersByItemId.get(row.original.id) ?? [])
             : [];
           const orderQuantity = orders.reduce(
             (acc, order) =>
@@ -390,15 +393,14 @@ const ProductionPlanningTable = ({
               </Button>
             </div>
           );
-        },
-      },
+        }
+      }
     ];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     dateFormatter,
     numberFormatter,
     unitOfMeasures,
-    isDisabled,
+    isDisabled
     // Note: ordersMap is intentionally not in deps to avoid column regeneration
     // getOrdersForItem inside the cell will access the latest ordersMap via closure
   ]);
@@ -425,12 +427,12 @@ const ProductionPlanningTable = ({
 
   const defaultColumnVisibility = {
     active: false,
-    type: false,
+    type: false
   };
 
   const defaultColumnPinning = {
     left: ["readableIdWithRevision"],
-    right: ["Order"],
+    right: ["Order"]
   };
 
   return (

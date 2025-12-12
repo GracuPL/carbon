@@ -1,8 +1,7 @@
 "use client";
 
-import { LuGitBranchPlus, LuGitPullRequestCreateArrow } from "react-icons/lu";
-
 import { useCarbon } from "@carbon/auth";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Combobox, Hidden, Number, Submit, ValidatedForm } from "@carbon/form";
 import {
   Button,
@@ -18,11 +17,12 @@ import {
   toast,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useRouteData } from "@carbon/remix";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useState } from "react";
+import { LuGitBranchPlus, LuGitPullRequestCreateArrow } from "react-icons/lu";
 import type { action as endShiftAction } from "~/routes/x+/end-shift";
 import { inventoryAdjustmentValidator } from "~/services/inventory.service";
 import { useItems } from "~/stores";
@@ -71,7 +71,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
     setShelves(
       shelves.data?.map((shelf) => ({
         value: shelf.id,
-        label: shelf.name,
+        label: shelf.name
       })) ?? []
     );
     setLoading(false);
@@ -82,6 +82,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
     fetchShelvesByLocationId();
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success === true) {
       modal.onClose();
@@ -93,7 +94,6 @@ export function AdjustInventory({ add }: { add: boolean }) {
         fetcher.data?.message ?? "Failed to complete inventory adjustment"
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   const itemOptions = useMemo(() => {
@@ -102,7 +102,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
       .map((item) => ({
         label: item.readableIdWithRevision,
         helper: item.name,
-        value: item.id,
+        value: item.id
       }));
   }, [items]);
 
@@ -125,7 +125,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
               defaultValues={{
                 itemId: "",
                 quantity: 1,
-                entryType: add ? "Positive Adjmt." : "Negative Adjmt.",
+                entryType: add ? "Positive Adjmt." : "Negative Adjmt."
               }}
               fetcher={fetcher}
             >

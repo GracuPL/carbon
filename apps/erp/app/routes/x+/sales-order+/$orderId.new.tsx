@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { orderId } = params;
@@ -30,13 +30,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createSalesOrderLine = await upsertSalesOrderLine(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSalesOrderLine.error) {
@@ -77,7 +78,7 @@ export default function NewSalesOrderLineRoute() {
       salesOrderData?.salesOrder?.receiptPromisedDate ??
       salesOrderData?.salesOrder?.receiptRequestedDate ??
       "",
-    shippingCost: 0,
+    shippingCost: 0
   };
 
   return (

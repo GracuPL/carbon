@@ -7,7 +7,7 @@ import { redirect } from "@vercel/remix";
 import { useUser } from "~/hooks";
 import {
   upsertWarehouseTransfer,
-  warehouseTransferValidator,
+  warehouseTransferValidator
 } from "~/modules/inventory";
 import { WarehouseTransferForm } from "~/modules/inventory/ui/WarehouseTransfers";
 import { getNextSequence } from "~/modules/settings";
@@ -17,12 +17,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "New Transfer",
-  to: path.to.warehouseTransfers,
+  to: path.to.warehouseTransfers
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   return null;
@@ -31,7 +31,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -65,6 +65,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   if (!transferId) throw new Error("transferId is not defined");
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createTransfer = await upsertWarehouseTransfer(client, {
@@ -72,7 +73,7 @@ export async function action({ request }: ActionFunctionArgs) {
     transferId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createTransfer.error || !createTransfer.data) {
@@ -100,7 +101,7 @@ export default function WarehouseTransferNewRoute() {
     transferDate: "",
     expectedReceiptDate: "",
     notes: "",
-    reference: "",
+    reference: ""
   };
 
   return (

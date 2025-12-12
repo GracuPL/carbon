@@ -9,7 +9,7 @@ import { getIntegration } from "~/modules/settings/settings.service";
 
 const integrationValidator = z.object({
   apiKey: z.string(),
-  secretKey: z.string(),
+  secretKey: z.string()
 });
 
 function createHmacSignature(
@@ -34,7 +34,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    success: true,
+    success: true
   });
 }
 
@@ -103,10 +103,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
     await tasks.trigger<typeof paperlessPartsTask>("paperless-parts", {
       apiKey,
       companyId,
-      payload,
+      payload
     });
 
     return json({ success: true });
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (err) {
     return json({ success: false }, { status: 500 });
   }

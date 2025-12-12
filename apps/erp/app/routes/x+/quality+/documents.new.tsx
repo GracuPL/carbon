@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   return null;
@@ -21,7 +21,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
   const formData = await request.formData();
   const validation = await validator(qualityDocumentValidator).validate(
@@ -32,11 +32,13 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, content, ...data } = validation.data;
 
   let contentJSON;
   try {
     contentJSON = content ? JSON.parse(content) : {};
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (e) {
     return json(
       {},
@@ -54,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     content: contentJSON,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (insertQualityDocument.error || !insertQualityDocument.data?.id) {
@@ -78,7 +80,7 @@ export default function NewQualityDocumentRoute() {
   const initialValues = {
     name: "",
     version: 0,
-    processId: "",
+    processId: ""
   };
 
   return (

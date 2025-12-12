@@ -4,14 +4,13 @@ import type { RangeCalendarProps } from "@react-aria/calendar";
 import { useRangeCalendar } from "@react-aria/calendar";
 import { useLocale } from "@react-aria/i18n";
 import { useRangeCalendarState } from "@react-stately/calendar";
-import { useEffect, useMemo, useRef } from "react";
-
 import clsx from "clsx";
+import { useEffect, useMemo, useRef } from "react";
 import {
   LuChevronLeft,
   LuChevronRight,
   LuChevronsLeft,
-  LuChevronsRight,
+  LuChevronsRight
 } from "react-icons/lu";
 import { CalendarButton } from "./Button";
 import { CalendarGrid } from "./CalendarGrid";
@@ -29,13 +28,13 @@ export function RangeCalendar({
     ...props,
     visibleDuration: { months: 2 },
     locale,
-    createCalendar,
+    createCalendar
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (!props.value?.start) return;
     state.setFocusedDate(props.value.start as CalendarDate);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.value]);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -76,7 +75,7 @@ export function RangeCalendar({
     <div {...calendarProps} ref={ref} className="flex">
       <div
         className={clsx("p-4 border-r border-border", {
-          "rounded-md border shadow": bordered,
+          "rounded-md border shadow": bordered
         })}
       >
         <div className="flex items-center pb-4">
@@ -106,7 +105,7 @@ export function RangeCalendar({
       </div>
       <div
         className={clsx("p-4 ", {
-          "rounded-md border shadow": bordered,
+          "rounded-md border shadow": bordered
         })}
       >
         <div className="flex items-center pb-4">
@@ -146,7 +145,7 @@ function useLocalizedTitle(
   const dateFormatter = useMemo(() => {
     return new Intl.DateTimeFormat(locale, {
       month: "long",
-      year: "numeric",
+      year: "numeric"
     });
   }, [locale]);
 

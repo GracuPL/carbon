@@ -12,7 +12,7 @@ export function useAsyncFetcher<TData>(options?: FetcherOptions) {
   const onStateChange = options?.onStateChange || noop;
 
   const fetcher = useFetcher<TData>({
-    key: options?.key,
+    key: options?.key
   });
 
   const instance = useRef<PromiseWithResolvers<TData>>();
@@ -21,6 +21,7 @@ export function useAsyncFetcher<TData>(options?: FetcherOptions) {
     instance.current = Promise.withResolvers<TData>();
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const submit = useCallback(
     (...args: Parameters<typeof fetcher.submit>) => {
       fetcher.submit(...args);
@@ -29,6 +30,7 @@ export function useAsyncFetcher<TData>(options?: FetcherOptions) {
     [fetcher, instance]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const load = useCallback(
     (...args: Parameters<typeof fetcher.load>) => {
       fetcher.load(...args);
@@ -51,6 +53,6 @@ export function useAsyncFetcher<TData>(options?: FetcherOptions) {
     ...fetcher,
     data: fetcher.data as TData,
     submit,
-    load,
+    load
   };
 }

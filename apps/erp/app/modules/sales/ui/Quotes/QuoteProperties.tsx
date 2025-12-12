@@ -7,14 +7,14 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect, useMemo } from "react";
 import { LuCopy, LuInfo, LuLink, LuRefreshCcw } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, useOptimisticAssignment } from "~/components";
 import {
@@ -23,7 +23,7 @@ import {
   CustomerContact,
   CustomerLocation,
   Employee,
-  Location,
+  Location
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -55,11 +55,12 @@ const QuoteProperties = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (field: keyof Quotation, value: string | null) => {
       if (value === routeData?.quote[field]) {
@@ -72,13 +73,14 @@ const QuoteProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateQuote,
+        action: path.to.bulkUpdateQuote
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [quoteId, routeData?.quote]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -89,16 +91,16 @@ const QuoteProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [quoteId]
   );
 
   const optimisticAssignment = useOptimisticAssignment({
     id: quoteId,
-    table: "quote",
+    table: "quote"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -171,7 +173,7 @@ const QuoteProperties = () => {
       <ValidatedForm
         defaultValues={{ customerId: routeData?.quote?.customerId }}
         validator={z.object({
-          customerId: z.string().min(1, { message: "Customer is required" }),
+          customerId: z.string().min(1, { message: "Customer is required" })
         })}
         className="w-full"
       >
@@ -189,10 +191,10 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerReference: routeData?.quote?.customerReference ?? undefined,
+          customerReference: routeData?.quote?.customerReference ?? undefined
         }}
         validator={z.object({
-          customerReference: zfd.text(z.string().optional()),
+          customerReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -211,10 +213,10 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerLocationId: routeData?.quote?.customerLocationId ?? "",
+          customerLocationId: routeData?.quote?.customerLocationId ?? ""
         }}
         validator={z.object({
-          customerLocationId: zfd.text(z.string().optional()),
+          customerLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -233,10 +235,10 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerContactId: routeData?.quote?.customerContactId ?? "",
+          customerContactId: routeData?.quote?.customerContactId ?? ""
         }}
         validator={z.object({
-          customerContactId: zfd.text(z.string().optional()),
+          customerContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -257,10 +259,10 @@ const QuoteProperties = () => {
       <ValidatedForm
         defaultValues={{
           customerEngineeringContactId:
-            routeData?.quote?.customerEngineeringContactId ?? "",
+            routeData?.quote?.customerEngineeringContactId ?? ""
         }}
         validator={z.object({
-          customerEngineeringContactId: zfd.text(z.string().optional()),
+          customerEngineeringContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -283,12 +285,12 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          expirationDate: routeData?.quote?.expirationDate ?? "",
+          expirationDate: routeData?.quote?.expirationDate ?? ""
         }}
         validator={z.object({
           expirationDate: z
             .string()
-            .min(1, { message: "Expiration date is required" }),
+            .min(1, { message: "Expiration date is required" })
         })}
         className="w-full"
       >
@@ -304,10 +306,10 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dueDate: routeData?.quote?.dueDate ?? "",
+          dueDate: routeData?.quote?.dueDate ?? ""
         }}
         validator={z.object({
-          dueDate: zfd.text(z.string().optional()),
+          dueDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -324,7 +326,7 @@ const QuoteProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.quote?.locationId }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -343,7 +345,7 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          salesPersonId: routeData?.quote?.salesPersonId ?? undefined,
+          salesPersonId: routeData?.quote?.salesPersonId ?? undefined
         }}
         validator={zfd.text(z.string().optional())}
         className="w-full"
@@ -363,10 +365,10 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          estimatorId: routeData?.quote?.estimatorId ?? undefined,
+          estimatorId: routeData?.quote?.estimatorId ?? undefined
         }}
         validator={z.object({
-          estimatorId: zfd.text(z.string().optional()),
+          estimatorId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -385,10 +387,10 @@ const QuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          currencyCode: routeData?.quote?.currencyCode ?? undefined,
+          currencyCode: routeData?.quote?.currencyCode ?? undefined
         }}
         validator={z.object({
-          currencyCode: zfd.text(z.string().optional()),
+          currencyCode: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -443,7 +445,7 @@ const QuoteProperties = () => {
                   );
                   exchangeRateFetcher.submit(formData, {
                     method: "post",
-                    action: path.to.quoteExchangeRate(quoteId),
+                    action: path.to.quoteExchangeRate(quoteId)
                   });
                 }}
               />

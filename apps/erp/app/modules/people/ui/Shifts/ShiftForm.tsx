@@ -10,18 +10,19 @@ import {
   FormControl,
   FormLabel,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Boolean,
   CustomFormFields,
   Hidden,
   Input,
   Location,
   Submit,
-  TimePicker,
+  TimePicker
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";

@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import type { NumberFieldProps } from "@carbon/react";
 import { Input, NumberField } from "@carbon/react";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
@@ -19,7 +18,7 @@ const EditableNumber =
     row,
     accessorKey,
     onError,
-    onUpdate,
+    onUpdate
   }: EditableTableCellComponentProps<T>) => {
     const updateNumber = async (newValue: string) => {
       const numberValue = Number(newValue);

@@ -14,13 +14,13 @@ import {
   TabsList,
   TabsTrigger,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ChartConfig } from "@carbon/react/Chart";
 import {
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
+  ChartTooltipContent
 } from "@carbon/react/Chart";
 import { formatDate } from "@carbon/utils";
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
@@ -36,7 +36,7 @@ import {
   LuMoveDown,
   LuMoveUp,
   LuSearch,
-  LuShoppingCart,
+  LuShoppingCart
 } from "react-icons/lu";
 import {
   Area,
@@ -46,7 +46,7 @@ import {
   Legend,
   ReferenceLine,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 import { Empty, Hyperlink } from "~/components";
 import type { loader as forecastLoader } from "~/routes/api+/items.$id.$locationId.forecast";
@@ -82,7 +82,7 @@ export const ItemPlanningChart = ({
   locationId,
   plannedOrders = [],
   safetyStock,
-  conversionFactor = 1,
+  conversionFactor = 1
 }: {
   compact?: boolean;
   itemId: string;
@@ -97,7 +97,7 @@ export const ItemPlanningChart = ({
 
   const dateFormatter = useDateFormatter({
     month: "short",
-    day: "numeric",
+    day: "numeric"
   });
 
   const numberFormatter = useNumberFormatter();
@@ -132,7 +132,7 @@ export const ItemPlanningChart = ({
           "Production Order": 0,
           Planned: 0,
           Projection: currentQuantity, // Initialize with current quantity
-          "Demand Forecast": 0,
+          "Demand Forecast": 0
         };
         return acc;
       },
@@ -160,6 +160,7 @@ export const ItemPlanningChart = ({
           (order.quantity ?? 0) - (order.existingQuantity ?? 0);
         const inventoryQuantityDelta = purchaseQuantityDelta * conversionFactor;
 
+        // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
         groupedData[periodId]["Planned"] += inventoryQuantityDelta;
       }
     });
@@ -216,6 +217,7 @@ export const ItemPlanningChart = ({
       runningProjection +=
         period["Purchase Order"] +
         period["Production Order"] +
+        // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
         period["Planned"];
       // Subtract demand (all values are already negative)
       runningProjection +=
@@ -237,22 +239,22 @@ export const ItemPlanningChart = ({
       ...(forecastFetcher.data?.openSalesOrderLines ?? []).map((line) => ({
         ...line,
         sourceType: "Sales Order" as SourceType,
-        quantity: line.quantity ?? 0,
+        quantity: line.quantity ?? 0
       })),
       ...(forecastFetcher.data?.openJobMaterials ?? []).map((line) => ({
         ...line,
         sourceType: "Job Material" as SourceType,
-        quantity: line.quantity ?? 0,
+        quantity: line.quantity ?? 0
       })),
       ...(forecastFetcher.data?.openPurchaseOrderLines ?? []).map((line) => ({
         ...line,
         sourceType: "Purchase Order" as SourceType,
-        quantity: line.quantity ?? 0,
+        quantity: line.quantity ?? 0
       })),
       ...(forecastFetcher.data?.openProductionOrders ?? []).map((line) => ({
         ...line,
         sourceType: "Production Order" as SourceType,
-        quantity: line.quantity ?? 0,
+        quantity: line.quantity ?? 0
       })),
       ...(forecastFetcher.data?.demandForecast ?? []).map((forecast) => {
         const period = periods.find((p) => p.id === forecast.periodId);
@@ -262,9 +264,9 @@ export const ItemPlanningChart = ({
           quantity: forecast.forecastQuantity ?? 0,
           dueDate: period?.startDate ?? null,
           documentReadableId: "Demand Forecast",
-          documentId: null,
+          documentId: null
         };
-      }),
+      })
     ];
 
     // Filter out planned orders that have matching existing IDs in forecast data
@@ -297,8 +299,8 @@ export const ItemPlanningChart = ({
         quantity: (order.quantity ?? 0) * conversionFactor,
         documentReadableId: "Planned",
         documentId: null,
-        id: null,
-      })),
+        id: null
+      }))
     ]
       .sort((a, b) => (a.dueDate ?? "").localeCompare(b.dueDate ?? ""))
       .map((item) => {
@@ -313,7 +315,7 @@ export const ItemPlanningChart = ({
         }
         return {
           ...item,
-          projectedQuantity,
+          projectedQuantity
         };
       });
 
@@ -381,24 +383,24 @@ export const ItemPlanningChart = ({
                       {
                         value: "Demand Forecast",
                         type: "rect",
-                        color: "#06b6d4",
+                        color: "#06b6d4"
                       },
                       { value: "Supply", type: "rect", color: "#2563eb" },
                       { value: "Planned", type: "rect", color: "#4f46e5" },
                       {
                         value: "Projection",
                         type: "line",
-                        color: "#7c3aed",
+                        color: "#7c3aed"
                       },
                       ...(safetyStock && safetyStock > 0
                         ? [
                             {
                               value: "Safety Stock",
                               type: "line" as const,
-                              color: "#f43f5e",
-                            },
+                              color: "#f43f5e"
+                            }
                           ]
-                        : []),
+                        : [])
                     ]}
                   />
                   <ChartTooltip
@@ -592,7 +594,7 @@ const sourceTypeIcons: Record<SourceType, JSX.Element> = {
   "Purchase Order": <LuShoppingCart className="size-4 text-blue-600" />,
   "Production Order": <LuFactory className="size-4 text-blue-600" />,
   Planned: <LuMoveUp className="size-4 text-indigo-600" />,
-  "Demand Forecast": <LuChartLine className="size-4 text-cyan-500" />,
+  "Demand Forecast": <LuChartLine className="size-4 text-cyan-500" />
 };
 
 function SupplyDemandPlanningItem({ item }: { item: PlanningItem }) {

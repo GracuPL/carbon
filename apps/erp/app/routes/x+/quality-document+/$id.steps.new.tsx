@@ -1,9 +1,8 @@
-import { json } from "@remix-run/react";
-
 import { assertIsPost, error } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validator } from "@carbon/form";
+import { json } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { qualityDocumentStepValidator } from "~/modules/quality/quality.models";
 import { upsertQualityDocumentStep } from "~/modules/quality/quality.service";
@@ -11,7 +10,7 @@ import { upsertQualityDocumentStep } from "~/modules/quality/quality.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const { id: qualityDocumentId } = params;
@@ -28,17 +27,18 @@ export async function action({ request, params }: ActionFunctionArgs) {
     );
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const create = await upsertQualityDocumentStep(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (create.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,

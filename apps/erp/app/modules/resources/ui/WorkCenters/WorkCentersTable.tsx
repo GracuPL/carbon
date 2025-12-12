@@ -17,7 +17,7 @@ import {
   ModalTitle,
   toast,
   useDisclosure,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -32,7 +32,7 @@ import {
   LuTrash,
   LuTriangleAlert,
   LuUser,
-  LuWrench,
+  LuWrench
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -42,7 +42,7 @@ import {
   useCurrencyFormatter,
   usePermissions,
   useUrlParams,
-  useUser,
+  useUser
 } from "~/hooks";
 import { useCustomColumns } from "~/hooks/useCustomColumns";
 import type { WorkCenter } from "~/modules/resources";
@@ -61,7 +61,7 @@ const defaultColumnVisibility = {
   createdAt: false,
   createdBy: false,
   updatedAt: false,
-  updatedBy: false,
+  updatedBy: false
 };
 
 const WorkCentersTable = memo(
@@ -96,6 +96,7 @@ const WorkCentersTable = memo(
     };
 
     const customColumns = useCustomColumns<WorkCenter>("workCenter");
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const columns = useMemo<ColumnDef<WorkCenter>[]>(() => {
       const defaultColumns: ColumnDef<WorkCenter>[] = [
         {
@@ -121,8 +122,8 @@ const WorkCentersTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuWrench />,
-          },
+            icon: <LuWrench />
+          }
         },
         {
           id: "processes",
@@ -148,11 +149,11 @@ const WorkCentersTable = memo(
               type: "static",
               options: processes.map((process) => ({
                 value: process.value,
-                label: <Enumerable value={process.label} />,
+                label: <Enumerable value={process.label} />
               })),
-              isArray: true,
-            },
-          },
+              isArray: true
+            }
+          }
         },
         {
           accessorKey: "locationName",
@@ -164,10 +165,10 @@ const WorkCentersTable = memo(
               type: "static",
               options: locations.map(({ name }) => ({
                 value: name,
-                label: <Enumerable value={name} />,
-              })),
-            },
-          },
+                label: <Enumerable value={name} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "active",
@@ -178,12 +179,12 @@ const WorkCentersTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Active" },
-                { value: "false", label: "Inactive" },
-              ],
+                { value: "false", label: "Inactive" }
+              ]
             },
             pluralHeader: "Active Statuses",
-            icon: <LuCheck />,
-          },
+            icon: <LuCheck />
+          }
         },
         {
           accessorKey: "description",
@@ -194,8 +195,8 @@ const WorkCentersTable = memo(
             </span>
           ),
           meta: {
-            icon: <LuAlignLeft />,
-          },
+            icon: <LuAlignLeft />
+          }
         },
         {
           accessorKey: "laborRate",
@@ -204,8 +205,8 @@ const WorkCentersTable = memo(
             <span>{formatter.format(row.original.laborRate ?? 0)}</span>
           ),
           meta: {
-            icon: <LuDollarSign />,
-          },
+            icon: <LuDollarSign />
+          }
         },
         {
           accessorKey: "machineRate",
@@ -214,8 +215,8 @@ const WorkCentersTable = memo(
             <span>{formatter.format(row.original.machineRate ?? 0)}</span>
           ),
           meta: {
-            icon: <LuDollarSign />,
-          },
+            icon: <LuDollarSign />
+          }
         },
         {
           accessorKey: "overheadRate",
@@ -224,8 +225,8 @@ const WorkCentersTable = memo(
             <span>{formatter.format(row.original.overheadRate ?? 0)}</span>
           ),
           meta: {
-            icon: <LuDollarSign />,
-          },
+            icon: <LuDollarSign />
+          }
         },
         {
           id: "createdBy",
@@ -239,10 +240,10 @@ const WorkCentersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
+                label: employee.name
+              }))
+            }
+          }
         },
         {
           id: "updatedBy",
@@ -256,16 +257,16 @@ const WorkCentersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
-        },
+                label: employee.name
+              }))
+            }
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params, customColumns]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const renderContextMenu = useCallback<(row: WorkCenter) => JSX.Element>(
       (row) => (
         <>
@@ -297,7 +298,7 @@ const WorkCentersTable = memo(
           )}
         </>
       ),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       [navigate, params, permissions]
     );
 
@@ -351,7 +352,7 @@ function DeleteWorkCenterModal({
   workCenter,
   isOpen,
   onCancel,
-  onSubmit,
+  onSubmit
 }: {
   workCenter: WorkCenter;
   isOpen: boolean;

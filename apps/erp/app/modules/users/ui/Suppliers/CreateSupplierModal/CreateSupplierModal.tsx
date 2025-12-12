@@ -1,4 +1,4 @@
-import { ValidatedForm, useControlField, useField } from "@carbon/form";
+import { useControlField, useField, ValidatedForm } from "@carbon/form";
 import {
   Combobox,
   FormControl,
@@ -13,15 +13,15 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Submit, Supplier } from "~/components/Form";
 import { useUrlParams } from "~/hooks";
 import type {
-  SupplierContact as SupplierContactType,
   getSupplierContacts,
+  SupplierContact as SupplierContactType
 } from "~/modules/purchasing";
 import { createSupplierAccountValidator } from "~/modules/users";
 import type { Result } from "~/types";
@@ -56,7 +56,7 @@ const CreateSupplierModal = () => {
           validator={createSupplierAccountValidator}
           defaultValues={{
             id: params.get("id") ?? "",
-            supplier: params.get("supplier") ?? "",
+            supplier: params.get("supplier") ?? ""
           }}
           // @ts-ignore
           fetcher={formFetcher}
@@ -116,7 +116,7 @@ const CreateSupplierModal = () => {
 const SupplierContact = ({
   name,
   supplier,
-  onChange,
+  onChange
 }: {
   name: string;
   supplier?: string;
@@ -134,6 +134,7 @@ const SupplierContact = ({
   const supplierContactFetcher =
     useFetcher<Awaited<ReturnType<typeof getSupplierContacts>>>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (supplier) {
       supplierContactFetcher.load(path.to.api.supplierContacts(supplier));
@@ -147,7 +148,6 @@ const SupplierContact = ({
         onChange(null);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supplier]);
 
   const options = useMemo(
@@ -155,7 +155,7 @@ const SupplierContact = ({
       supplierContactFetcher.data?.data
         ? supplierContactFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.contact?.fullName ?? c.contact?.email ?? "Unknown",
+            label: c.contact?.fullName ?? c.contact?.email ?? "Unknown"
           }))
         : [],
     [supplierContactFetcher.data]
@@ -174,11 +174,11 @@ const SupplierContact = ({
   };
 
   // so that we can call onChange on load
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (value && value === defaultValue) {
       handleChange(value);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, supplierContactFetcher.data?.data]);
 
   return (

@@ -8,8 +8,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -20,9 +20,9 @@ import {
   LuHardHat,
   LuInfo,
   LuLink,
-  LuRefreshCcw,
+  LuRefreshCcw
 } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, Hyperlink, useOptimisticAssignment } from "~/components";
 import {
@@ -30,7 +30,7 @@ import {
   Location,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -63,11 +63,12 @@ const PurchaseOrderProperties = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (field: keyof PurchaseOrder, value: string | null) => {
       if (value === routeData?.purchaseOrder[field]) {
@@ -80,13 +81,14 @@ const PurchaseOrderProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdatePurchaseOrder,
+        action: path.to.bulkUpdatePurchaseOrder
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [orderId, routeData?.purchaseOrder]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -97,17 +99,17 @@ const PurchaseOrderProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [orderId]
   );
 
   const permissions = usePermissions();
   const optimisticAssignment = useOptimisticAssignment({
     id: orderId,
-    table: "purchaseOrder",
+    table: "purchaseOrder"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -199,7 +201,7 @@ const PurchaseOrderProperties = () => {
       <ValidatedForm
         defaultValues={{ supplierId: routeData?.purchaseOrder?.supplierId }}
         validator={z.object({
-          supplierId: z.string().min(1, { message: "Supplier is required" }),
+          supplierId: z.string().min(1, { message: "Supplier is required" })
         })}
         className="w-full"
       >
@@ -233,10 +235,10 @@ const PurchaseOrderProperties = () => {
       <ValidatedForm
         defaultValues={{
           supplierReference:
-            routeData?.purchaseOrder?.supplierReference ?? undefined,
+            routeData?.purchaseOrder?.supplierReference ?? undefined
         }}
         validator={z.object({
-          supplierReference: zfd.text(z.string().optional()),
+          supplierReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -255,11 +257,10 @@ const PurchaseOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          supplierLocationId:
-            routeData?.purchaseOrder?.supplierLocationId ?? "",
+          supplierLocationId: routeData?.purchaseOrder?.supplierLocationId ?? ""
         }}
         validator={z.object({
-          supplierLocationId: zfd.text(z.string().optional()),
+          supplierLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -278,10 +279,10 @@ const PurchaseOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          supplierContactId: routeData?.purchaseOrder?.supplierContactId ?? "",
+          supplierContactId: routeData?.purchaseOrder?.supplierContactId ?? ""
         }}
         validator={z.object({
-          supplierContactId: zfd.text(z.string().optional()),
+          supplierContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -300,10 +301,10 @@ const PurchaseOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          orderDate: routeData?.purchaseOrder?.orderDate ?? "",
+          orderDate: routeData?.purchaseOrder?.orderDate ?? ""
         }}
         validator={z.object({
-          orderDate: z.string().min(1, { message: "Order date is required" }),
+          orderDate: z.string().min(1, { message: "Order date is required" })
         })}
         className="w-full"
       >
@@ -320,10 +321,10 @@ const PurchaseOrderProperties = () => {
       <ValidatedForm
         defaultValues={{
           receiptRequestedDate:
-            routeData?.purchaseOrder?.receiptRequestedDate ?? "",
+            routeData?.purchaseOrder?.receiptRequestedDate ?? ""
         }}
         validator={z.object({
-          receiptRequestedDate: zfd.text(z.string().optional()),
+          receiptRequestedDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -340,10 +341,10 @@ const PurchaseOrderProperties = () => {
       <ValidatedForm
         defaultValues={{
           receiptPromisedDate:
-            routeData?.purchaseOrder?.receiptPromisedDate ?? "",
+            routeData?.purchaseOrder?.receiptPromisedDate ?? ""
         }}
         validator={z.object({
-          receiptPromisedDate: zfd.text(z.string().optional()),
+          receiptPromisedDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -359,10 +360,10 @@ const PurchaseOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          deliveryDate: routeData?.purchaseOrder?.deliveryDate ?? "",
+          deliveryDate: routeData?.purchaseOrder?.deliveryDate ?? ""
         }}
         validator={z.object({
-          deliveryDate: zfd.text(z.string().optional()),
+          deliveryDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -379,7 +380,7 @@ const PurchaseOrderProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.purchaseOrder?.locationId }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -398,10 +399,10 @@ const PurchaseOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          currencyCode: routeData?.purchaseOrder?.currencyCode ?? undefined,
+          currencyCode: routeData?.purchaseOrder?.currencyCode ?? undefined
         }}
         validator={z.object({
-          currencyCode: zfd.text(z.string().optional()),
+          currencyCode: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -458,7 +459,7 @@ const PurchaseOrderProperties = () => {
                   );
                   exchangeRateFetcher.submit(formData, {
                     method: "post",
-                    action: path.to.purchaseOrderExchangeRate(orderId),
+                    action: path.to.purchaseOrderExchangeRate(orderId)
                   });
                 }}
               />

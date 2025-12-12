@@ -9,20 +9,21 @@ import {
   DrawerTitle,
   HStack,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   ConversionFactor,
   CustomFormFields,
   Hidden,
   Input,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   Submit,
   Supplier,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import { path } from "~/utils/path";
@@ -39,7 +40,7 @@ const SupplierPartForm = ({
   initialValues,
   type,
   unitOfMeasureCode,
-  onClose,
+  onClose
 }: SupplierPartFormProps) => {
   const permissions = usePermissions();
 
@@ -106,7 +107,7 @@ const SupplierPartForm = ({
                 minValue={0}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
               />
               <UnitOfMeasure

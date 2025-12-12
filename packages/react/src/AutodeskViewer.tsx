@@ -4,7 +4,7 @@ import {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import { useMount } from "./hooks";
 import { cn } from "./utils/cn";
@@ -79,7 +79,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
   loadCustomExtensions,
   theme,
   showDefaultToolbar,
-  className,
+  className
 }) => {
   const [viewer, setViewer] = useState<Autodesk.Viewing.GuiViewer3D | null>(
     null
@@ -87,11 +87,13 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
   const viewerRef = useRef<HTMLDivElement | null>(null);
   const { token, getToken } = useAutodesk();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (
       !urn ||
       !token ||
       !viewerRef.current ||
+      // biome-ignore lint/correctness/noUndeclaredVariables: suppressed due to migration
       typeof Autodesk === "undefined"
     ) {
       return;
@@ -103,17 +105,19 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
         getToken().then((token) => {
           callback(token, 3600);
         });
-      },
+      }
     };
 
+    // biome-ignore lint/correctness/noUndeclaredVariables: suppressed due to migration
     Autodesk.Viewing.Initializer(options, () => {
       const viewerOptions = {
         extensions: loadAutodeskExtensions || [
           "Autodesk.DocumentBrowser",
-          "Autodesk.VisualClusters",
-        ],
+          "Autodesk.VisualClusters"
+        ]
       };
 
+      // biome-ignore lint/correctness/noUndeclaredVariables: suppressed due to migration
       const viewer = new Autodesk.Viewing.GuiViewer3D(
         viewerRef.current!,
         viewerOptions
@@ -141,7 +145,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
         console.error({
           code: errorCode,
           message: errorMessage,
-          errors: errorDetails,
+          errors: errorDetails
         });
       };
 
@@ -152,6 +156,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
       }
 
       setViewer(viewer);
+      // biome-ignore lint/correctness/noUndeclaredVariables: suppressed due to migration
       Autodesk.Viewing.Document.load(
         "urn:" + urn,
         onDocumentLoadSuccess,
@@ -163,13 +168,13 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
       if (viewer) {
         viewer.finish();
         setViewer(null);
+        // biome-ignore lint/correctness/noUndeclaredVariables: suppressed due to migration
         Autodesk.Viewing.shutdown();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     token,
-    urn,
+    urn
     // showDefaultToolbar,
     // theme,
     // getToken,
@@ -179,6 +184,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
     // viewer,
   ]);
 
+  // biome-ignore lint/correctness/noUndeclaredVariables: suppressed due to migration
   return typeof Autodesk === "undefined" ? (
     <div>Please include viewer3D.min.js to the index.html </div>
   ) : (
@@ -191,8 +197,8 @@ export async function getAccessToken(endpoint: string): Promise<string> {
     const response = await fetch(endpoint, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     });
 
     if (!response.ok) {

@@ -1,10 +1,10 @@
 import { assertIsPost } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { validator } from "@carbon/form";
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { type ActionFunctionArgs, json } from "@vercel/remix";
 import {
   savedViewStateValidator,
-  savedViewValidator,
+  savedViewValidator
 } from "~/modules/shared/shared.models";
 
 import { upsertSavedView } from "~/modules/shared/shared.service";
@@ -20,7 +20,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json({
       success: false,
       id: null,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
       ...data,
       ...validatedState,
       userId,
-      companyId,
+      companyId
     });
 
     if (result.error) {
@@ -42,7 +42,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json({
         success: false,
         id: null,
-        message: result.error.message,
+        message: result.error.message
       });
     }
 
@@ -50,20 +50,21 @@ export async function action({ request }: ActionFunctionArgs) {
       return json({
         success: true,
         id: data.id,
-        message: "View updated",
+        message: "View updated"
       });
     }
 
     return json({
       success: true,
       id: result.data.id,
-      message: "View saved",
+      message: "View saved"
     });
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (error) {
     return json({
       success: false,
       id: null,
-      message: "Invalid state",
+      message: "Invalid state"
     });
   }
 }

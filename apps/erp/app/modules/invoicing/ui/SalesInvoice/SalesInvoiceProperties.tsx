@@ -7,14 +7,14 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect, useMemo } from "react";
 import { LuCopy, LuInfo, LuLink, LuRefreshCcw } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, useOptimisticAssignment } from "~/components";
 import {
@@ -23,7 +23,7 @@ import {
   CustomerContact,
   CustomerLocation,
   Location,
-  PaymentTerm,
+  PaymentTerm
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -55,11 +55,12 @@ const SalesInvoiceProperties = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (field: keyof SalesInvoice, value: string | null) => {
       if (value === routeData?.salesInvoice[field]) {
@@ -72,13 +73,14 @@ const SalesInvoiceProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateSalesInvoice,
+        action: path.to.bulkUpdateSalesInvoice
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [invoiceId, routeData?.salesInvoice]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -89,17 +91,17 @@ const SalesInvoiceProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [invoiceId]
   );
 
   const permissions = usePermissions();
   const optimisticAssignment = useOptimisticAssignment({
     id: invoiceId,
-    table: "salesInvoice",
+    table: "salesInvoice"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -176,7 +178,7 @@ const SalesInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{ customerId: routeData?.salesInvoice?.customerId }}
         validator={z.object({
-          customerId: z.string().min(1, { message: "Customer is required" }),
+          customerId: z.string().min(1, { message: "Customer is required" })
         })}
         className="w-full"
       >
@@ -195,10 +197,10 @@ const SalesInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{
           customerReference:
-            routeData?.salesInvoice?.customerReference ?? undefined,
+            routeData?.salesInvoice?.customerReference ?? undefined
         }}
         validator={z.object({
-          customerReference: zfd.text(z.string().optional()),
+          customerReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -216,12 +218,12 @@ const SalesInvoiceProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          invoiceCustomerId: routeData?.salesInvoice?.invoiceCustomerId,
+          invoiceCustomerId: routeData?.salesInvoice?.invoiceCustomerId
         }}
         validator={z.object({
           invoiceCustomerId: z
             .string()
-            .min(1, { message: "Customer is required" }),
+            .min(1, { message: "Customer is required" })
         })}
         className="w-full"
       >
@@ -240,10 +242,10 @@ const SalesInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{
           invoiceCustomerLocationId:
-            routeData?.salesInvoice?.invoiceCustomerLocationId ?? "",
+            routeData?.salesInvoice?.invoiceCustomerLocationId ?? ""
         }}
         validator={z.object({
-          invoiceCustomerLocationId: zfd.text(z.string().optional()),
+          invoiceCustomerLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -264,10 +266,10 @@ const SalesInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{
           invoiceCustomerContactId:
-            routeData?.salesInvoice?.invoiceCustomerContactId ?? "",
+            routeData?.salesInvoice?.invoiceCustomerContactId ?? ""
         }}
         validator={z.object({
-          invoiceCustomerContactId: zfd.text(z.string().optional()),
+          invoiceCustomerContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -287,12 +289,10 @@ const SalesInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dateIssued: routeData?.salesInvoice?.dateIssued ?? "",
+          dateIssued: routeData?.salesInvoice?.dateIssued ?? ""
         }}
         validator={z.object({
-          dateIssued: z
-            .string()
-            .min(1, { message: "Invoice date is required" }),
+          dateIssued: z.string().min(1, { message: "Invoice date is required" })
         })}
         className="w-full"
       >
@@ -308,10 +308,10 @@ const SalesInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dateDue: routeData?.salesInvoice?.dateDue ?? "",
+          dateDue: routeData?.salesInvoice?.dateDue ?? ""
         }}
         validator={z.object({
-          dateDue: zfd.text(z.string().optional()),
+          dateDue: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -327,10 +327,10 @@ const SalesInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          datePaid: routeData?.salesInvoice?.datePaid ?? "",
+          datePaid: routeData?.salesInvoice?.datePaid ?? ""
         }}
         validator={z.object({
-          datePaid: zfd.text(z.string().optional()),
+          datePaid: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -347,7 +347,7 @@ const SalesInvoiceProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.salesInvoice?.locationId }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -366,12 +366,12 @@ const SalesInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          paymentTermId: routeData?.salesInvoice?.paymentTermId,
+          paymentTermId: routeData?.salesInvoice?.paymentTermId
         }}
         validator={z.object({
           paymentTermId: z
             .string()
-            .min(1, { message: "Payment term is required" }),
+            .min(1, { message: "Payment term is required" })
         })}
         className="w-full"
       >
@@ -390,10 +390,10 @@ const SalesInvoiceProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          currencyCode: routeData?.salesInvoice?.currencyCode ?? undefined,
+          currencyCode: routeData?.salesInvoice?.currencyCode ?? undefined
         }}
         validator={z.object({
-          currencyCode: zfd.text(z.string().optional()),
+          currencyCode: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -450,7 +450,7 @@ const SalesInvoiceProperties = () => {
                   );
                   exchangeRateFetcher.submit(formData, {
                     method: "post",
-                    action: path.to.salesInvoiceExchangeRate(invoiceId),
+                    action: path.to.salesInvoiceExchangeRate(invoiceId)
                   });
                 }}
               />

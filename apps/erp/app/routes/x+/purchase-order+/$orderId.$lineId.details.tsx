@@ -15,12 +15,12 @@ import {
   getPurchaseOrderLine,
   getSupplierInteractionLineDocuments,
   purchaseOrderLineValidator,
-  upsertPurchaseOrderLine,
+  upsertPurchaseOrderLine
 } from "~/modules/purchasing";
 import { PurchaseOrderLineForm } from "~/modules/purchasing/ui/PurchaseOrder";
 import {
   SupplierInteractionLineDocuments,
-  SupplierInteractionLineNotes,
+  SupplierInteractionLineNotes
 } from "~/modules/purchasing/ui/SupplierInteraction";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -29,7 +29,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "purchasing",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { orderId, lineId } = params;
@@ -46,14 +46,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     line: line?.data ?? null,
-    files: getSupplierInteractionLineDocuments(client, companyId, lineId),
+    files: getSupplierInteractionLineDocuments(client, companyId, lineId)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const { orderId, lineId } = params;
@@ -69,6 +69,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   // if (data.purchaseOrderLineType === "G/L Account") {
@@ -91,7 +92,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updatePurchaseOrderLine.error) {
@@ -140,7 +141,7 @@ export default function EditPurchaseOrderLineRoute() {
     conversionFactor: line?.conversionFactor ?? 1,
     shelfId: line?.shelfId ?? "",
     taxPercent: line?.taxPercent ?? 0,
-    ...getCustomFields(line?.customFields),
+    ...getCustomFields(line?.customFields)
   };
 
   return (
@@ -179,7 +180,7 @@ export default function EditPurchaseOrderLineRoute() {
       <CadModel
         isReadOnly={!permissions.can("update", "purchasing")}
         metadata={{
-          itemId: line?.itemId ?? undefined,
+          itemId: line?.itemId ?? undefined
         }}
         modelPath={line?.modelPath ?? null}
         title="CAD Model"

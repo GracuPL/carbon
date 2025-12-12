@@ -1,3 +1,4 @@
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, DatePicker, Input, Number, Select } from "@carbon/form";
 import { useCustomFieldsSchema } from "~/hooks/useCustomFieldsSchema";
 import { DataType } from "~/modules/shared";
@@ -57,7 +58,7 @@ const CustomFormFields = ({ table, tags = [] }: CustomFormFieldsProps) => {
                   options={
                     field.listOptions?.map((o) => ({
                       label: o,
-                      value: o,
+                      value: o
                     })) ?? []
                   }
                 />

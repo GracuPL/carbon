@@ -4,23 +4,25 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Boolean,
-  CustomFormFields,
   Customer,
   CustomerLocation,
+  CustomFormFields,
   DatePicker,
   Hidden,
   Input,
   Location,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   ShippingMethod,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { PurchaseOrder } from "~/modules/purchasing";
@@ -75,7 +77,7 @@ const PurchaseOrderDeliveryForm = forwardRef<
         cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         shippingCostRef.current?.focus();
       }, 100);
-    },
+    }
   }));
 
   const isSupplier = permissions.is("supplier");
@@ -107,7 +109,7 @@ const PurchaseOrderDeliveryForm = forwardRef<
               minValue={0}
               formatOptions={{
                 style: "currency",
-                currency: currencyCode,
+                currency: currencyCode
               }}
               ref={shippingCostRef}
             />

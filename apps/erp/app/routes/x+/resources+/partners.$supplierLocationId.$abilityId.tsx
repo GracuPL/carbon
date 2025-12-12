@@ -6,17 +6,17 @@ import { useLoaderData } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
-  PartnerForm,
   getPartner,
+  PartnerForm,
   partnerValidator,
-  upsertPartner,
+  upsertPartner
 } from "~/modules/resources";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "resources",
+    view: "resources"
   });
 
   const { supplierLocationId, abilityId } = params;
@@ -33,14 +33,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    partner: partner.data,
+    partner: partner.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -50,12 +50,13 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { supplierId, ...data } = validation.data;
 
   const updatePartner = await upsertPartner(client, {
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updatePartner.error) {
@@ -82,7 +83,7 @@ export default function PartnerRoute() {
     supplierId: partner.supplierId ?? "",
     hoursPerWeek: partner.hoursPerWeek ?? 0,
     abilityId: partner.abilityId ?? "",
-    ...getCustomFields(partner.customFields),
+    ...getCustomFields(partner.customFields)
   };
 
   return <PartnerForm key={initialValues.id} initialValues={initialValues} />;

@@ -15,6 +15,7 @@ export default function useThrottle<T extends (...args: any[]) => any>(
   const timeout = useRef<ReturnType<typeof setTimeout>>();
   const lastArgs = useRef<Parameters<T>>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     return () => {
       if (executeOnUnmount && timeout.current && lastArgs.current) {
@@ -24,7 +25,6 @@ export default function useThrottle<T extends (...args: any[]) => any>(
         clearTimeout(timeout.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [executeOnUnmount]);
 
   return (...args: Parameters<T>) => {

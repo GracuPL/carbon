@@ -1,15 +1,14 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  SupplierContact as SupplierContactType,
-  getSupplierContacts,
-} from "~/modules/purchasing";
-import { path } from "~/utils/path";
-
 import type { ComboboxProps } from "@carbon/form";
 import { CreatableCombobox } from "@carbon/form";
 import { Avatar, HStack, useDisclosure } from "@carbon/react";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  getSupplierContacts,
+  SupplierContact as SupplierContactType
+} from "~/modules/purchasing";
 import { SupplierContactForm } from "~/modules/purchasing/ui/Supplier";
+import { path } from "~/utils/path";
 
 type SupplierContactSelectProps = Omit<
   ComboboxProps,
@@ -46,20 +45,20 @@ const SupplierContact = (props: SupplierContactSelectProps) => {
 
   const [firstName, ...lastName] = created.split(" ");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (props?.supplier) {
       supplierContactsFetcher.load(
         path.to.api.supplierContacts(props.supplier)
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.supplier]);
 
   const options = useMemo(
     () =>
       supplierContactsFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown",
+        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown"
       })) ?? [],
 
     [supplierContactsFetcher.data]
@@ -100,7 +99,7 @@ const SupplierContact = (props: SupplierContactSelectProps) => {
           initialValues={{
             email: "",
             firstName: firstName,
-            lastName: lastName.join(" "),
+            lastName: lastName.join(" ")
           }}
         />
       )}

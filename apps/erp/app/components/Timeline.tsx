@@ -1,12 +1,12 @@
 import { inverseLerp, lerp } from "@carbon/utils";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
-  Fragment,
   createContext,
+  Fragment,
   useCallback,
   useContext,
   useRef,
-  useState,
+  useState
 } from "react";
 
 interface MousePosition {
@@ -22,6 +22,7 @@ export function MousePositionProvider({ children }: { children: ReactNode }) {
     undefined
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
       if (!ref.current) {
@@ -93,7 +94,7 @@ export function Root({
   minWidth,
   maxWidth,
   children,
-  className,
+  className
 }: RootProps) {
   const pixelWidth = calculatePixelWidth(minWidth, maxWidth, scale);
 
@@ -103,7 +104,7 @@ export function Root({
         className={className}
         style={{
           position: "relative",
-          width: `${pixelWidth}px`,
+          width: `${pixelWidth}px`
         }}
       >
         <MousePositionProvider>{children}</MousePositionProvider>
@@ -143,7 +144,7 @@ export function Point({ ms, className, children }: PointProps) {
       className={className}
       style={{
         position: "absolute",
-        left: `${position * 100}%`,
+        left: `${position * 100}%`
       }}
     >
       {children && children(ms)}
@@ -178,7 +179,7 @@ export function Span({ startMs, durationMs, className, children }: SpanProps) {
       style={{
         position: "absolute",
         left: `${position * 100}%`,
-        width: `${width * 100}%`,
+        width: `${width * 100}%`
       }}
     >
       {children}
@@ -226,7 +227,7 @@ export function FollowCursor({ children }: FollowCursorProps) {
         top: 0,
         left: relativeMousePosition ? `${relativeMousePosition?.x * 100}%` : 0,
         height: "100%",
-        pointerEvents: "none",
+        pointerEvents: "none"
       }}
     >
       {children(ms)}

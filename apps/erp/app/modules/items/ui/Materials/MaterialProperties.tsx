@@ -5,6 +5,7 @@ import {
   AlertTitle,
   Badge,
   Button,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -20,17 +21,17 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
-  cn,
   toast,
   useDisclosure,
+  VStack
 } from "@carbon/react";
 import { Await, useFetcher, useParams } from "@remix-run/react";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { LuCopy, LuKeySquare, LuLink, LuTriangleAlert } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { MethodBadge, MethodIcon, TrackingTypeIcon } from "~/components";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, Tags, UnitOfMeasure } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import MaterialDimension from "~/components/Form/MaterialDimension";
@@ -53,7 +54,7 @@ import type {
   ItemFile,
   MaterialSummary,
   PickMethod,
-  SupplierPart,
+  SupplierPart
 } from "../../types";
 import { FileBadge } from "../Item";
 
@@ -109,6 +110,7 @@ const MaterialProperties = () => {
 
   const settings = useSettings();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (
       field:
@@ -134,10 +136,10 @@ const MaterialProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateItems,
+        action: path.to.bulkUpdateItems
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [itemId]
   );
 
@@ -169,14 +171,14 @@ const MaterialProperties = () => {
           "dimensionId",
           "finishId",
           "materialTypeId",
-          "gradeId",
+          "gradeId"
         ].includes(field)
       ) {
         console.log("ok");
         setMaterialPropertyUpdate({
           // @ts-ignore
           field,
-          value,
+          value
         });
         confirmDisclosure.onOpen();
         return;
@@ -187,6 +189,7 @@ const MaterialProperties = () => {
     [confirmDisclosure, onUpdate, settings.materialGeneratedIds]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -199,13 +202,14 @@ const MaterialProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.materialSummary?.readableId]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -216,10 +220,10 @@ const MaterialProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.materialSummary?.readableId]
   );
 
@@ -313,10 +317,10 @@ const MaterialProperties = () => {
                 defaultValues={{
                   materialId:
                     routeData?.materialSummary?.readableIdWithRevision ??
-                    undefined,
+                    undefined
                 }}
                 validator={z.object({
-                  materialId: z.string(),
+                  materialId: z.string()
                 })}
                 className="w-full -mt-2"
               >
@@ -337,10 +341,10 @@ const MaterialProperties = () => {
             )}
             <ValidatedForm
               defaultValues={{
-                name: routeData?.materialSummary?.name ?? undefined,
+                name: routeData?.materialSummary?.name ?? undefined
               }}
               validator={z.object({
-                name: z.string(),
+                name: z.string()
               })}
               className="w-full -mt-2"
             >
@@ -437,10 +441,10 @@ const MaterialProperties = () => {
         <ValidatedForm
           defaultValues={{
             materialFormId:
-              routeData?.materialSummary?.materialFormId ?? undefined,
+              routeData?.materialSummary?.materialFormId ?? undefined
           }}
           validator={z.object({
-            materialFormId: z.string().nullable(),
+            materialFormId: z.string().nullable()
           })}
           className="w-full"
         >
@@ -457,10 +461,10 @@ const MaterialProperties = () => {
         <ValidatedForm
           defaultValues={{
             materialSubstanceId:
-              routeData?.materialSummary?.materialSubstanceId ?? undefined,
+              routeData?.materialSummary?.materialSubstanceId ?? undefined
           }}
           validator={z.object({
-            materialSubstanceId: z.string().nullable(),
+            materialSubstanceId: z.string().nullable()
           })}
           className="w-full"
         >
@@ -476,10 +480,10 @@ const MaterialProperties = () => {
 
         <ValidatedForm
           defaultValues={{
-            gradeId: routeData?.materialSummary?.gradeId ?? undefined,
+            gradeId: routeData?.materialSummary?.gradeId ?? undefined
           }}
           validator={z.object({
-            gradeId: zfd.text(z.string().optional()),
+            gradeId: zfd.text(z.string().optional())
           })}
           className="w-full"
         >
@@ -496,10 +500,10 @@ const MaterialProperties = () => {
 
         <ValidatedForm
           defaultValues={{
-            dimensionId: routeData?.materialSummary?.dimensionId ?? undefined,
+            dimensionId: routeData?.materialSummary?.dimensionId ?? undefined
           }}
           validator={z.object({
-            dimensionId: zfd.text(z.string().optional()),
+            dimensionId: zfd.text(z.string().optional())
           })}
           className="w-full"
         >
@@ -516,10 +520,10 @@ const MaterialProperties = () => {
 
         <ValidatedForm
           defaultValues={{
-            finishId: routeData?.materialSummary?.finishId ?? undefined,
+            finishId: routeData?.materialSummary?.finishId ?? undefined
           }}
           validator={z.object({
-            finishId: zfd.text(z.string().optional()),
+            finishId: zfd.text(z.string().optional())
           })}
           className="w-full"
         >
@@ -538,10 +542,10 @@ const MaterialProperties = () => {
           <ValidatedForm
             defaultValues={{
               materialTypeId:
-                routeData?.materialSummary?.materialTypeId ?? undefined,
+                routeData?.materialSummary?.materialTypeId ?? undefined
             }}
             validator={z.object({
-              materialTypeId: zfd.text(z.string().optional()),
+              materialTypeId: zfd.text(z.string().optional())
             })}
             className="w-full"
           >
@@ -561,12 +565,12 @@ const MaterialProperties = () => {
         <ValidatedForm
           defaultValues={{
             unitOfMeasureCode:
-              routeData?.materialSummary?.unitOfMeasureCode ?? undefined,
+              routeData?.materialSummary?.unitOfMeasureCode ?? undefined
           }}
           validator={z.object({
             unitOfMeasureCode: z
               .string()
-              .min(1, { message: "Unit of Measure is required" }),
+              .min(1, { message: "Unit of Measure is required" })
           })}
           className="w-full"
         >
@@ -609,10 +613,10 @@ const MaterialProperties = () => {
         </VStack>
         <ValidatedForm
           defaultValues={{
-            active: routeData?.materialSummary?.active ?? undefined,
+            active: routeData?.materialSummary?.active ?? undefined
           }}
           validator={z.object({
-            active: zfd.checkbox(),
+            active: zfd.checkbox()
           })}
           className="w-full"
         >
@@ -627,10 +631,10 @@ const MaterialProperties = () => {
         </ValidatedForm>
         <ValidatedForm
           defaultValues={{
-            tags: routeData?.materialSummary?.tags ?? [],
+            tags: routeData?.materialSummary?.tags ?? []
           }}
           validator={z.object({
-            tags: z.array(z.string()).optional(),
+            tags: z.array(z.string()).optional()
           })}
           className="w-full"
         >
@@ -704,7 +708,7 @@ export default MaterialProperties;
 function ConfirmMaterialIdChange({
   materialPropertyUpdate,
   onClose,
-  onConfirm,
+  onConfirm
 }: {
   materialPropertyUpdate: {
     field:

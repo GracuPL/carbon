@@ -12,14 +12,14 @@ import {
   Progress,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import {
   getLocalTimeZone,
   isSameDay,
   parseDate,
-  today,
+  today
 } from "@internationalized/date";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -37,7 +37,7 @@ import {
   LuTag,
   LuTrash,
   LuUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import {
   CustomerAvatar,
@@ -45,7 +45,7 @@ import {
   Hyperlink,
   ItemThumbnail,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { useLocations } from "~/components/Form/Location";
@@ -78,7 +78,7 @@ const defaultColumnVisibility = {
   scrapQuantity: false,
   quantityComplete: false,
   quantityShipped: false,
-  quantityReceivedToInventory: false,
+  quantityReceivedToInventory: false
 };
 
 function useReadableTrackedEntities(data: Job[], companyId: string) {
@@ -121,6 +121,7 @@ function useReadableTrackedEntities(data: Job[], companyId: string) {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     getTrackedEntities(
       data.reduce<string[]>((acc, curr) => {
@@ -131,7 +132,6 @@ function useReadableTrackedEntities(data: Job[], companyId: string) {
       }, []),
       companyId
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return trackedEntities;
@@ -143,7 +143,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
   const parts = useParts();
   const tools = useTools();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const items = useMemo(() => [...parts, ...tools], [parts, tools]);
@@ -171,6 +171,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
   const todaysDate = useMemo(() => today(getLocalTimeZone()), []);
 
   const customColumns = useCustomColumns<Job>("job");
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const columns = useMemo<ColumnDef<Job>[]>(() => {
     const defaultColumns: ColumnDef<Job>[] = [
       {
@@ -190,8 +191,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "itemReadableIdWithRevision",
@@ -211,11 +212,11 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: items?.map((item) => ({
               value: item.readableIdWithRevision,
-              label: item.readableIdWithRevision,
-            })),
+              label: item.readableIdWithRevision
+            }))
           },
-          icon: <AiOutlinePartition />,
-        },
+          icon: <AiOutlinePartition />
+        }
       },
       {
         id: "trackedEntityId",
@@ -228,8 +229,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             </Badge>
           ) : null,
         meta: {
-          icon: <LuQrCode />,
-        },
+          icon: <LuQrCode />
+        }
       },
       {
         accessorKey: "quantity",
@@ -252,8 +253,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         },
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
 
       {
@@ -267,11 +268,11 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuSquareUser />,
-        },
+          icon: <LuSquareUser />
+        }
       },
       {
         accessorKey: "salesOrderReadableId",
@@ -295,10 +296,10 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             transform: (data: { id: string; salesOrderId: string }[] | null) =>
               data?.map(({ salesOrderId }) => ({
                 value: salesOrderId,
-                label: salesOrderId,
-              })) ?? [],
-          },
-        },
+                label: salesOrderId
+              })) ?? []
+          }
+        }
       },
       {
         accessorKey: "status",
@@ -329,12 +330,12 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: jobStatus.map((status) => ({
               value: status,
-              label: <JobStatus status={status} />,
-            })),
+              label: <JobStatus status={status} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuUsers />,
-        },
+          icon: <LuUsers />
+        }
       },
       {
         id: "assignee",
@@ -347,27 +348,27 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "startDate",
         header: "Start Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "dueDate",
         header: "Due Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "deadlineType",
@@ -401,11 +402,11 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
                   {getDeadlineIcon(type)}
                   <span>{type}</span>
                 </div>
-              ),
-            })),
+              )
+            }))
           },
-          icon: <LuClock />,
-        },
+          icon: <LuClock />
+        }
       },
       {
         accessorKey: "tags",
@@ -424,12 +425,12 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: tags?.map((tag) => ({
               value: tag.name,
-              label: <Badge variant="secondary">{tag.name}</Badge>,
+              label: <Badge variant="secondary">{tag.name}</Badge>
             })),
-            isArray: true,
+            isArray: true
           },
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         accessorKey: "orderQuantity",
@@ -437,8 +438,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "inventoryQuantity",
@@ -446,8 +447,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "productionQuantity",
@@ -455,8 +456,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "scrapQuantity",
@@ -464,8 +465,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "quantityComplete",
@@ -473,8 +474,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "quantityShipped",
@@ -482,8 +483,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "quantityReceivedToInventory",
@@ -491,8 +492,8 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         cell: (item) => item.getValue<number>(),
         meta: {
           icon: <LuHash />,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         accessorKey: "locationId",
@@ -511,10 +512,10 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: locations.map((l) => ({
               value: l.value,
-              label: <Enumerable value={l.label} />,
-            })),
-          },
-        },
+              label: <Enumerable value={l.label} />
+            }))
+          }
+        }
       },
       {
         id: "createdBy",
@@ -527,19 +528,19 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -552,23 +553,22 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, customColumns, trackedEntities]);
 
   const fetcher = useFetcher<typeof action>();
@@ -578,6 +578,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
     }
   }, [fetcher.data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onBulkUpdate = useCallback(
     (selectedRows: typeof data, field: "delete", value?: string) => {
       const formData = new FormData();
@@ -588,10 +589,10 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
       if (value) formData.append("value", value);
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateJob,
+        action: path.to.bulkUpdateJob
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 
@@ -612,7 +613,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
                       "Planned",
                       "Due Today",
                       "Overdue",
-                      "Draft",
+                      "Draft"
                     ].includes(row.status ?? "")
                 )
               }
@@ -629,6 +630,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
     [onBulkUpdate, permissions]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const renderContextMenu = useCallback<(row: Job) => JSX.Element>(
     (row) => (
       <>
@@ -650,7 +652,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         </MenuItem>
       </>
     ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [navigate, params, permissions]
   );
 
@@ -660,7 +662,7 @@ const JobsTable = memo(({ data, count, tags }: JobsTableProps) => {
         data={data}
         defaultColumnVisibility={defaultColumnVisibility}
         defaultColumnPinning={{
-          left: ["jobId"],
+          left: ["jobId"]
         }}
         columns={columns}
         count={count ?? 0}

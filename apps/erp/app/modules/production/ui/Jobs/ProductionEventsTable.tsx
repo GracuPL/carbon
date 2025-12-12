@@ -9,7 +9,7 @@ import {
   Hyperlink,
   New,
   Table,
-  TimeTypeIcon,
+  TimeTypeIcon
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -47,10 +47,10 @@ const ProductionEventsTable = memo(
               type: "static",
               options: operations.map((operation) => ({
                 value: operation.id,
-                label: <Enumerable value={operation.description} />,
-              })),
-            },
-          },
+                label: <Enumerable value={operation.description} />
+              }))
+            }
+          }
         },
         {
           id: "item",
@@ -58,7 +58,7 @@ const ProductionEventsTable = memo(
           cell: ({ row }) => {
             return row.original.jobOperation?.jobMakeMethod?.item
               ?.readableIdWithRevision;
-          },
+          }
         },
         {
           accessorKey: "employeeId",
@@ -71,10 +71,10 @@ const ProductionEventsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: <Enumerable value={employee.name} />,
-              })),
-            },
-          },
+                label: <Enumerable value={employee.name} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "type",
@@ -85,8 +85,8 @@ const ProductionEventsTable = memo(
                 row.original.type === "Labor"
                   ? "green"
                   : row.original.type === "Machine"
-                  ? "blue"
-                  : "yellow"
+                    ? "blue"
+                    : "yellow"
               }
             >
               <TimeTypeIcon type={row.original.type ?? ""} className="mr-2" />
@@ -104,17 +104,17 @@ const ProductionEventsTable = memo(
                       type === "Labor"
                         ? "green"
                         : type === "Machine"
-                        ? "blue"
-                        : "yellow"
+                          ? "blue"
+                          : "yellow"
                     }
                   >
                     <TimeTypeIcon type={type} className="mr-2" />
                     {type}
                   </Badge>
-                ),
-              })),
-            },
-          },
+                )
+              }))
+            }
+          }
         },
         {
           accessorKey: "duration",
@@ -122,7 +122,7 @@ const ProductionEventsTable = memo(
           cell: ({ row }) =>
             row.original.duration
               ? formatDurationMilliseconds(row.original.duration * 1000)
-              : null,
+              : null
         },
         {
           accessorKey: "workCenterId",
@@ -138,21 +138,21 @@ const ProductionEventsTable = memo(
               type: "static",
               options: workCenters.map((workCenter) => ({
                 value: workCenter.id!,
-                label: <Enumerable value={workCenter.name} />,
-              })),
-            },
-          },
+                label: <Enumerable value={workCenter.name} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "startTime",
           header: "Start Time",
-          cell: ({ row }) => formatDateTime(row.original.startTime),
+          cell: ({ row }) => formatDateTime(row.original.startTime)
         },
         {
           accessorKey: "endTime",
           header: "End Time",
           cell: ({ row }) =>
-            row.original.endTime ? formatDateTime(row.original.endTime) : null,
+            row.original.endTime ? formatDateTime(row.original.endTime) : null
         },
         {
           accessorKey: "notes",
@@ -164,8 +164,8 @@ const ProductionEventsTable = memo(
             >
               {row.original.notes}
             </div>
-          ),
-        },
+          )
+        }
       ];
     }, [operations, people, workCenters]);
 
@@ -188,6 +188,7 @@ const ProductionEventsTable = memo(
 
     const navigate = useNavigate();
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const renderContextMenu = useCallback<
       (row: ProductionEvent) => JSX.Element
     >(
@@ -210,7 +211,7 @@ const ProductionEventsTable = memo(
           </MenuItem>
         </>
       ),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       [permissions]
     );
     const [params] = useUrlParams();

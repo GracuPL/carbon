@@ -1,15 +1,14 @@
+import type { ComboboxProps } from "@carbon/form";
+import { CreatableCombobox } from "@carbon/form";
+import { Avatar, HStack, useDisclosure } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   CustomerContact as CustomerContactType,
-  getCustomerContacts,
+  getCustomerContacts
 } from "~/modules/sales";
-import { path } from "~/utils/path";
-
-import type { ComboboxProps } from "@carbon/form";
-import { CreatableCombobox } from "@carbon/form";
-import { Avatar, HStack, useDisclosure } from "@carbon/react";
 import CustomerContactForm from "~/modules/sales/ui/Customer/CustomerContactForm";
+import { path } from "~/utils/path";
 
 type CustomerContactSelectProps = Omit<
   ComboboxProps,
@@ -78,7 +77,7 @@ const CustomerContact = (props: CustomerContactSelectProps) => {
           initialValues={{
             email: "",
             firstName: firstName,
-            lastName: lastName.join(" "),
+            lastName: lastName.join(" ")
           }}
         />
       )}
@@ -92,18 +91,18 @@ function useCustomerContacts(customerId?: string) {
   const customerContactsFetcher =
     useFetcher<Awaited<ReturnType<typeof getCustomerContacts>>>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (customerId) {
       customerContactsFetcher.load(path.to.api.customerContacts(customerId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
 
   const options = useMemo(
     () =>
       customerContactsFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown",
+        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown"
       })) ?? [],
 
     [customerContactsFetcher.data]

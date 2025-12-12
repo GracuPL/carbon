@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useFetcher, useNavigation, useParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
@@ -26,11 +26,11 @@ const SalesInvoiceVoidModal = ({ onClose }: { onClose: () => void }) => {
   const fetcher = useFetcher<{}>();
   const submitted = useRef(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.state === "idle" && submitted.current) {
       onClose();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.state]);
 
   return (

@@ -18,13 +18,13 @@ import {
   HStack,
   IconButton,
   Label,
-  toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  toast,
   useDebounce,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId } from "@carbon/utils";
 import { Link, useFetcher, useFetchers, useParams } from "@remix-run/react";
@@ -42,7 +42,7 @@ import {
   LuGitPullRequestCreate,
   LuGitPullRequestCreateArrow,
   LuSettings2,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { MethodIcon, MethodItemTypeIcon, TrackingTypeIcon } from "~/components";
@@ -51,28 +51,29 @@ import {
   Hidden,
   InputControlled,
   Item,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   NumberControlled,
   Select,
   Shelf,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { useShelves } from "~/components/Form/Shelf";
 import type {
   Item as SortableItem,
-  SortableItemRenderProps,
+  SortableItemRenderProps
 } from "~/components/SortableList";
 import { SortableList, SortableListItem } from "~/components/SortableList";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import type { MethodItemType, MethodType } from "~/modules/shared";
-import { useBom, useItems, type Item as ItemType } from "~/stores";
+import { type Item as ItemType, useBom, useItems } from "~/stores";
 import { path } from "~/utils/path";
 import type { jobOperationValidator } from "../../production.models";
 import {
   jobMaterialValidator,
-  jobMaterialValidatorForReleasedJob,
+  jobMaterialValidatorForReleasedJob
 } from "../../production.models";
 import type { Job } from "../../types";
 
@@ -113,9 +114,9 @@ function makeItems(
 ): ItemWithData[] {
   return materials.map((material) => {
     const order = material.id
-      ? orderState[material.id] ?? material.order
+      ? (orderState[material.id] ?? material.order)
       : material.order;
-    const checked = material.id ? checkedState[material.id] ?? false : false;
+    const checked = material.id ? (checkedState[material.id] ?? false) : false;
     return makeItem(items, material, order, checked);
   });
 }
@@ -191,8 +192,8 @@ function makeItem(
     ),
     data: {
       ...material,
-      order,
-    },
+      order
+    }
   };
 }
 
@@ -206,7 +207,7 @@ const initialMethodMaterial: Omit<Material, "jobMakeMethodId" | "order"> & {
   description: "",
   quantity: 1,
   unitCost: 0,
-  unitOfMeasureCode: "EA",
+  unitOfMeasureCode: "EA"
 };
 
 const usePendingMaterials = () => {
@@ -241,7 +242,7 @@ const usePendingMaterials = () => {
 const JobBillOfMaterial = ({
   jobMakeMethodId,
   materials: initialMaterials,
-  operations,
+  operations
 }: JobBillOfMaterialProps) => {
   const { jobId } = useParams();
   if (!jobId) throw new Error("jobId not found");
@@ -276,12 +277,12 @@ const JobBillOfMaterial = ({
         ...pendingMaterial,
         description: "",
         requiresBatchTracking: false,
-        requiresSerialTracking: false,
+        requiresSerialTracking: false
       });
     } else {
       materialsById.set(pendingMaterial.id, {
         ...materialsById.get(pendingMaterial.id)!,
-        ...pendingMaterial,
+        ...pendingMaterial
       });
     }
   });
@@ -307,7 +308,7 @@ const JobBillOfMaterial = ({
     if (!permissions.can("update", "production") || isDisabled) return;
     setCheckedState((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [id]: !prev[id]
     }));
   };
 
@@ -326,17 +327,17 @@ const JobBillOfMaterial = ({
       ...initialMethodMaterial,
       id: materialId,
       order: newOrder,
-      jobMakeMethodId,
+      jobMakeMethodId
     };
 
     setTemporaryItems((prev) => ({
       ...prev,
-      [materialId]: newMaterial,
+      [materialId]: newMaterial
     }));
 
     setOrderState((prev) => ({
       ...prev,
-      [materialId]: newOrder,
+      [materialId]: newOrder
     }));
   };
 
@@ -352,7 +353,7 @@ const JobBillOfMaterial = ({
     } else {
       fetcher.submit(new FormData(), {
         method: "post",
-        action: path.to.deleteJobMaterial(jobId, id),
+        action: path.to.deleteJobMaterial(jobId, id)
       });
     }
 
@@ -393,7 +394,7 @@ const JobBillOfMaterial = ({
       formData.append("updates", JSON.stringify(updates));
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.jobMaterialsOrder,
+        action: path.to.jobMaterialsOrder
       });
     },
     1000,
@@ -427,7 +428,7 @@ const JobBillOfMaterial = ({
     items,
     order,
     onToggleItem,
-    onRemoveItem,
+    onRemoveItem
   }: SortableItemRenderProps<ItemWithData>) => {
     const isOpen = item.id === selectedItemId;
 
@@ -462,7 +463,7 @@ const JobBillOfMaterial = ({
                           const { [item.id]: _, ...rest } = prev;
                           return {
                             ...rest,
-                            [item.id]: order,
+                            [item.id]: order
                           };
                         });
                       }
@@ -482,7 +483,7 @@ const JobBillOfMaterial = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 1.95,
+                    duration: 1.95
                   }}
                 >
                   <LuX className="h-5 w-5 text-foreground" />
@@ -494,7 +495,7 @@ const JobBillOfMaterial = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 0.95,
+                    duration: 0.95
                   }}
                 >
                   <LuSettings2 className="stroke-1 mt-3.5 h-5 w-5 text-foreground/80  hover:stroke-primary/70 " />
@@ -511,16 +512,16 @@ const JobBillOfMaterial = ({
                         initial={{
                           y: 0,
                           opacity: 0,
-                          filter: "blur(4px)",
+                          filter: "blur(4px)"
                         }}
                         animate={{
                           y: 0,
                           opacity: 1,
-                          filter: "blur(0px)",
+                          filter: "blur(0px)"
                         }}
                         transition={{
                           type: "spring",
-                          duration: 0.15,
+                          duration: 0.15
                         }}
                         layout
                         className="w-full "
@@ -532,7 +533,7 @@ const JobBillOfMaterial = ({
                             type: "spring",
                             bounce: 0.2,
                             duration: 0.75,
-                            delay: 0.15,
+                            delay: 0.15
                           }}
                         >
                           <MaterialForm
@@ -550,7 +551,7 @@ const JobBillOfMaterial = ({
                               addItemButtonRef.current?.scrollIntoView({
                                 behavior: "smooth",
                                 block: "nearest",
-                                inline: "center",
+                                inline: "center"
                               });
                             }}
                           />
@@ -610,7 +611,7 @@ function MaterialForm({
   setSelectedItemId,
   setTemporaryItems,
   setOrderState,
-  onSubmit,
+  onSubmit
 }: {
   item: ItemWithData;
   isDisabled: boolean;
@@ -681,7 +682,7 @@ function MaterialForm({
     kit: item.data.kit ?? false,
     requiresBatchTracking: item.data.requiresBatchTracking ?? false,
     requiresSerialTracking: item.data.requiresSerialTracking ?? false,
-    shelfId: item.data.shelfId ?? undefined,
+    shelfId: item.data.shelfId ?? undefined
   });
 
   const onTypeChange = (value: MethodItemType | "Item") => {
@@ -699,7 +700,7 @@ function MaterialForm({
       kit: false,
       requiresBatchTracking: false,
       requiresSerialTracking: false,
-      shelfId: "",
+      shelfId: ""
     });
   };
 
@@ -726,7 +727,7 @@ function MaterialForm({
         .eq("itemId", itemId)
         .eq("companyId", company.id)
         .eq("locationId", locationId!)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
 
     if (item.error) {
@@ -743,7 +744,7 @@ function MaterialForm({
       methodType: item.data?.defaultMethodType ?? "Buy",
       requiresBatchTracking: item.data?.itemTrackingType === "Batch",
       requiresSerialTracking: item.data?.itemTrackingType === "Serial",
-      shelfId: pickMethod.data?.defaultShelfId ?? "",
+      shelfId: pickMethod.data?.defaultShelfId ?? ""
     }));
 
     if (item.data?.type) {
@@ -814,7 +815,7 @@ function MaterialForm({
           onChange={(newValue) =>
             setItemData((d) => ({
               ...d,
-              unitOfMeasureCode: newValue?.value ?? "EA",
+              unitOfMeasureCode: newValue?.value ?? "EA"
             }))
           }
         />
@@ -835,7 +836,7 @@ function MaterialForm({
             minValue={0}
             formatOptions={{
               style: "currency",
-              currency: baseCurrency,
+              currency: baseCurrency
             }}
           />
         )}
@@ -901,7 +902,7 @@ function MaterialForm({
             onChange={(value) => {
               setItemData((d) => ({
                 ...d,
-                methodType: value?.value as MethodType,
+                methodType: value?.value as MethodType
               }));
             }}
             replenishmentSystem="Buy and Make"
@@ -913,7 +914,7 @@ function MaterialForm({
             onChange={(value) => {
               setItemData((d) => ({
                 ...d,
-                shelfId: value?.id ?? "",
+                shelfId: value?.id ?? ""
               }));
             }}
             locationId={locationId}
@@ -971,12 +972,12 @@ function MaterialForm({
             isClearable
             options={jobOperations.map((o) => ({
               value: o.id!,
-              label: o.description,
+              label: o.description
             }))}
             onChange={(newValue) => {
               setItemData((d) => ({
                 ...d,
-                jobOperationId: newValue?.value as string,
+                jobOperationId: newValue?.value as string
               }));
             }}
           />
@@ -990,7 +991,7 @@ function MaterialForm({
         transition={{
           type: "spring",
           bounce: 0,
-          duration: 0.55,
+          duration: 0.55
         }}
       >
         <motion.div
@@ -1015,7 +1016,7 @@ function MaterialForm({
                   onValueChange={(value) => {
                     setItemData((d) => ({
                       ...d,
-                      kit: value === "Kit",
+                      kit: value === "Kit"
                     }));
                   }}
                 >

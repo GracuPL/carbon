@@ -1,15 +1,14 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  MaterialFinish as MaterialFinishType,
-  getMaterialFinishList,
-} from "~/modules/items";
-import { path } from "~/utils/path";
-
 import type { ComboboxProps } from "@carbon/form";
 import { CreatableCombobox } from "@carbon/form";
 import { useDisclosure, useMount } from "@carbon/react";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  getMaterialFinishList,
+  MaterialFinish as MaterialFinishType
+} from "~/modules/items";
 import MaterialFinishForm from "~/modules/items/ui/MaterialFinishes/MaterialFinishForm";
+import { path } from "~/utils/path";
 
 type MaterialFinishSelectProps = Omit<
   ComboboxProps,
@@ -45,20 +44,20 @@ const MaterialFinish = (props: MaterialFinishSelectProps) => {
     }
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (props.substanceId) {
       materialFinishesLoader.load(
         path.to.api.materialFinishes(props.substanceId)
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.substanceId]);
 
   const options = useMemo(() => {
     return (materialFinishesLoader.data?.data ?? []).map((c) => ({
       value: c.id,
       label: c.name,
-      helper: c.companyId === null ? "Standard" : undefined,
+      helper: c.companyId === null ? "Standard" : undefined
     }));
   }, [materialFinishesLoader.data?.data]);
 
@@ -97,7 +96,7 @@ const MaterialFinish = (props: MaterialFinishSelectProps) => {
           }}
           initialValues={{
             name: created,
-            materialSubstanceId: props.substanceId!,
+            materialSubstanceId: props.substanceId!
           }}
         />
       )}

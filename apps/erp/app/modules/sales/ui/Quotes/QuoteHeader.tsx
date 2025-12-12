@@ -6,8 +6,8 @@ import {
   DropdownMenuIcon,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  HStack,
   Heading,
+  HStack,
   IconButton,
   Input,
   InputGroup,
@@ -23,10 +23,11 @@ import {
   TooltipContent,
   TooltipTrigger,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 
 import { Link, useFetcher, useParams } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import {
   LuCheck,
   LuCheckCheck,
@@ -44,12 +45,10 @@ import {
   LuPanelRight,
   LuShare,
   LuTrash,
-  LuTrophy,
+  LuTrophy
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
-
-import { useEffect, useState } from "react";
 import { usePermissions, useRouteData } from "~/hooks";
 import { path } from "~/utils/path";
 import type {
@@ -57,7 +56,7 @@ import type {
   Quotation,
   QuotationLine,
   QuotationPrice,
-  QuotationShipment,
+  QuotationShipment
 } from "../../types";
 import QuoteFinalizeModal from "./QuoteFinalizeModal";
 import QuoteStatus from "./QuoteStatus";
@@ -403,7 +402,7 @@ export default QuoteHeader;
 function CreateRevisionModal({
   quote,
   asRevision,
-  onClose,
+  onClose
 }: {
   quote?: Quotation;
   asRevision: boolean;
@@ -415,6 +414,7 @@ function CreateRevisionModal({
     | { success: true; data: { newQuoteId: string } }
   >();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success === false) {
       toast.error(fetcher.data?.message);
@@ -428,7 +428,6 @@ function CreateRevisionModal({
       );
       setNewQuoteId(fetcher.data?.data.newQuoteId ?? null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   if (!quote) return null;
@@ -498,7 +497,7 @@ function CreateRevisionModal({
 function ShareQuoteModal({
   id,
   externalLinkId,
-  onClose,
+  onClose
 }: {
   id?: string;
   externalLinkId?: string;

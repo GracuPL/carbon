@@ -1,10 +1,10 @@
-import { fetchAllFromTable, type Database, type Json } from "@carbon/database";
+import { type Database, fetchAllFromTable, type Json } from "@carbon/database";
 import { getLocalTimeZone, now, today } from "@internationalized/date";
 import {
   FunctionRegion,
   type PostgrestError,
   type PostgrestSingleResponse,
-  type SupabaseClient,
+  type SupabaseClient
 } from "@supabase/supabase-js";
 import type { z } from "zod/v3";
 import { getEmployeeJob } from "~/modules/people";
@@ -15,7 +15,7 @@ import { getCurrencyByCode } from "../accounting";
 import type {
   operationParameterValidator,
   operationStepValidator,
-  operationToolValidator,
+  operationToolValidator
 } from "../shared";
 import { upsertExternalLink } from "../shared/shared.service";
 import type {
@@ -41,10 +41,10 @@ import type {
   salesOrderShipmentValidator,
   salesOrderStatusType,
   salesOrderValidator,
-  salesRfqLineValidator,
   salesRFQStatusType,
+  salesRfqLineValidator,
   salesRfqValidator,
-  selectedLinesValidator,
+  selectedLinesValidator
 } from "./sales.models";
 import type { Quotation, SalesOrder, SalesRFQ } from "./types";
 
@@ -58,7 +58,7 @@ export async function closeSalesOrder(
     .update({
       closed: true,
       closedAt: today(getLocalTimeZone()).toString(),
-      closedBy: userId,
+      closedBy: userId
     })
     .eq("id", salesOrderId)
     .select("id")
@@ -76,9 +76,9 @@ export async function convertSalesRfqToQuote(
   return client.functions.invoke<{ convertedId: string }>("convert", {
     body: {
       type: "salesRfqToQuote",
-      ...payload,
+      ...payload
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -97,9 +97,9 @@ export async function convertQuoteToOrder(
   return client.functions.invoke<{ convertedId: string }>("convert", {
     body: {
       type: "quoteToSalesOrder",
-      ...payload,
+      ...payload
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -113,9 +113,9 @@ export async function copyQuoteLine(
   return client.functions.invoke<{ copiedId: string }>("get-method", {
     body: {
       ...payload,
-      type: "quoteLineToQuoteLine",
+      type: "quoteLineToQuoteLine"
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -129,9 +129,9 @@ export async function copyQuote(
   return client.functions.invoke<{ newQuoteId: string }>("get-method", {
     body: {
       ...payload,
-      type: "quoteToQuote",
+      type: "quoteToQuote"
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 export async function deleteCustomer(
@@ -320,7 +320,7 @@ export async function getConfigurationParametersByQuoteLineId(
       .from("configurationParameterGroup")
       .select("*")
       .eq("itemId", quoteLine.data.itemId)
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
 
   if (parameters.error) {
@@ -425,7 +425,7 @@ export async function getCustomers(
   let query = client
     .from("customers")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -434,7 +434,7 @@ export async function getCustomers(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -478,7 +478,7 @@ export async function getCustomerStatuses(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -523,7 +523,7 @@ export async function getCustomerTypes(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -550,7 +550,7 @@ export async function getExternalSalesOrderLines(
     "get_sales_order_lines_by_customer_id",
     { customer_id: customerId },
     {
-      count: "exact",
+      count: "exact"
     }
   );
 
@@ -562,7 +562,7 @@ export async function getExternalSalesOrderLines(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "orderDate", ascending: true },
+      { column: "orderDate", ascending: true }
     ]);
   }
 
@@ -591,7 +591,7 @@ export async function getModelByQuoteLineId(
     return {
       itemId: item.data?.id ?? null,
       type: item.data?.type ?? null,
-      modelPath: null,
+      modelPath: null
     };
   }
 
@@ -605,14 +605,14 @@ export async function getModelByQuoteLineId(
     return {
       itemId: item.data?.id ?? null,
       type: item.data?.type ?? null,
-      modelSize: null,
+      modelSize: null
     };
   }
 
   return {
     itemId: item.data!.id,
     type: item.data!.type,
-    ...model.data,
+    ...model.data
   };
 }
 
@@ -654,7 +654,7 @@ export async function getNoQuoteReasons(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -679,17 +679,17 @@ export async function getOpportunity(
     // @ts-expect-error
     return {
       data: null,
-      error: null,
+      error: null
     };
   }
 
   const response = await client.rpc("get_opportunity_with_related_records", {
-    opportunity_id: opportunityId,
+    opportunity_id: opportunityId
   });
 
   return {
     data: response.data?.[0],
-    error: response.error,
+    error: response.error
   } as unknown as PostgrestSingleResponse<{
     id: string;
     companyId: string;
@@ -725,13 +725,13 @@ export async function getOpportunityLineDocuments(
       .list(`${companyId}/opportunity-line/${lineId}`),
     itemId
       ? client.storage.from("private").list(`${companyId}/parts/${itemId}`)
-      : Promise.resolve({ data: [] }),
+      : Promise.resolve({ data: [] })
   ]);
 
   const opportunityLineDocs =
     opportunityLineResult.data?.map((f) => ({
       ...f,
-      bucket: "opportunity-line",
+      bucket: "opportunity-line"
     })) ?? [];
   const itemDocs =
     itemResult.data?.map((f) => ({ ...f, bucket: "parts" })) ?? [];
@@ -777,7 +777,7 @@ export async function getQuotes(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "quoteId", ascending: false },
+    { column: "quoteId", ascending: false }
   ]);
   return query;
 }
@@ -871,7 +871,7 @@ export async function getQuoteMethodTrees(
 
   return {
     data: tree,
-    error: null,
+    error: null
   };
 }
 
@@ -880,7 +880,7 @@ export async function getQuoteMethodTreeArray(
   quoteId: string
 ) {
   return client.rpc("get_quote_methods", {
-    qid: quoteId,
+    qid: quoteId
   });
 }
 
@@ -906,6 +906,7 @@ function getQuoteMethodTreeArrayToTree(
       lookup[itemId] = { id: itemId, children: [] };
     }
 
+    // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
     lookup[itemId]["data"] = item;
 
     const treeItem = lookup[itemId];
@@ -918,6 +919,7 @@ function getQuoteMethodTreeArrayToTree(
         lookup[parentId] = { id: parentId, children: [] };
       }
 
+      // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
       lookup[parentId]["children"].push(treeItem);
     }
   }
@@ -1108,7 +1110,7 @@ export async function getRelatedPricesForQuoteLine(
 ) {
   const item = await client
     .rpc("get_part_details", {
-      item_id: itemId,
+      item_id: itemId
     })
     .single();
 
@@ -1119,13 +1121,13 @@ export async function getRelatedPricesForQuoteLine(
   const [historicalQuoteLinePrices, relatedSalesOrderLines] = await Promise.all(
     [
       getQuoteLinePricesByItemIds(client, itemIds, quoteId),
-      getSalesOrderLinesByItemIds(client, itemIds),
+      getSalesOrderLinesByItemIds(client, itemIds)
     ]
   );
 
   return {
     historicalQuoteLinePrices: historicalQuoteLinePrices.data,
-    relatedSalesOrderLines: relatedSalesOrderLines.data,
+    relatedSalesOrderLines: relatedSalesOrderLines.data
   };
 }
 
@@ -1149,13 +1151,13 @@ export async function getSalesDocumentsAssignedToMe(
       .from("salesRfq")
       .select("*")
       .eq("assignee", userId)
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
 
   const merged = [
     ...(salesOrders.data?.map((doc) => ({ ...doc, type: "salesOrder" })) ?? []),
     ...(quotes.data?.map((doc) => ({ ...doc, type: "quote" })) ?? []),
-    ...(rfqs.data?.map((doc) => ({ ...doc, type: "rfq" })) ?? []),
+    ...(rfqs.data?.map((doc) => ({ ...doc, type: "rfq" })) ?? [])
   ].sort((a, b) => (a.createdAt ?? "").localeCompare(b.createdAt ?? ""));
 
   return merged;
@@ -1205,13 +1207,13 @@ export async function getSalesOrderRelatedItems(
     client
       .from("salesInvoice")
       .select("id, invoiceId, status")
-      .eq("opportunityId", opportunityId),
+      .eq("opportunityId", opportunityId)
   ]);
 
   return {
     jobs: jobs.data ?? [],
     shipments: shipments.data ?? [],
-    invoices: invoices.data ?? [],
+    invoices: invoices.data ?? []
   };
 }
 
@@ -1240,7 +1242,7 @@ export async function getSalesOrders(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "createdAt", ascending: false },
+    { column: "createdAt", ascending: false }
   ]);
 
   return query;
@@ -1387,7 +1389,7 @@ export async function getSalesRFQs(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "rfqId", ascending: false },
+    { column: "rfqId", ascending: false }
   ]);
   return query;
 }
@@ -1426,8 +1428,8 @@ export async function insertCustomerContact(
       {
         ...customerContact.contact,
         isCustomer: true,
-        companyId: customerContact.companyId,
-      },
+        companyId: customerContact.companyId
+      }
     ])
     .select("id")
     .single();
@@ -1447,8 +1449,8 @@ export async function insertCustomerContact(
         customerId: customerContact.customerId,
         contactId,
         customerLocationId: customerContact.customerLocationId,
-        customFields: customerContact.customFields,
-      },
+        customFields: customerContact.customFields
+      }
     ])
     .select("id")
     .single();
@@ -1474,7 +1476,7 @@ export async function insertCustomerLocation(
   const insertAddress = await client
     .from("address")
     .insert([
-      { ...customerLocation.address, companyId: customerLocation.companyId },
+      { ...customerLocation.address, companyId: customerLocation.companyId }
     ])
     .select("id")
     .single();
@@ -1494,8 +1496,8 @@ export async function insertCustomerLocation(
         customerId: customerLocation.customerId,
         addressId,
         name: customerLocation.name,
-        customFields: customerLocation.customFields,
-      },
+        customFields: customerLocation.customFields
+      }
     ])
     .select("id")
     .single();
@@ -1503,12 +1505,11 @@ export async function insertCustomerLocation(
 
 export async function insertSalesOrderLines(
   client: SupabaseClient<Database>,
-  salesOrderLines:
-    | (Omit<z.infer<typeof salesOrderLineValidator>, "id"> & {
-        companyId: string;
-        createdBy: string;
-        customFields?: Json;
-      })[]
+  salesOrderLines: (Omit<z.infer<typeof salesOrderLineValidator>, "id"> & {
+    companyId: string;
+    createdBy: string;
+    customFields?: Json;
+  })[]
 ) {
   return client.from("salesOrderLine").insert(salesOrderLines).select("id");
 }
@@ -1523,7 +1524,7 @@ export async function finalizeQuote(
     .update({
       status: "Sent",
       updatedAt: today(getLocalTimeZone()).toString(),
-      updatedBy: userId,
+      updatedBy: userId
     })
     .eq("id", quoteId);
 
@@ -1536,7 +1537,7 @@ export async function finalizeQuote(
     .update({
       status: "Complete",
       updatedAt: today(getLocalTimeZone()).toString(),
-      updatedBy: userId,
+      updatedBy: userId
     })
     .neq("status", "No Quote")
     .eq("quoteId", quoteId);
@@ -1552,7 +1553,7 @@ export async function releaseSalesOrder(
     .update({
       status: "To Ship and Invoice",
       updatedAt: today(getLocalTimeZone()).toString(),
-      updatedBy: userId,
+      updatedBy: userId
     })
     .eq("id", salesOrderId);
 }
@@ -1578,7 +1579,7 @@ export async function upsertCustomer(
     .from("customer")
     .update({
       ...sanitize(customer),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", customer.id)
     .select("id")
@@ -1611,7 +1612,7 @@ export async function updateCustomerContact(
       .from("customerContact")
       .update({
         customFields: customerContact.customFields,
-        customerLocationId: customerContact.customerLocationId,
+        customerLocationId: customerContact.customerLocationId
       })
       .eq("contactId", customerContact.contactId);
 
@@ -1648,7 +1649,7 @@ export async function updateCustomerLocation(
       .from("customerLocation")
       .update({
         name: customerLocation.name,
-        customFields: customerLocation.customFields,
+        customFields: customerLocation.customFields
       })
       .eq("addressId", customerLocation.addressId);
 
@@ -1805,7 +1806,7 @@ export async function updateQuoteExchangeRate(
   const update = {
     id: data.id,
     exchangeRate: data.exchangeRate,
-    exchangeRateUpdatedAt: new Date().toISOString(),
+    exchangeRateUpdatedAt: new Date().toISOString()
   };
 
   return client.from("quote").update(update).eq("id", update.id);
@@ -1834,7 +1835,7 @@ export async function updateSalesOrderExchangeRate(
   const update = {
     id: data.id,
     exchangeRate: data.exchangeRate,
-    exchangeRateUpdatedAt: new Date().toISOString(),
+    exchangeRateUpdatedAt: new Date().toISOString()
   };
 
   return client.from("salesOrder").update(update).eq("id", update.id);
@@ -1880,7 +1881,7 @@ export async function updateSalesRFQStatus(
     ...(noQuoteReasonId ? { noQuoteReasonId } : {}),
     ...(status === "Ready for Quote"
       ? { completedDate: now(getLocalTimeZone()).toAbsoluteString() }
-      : {}),
+      : {})
   };
 
   return client.from("salesRfq").update(updateData).eq("id", update.id);
@@ -1931,7 +1932,7 @@ export async function updateQuoteStatus(
     ...rest,
     ...(status === "Sent"
       ? { completedDate: now(getLocalTimeZone()).toAbsoluteString() }
-      : {}),
+      : {})
   };
   return client.from("quote").update(updateData).eq("id", update.id);
 }
@@ -1952,9 +1953,9 @@ export async function upsertMakeMethodFromQuoteLine(
       sourceId: `${lineMethod.quoteId}:${lineMethod.quoteLineId}`,
       targetId: lineMethod.itemId,
       companyId: lineMethod.companyId,
-      userId: lineMethod.userId,
+      userId: lineMethod.userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -1973,15 +1974,15 @@ export async function upsertMakeMethodFromQuoteMethod(
       sourceId: quoteMethod.sourceId,
       targetId: quoteMethod.targetId,
       companyId: quoteMethod.companyId,
-      userId: quoteMethod.userId,
+      userId: quoteMethod.userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (error) {
     return {
       data: null,
-      error: { message: "Failed to save method" } as PostgrestError,
+      error: { message: "Failed to save method" } as PostgrestError
     };
   }
 
@@ -2013,10 +2014,10 @@ export async function upsertQuote(
         client
           .from("opportunity")
           .insert([
-            { companyId: quote.companyId, customerId: quote.customerId },
+            { companyId: quote.companyId, customerId: quote.customerId }
           ])
           .select("id")
-          .single(),
+          .single()
       ]);
 
     if (customerPayment.error) return customerPayment;
@@ -2026,7 +2027,7 @@ export async function upsertQuote(
       paymentTermId,
       invoiceCustomerId,
       invoiceCustomerContactId,
-      invoiceCustomerLocationId,
+      invoiceCustomerLocationId
     } = customerPayment.data;
 
     const { shippingMethodId, shippingTermId } = customerShipping.data;
@@ -2052,8 +2053,8 @@ export async function upsertQuote(
       .insert([
         {
           ...quote,
-          opportunityId: opportunity.data?.id,
-        },
+          opportunityId: opportunity.data?.id
+        }
       ])
       .select("id, quoteId");
     if (insert.error) {
@@ -2070,8 +2071,8 @@ export async function upsertQuote(
           locationId: locationId,
           shippingMethodId: shippingMethodId,
           shippingTermId: shippingTermId,
-          companyId: quote.companyId,
-        },
+          companyId: quote.companyId
+        }
       ]),
       client.from("quotePayment").insert([
         {
@@ -2080,16 +2081,16 @@ export async function upsertQuote(
           invoiceCustomerContactId: invoiceCustomerContactId,
           invoiceCustomerLocationId: invoiceCustomerLocationId,
           paymentTermId: paymentTermId,
-          companyId: quote.companyId,
-        },
+          companyId: quote.companyId
+        }
       ]),
       upsertExternalLink(client, {
         documentType: "Quote",
         documentId: quoteId,
         customerId: quote.customerId,
         expiresAt: quote.expirationDate,
-        companyId: quote.companyId,
-      }),
+        companyId: quote.companyId
+      })
     ]);
 
     if (shipment.error) {
@@ -2139,7 +2140,7 @@ export async function upsertQuote(
       .from("quote")
       .update({
         ...sanitize(quote),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", quote.id);
   }
@@ -2248,7 +2249,7 @@ export async function upsertQuoteLinePrices(
         discountPercent: pricesByQuantity[p.quantity].discountPercent,
         leadTime: pricesByQuantity[p.quantity].leadTime,
         quoteId: quoteId,
-        exchangeRate: quoteExchangeRate.data?.exchangeRate ?? 1,
+        exchangeRate: quoteExchangeRate.data?.exchangeRate ?? 1
       };
     }
     return {
@@ -2260,7 +2261,7 @@ export async function upsertQuoteLinePrices(
         )
       ),
       quoteId: quoteId,
-      exchangeRate: quoteExchangeRate.data?.exchangeRate ?? 1,
+      exchangeRate: quoteExchangeRate.data?.exchangeRate ?? 1
     };
   });
 
@@ -2292,7 +2293,7 @@ export async function upsertQuoteLineMethod(
     sourceId: lineMethod.itemId,
     targetId: `${lineMethod.quoteId}:${lineMethod.quoteLineId}`,
     companyId: lineMethod.companyId,
-    userId: lineMethod.userId,
+    userId: lineMethod.userId
   };
 
   // Only add configuration if it exists
@@ -2302,7 +2303,7 @@ export async function upsertQuoteLineMethod(
 
   return client.functions.invoke("get-method", {
     body,
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -2362,7 +2363,7 @@ export async function upsertQuoteMaterialMakeMethod(
     sourceId: quoteMethod.sourceId,
     targetId: quoteMethod.targetId,
     companyId: quoteMethod.companyId,
-    userId: quoteMethod.userId,
+    userId: quoteMethod.userId
   };
 
   // Only add configuration if it exists
@@ -2372,13 +2373,13 @@ export async function upsertQuoteMaterialMakeMethod(
 
   const { error } = await client.functions.invoke("get-method", {
     body,
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (error) {
     return {
       data: null,
-      error: { message: "Failed to pull method" } as PostgrestError,
+      error: { message: "Failed to pull method" } as PostgrestError
     };
   }
 
@@ -2610,7 +2611,7 @@ export async function updateSalesOrderStatus(
     ...rest,
     ...(["To Ship", "To Ship and Invoice"].includes(status)
       ? { completedDate: now(getLocalTimeZone()).toAbsoluteString() }
-      : {}),
+      : {})
   };
 
   return client.from("salesOrder").update(updateData).eq("id", update.id);
@@ -2672,11 +2673,11 @@ export async function upsertSalesOrder(
         .insert([
           {
             companyId: salesOrder.companyId,
-            customerId: salesOrder.customerId,
-          },
+            customerId: salesOrder.customerId
+          }
         ])
         .select("id")
-        .single(),
+        .single()
     ]);
 
   if (customerPayment.error) return customerPayment;
@@ -2686,7 +2687,7 @@ export async function upsertSalesOrder(
     paymentTermId,
     invoiceCustomerId,
     invoiceCustomerContactId,
-    invoiceCustomerLocationId,
+    invoiceCustomerLocationId
   } = customerPayment.data;
 
   const { shippingMethodId, shippingTermId } = customerShipping.data;
@@ -2724,9 +2725,9 @@ export async function upsertSalesOrder(
       error: {
         message: "Sales order insert returned no data",
         details:
-          "The insert operation completed but returned an empty result set",
+          "The insert operation completed but returned an empty result set"
       } as PostgrestError,
-      data: null,
+      data: null
     };
   }
 
@@ -2741,8 +2742,8 @@ export async function upsertSalesOrder(
         receiptRequestedDate: requestedDate,
         receiptPromisedDate: promisedDate,
         shippingTermId: shippingTermId,
-        companyId: salesOrder.companyId,
-      },
+        companyId: salesOrder.companyId
+      }
     ]),
     client.from("salesOrderPayment").insert([
       {
@@ -2751,9 +2752,9 @@ export async function upsertSalesOrder(
         invoiceCustomerContactId: invoiceCustomerContactId,
         invoiceCustomerLocationId: invoiceCustomerLocationId,
         paymentTermId: paymentTermId,
-        companyId: salesOrder.companyId,
-      },
-    ]),
+        companyId: salesOrder.companyId
+      }
+    ])
   ]);
 
   if (shipment.error) {
@@ -2894,8 +2895,8 @@ export async function upsertSalesRFQ(
       .insert([
         {
           ...rfq,
-          opportunityId: opportunity.data?.id,
-        },
+          opportunityId: opportunity.data?.id
+        }
       ])
       .select("id, rfqId");
     if (insert.error) {
@@ -2908,7 +2909,7 @@ export async function upsertSalesRFQ(
       .from("salesRfq")
       .update({
         ...sanitize(rfq),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", rfq.id);
   }

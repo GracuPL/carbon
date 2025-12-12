@@ -12,7 +12,7 @@ import {
   attributeSupplierValidator,
   attributeTextValidator,
   attributeUserValidator,
-  upsertUserAttributeValue,
+  upsertUserAttributeValue
 } from "~/modules/account";
 import { getAttribute } from "~/modules/people";
 import { getUserClaims } from "~/modules/users/users.server";
@@ -34,6 +34,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const clientClaims = await getUserClaims(userId, companyId);
   const canUpdateAnyUser =
+    // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
     clientClaims.permissions["users"]?.update?.includes(companyId);
 
   if (!canUpdateAnyUser && userId !== targetUserId) {
@@ -78,7 +79,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const upsertAttributeValue = await upsertUserAttributeValue(client, {
     ...validation.data,
     userId: targetUserId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (upsertAttributeValue.error) {
     return json(

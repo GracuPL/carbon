@@ -2,7 +2,7 @@ import { assertIsPost, error } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
-import { redirect, type ActionFunctionArgs } from "@vercel/remix";
+import { type ActionFunctionArgs, redirect } from "@vercel/remix";
 import { salesRfqLineValidator, upsertSalesRFQLine } from "~/modules/sales";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { rfqId } = params;
@@ -25,13 +25,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const insertLine = await upsertSalesRFQLine(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertLine.error) {
     throw redirect(

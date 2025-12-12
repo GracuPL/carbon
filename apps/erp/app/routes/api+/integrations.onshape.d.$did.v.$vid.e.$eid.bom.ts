@@ -18,7 +18,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!did) {
     return json({
       data: [],
-      error: "Document ID is required",
+      error: "Document ID is required"
     });
   }
 
@@ -26,7 +26,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!vid) {
     return json({
       data: [],
-      error: "Version ID is required",
+      error: "Version ID is required"
     });
   }
 
@@ -34,7 +34,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!eid) {
     return json({
       data: [],
-      error: "Element ID is required",
+      error: "Element ID is required"
     });
   }
 
@@ -43,7 +43,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (integration.error || !integration.data) {
     return json({
       data: [],
-      error: integration.error,
+      error: integration.error
     });
   }
 
@@ -54,14 +54,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!integrationMetadata.success) {
     return json({
       data: [],
-      error: integrationMetadata.error,
+      error: integrationMetadata.error
     });
   }
 
   const onshapeClient = new OnshapeClient({
     baseUrl: integrationMetadata.data.baseUrl,
     accessKey: integrationMetadata.data.accessKey,
-    secretKey: integrationMetadata.data.secretKey,
+    secretKey: integrationMetadata.data.secretKey
   });
 
   try {
@@ -98,7 +98,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       const uniquePartNumbers = new Set(
         flattenedData.map((row) =>
           getReadableIdWithRevision(
+            // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
             row["Part number"] || row["Name"],
+            // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
             row["Revision"]
           )
         )
@@ -128,8 +130,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             {
               itemId: item.id,
               defaultMethodType: item.defaultMethodType,
-              replenishmentSystem: item.replenishmentSystem,
-            },
+              replenishmentSystem: item.replenishmentSystem
+            }
           ])
         );
       }
@@ -137,7 +139,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       const flattenedDataWithMetadata = flattenedData.map((row) => {
         const item = itemsMap?.get(
           getReadableIdWithRevision(
+            // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
             row["Part number"] || row["Name"],
+            // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
             row["Revision"]
           )
         );
@@ -158,40 +162,46 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         }
 
         return {
+          // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
           index: row["Item"],
           readableId: row["Part number"],
+          // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
           revision: row["Revision"],
           readableIdWithRevision: getReadableIdWithRevision(
             row["Part number"],
+            // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
             row["Revision"]
           ),
+          // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
           name: row["Name"],
           id: item?.itemId ?? undefined,
           replenishmentSystem,
           defaultMethodType,
+          // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
           quantity: row["Quantity"],
+          // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
           level: row["Item"].toString().split(".").length,
-          data: row,
+          data: row
         };
       });
 
       // Return the transformed data instead of the raw response
       return json({
         data: {
-          rows: flattenedDataWithMetadata,
+          rows: flattenedDataWithMetadata
         },
-        error: null,
+        error: null
       });
     }
     return json({
       data: [],
-      error: "No BOM data found",
+      error: "No BOM data found"
     });
   } catch (error) {
     console.error(error);
     return json({
       data: [],
-      error: error,
+      error: error
     });
   }
 }

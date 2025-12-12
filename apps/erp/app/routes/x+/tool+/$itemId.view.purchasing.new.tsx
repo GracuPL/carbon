@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const { itemId } = params;
@@ -26,29 +26,30 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createToolSupplier = await upsertSupplierPart(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createToolSupplier.error) {
     return json({
       success: false,
-      message: "Failed to create tool supplier",
+      message: "Failed to create tool supplier"
     });
   }
 
   return json({
     success: true,
-    message: "Tool supplier created",
+    message: "Tool supplier created"
   });
 }
 
@@ -71,7 +72,7 @@ export default function NewToolSupplierRoute() {
     unitPrice: 0,
     supplierUnitOfMeasureCode: "EA",
     minimumOrderQuantity: 1,
-    conversionFactor: 1,
+    conversionFactor: 1
   };
 
   return (

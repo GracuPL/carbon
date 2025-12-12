@@ -13,8 +13,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  cn,
   Count,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -24,16 +24,16 @@ import {
   IconButton,
   Label,
   Loading,
-  toast,
   ToggleGroup,
   ToggleGroupItem,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  toast,
   useDebounce,
   useDisclosure,
   useThrottle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { formatRelativeTime } from "@carbon/utils";
@@ -43,6 +43,7 @@ import { AnimatePresence, LayoutGroup, motion, Reorder } from "framer-motion";
 import { nanoid } from "nanoid";
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import {
   LuActivity,
   LuChevronRight,
@@ -59,18 +60,21 @@ import {
   LuSettings2,
   LuSquareFunction,
   LuTriangleAlert,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import { z } from "zod/v3";
 import {
   DirectionAwareTabs,
   EmployeeAvatar,
   Empty,
-  TimeTypeIcon,
+  TimeTypeIcon
 } from "~/components";
+import { ConfigurationEditor } from "~/components/Configurator/ConfigurationEditor";
+import type { Configuration } from "~/components/Configurator/types";
 import {
   Hidden,
   InputControlled,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   NumberControlled,
   Process,
@@ -83,24 +87,22 @@ import {
   Tool,
   UnitHint,
   UnitOfMeasure,
-  WorkCenter,
+  WorkCenter
 } from "~/components/Form";
-
-import { flushSync } from "react-dom";
-import { ConfigurationEditor } from "~/components/Configurator/ConfigurationEditor";
-import type { Configuration } from "~/components/Configurator/types";
-
+import Procedure from "~/components/Form/Procedure";
+import { SupplierProcessPreview } from "~/components/Form/SupplierProcess";
 import { getUnitHint } from "~/components/Form/UnitHint";
+import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
+import { ProcedureStepTypeIcon } from "~/components/Icons";
 import { ConfirmDelete } from "~/components/Modals";
 import type { Item, SortableItemRenderProps } from "~/components/SortableList";
 import { SortableList, SortableListItem } from "~/components/SortableList";
 import { usePermissions, useUser } from "~/hooks";
 import { useTags } from "~/hooks/useTags";
-
 import type {
   OperationParameter,
   OperationStep,
-  OperationTool,
+  OperationTool
 } from "~/modules/shared";
 import {
   methodOperationOrders,
@@ -109,26 +111,20 @@ import {
   operationToolValidator,
   operationTypes,
   procedureStepType,
-  standardFactorType,
+  standardFactorType
 } from "~/modules/shared";
-
 import type { action as editMethodOperationParameterAction } from "~/routes/x+/items+/methods+/operation.parameter.$id";
 import type { action as newMethodOperationParameterAction } from "~/routes/x+/items+/methods+/operation.parameter.new";
 import type { action as editMethodOperationStepAction } from "~/routes/x+/items+/methods+/operation.step.$id";
 import type { action as editMethodOperationToolAction } from "~/routes/x+/items+/methods+/operation.tool.$id";
 import type { action as newMethodOperationToolAction } from "~/routes/x+/items+/methods+/operation.tool.new";
-
-import Procedure from "~/components/Form/Procedure";
-import { SupplierProcessPreview } from "~/components/Form/SupplierProcess";
-import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
-import { ProcedureStepTypeIcon } from "~/components/Icons";
 import { useItems, useTools } from "~/stores";
 import { getPrivateUrl, path } from "~/utils/path";
 import { methodOperationValidator } from "../../items.models";
 import type {
   ConfigurationParameter,
   ConfigurationRule,
-  MakeMethod,
+  MakeMethod
 } from "../../types";
 
 type Operation = z.infer<typeof methodOperationValidator> & {
@@ -194,7 +190,7 @@ const initialOperation: Omit<
   workInstruction: {},
   operationMinimumCost: 0,
   operationLeadTime: 0,
-  operationUnitCost: 0,
+  operationUnitCost: 0
 };
 
 const BillOfProcess = ({
@@ -204,7 +200,7 @@ const BillOfProcess = ({
   materials,
   operations: initialOperations,
   parameters,
-  tags,
+  tags
 }: BillOfProcessProps) => {
   const permissions = usePermissions();
   const isReadOnly =
@@ -232,7 +228,7 @@ const BillOfProcess = ({
         .map((item) => ({
           id: item.id,
           label: item.name ?? item.readableIdWithRevision,
-          helper: item.name ? item.readableIdWithRevision : undefined,
+          helper: item.name ? item.readableIdWithRevision : undefined
         })),
     [allItems, materialItemIds]
   );
@@ -278,7 +274,7 @@ const BillOfProcess = ({
         ...pendingOperation,
         workInstruction: {},
         methodOperationTool: [],
-        tags: [],
+        tags: []
       });
       return;
     }
@@ -292,7 +288,7 @@ const BillOfProcess = ({
       workInstruction: workInstructions[pendingOperation.id] || null,
       order: orderState[pendingOperation.id] ?? pendingOperation.order,
       methodOperationTool: [],
-      tags: [],
+      tags: []
     });
   });
 
@@ -301,7 +297,7 @@ const BillOfProcess = ({
     if (!operationsById.has(id)) {
       operationsById.set(id, {
         ...operation,
-        methodOperationTool: [],
+        methodOperationTool: []
       });
     }
   });
@@ -312,7 +308,7 @@ const BillOfProcess = ({
 
   const items = makeItems(operations, tags).map((item) => ({
     ...item,
-    checked: checkedState[item.id] ?? false,
+    checked: checkedState[item.id] ?? false
   }));
 
   const onUpdateWorkInstruction = useDebounce(
@@ -323,7 +319,7 @@ const BillOfProcess = ({
           .update({
             workInstruction: content,
             updatedAt: today(getLocalTimeZone()).toString(),
-            updatedBy: userId,
+            updatedBy: userId
           })
           .eq("id", id);
       }
@@ -339,7 +335,7 @@ const BillOfProcess = ({
       .from("private")
       .upload(fileName, file, {
         upsert: true,
-        cacheControl: "3600",
+        cacheControl: "3600"
       });
 
     if (result?.error) {
@@ -357,7 +353,7 @@ const BillOfProcess = ({
     if (isReadOnly) return;
     setCheckedState((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [id]: !prev[id]
     }));
   };
 
@@ -392,7 +388,7 @@ const BillOfProcess = ({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.methodOperationsOrder,
+        action: path.to.methodOperationsOrder
       });
     },
     1000,
@@ -411,12 +407,12 @@ const BillOfProcess = ({
       ...initialOperation,
       id: operationId,
       order: newOrder,
-      makeMethodId,
+      makeMethodId
     };
 
     setTemporaryItems((prev) => ({
       ...prev,
-      [operationId]: newOperation,
+      [operationId]: newOperation
     }));
     setSelectedItemId(operationId);
   };
@@ -438,7 +434,7 @@ const BillOfProcess = ({
         { id },
         {
           method: "post",
-          action: path.to.methodOperationsDelete,
+          action: path.to.methodOperationsDelete
         }
       );
     }
@@ -451,7 +447,7 @@ const BillOfProcess = ({
   };
 
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const [tabChangeRerender, setTabChangeRerender] = useState<number>(1);
@@ -460,7 +456,7 @@ const BillOfProcess = ({
     items,
     order,
     onToggleItem,
-    onRemoveItem,
+    onRemoveItem
   }: SortableItemRenderProps<ItemWithData>) => {
     const isOpen = item.id === selectedItemId;
     const tools =
@@ -488,7 +484,7 @@ const BillOfProcess = ({
                 type: "spring",
                 bounce: 0.2,
                 duration: 0.75,
-                delay: 0.15,
+                delay: 0.15
               }}
             >
               <OperationForm
@@ -507,13 +503,13 @@ const BillOfProcess = ({
                   addOperationButtonRef.current?.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest",
-                    inline: "center",
+                    inline: "center"
                   });
                 }}
               />
             </motion.div>
           </div>
-        ),
+        )
       },
       {
         id: 1,
@@ -551,7 +547,7 @@ const BillOfProcess = ({
                     if (isReadOnly) return;
                     setWorkInstructions((prev) => ({
                       ...prev,
-                      [item.id]: content,
+                      [item.id]: content
                     }));
                     onUpdateWorkInstruction(item.id, content);
                   }}
@@ -564,13 +560,13 @@ const BillOfProcess = ({
                   dangerouslySetInnerHTML={{
                     __html: generateHTML(
                       item.data.workInstruction ?? ({} as JSONContent)
-                    ),
+                    )
                   }}
                 />
               )}
             </div>
           </div>
-        ),
+        )
       },
       {
         id: 2,
@@ -614,7 +610,7 @@ const BillOfProcess = ({
               onConfigure={onConfigure}
             />
           </div>
-        ),
+        )
       },
       {
         id: 3,
@@ -659,7 +655,7 @@ const BillOfProcess = ({
               itemMentions={itemMentions}
             />
           </div>
-        ),
+        )
       },
       {
         id: 4,
@@ -684,8 +680,8 @@ const BillOfProcess = ({
               }
             />
           </div>
-        ),
-      },
+        )
+      }
     ];
 
     return (
@@ -724,7 +720,7 @@ const BillOfProcess = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 1.95,
+                    duration: 1.95
                   }}
                 >
                   <LuX className="h-5 w-5 text-foreground" />
@@ -736,7 +732,7 @@ const BillOfProcess = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 0.95,
+                    duration: 0.95
                   }}
                 >
                   <LuSettings2 className="stroke-1 h-5 w-5 text-foreground/80  hover:stroke-primary/70 " />
@@ -753,16 +749,16 @@ const BillOfProcess = ({
                         initial={{
                           y: 0,
                           opacity: 0,
-                          filter: "blur(4px)",
+                          filter: "blur(4px)"
                         }}
                         animate={{
                           y: 0,
                           opacity: 1,
-                          filter: "blur(0px)",
+                          filter: "blur(0px)"
                         }}
                         transition={{
                           type: "spring",
-                          duration: 0.15,
+                          duration: 0.15
                         }}
                         layout
                         className="w-full "
@@ -842,8 +838,8 @@ const BillOfProcess = ({
                     )?.code,
                     returnType: {
                       type: "list",
-                      listOptions: operations.map((op) => op.description),
-                    },
+                      listOptions: operations.map((op) => op.description)
+                    }
                   })
                 }
               />
@@ -901,7 +897,7 @@ function OperationForm({
   setSelectedItemId,
   setWorkInstructions,
   setTemporaryItems,
-  onSubmit,
+  onSubmit
 }: OperationFormProps) {
   const methodOperationFetcher = useFetcher<{
     id: string;
@@ -971,14 +967,14 @@ function OperationForm({
     setupUnitHint: getUnitHint(item.data.setupUnit),
     operationMinimumCost: item.data.operationMinimumCost ?? 0,
     operationLeadTime: item.data.operationLeadTime ?? 0,
-    operationUnitCost: item.data.operationUnitCost ?? 0,
+    operationUnitCost: item.data.operationUnitCost ?? 0
   });
 
   const onProcessChange = async (processId: string) => {
     if (!carbon || !processId) return;
     const [process, supplierProcesses] = await Promise.all([
       carbon.from("process").select("*").eq("id", processId).single(),
-      carbon.from("supplierProcess").select("*").eq("processId", processId),
+      carbon.from("supplierProcess").select("*").eq("processId", processId)
     ]);
 
     if (process.error) throw new Error(process.error.message);
@@ -1006,7 +1002,7 @@ function OperationForm({
           ? supplierProcesses.data.reduce((acc, sp) => {
               return (acc += sp.leadTime ?? 0);
             }, 0) / supplierProcesses.data.length
-          : p.operationLeadTime,
+          : p.operationLeadTime
     }));
   };
 
@@ -1026,7 +1022,7 @@ function OperationForm({
       laborUnit: data?.defaultStandardFactor ?? "Hours/Piece",
       laborUnitHint: getUnitHint(data?.defaultStandardFactor),
       machineUnit: data?.defaultStandardFactor ?? "Hours/Piece",
-      machineUnitHint: getUnitHint(data?.defaultStandardFactor),
+      machineUnitHint: getUnitHint(data?.defaultStandardFactor)
     }));
   };
 
@@ -1067,8 +1063,8 @@ function OperationForm({
                     returnType: {
                       type: "text",
                       helperText:
-                        "the unique identifier for the process. you can get this from the URL when editing a process",
-                    },
+                        "the unique identifier for the process. you can get this from the URL when editing a process"
+                    }
                   });
                 }
               : undefined
@@ -1084,12 +1080,12 @@ function OperationForm({
           placeholder="Operation Order"
           options={methodOperationOrders.map((o) => ({
             value: o,
-            label: o,
+            label: o
           }))}
           onChange={(value) => {
             setProcessData((d) => ({
               ...d,
-              operationOrder: value?.value as string,
+              operationOrder: value?.value as string
             }));
           }}
           isConfigured={rulesByField.has(key("operationOrder"))}
@@ -1103,8 +1099,8 @@ function OperationForm({
                     defaultValue: processData.operationOrder,
                     returnType: {
                       type: "enum",
-                      listOptions: ["After Previous", "With Previous"],
-                    },
+                      listOptions: ["After Previous", "With Previous"]
+                    }
                   });
                 }
               : undefined
@@ -1117,7 +1113,7 @@ function OperationForm({
           placeholder="Operation Type"
           options={operationTypes.map((o) => ({
             value: o,
-            label: o,
+            label: o
           }))}
           value={processData.operationType}
           onChange={(value) => {
@@ -1126,7 +1122,7 @@ function OperationForm({
               setupUnit: "Total Minutes",
               laborUnit: "Minutes/Piece",
               machineUnit: "Minutes/Piece",
-              operationType: value?.value as string,
+              operationType: value?.value as string
             }));
           }}
           isConfigured={rulesByField.has(key("operationType"))}
@@ -1140,8 +1136,8 @@ function OperationForm({
                     defaultValue: processData.operationType,
                     returnType: {
                       type: "enum",
-                      listOptions: ["Inside", "Outside"],
-                    },
+                      listOptions: ["Inside", "Outside"]
+                    }
                   });
                 }
               : undefined
@@ -1166,8 +1162,8 @@ function OperationForm({
                     code: rulesByField.get(key("description"))?.code,
                     defaultValue: processData.description,
                     returnType: {
-                      type: "text",
-                    },
+                      type: "text"
+                    }
                   });
                 }
               : undefined
@@ -1189,12 +1185,12 @@ function OperationForm({
               value={processData.operationMinimumCost}
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationMinimumCost: newValue,
+                  operationMinimumCost: newValue
                 }))
               }
             />
@@ -1205,12 +1201,12 @@ function OperationForm({
               value={processData.operationUnitCost}
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationUnitCost: newValue,
+                  operationUnitCost: newValue
                 }))
               }
             />
@@ -1222,7 +1218,7 @@ function OperationForm({
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationLeadTime: newValue,
+                  operationLeadTime: newValue
                 }))
               }
             />
@@ -1246,8 +1242,8 @@ function OperationForm({
                         returnType: {
                           type: "text",
                           helperText:
-                            "the unique identifier for the work center. you can get this from the URL when editing a work center",
-                        },
+                            "the unique identifier for the work center. you can get this from the URL when editing a work center"
+                        }
                       });
                     }
                   : undefined
@@ -1311,7 +1307,7 @@ function OperationForm({
                     ...d,
                     setupUnitHint: hint,
                     setupUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -1323,7 +1319,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    setupTime: newValue,
+                    setupTime: newValue
                   }))
                 }
                 isConfigured={rulesByField.has(key("setupTime"))}
@@ -1336,8 +1332,8 @@ function OperationForm({
                           code: rulesByField.get(key("setupTime"))?.code,
                           defaultValue: processData.setupTime,
                           returnType: {
-                            type: "numeric",
-                          },
+                            type: "numeric"
+                          }
                         });
                       }
                     : undefined
@@ -1351,7 +1347,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    setupUnit: newValue?.value ?? "Total Minutes",
+                    setupUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
                 isConfigured={rulesByField.has(key("setupUnit"))}
@@ -1365,8 +1361,8 @@ function OperationForm({
                           defaultValue: processData.setupUnit,
                           returnType: {
                             type: "enum",
-                            listOptions: standardFactorType,
-                          },
+                            listOptions: standardFactorType
+                          }
                         });
                       }
                     : undefined
@@ -1422,7 +1418,7 @@ function OperationForm({
                     ...d,
                     laborUnitHint: hint,
                     laborUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -1434,7 +1430,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    laborTime: newValue,
+                    laborTime: newValue
                   }))
                 }
                 isConfigured={rulesByField.has(key("laborTime"))}
@@ -1447,8 +1443,8 @@ function OperationForm({
                           code: rulesByField.get(key("laborTime"))?.code,
                           defaultValue: processData.laborTime,
                           returnType: {
-                            type: "numeric",
-                          },
+                            type: "numeric"
+                          }
                         });
                       }
                     : undefined
@@ -1462,7 +1458,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    laborUnit: newValue?.value ?? "Total Minutes",
+                    laborUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
                 isConfigured={rulesByField.has(key("laborUnit"))}
@@ -1476,8 +1472,8 @@ function OperationForm({
                           defaultValue: processData.laborUnit,
                           returnType: {
                             type: "enum",
-                            listOptions: standardFactorType,
-                          },
+                            listOptions: standardFactorType
+                          }
                         });
                       }
                     : undefined
@@ -1534,7 +1530,7 @@ function OperationForm({
                     ...d,
                     machineUnitHint: hint,
                     machineUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -1546,7 +1542,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    machineTime: newValue,
+                    machineTime: newValue
                   }))
                 }
                 isConfigured={rulesByField.has(key("machineTime"))}
@@ -1559,8 +1555,8 @@ function OperationForm({
                           code: rulesByField.get(key("machineTime"))?.code,
                           defaultValue: processData.machineTime,
                           returnType: {
-                            type: "numeric",
-                          },
+                            type: "numeric"
+                          }
                         });
                       }
                     : undefined
@@ -1574,7 +1570,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    machineUnit: newValue?.value ?? "Total Minutes",
+                    machineUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
                 isConfigured={rulesByField.has(key("machineUnit"))}
@@ -1588,8 +1584,8 @@ function OperationForm({
                           defaultValue: processData.machineUnit,
                           returnType: {
                             type: "enum",
-                            listOptions: standardFactorType,
-                          },
+                            listOptions: standardFactorType
+                          }
                         });
                       }
                     : undefined
@@ -1655,8 +1651,8 @@ function OperationForm({
                           returnType: {
                             type: "text",
                             helperText:
-                              "the unique identifier for the procedure. you can get this from the URL when editing a procedure",
-                          },
+                              "the unique identifier for the procedure. you can get this from the URL when editing a procedure"
+                          }
                         });
                       }
                     : undefined
@@ -1664,7 +1660,7 @@ function OperationForm({
                 onChange={(value) => {
                   setProcessData((d) => ({
                     ...d,
-                    procedureId: value?.value as string,
+                    procedureId: value?.value as string
                   }));
                 }}
               />
@@ -1679,7 +1675,7 @@ function OperationForm({
         transition={{
           type: "spring",
           bounce: 0,
-          duration: 0.55,
+          duration: 0.55
         }}
       >
         <motion.div layout className="ml-auto mr-1 pt-2">
@@ -1703,7 +1699,7 @@ function AttributesForm({
   temporaryItems,
   rulesByField,
   onConfigure,
-  itemMentions,
+  itemMentions
 }: {
   operationId: string;
   configurable: boolean;
@@ -1754,7 +1750,7 @@ function AttributesForm({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.methodOperationStepOrder(operationId),
+        action: path.to.methodOperationStepOrder(operationId)
       });
     },
     1000,
@@ -1769,14 +1765,14 @@ function AttributesForm({
             {type}
           </HStack>
         ),
-        value: type,
+        value: type
       })),
     []
   );
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const onUploadImage = async (file: File) => {
@@ -1835,7 +1831,7 @@ function AttributesForm({
               sortOrder:
                 steps.reduce((acc, a) => Math.max(acc, a.sortOrder ?? 0), 0) +
                 1,
-              operationId,
+              operationId
             }}
             onSubmit={() => {
               setType("Task");
@@ -1904,7 +1900,7 @@ function AttributesForm({
                       label="Minimum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -1914,7 +1910,7 @@ function AttributesForm({
                       label="Maximum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -1991,7 +1987,7 @@ function AttributesListItem({
   rulesByField,
   onConfigure,
   isDisabled = false,
-  itemMentions,
+  itemMentions
 }: {
   attribute: OperationStep;
   operationId: string;
@@ -2012,7 +2008,7 @@ function AttributesListItem({
     updatedBy,
     updatedAt,
     createdBy,
-    createdAt,
+    createdAt
   } = attribute;
 
   const disclosure = useDisclosure();
@@ -2020,12 +2016,12 @@ function AttributesListItem({
   const submitted = useRef(false);
   const fetcher = useFetcher<typeof editMethodOperationStepAction>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (submitted.current && fetcher.state === "idle") {
       disclosure.onClose();
       submitted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.state]);
 
   const [type, setType] = useState<OperationStep["type"]>(attribute.type);
@@ -2053,7 +2049,7 @@ function AttributesListItem({
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const onUploadImage = async (file: File) => {
@@ -2096,7 +2092,7 @@ function AttributesListItem({
           }}
           defaultValues={{
             ...attribute,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -2159,7 +2155,7 @@ function AttributesListItem({
                     label="Minimum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                     isConfigured={rulesByField.has(
                       getFieldKey(`attribute:${id}:minValue`, operationId)
@@ -2181,8 +2177,8 @@ function AttributesListItem({
                               )?.code,
                               defaultValue: minValue ?? 0,
                               returnType: {
-                                type: "numeric",
-                              },
+                                type: "numeric"
+                              }
                             });
                           }
                         : undefined
@@ -2195,7 +2191,7 @@ function AttributesListItem({
                     label="Maximum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                     isConfigured={rulesByField.has(
                       getFieldKey(`attribute:${id}:maxValue`, operationId)
@@ -2217,8 +2213,8 @@ function AttributesListItem({
                               )?.code,
                               defaultValue: maxValue ?? 0,
                               returnType: {
-                                type: "numeric",
-                              },
+                                type: "numeric"
+                              }
                             });
                           }
                         : undefined
@@ -2272,7 +2268,7 @@ function AttributesListItem({
                           <p
                             className="prose prose-sm dark:prose-invert text-foreground text-sm"
                             dangerouslySetInnerHTML={{
-                              __html: generateHTML(attribute.description),
+                              __html: generateHTML(attribute.description)
                             }}
                           />
                         </TooltipContent>
@@ -2290,18 +2286,18 @@ function AttributesListItem({
                           )?.label
                         }`
                       : attribute.minValue !== null
-                      ? `Must be > ${attribute.minValue} ${
-                          unitOfMeasures.find(
-                            (u) => u.value === unitOfMeasureCode
-                          )?.label
-                        }`
-                      : attribute.maxValue !== null
-                      ? `Must be < ${attribute.maxValue} ${
-                          unitOfMeasures.find(
-                            (u) => u.value === unitOfMeasureCode
-                          )?.label
-                        }`
-                      : null}
+                        ? `Must be > ${attribute.minValue} ${
+                            unitOfMeasures.find(
+                              (u) => u.value === unitOfMeasureCode
+                            )?.label
+                          }`
+                        : attribute.maxValue !== null
+                          ? `Must be < ${attribute.maxValue} ${
+                              unitOfMeasures.find(
+                                (u) => u.value === unitOfMeasureCode
+                              )?.label
+                            }`
+                          : null}
                   </span>
                 )}
               </VStack>
@@ -2397,7 +2393,7 @@ function ParametersForm({
   parameters,
   temporaryItems,
   rulesByField,
-  onConfigure,
+  onConfigure
 }: {
   operationId: string;
   configurable: boolean;
@@ -2435,7 +2431,7 @@ function ParametersForm({
               id: undefined,
               key: "",
               value: "",
-              operationId,
+              operationId
             }}
             className="w-full"
           >
@@ -2495,7 +2491,7 @@ function ParametersListItem({
   className,
   configurable,
   rulesByField,
-  onConfigure,
+  onConfigure
 }: {
   parameter: OperationParameter;
   operationId: string;
@@ -2509,12 +2505,12 @@ function ParametersListItem({
   const submitted = useRef(false);
   const fetcher = useFetcher<typeof editMethodOperationParameterAction>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (submitted.current && fetcher.state === "idle") {
       disclosure.onClose();
       submitted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.state]);
 
   const isUpdated = updatedBy !== null;
@@ -2543,7 +2539,7 @@ function ParametersListItem({
             id: id,
             key: key ?? "",
             value: value ?? "",
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -2569,8 +2565,8 @@ function ParametersListItem({
                           )?.code,
                           defaultValue: value,
                           returnType: {
-                            type: "text",
-                          },
+                            type: "text"
+                          }
                         });
                       }
                     : undefined
@@ -2680,7 +2676,7 @@ function ToolsForm({
   operationId,
   isDisabled,
   tools,
-  temporaryItems,
+  temporaryItems
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -2715,7 +2711,7 @@ function ToolsForm({
               id: undefined,
               toolId: "",
               quantity: 1,
-              operationId,
+              operationId
             }}
             className="w-full"
           >
@@ -2770,7 +2766,7 @@ function ToolsForm({
 function ToolsListItem({
   tool: { toolId, quantity, id, updatedBy, updatedAt, createdBy, createdAt },
   operationId,
-  className,
+  className
 }: {
   tool: OperationTool;
   operationId: string;
@@ -2781,12 +2777,12 @@ function ToolsListItem({
   const submitted = useRef(false);
   const fetcher = useFetcher<typeof editMethodOperationToolAction>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (submitted.current && fetcher.state === "idle") {
       disclosure.onClose();
       submitted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.state]);
 
   const tools = useTools();
@@ -2813,7 +2809,7 @@ function ToolsListItem({
             id: id,
             toolId: toolId ?? "",
             quantity: quantity ?? 1,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -2960,7 +2956,7 @@ function makeItem(
         )}
       </HStack>
     ),
-    data: operation,
+    data: operation
   };
 }
 
@@ -2996,23 +2992,23 @@ function getFieldKey(field: string, operationId: string) {
 
 export function MethodOperationTags({
   operation,
-  availableTags,
+  availableTags
 }: {
   operation: Operation;
   availableTags: { name: string }[];
 }) {
   const { onUpdateTags } = useTags({
     id: operation.id,
-    table: "methodOperation",
+    table: "methodOperation"
   });
 
   return (
     <ValidatedForm
       defaultValues={{
-        tags: operation.tags ?? [],
+        tags: operation.tags ?? []
       }}
       validator={z.object({
-        tags: z.array(z.string()).optional(),
+        tags: z.array(z.string()).optional()
       })}
     >
       <Tags

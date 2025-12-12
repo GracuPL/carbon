@@ -7,6 +7,7 @@ const functionPath = "rpc/";
 export default function Route() {
   const swaggerDocsSchema = useSwaggerDocs();
   //
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { rpcs } = Object.entries(swaggerDocsSchema?.paths || {}).reduce(
     (a, [name]) => {
       const trimmedName = name.slice(1);
@@ -25,14 +26,15 @@ export default function Route() {
           ...a.rpcs,
           ...(trimmedName.includes(functionPath)
             ? {
-                [id]: enriched,
+                [id]: enriched
               }
-            : {}),
-        },
+            : {})
+        }
       };
     },
     { rpcs: {} }
   );
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const selectedLang = useSelectedLang();
 
   return null;

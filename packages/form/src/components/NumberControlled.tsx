@@ -1,3 +1,4 @@
+import { useFormContext } from "@carbon/form";
 import type { NumberFieldProps } from "@carbon/react";
 import {
   FormControl,
@@ -12,17 +13,15 @@ import {
   NumberInput,
   NumberInputGroup,
   NumberInputStepper,
-  VStack,
+  VStack
 } from "@carbon/react";
-
-import { useFormContext } from "@carbon/form";
 import type { ReactNode } from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import {
   LuChevronDown,
   LuChevronUp,
   LuPlus,
-  LuSettings2,
+  LuSettings2
 } from "react-icons/lu";
 import { useControlField, useField } from "../hooks";
 
@@ -38,6 +37,7 @@ type FormNumberProps = NumberFieldProps & {
   onConfigure?: () => void;
 };
 
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 const Number = forwardRef<HTMLInputElement, FormNumberProps>(
   (
     {
@@ -118,7 +118,7 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
         <NumberField
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
           value={controlValue}
           onChange={handleChange}

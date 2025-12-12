@@ -5,7 +5,7 @@ export const capitalize = (words: string) => {
 
 export function stripSpecialCharacters(inputString: string) {
   // Keep only characters that are valid for S3 keys
-  return inputString?.replace(/[^a-zA-Z0-9\/!_\-.*'() &$@=;:+,?]/g, "");
+  return inputString?.replace(/[^a-zA-Z0-9/!_\-.*'() &$@=;:+,?]/g, "");
 }
 
 export const snakeToCamel = (str: string) =>
@@ -26,6 +26,7 @@ export const camelCaseToWords = (str: string) =>
  */
 export const copyToClipboard = async (
   str: string | Promise<string>,
+  // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
   callback = () => {}
 ) => {
   const focused = window.document.hasFocus();

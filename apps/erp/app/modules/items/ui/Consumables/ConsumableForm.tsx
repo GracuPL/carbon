@@ -1,5 +1,6 @@
 import { ValidatedForm } from "@carbon/form";
 import {
+  cn,
   ModalCard,
   ModalCardBody,
   ModalCardContent,
@@ -8,24 +9,24 @@ import {
   ModalCardHeader,
   ModalCardProvider,
   ModalCardTitle,
-  cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   DefaultMethodType,
   Hidden,
   Input,
   InputControlled,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   Select,
   Submit,
   TextArea,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { TrackingTypeIcon } from "~/components/Icons";
 import { useNextItemId, usePermissions, useUser } from "~/hooks";
@@ -45,7 +46,7 @@ function startsWithLetter(value: string) {
 const ConsumableForm = ({
   initialValues,
   type = "card",
-  onClose,
+  onClose
 }: ConsumableFormProps) => {
   const { company } = useUser();
   const baseCurrency = company?.baseCurrencyCode ?? "USD";
@@ -78,7 +79,7 @@ const ConsumableForm = ({
         {itemTrackingType}
       </span>
     ),
-    value: itemTrackingType,
+    value: itemTrackingType
   }));
 
   return (
@@ -162,7 +163,7 @@ const ConsumableForm = ({
                     label="Unit Cost"
                     formatOptions={{
                       style: "currency",
-                      currency: baseCurrency,
+                      currency: baseCurrency
                     }}
                     minValue={0}
                   />

@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   ProcessForm,
   processValidator,
-  upsertProcess,
+  upsertProcess
 } from "~/modules/resources";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -18,7 +18,7 @@ import { getCompanyId, processesQuery } from "~/utils/react-query";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -30,13 +30,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createProcess = await upsertProcess(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createProcess.error) {
@@ -75,7 +76,7 @@ export default function NewProcessRoute() {
     name: "",
     processType: "Inside" as const,
     defaultStandardFactor: "Minutes/Piece" as const,
-    completeAllOnScan: false,
+    completeAllOnScan: false
   };
 
   return <ProcessForm initialValues={initialValues} onClose={onClose} />;

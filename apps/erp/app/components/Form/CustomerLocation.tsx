@@ -1,16 +1,15 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  type CustomerLocation as CustomerLocationType,
-  type getCustomerLocations,
-} from "~/modules/sales";
-import { path } from "~/utils/path";
-
 import type { ComboboxProps } from "@carbon/form";
 import { CreatableCombobox } from "@carbon/form";
 import { useDisclosure } from "@carbon/react";
 import { formatAddress } from "@carbon/utils";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  type CustomerLocation as CustomerLocationType,
+  type getCustomerLocations
+} from "~/modules/sales";
 import CustomerLocationForm from "~/modules/sales/ui/Customer/CustomerLocationForm";
+import { path } from "~/utils/path";
 
 type CustomerLocationSelectProps = Omit<
   ComboboxProps,
@@ -38,13 +37,13 @@ const CustomerLocation = (props: CustomerLocationSelectProps) => {
   const [created, setCreated] = useState<string>("");
   const triggerRef = useRef<HTMLButtonElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (props?.customer) {
       customerLocationsFetcher.load(
         path.to.api.customerLocations(props.customer)
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.customer]);
 
   const options = useMemo(
@@ -56,7 +55,7 @@ const CustomerLocation = (props: CustomerLocationSelectProps) => {
           c.address?.addressLine2,
           c.address?.city,
           c.address?.stateProvince
-        )} (${c.name})`,
+        )} (${c.name})`
       })) ?? [],
 
     [customerLocationsFetcher.data]

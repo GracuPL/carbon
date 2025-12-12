@@ -4,8 +4,8 @@ import {
   AlertTitle,
   Button,
   Checkbox,
-  cn,
   Combobox as ComboboxBase,
+  cn,
   IconButton,
   Input,
   InputGroup,
@@ -20,25 +20,24 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  toast,
+  toast
 } from "@carbon/react";
-import { useFetcher } from "@remix-run/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import type { JobMaterial, TrackedInput } from "~/services/types";
-import { path } from "~/utils/path";
-
 import type { TrackedEntityAttributes } from "@carbon/utils";
 import { getItemReadableId } from "@carbon/utils";
+import { useFetcher } from "@remix-run/react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   LuCheck,
   LuCirclePlus,
   LuList,
   LuQrCode,
   LuUndo2,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { getSerialNumbersForItem } from "~/services/inventory.service";
+import type { JobMaterial, TrackedInput } from "~/services/types";
 import { useItems } from "~/stores";
+import { path } from "~/utils/path";
 
 export function SerialIssueModal({
   operationId,
@@ -46,7 +45,7 @@ export function SerialIssueModal({
   parentId,
   parentIdIsSerialized,
   trackedInputs,
-  onClose,
+  onClose
 }: {
   parentId: string;
   parentIdIsSerialized: boolean;
@@ -73,16 +72,16 @@ export function SerialIssueModal({
             helper: attributes["Serial Number"]
               ? `Serial ${attributes["Serial Number"]}`
               : attributes["Batch Number"]
-              ? `Batch ${attributes["Batch Number"]}`
-              : undefined,
+                ? `Batch ${attributes["Batch Number"]}`
+                : undefined
           };
         }) ?? []
     );
   }, [serialNumbers]);
 
   const initialQuantity = parentIdIsSerialized
-    ? material?.quantity ?? 1
-    : material?.estimatedQuantity ?? 1;
+    ? (material?.quantity ?? 1)
+    : (material?.estimatedQuantity ?? 1);
 
   const [selectedSerialNumbers, setSelectedSerialNumbers] = useState<
     Array<{
@@ -169,6 +168,7 @@ export function SerialIssueModal({
     });
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const handleSubmit = useCallback(() => {
     // Validate all serial numbers
     let hasErrors = false;
@@ -191,24 +191,23 @@ export function SerialIssueModal({
         parentTrackedEntityId: parentId,
         children: selectedSerialNumbers.map((sn) => ({
           trackedEntityId: sn.id,
-          quantity: 1,
-        })),
+          quantity: 1
+        }))
       };
 
       fetcher.submit(JSON.stringify(payload), {
         method: "post",
         action: path.to.issueTrackedEntity,
-        encType: "application/json",
+        encType: "application/json"
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedSerialNumbers,
     validateSerialNumber,
     operationId,
     parentId,
     onClose,
-    material?.id,
+    material?.id
   ]);
 
   const handleUnconsume = useCallback(() => {
@@ -222,14 +221,14 @@ export function SerialIssueModal({
       parentTrackedEntityId: parentId,
       children: selectedTrackedInputs.map((id) => ({
         trackedEntityId: id,
-        quantity: 1,
-      })),
+        quantity: 1
+      }))
     };
 
     unconsumeFetcher.submit(JSON.stringify(payload), {
       method: "post",
       action: path.to.unconsume,
-      encType: "application/json",
+      encType: "application/json"
     });
   }, [selectedTrackedInputs, material?.id, parentId, unconsumeFetcher]);
 
@@ -315,11 +314,11 @@ export function SerialIssueModal({
                             onChange={(e) => {
                               const newValue = e.target.value;
                               const newSerialNumbers = [
-                                ...selectedSerialNumbers,
+                                ...selectedSerialNumbers
                               ];
                               newSerialNumbers[index] = {
                                 index,
-                                id: newValue,
+                                id: newValue
                               };
                               setSelectedSerialNumbers(newSerialNumbers);
                             }}
@@ -343,16 +342,16 @@ export function SerialIssueModal({
                               if (!error) {
                                 updateSerialNumber({
                                   index,
-                                  id: newValue,
+                                  id: newValue
                                 });
                               } else {
                                 // Clear the input value but keep the error message
                                 const newSerialNumbers = [
-                                  ...selectedSerialNumbers,
+                                  ...selectedSerialNumbers
                                 ];
                                 newSerialNumbers[index] = {
                                   index,
-                                  id: "",
+                                  id: ""
                                 };
                                 setSelectedSerialNumbers(newSerialNumbers);
                               }
@@ -415,7 +414,7 @@ export function SerialIssueModal({
                             const newSerialNumbers = [...selectedSerialNumbers];
                             newSerialNumbers[index] = {
                               index,
-                              id: value,
+                              id: value
                             };
                             setSelectedSerialNumbers(newSerialNumbers);
 
@@ -545,11 +544,11 @@ function useSerialNumbers(itemId?: string) {
   const serialNumbersFetcher =
     useFetcher<Awaited<ReturnType<typeof getSerialNumbersForItem>>>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (itemId) {
       serialNumbersFetcher.load(path.to.api.serialNumbers(itemId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
 
   return { data: serialNumbersFetcher.data };

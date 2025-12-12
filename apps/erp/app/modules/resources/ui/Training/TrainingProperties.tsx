@@ -6,8 +6,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
@@ -18,10 +18,10 @@ import { InputControlled, Tags } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import { useTags } from "~/hooks/useTags";
 import {
+  type Training,
   trainingFrequency,
   trainingStatus,
-  trainingType,
-  type Training,
+  trainingType
 } from "~/modules/resources";
 import type { action } from "~/routes/x+/items+/update";
 import { path } from "~/utils/path";
@@ -44,6 +44,7 @@ const TrainingProperties = () => {
     }
   }, [fetcher.data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (
       field:
@@ -63,16 +64,16 @@ const TrainingProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateTraining,
+        action: path.to.bulkUpdateTraining
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [id]
   );
 
   const optimisticAssignment = useOptimisticAssignment({
     id: id,
-    table: "training",
+    table: "training"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -165,10 +166,10 @@ const TrainingProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          status: routeData?.training?.status ?? undefined,
+          status: routeData?.training?.status ?? undefined
         }}
         validator={z.object({
-          status: z.string().min(1, { message: "Status is required" }),
+          status: z.string().min(1, { message: "Status is required" })
         })}
         className="w-full"
       >
@@ -183,7 +184,7 @@ const TrainingProperties = () => {
             )}
             options={trainingStatus.map((status) => ({
               value: status,
-              label: <TrainingStatus status={status} />,
+              label: <TrainingStatus status={status} />
             }))}
             value={routeData?.training?.status ?? ""}
             onChange={(value) => {
@@ -195,10 +196,10 @@ const TrainingProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          type: routeData?.training?.type ?? undefined,
+          type: routeData?.training?.type ?? undefined
         }}
         validator={z.object({
-          type: z.string().min(1, { message: "Type is required" }),
+          type: z.string().min(1, { message: "Type is required" })
         })}
         className="w-full"
       >
@@ -217,7 +218,7 @@ const TrainingProperties = () => {
                 <Badge variant={t === "Mandatory" ? "default" : "secondary"}>
                   {t}
                 </Badge>
-              ),
+              )
             }))}
             value={routeData?.training?.type ?? ""}
             onChange={(value) => {
@@ -229,10 +230,10 @@ const TrainingProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          frequency: routeData?.training?.frequency ?? undefined,
+          frequency: routeData?.training?.frequency ?? undefined
         }}
         validator={z.object({
-          frequency: z.string().min(1, { message: "Frequency is required" }),
+          frequency: z.string().min(1, { message: "Frequency is required" })
         })}
         className="w-full"
       >
@@ -243,7 +244,7 @@ const TrainingProperties = () => {
             inline={(value) => <Badge variant="secondary">{value}</Badge>}
             options={trainingFrequency.map((f) => ({
               value: f,
-              label: <Badge variant="secondary">{f}</Badge>,
+              label: <Badge variant="secondary">{f}</Badge>
             }))}
             value={routeData?.training?.frequency ?? ""}
             onChange={(value) => {
@@ -255,11 +256,10 @@ const TrainingProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          estimatedDuration:
-            routeData?.training?.estimatedDuration ?? undefined,
+          estimatedDuration: routeData?.training?.estimatedDuration ?? undefined
         }}
         validator={z.object({
-          estimatedDuration: z.string(),
+          estimatedDuration: z.string()
         })}
         className="w-full -mt-2"
       >
@@ -281,10 +281,10 @@ const TrainingProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.training?.tags ?? [],
+          tags: routeData?.training?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

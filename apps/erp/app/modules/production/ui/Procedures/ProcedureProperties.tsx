@@ -5,23 +5,23 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 import { LuCopy, LuKeySquare, LuLink } from "react-icons/lu";
 import { z } from "zod/v3";
+import Assignee, { useOptimisticAssignment } from "~/components/Assignee";
 import { Process, Tags } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
+import { useTags } from "~/hooks/useTags";
 import type { action } from "~/routes/x+/items+/update";
 import { path } from "~/utils/path";
 import { copyToClipboard } from "~/utils/string";
+import { procedureStatus } from "../../production.models";
 import type { Procedure } from "../../types";
 import ProcedureStatus from "./ProcedureStatus";
-import { procedureStatus } from "../../production.models";
-import Assignee, { useOptimisticAssignment } from "~/components/Assignee";
-import { useTags } from "~/hooks/useTags";
 
 const ProcedureProperties = () => {
   const { id } = useParams();
@@ -39,6 +39,7 @@ const ProcedureProperties = () => {
     }
   }, [fetcher.data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (field: "name" | "processId" | "status", value: string | null) => {
       const formData = new FormData();
@@ -49,16 +50,16 @@ const ProcedureProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateProcedure,
+        action: path.to.bulkUpdateProcedure
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [id]
   );
 
   const optimisticAssignment = useOptimisticAssignment({
     id: id,
-    table: "procedure",
+    table: "procedure"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -151,10 +152,10 @@ const ProcedureProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          status: routeData?.procedure?.status ?? undefined,
+          status: routeData?.procedure?.status ?? undefined
         }}
         validator={z.object({
-          status: z.string().min(1, { message: "Status is required" }),
+          status: z.string().min(1, { message: "Status is required" })
         })}
         className="w-full"
       >
@@ -169,7 +170,7 @@ const ProcedureProperties = () => {
             )}
             options={procedureStatus.map((status) => ({
               value: status,
-              label: <ProcedureStatus status={status} />,
+              label: <ProcedureStatus status={status} />
             }))}
             value={routeData?.procedure?.status ?? ""}
             onChange={(value) => {
@@ -181,10 +182,10 @@ const ProcedureProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          processId: routeData?.procedure?.processId ?? undefined,
+          processId: routeData?.procedure?.processId ?? undefined
         }}
         validator={z.object({
-          processId: z.string().min(1, { message: "Process is required" }),
+          processId: z.string().min(1, { message: "Process is required" })
         })}
         className="w-full"
       >
@@ -200,10 +201,10 @@ const ProcedureProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.procedure?.tags ?? [],
+          tags: routeData?.procedure?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

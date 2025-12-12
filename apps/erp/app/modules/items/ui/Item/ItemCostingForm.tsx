@@ -4,9 +4,10 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { CustomFormFields, Hidden, Number, Submit } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import { itemCostValidator } from "../../items.models";
@@ -69,7 +70,7 @@ const ItemCostingForm = ({ initialValues }: ItemCostingFormProps) => {
               label="Unit Cost"
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               helperText="Weighted average cost over last year calculated when the invoice is posted"
             />

@@ -6,7 +6,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   supplierQuoteLineValidator,
-  upsertSupplierQuoteLine,
+  upsertSupplierQuoteLine
 } from "~/modules/purchasing";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const { id: supplierQuoteId } = params;
@@ -29,6 +29,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const serviceRole = getCarbonServiceRole();
@@ -36,7 +37,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createQuotationLine.error) {

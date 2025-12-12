@@ -5,13 +5,13 @@ import { integrations as availableIntegrations } from "@carbon/ee";
 import { validationError, validator } from "@carbon/form";
 import { redirect, useLoaderData, useNavigate } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
-import { IntegrationForm, getIntegration } from "~/modules/settings";
+import { getIntegration, IntegrationForm } from "~/modules/settings";
 import { upsertCompanyIntegration } from "~/modules/settings/settings.server";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const { id: integrationId } = params;
@@ -29,20 +29,20 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (integrationData.error || !integrationData.data) {
     return {
       installed: false,
-      metadata: {},
+      metadata: {}
     };
   }
 
   return {
     installed: integrationData.data.active,
-    metadata: (integrationData.data.metadata ?? {}) as Record<string, unknown>,
+    metadata: (integrationData.data.metadata ?? {}) as Record<string, unknown>
   };
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const { id: integrationId } = params;
@@ -60,16 +60,17 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { active, ...data } = validation.data;
 
   const update = await upsertCompanyIntegration(client, {
     id: integrationId,
     active: true,
     metadata: {
-      ...data,
+      ...data
     },
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(

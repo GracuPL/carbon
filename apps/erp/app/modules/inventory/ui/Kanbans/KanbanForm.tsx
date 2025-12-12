@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, Hidden, SelectControlled, ValidatedForm } from "@carbon/form";
 import {
   Button,
@@ -11,27 +12,28 @@ import {
   DrawerTitle,
   HStack,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Enumerable } from "~/components/Enumerable";
 import {
   ConversionFactor,
   Item,
   Location,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   SequenceOrCustomId,
   Shelf,
   Submit,
   Supplier,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { useUser } from "~/hooks";
 import type { MethodItemType } from "~/modules/shared/types";
 import {
   kanbanValidator,
-  replenishmentSystemTypes,
+  replenishmentSystemTypes
 } from "../../inventory.models";
 
 type KanbanFormValues = z.infer<typeof kanbanValidator>;
@@ -85,7 +87,7 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
         .eq("itemId", value.value)
         .eq("companyId", company.id)
         .eq("locationId", locationId)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
     if (item.error) {
       toast.error("Failed to load item details");
@@ -227,7 +229,7 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
                     .filter((type) => type !== "Buy and Make")
                     .map((type) => ({
                       value: type,
-                      label: <Enumerable value={type} />,
+                      label: <Enumerable value={type} />
                     }))}
                 />
 

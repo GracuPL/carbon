@@ -3,6 +3,7 @@ import { InputControlled, ValidatedForm } from "@carbon/form";
 import {
   Badge,
   Button,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -12,18 +13,18 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
-  cn,
   toast,
+  VStack
 } from "@carbon/react";
 import { Await, useFetcher, useParams } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { Suspense, useCallback, useEffect } from "react";
 import { LuCopy, LuKeySquare, LuLink } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { MethodBadge, MethodIcon, TrackingTypeIcon } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, Tags } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { ReplenishmentSystemIcon } from "~/components/Icons";
@@ -37,14 +38,14 @@ import { path } from "~/utils/path";
 import { copyToClipboard } from "~/utils/string";
 import {
   itemReplenishmentSystems,
-  itemTrackingTypes,
+  itemTrackingTypes
 } from "../../items.models";
 import type {
   ItemFile,
   MakeMethod,
   PickMethod,
   SupplierPart,
-  Tool,
+  Tool
 } from "../../types";
 import { FileBadge } from "../Item";
 
@@ -84,6 +85,7 @@ const ToolProperties = () => {
     }
   }, [fetcher.data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (
       field:
@@ -102,13 +104,14 @@ const ToolProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateItems,
+        action: path.to.bulkUpdateItems
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [itemId]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -121,13 +124,14 @@ const ToolProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.toolSummary?.readableId]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -138,10 +142,10 @@ const ToolProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.toolSummary?.readableId]
   );
 
@@ -220,10 +224,10 @@ const ToolProperties = () => {
           <ValidatedForm
             defaultValues={{
               toolId:
-                routeData?.toolSummary?.readableIdWithRevision ?? undefined,
+                routeData?.toolSummary?.readableIdWithRevision ?? undefined
             }}
             validator={z.object({
-              toolId: z.string(),
+              toolId: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -243,10 +247,10 @@ const ToolProperties = () => {
           </ValidatedForm>
           <ValidatedForm
             defaultValues={{
-              name: routeData?.toolSummary?.name ?? undefined,
+              name: routeData?.toolSummary?.name ?? undefined
             }}
             validator={z.object({
-              name: z.string(),
+              name: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -413,10 +417,10 @@ const ToolProperties = () => {
       </VStack>
       <ValidatedForm
         defaultValues={{
-          active: routeData?.toolSummary?.active ?? undefined,
+          active: routeData?.toolSummary?.active ?? undefined
         }}
         validator={z.object({
-          active: zfd.checkbox(),
+          active: zfd.checkbox()
         })}
         className="w-full"
       >
@@ -431,10 +435,10 @@ const ToolProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.toolSummary?.tags ?? [],
+          tags: routeData?.toolSummary?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

@@ -11,15 +11,15 @@ import { defer, redirect } from "@vercel/remix";
 import { Suspense } from "react";
 import { Fragment } from "react/jsx-runtime";
 import {
-  PurchaseInvoiceLineForm,
   getPurchaseInvoiceLine,
+  PurchaseInvoiceLineForm,
   purchaseInvoiceLineValidator,
-  upsertPurchaseInvoiceLine,
+  upsertPurchaseInvoiceLine
 } from "~/modules/invoicing";
 import { getSupplierInteractionLineDocuments } from "~/modules/purchasing";
 import {
   SupplierInteractionLineDocuments,
-  SupplierInteractionLineNotes,
+  SupplierInteractionLineNotes
 } from "~/modules/purchasing/ui/SupplierInteraction";
 import { useItems } from "~/stores";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -28,7 +28,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "invoicing",
-    role: "employee",
+    role: "employee"
   });
 
   const { lineId } = params;
@@ -38,14 +38,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     purchaseInvoiceLine: purchaseInvoiceLine?.data ?? null,
-    files: getSupplierInteractionLineDocuments(client, companyId, lineId),
+    files: getSupplierInteractionLineDocuments(client, companyId, lineId)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "invoicing",
+    create: "invoicing"
   });
 
   const { invoiceId, lineId } = params;
@@ -61,6 +61,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   // if (data.invoiceLineType === "G/L Account") {
@@ -83,7 +84,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updatePurchaseInvoiceLine.error) {
@@ -131,7 +132,7 @@ export default function EditPurchaseInvoiceLineRoute() {
     conversionFactor: purchaseInvoiceLine?.conversionFactor ?? 1,
     shelfId: purchaseInvoiceLine?.shelfId ?? "",
     taxPercent: purchaseInvoiceLine?.taxPercent ?? 0,
-    ...getCustomFields(purchaseInvoiceLine?.customFields),
+    ...getCustomFields(purchaseInvoiceLine?.customFields)
   };
 
   return (

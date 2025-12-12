@@ -17,6 +17,7 @@ const CollapsibleSidebarContext = createContext<
 export function useCollapsibleSidebar() {
   const context = useContext(CollapsibleSidebarContext);
   if (!context) {
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
     return { hasSidebar: false, isOpen: false, onToggle: () => {} };
   }
   return context;
@@ -30,7 +31,7 @@ export function CollapsibleSidebarProvider({ children }: PropsWithChildren) {
       value={{
         hasSidebar: true,
         isOpen: disclosure.isOpen,
-        onToggle: disclosure.onToggle,
+        onToggle: disclosure.onToggle
       }}
     >
       {children}
@@ -63,18 +64,18 @@ CollapsibleSidebarTrigger.displayName = "CollapsibleSidebarTrigger";
 
 export const CollapsibleSidebar = ({
   children,
-  width = 180,
+  width = 180
 }: PropsWithChildren<{ width?: number }>) => {
   const { isOpen } = useCollapsibleSidebar();
 
   const variants = useMemo(() => {
     return {
       visible: {
-        width,
+        width
       },
       hidden: {
-        width: 0,
-      },
+        width: 0
+      }
     };
   }, [width]);
 

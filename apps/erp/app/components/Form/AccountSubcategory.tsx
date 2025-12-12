@@ -4,7 +4,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo } from "react";
 import type {
   AccountSubcategory as AccountSubcategoryType,
-  getAccountSubcategoriesByCategory,
+  getAccountSubcategoriesByCategory
 } from "~/modules/accounting";
 import { path } from "~/utils/path";
 
@@ -20,20 +20,20 @@ const AccountSubcategory = (props: AccountSubcategorySelectProps) => {
   const accountSubcategoriesFetcher =
     useFetcher<Awaited<ReturnType<typeof getAccountSubcategoriesByCategory>>>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (props?.accountCategoryId) {
       accountSubcategoriesFetcher.load(
         path.to.api.accountingSubcategories(props.accountCategoryId)
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.accountCategoryId]);
 
   const options = useMemo(
     () =>
       accountSubcategoriesFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.name,
+        label: c.name
       })) ?? [],
 
     [accountSubcategoriesFetcher.data]

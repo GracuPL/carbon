@@ -8,9 +8,10 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { z } from "zod/v3";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, EmojiPicker, Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 
@@ -24,7 +25,7 @@ type AttributeCategoryFormProps = {
 
 const AttributeCategoryForm = ({
   initialValues,
-  onClose,
+  onClose
 }: AttributeCategoryFormProps) => {
   const permissions = usePermissions();
   const isEditing = initialValues.id !== undefined;

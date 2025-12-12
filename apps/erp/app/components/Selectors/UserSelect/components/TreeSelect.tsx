@@ -1,4 +1,4 @@
-import { HStack, Spinner, cn } from "@carbon/react";
+import { cn, HStack, Spinner } from "@carbon/react";
 import { FaChevronRight } from "react-icons/fa";
 import { RxCheck } from "react-icons/rx";
 import useUserSelectContext from "../provider";
@@ -11,10 +11,11 @@ const UserTreeSelect = () => {
     innerProps: { isMulti },
     loading,
     onMouseOver,
-    refs: { listBoxRef },
+    refs: { listBoxRef }
   } = useUserSelectContext();
 
   return (
+    // biome-ignore lint/a11y/useAriaPropsSupportedByRole: suppressed due to migration
     <div
       {...listBoxProps}
       aria-multiselectable={isMulti}
@@ -38,7 +39,7 @@ const MoreIcon = ({ isExpanded }: { isExpanded: boolean }) => (
     className="h-3 w-3"
     style={{
       transition: "transform .25s ease",
-      transform: isExpanded ? "rotate(0.25turn)" : undefined,
+      transform: isExpanded ? "rotate(0.25turn)" : undefined
     }}
   />
 );
@@ -51,13 +52,14 @@ const Group = ({ group }: { group: OptionGroup }) => {
     focusedId,
     onSelect,
     onDeselect,
-    selectionItemsById,
+    selectionItemsById
   } = useUserSelectContext();
 
   const isFocused = group.uid === focusedId;
   const isExpanded = group.expanded && group.items.length > 0;
 
   return (
+    // biome-ignore lint/a11y/useAriaPropsSupportedByRole: suppressed due to migration
     <div
       id={group.uid}
       tabIndex={0}
@@ -115,7 +117,7 @@ const Option = ({
   isDisabled,
   isFocused,
   isSelected,
-  onClick,
+  onClick
 }: {
   id?: string;
   item: IndividualOrGroup;

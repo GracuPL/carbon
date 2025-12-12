@@ -3,13 +3,21 @@ import type { ReactElement } from "react";
 import type { ColumnFilterData } from "./components/Filter/types";
 
 declare module "@tanstack/react-table" {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   interface ColumnMeta<TData extends unknown, TValue> {
     filter?: ColumnFilterData;
     pluralHeader?: string;
     icon?: ReactElement;
     renderTotal?: boolean;
-    formatter?: (val: number | bigint | `${number}` | "Infinity" | "-Infinity" | "+Infinity") => string
+    formatter?: (
+      val:
+        | number
+        | bigint
+        | `${number}`
+        | "Infinity"
+        | "-Infinity"
+        | "+Infinity"
+    ) => string;
   }
 }
 

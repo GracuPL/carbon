@@ -8,7 +8,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { receiptId } = params;
@@ -17,7 +17,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const setPendingState = await client
     .from("receipt")
     .update({
-      status: "Pending",
+      status: "Pending"
     })
     .eq("id", receiptId);
 
@@ -37,16 +37,16 @@ export async function action({ request, params }: ActionFunctionArgs) {
       body: {
         receiptId: receiptId,
         userId: userId,
-        companyId: companyId,
+        companyId: companyId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     if (postReceipt.error) {
       await client
         .from("receipt")
         .update({
-          status: "Draft",
+          status: "Draft"
         })
         .eq("id", receiptId);
 
@@ -55,11 +55,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
         await flash(request, error(postReceipt.error, "Failed to post receipt"))
       );
     }
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (error) {
     await client
       .from("receipt")
       .update({
-        status: "Draft",
+        status: "Draft"
       })
       .eq("id", receiptId);
   }

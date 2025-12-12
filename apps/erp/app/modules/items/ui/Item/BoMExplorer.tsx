@@ -1,7 +1,7 @@
-/* eslint-disable react/jsx-no-undef */
 import {
   Badge,
   Copy,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -10,18 +10,17 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-  HStack,
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
+  HStack,
   IconButton,
   Input,
   InputGroup,
   InputLeftElement,
-  VStack,
-  cn,
   useDisclosure,
   useMount,
+  VStack
 } from "@carbon/react";
 import { useOptimisticLocation } from "@carbon/remix";
 import { Link, useNavigate, useParams } from "@remix-run/react";
@@ -34,7 +33,7 @@ import {
   LuEllipsisVertical,
   LuExternalLink,
   LuSearch,
-  LuTable,
+  LuTable
 } from "react-icons/lu";
 import { MethodIcon, MethodItemTypeIcon } from "~/components";
 import { OnshapeStatus } from "~/components/Icons";
@@ -61,7 +60,7 @@ const BoMExplorer = ({
   itemType,
   makeMethod,
   methods,
-  selectedId,
+  selectedId
 }: BoMExplorerProps) => {
   const [filterText, setFilterText] = useState("");
   const parentRef = useRef<HTMLDivElement>(null);
@@ -71,7 +70,7 @@ const BoMExplorer = ({
   const {
     id: makeMethodId,
     version: makeMethodVersion,
-    status: makeMethodStatus,
+    status: makeMethodStatus
   } = makeMethod;
 
   const {
@@ -83,10 +82,11 @@ const BoMExplorer = ({
     collapseAllBelowDepth,
     selectNode,
     scrollToNode,
-    virtualizer,
+    virtualizer
   } = useTree({
     tree: methods,
     selectedId,
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
     onSelectedIdChanged: () => {},
     estimatedRowHeight: () => 40,
     parentRef,
@@ -100,9 +100,9 @@ const BoMExplorer = ({
           return true;
         }
         return false;
-      },
+      }
     },
-    isEager: true,
+    isEager: true
   });
 
   const navigate = useNavigate();
@@ -394,6 +394,7 @@ function NodeData({ node }: { node: FlatTreeItem<Method> }) {
   const integrations = useIntegrations();
   const onShapeState = integrations.has("onshape")
     ? // @ts-expect-error
+      // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
       node.data.externalId?.["onshapeData"]?.["State"]
     : null;
 
@@ -418,6 +419,7 @@ function NodePreview({ node }: { node: FlatTreeItem<Method> }) {
   const integrations = useIntegrations();
   const onShapeState = integrations.has("onshape")
     ? // @ts-expect-error
+      // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
       node.data.externalId?.["onshapeData"]?.["State"]
     : null;
 

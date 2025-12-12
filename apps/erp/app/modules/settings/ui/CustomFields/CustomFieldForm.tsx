@@ -1,3 +1,4 @@
+import { SelectControlled, ValidatedForm } from "@carbon/form";
 import {
   Button,
   cn,
@@ -8,10 +9,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
-
-import { SelectControlled, ValidatedForm } from "@carbon/form";
 import { useParams } from "@remix-run/react";
 import { useState } from "react";
 import {
@@ -22,9 +21,10 @@ import {
   LuSquareUser,
   LuToggleLeft,
   LuType,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Array, Hidden, Input, Submit, Tags } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { AttributeDataType } from "~/modules/people";
@@ -41,7 +41,7 @@ type CustomFieldFormProps = {
 const CustomFieldForm = ({
   initialValues,
   dataTypes,
-  onClose,
+  onClose
 }: CustomFieldFormProps) => {
   const permissions = usePermissions();
   const { table } = useParams();
@@ -59,7 +59,7 @@ const CustomFieldForm = ({
           <CustomFieldDataTypeIcon type={dt.id} className="mr-2" />
           {dt.label}
         </HStack>
-      ),
+      )
     })) ?? [];
 
   const isEditing = initialValues.id !== undefined;
@@ -147,7 +147,7 @@ export default CustomFieldForm;
 
 function CustomFieldDataTypeIcon({
   type,
-  className,
+  className
 }: {
   type: DataType;
   className?: string;

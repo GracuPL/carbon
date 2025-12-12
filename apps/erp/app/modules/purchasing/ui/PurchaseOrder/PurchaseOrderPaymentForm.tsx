@@ -4,12 +4,13 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Boolean,
   CustomFormFields,
   Hidden,
@@ -17,7 +18,7 @@ import {
   Submit,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { purchaseOrderPaymentValidator } from "~/modules/purchasing";
@@ -29,7 +30,7 @@ type PurchaseOrderPaymentFormProps = {
 };
 
 const PurchaseOrderPaymentForm = ({
-  initialValues,
+  initialValues
 }: PurchaseOrderPaymentFormProps) => {
   const { orderId } = useParams();
   if (!orderId) {

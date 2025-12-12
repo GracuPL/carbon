@@ -4,6 +4,7 @@ import {
   Badge,
   Button,
   Combobox,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -15,10 +16,9 @@ import {
   PulsingDot,
   Spinner,
   Status,
-  cn,
   toast,
   useDisclosure,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { formatDateTime } from "@carbon/utils";
 import { useFetcher } from "@remix-run/react";
@@ -53,7 +53,7 @@ interface TreeData {
 export const OnshapeSync = ({
   itemId,
   makeMethodId,
-  isDisabled,
+  isDisabled
 }: {
   itemId: string;
   makeMethodId: string;
@@ -93,11 +93,11 @@ export const OnshapeSync = ({
     | { data: null; error: string }
   >({});
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (!isDisabled && initialized) {
       documentsFetcher.load(path.to.api.onShapeDocuments);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialized]);
 
   useEffect(() => {
@@ -112,7 +112,7 @@ export const OnshapeSync = ({
         documentsFetcher.data?.data?.items
           ?.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
           .sort((a, b) => a.label.localeCompare(b.label)) ?? []
       );
@@ -123,11 +123,11 @@ export const OnshapeSync = ({
     | { data: null; error: string }
   >({});
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (documentId && !isDisabled && initialized) {
       versionsFetcher.load(path.to.api.onShapeVersions(documentId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [documentId, initialized]);
 
   const versionOptions =
@@ -136,7 +136,7 @@ export const OnshapeSync = ({
         versionsFetcher.data?.data
           ?.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
           .sort((a, b) => a.label.localeCompare(b.label)) ?? []
       );
@@ -147,11 +147,11 @@ export const OnshapeSync = ({
     | { data: null; error: string }
   >({});
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (documentId && versionId && !isDisabled && initialized) {
       elementsFetcher.load(path.to.api.onShapeElements(documentId, versionId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [documentId, versionId, initialized]);
 
   const elementOptions =
@@ -159,7 +159,7 @@ export const OnshapeSync = ({
       return (
         elementsFetcher.data?.data?.map((c) => ({
           value: c.id,
-          label: c.name,
+          label: c.name
         })) ?? []
       );
     }, [elementsFetcher.data]) ?? [];
@@ -212,7 +212,7 @@ export const OnshapeSync = ({
     formData.append("rows", JSON.stringify(bomRows));
     upsertBomFetcher.submit(formData, {
       method: "post",
-      action: path.to.api.onShapeSync,
+      action: path.to.api.onShapeSync
     });
   };
 
@@ -231,7 +231,6 @@ export const OnshapeSync = ({
     if (upsertBomFetcher.data?.success === false) {
       toast.error(upsertBomFetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bomRows.length, upsertBomFetcher.data]);
 
   return (
@@ -405,7 +404,7 @@ export const OnshapeSync = ({
                     "flex min-h-8 cursor-pointer items-center overflow-hidden rounded-sm pr-2 w-full gap-1 hover:bg-muted/90"
                   )}
                   style={{
-                    paddingLeft: `${row.level * 12}px`,
+                    paddingLeft: `${row.level * 12}px`
                   }}
                 >
                   <div
@@ -450,7 +449,9 @@ export const OnshapeSync = ({
                       <Status color="red">No part ID</Status>
                     )}
                     {!isSynced && partId && <PulsingDot className="mt-0.5" />}
+                    {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
                     {row.data["State"] && (
+                      // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
                       <OnshapeStatus status={row.data["State"]} />
                     )}
                   </div>

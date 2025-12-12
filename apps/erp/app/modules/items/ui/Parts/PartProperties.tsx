@@ -3,6 +3,7 @@ import { InputControlled, ValidatedForm } from "@carbon/form";
 import {
   Badge,
   Button,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -12,9 +13,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
-  cn,
   toast,
+  VStack
 } from "@carbon/react";
 import { Await, Link, useFetcher, useParams } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
@@ -24,11 +24,12 @@ import {
   LuExternalLink,
   LuKeySquare,
   LuLink,
-  LuMove3D,
+  LuMove3D
 } from "react-icons/lu";
-import { zfd } from "zod-form-data";
 import { z } from "zod/v3";
+import { zfd } from "zod-form-data";
 import { MethodBadge, MethodIcon, TrackingTypeIcon } from "~/components";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, Tags, UnitOfMeasure } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { ReplenishmentSystemIcon } from "~/components/Icons";
@@ -42,14 +43,14 @@ import { path } from "~/utils/path";
 import { copyToClipboard } from "~/utils/string";
 import {
   itemReplenishmentSystems,
-  itemTrackingTypes,
+  itemTrackingTypes
 } from "../../items.models";
 import type {
   ItemFile,
   MakeMethod,
   PartSummary,
   PickMethod,
-  SupplierPart,
+  SupplierPart
 } from "../../types";
 import { FileBadge } from "../Item";
 
@@ -89,6 +90,7 @@ const PartProperties = () => {
     }
   }, [fetcher.data]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (
       field:
@@ -109,13 +111,14 @@ const PartProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateItems,
+        action: path.to.bulkUpdateItems
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.partSummary?.id]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -128,13 +131,14 @@ const PartProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.partSummary?.readableId]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -145,10 +149,10 @@ const PartProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [routeData?.partSummary?.readableId]
   );
 
@@ -225,10 +229,10 @@ const PartProperties = () => {
           <ValidatedForm
             defaultValues={{
               partId:
-                routeData?.partSummary?.readableIdWithRevision ?? undefined,
+                routeData?.partSummary?.readableIdWithRevision ?? undefined
             }}
             validator={z.object({
-              partId: z.string(),
+              partId: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -248,10 +252,10 @@ const PartProperties = () => {
           </ValidatedForm>
           <ValidatedForm
             defaultValues={{
-              name: routeData?.partSummary?.name ?? undefined,
+              name: routeData?.partSummary?.name ?? undefined
             }}
             validator={z.object({
-              name: z.string(),
+              name: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -376,12 +380,12 @@ const PartProperties = () => {
       <ValidatedForm
         defaultValues={{
           unitOfMeasureCode:
-            routeData?.partSummary?.unitOfMeasureCode ?? undefined,
+            routeData?.partSummary?.unitOfMeasureCode ?? undefined
         }}
         validator={z.object({
           unitOfMeasureCode: z
             .string()
-            .min(1, { message: "Unit of Measure is required" }),
+            .min(1, { message: "Unit of Measure is required" })
         })}
         className="w-full"
       >
@@ -444,10 +448,10 @@ const PartProperties = () => {
       </VStack>
       <ValidatedForm
         defaultValues={{
-          active: routeData?.partSummary?.active ?? undefined,
+          active: routeData?.partSummary?.active ?? undefined
         }}
         validator={z.object({
-          active: zfd.checkbox(),
+          active: zfd.checkbox()
         })}
         className="w-full"
       >
@@ -462,10 +466,10 @@ const PartProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.partSummary?.tags ?? [],
+          tags: routeData?.partSummary?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

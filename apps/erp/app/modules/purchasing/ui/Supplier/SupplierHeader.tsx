@@ -4,18 +4,18 @@ import {
   CardAction,
   CardAttribute,
   CardAttributeLabel,
-  CardAttributeValue,
   CardAttributes,
+  CardAttributeValue,
   CardContent,
   CardHeader,
   CardTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { EmployeeAvatar } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { Tags } from "~/components/Form";
@@ -48,6 +48,7 @@ const SupplierHeader = () => {
     (status) => status.id === routeData?.supplier?.supplierStatusId
   )?.name;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -61,10 +62,10 @@ const SupplierHeader = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [supplierId]
   );
 
@@ -111,10 +112,10 @@ const SupplierHeader = () => {
               <CardAttributeValue>
                 <ValidatedForm
                   defaultValues={{
-                    tags: routeData?.supplier?.tags ?? [],
+                    tags: routeData?.supplier?.tags ?? []
                   }}
                   validator={z.object({
-                    tags: z.array(z.string()).optional(),
+                    tags: z.array(z.string()).optional()
                   })}
                   className="w-full"
                 >

@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   reactNodeToString,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
@@ -87,6 +87,7 @@ const ActiveFilter = ({ filter, operator, value }: ActiveFilterProps) => {
     }
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (
       filter.filter.type === "fetcher" &&
@@ -97,13 +98,12 @@ const ActiveFilter = ({ filter, operator, value }: ActiveFilterProps) => {
       setOptions(
         filter.filter.transform
           ? filter.filter.transform(fetcher.data.data)
-          : fetcher.data.data?.map((d) => ({ label: d.name, value: d.id })) ??
-              []
+          : (fetcher.data.data?.map((d) => ({ label: d.name, value: d.id })) ??
+              [])
       );
 
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data, filter.filter.type]);
 
   const makeLabel = (v: string) => {

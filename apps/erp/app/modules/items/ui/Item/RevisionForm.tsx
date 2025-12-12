@@ -10,11 +10,11 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -31,7 +31,7 @@ const RevisionForm = ({
   initialValues,
   hasSizesInsteadOfRevisions = false,
   open = true,
-  onClose,
+  onClose
 }: RevisionFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<
@@ -44,6 +44,7 @@ const RevisionForm = ({
     ? !permissions.can("update", "parts")
     : !permissions.can("create", "parts");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success) {
       onClose();
@@ -52,7 +53,6 @@ const RevisionForm = ({
     if (fetcher.data?.success === false) {
       toast.error(fetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data]);
 
   return (

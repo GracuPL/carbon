@@ -16,26 +16,26 @@ import {
   Heading,
   HStack,
   IconButton,
-  toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useDisclosure,
+  toast,
+  useDisclosure
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type {
   Column,
   ColumnOrderState,
-  ColumnPinningState,
+  ColumnPinningState
 } from "@tanstack/react-table";
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   LuCheck,
   LuDownload,
   LuFilePen,
   LuLayers,
-  LuLock,
+  LuLock
 } from "react-icons/lu";
 import { SearchFilter } from "~/components";
 import { ImportCSVModal } from "~/components/ImportCSVModal";
@@ -47,12 +47,12 @@ import { savedViewValidator } from "~/modules/shared/shared.models";
 import type { action as savedViewAction } from "~/routes/x+/shared+/views";
 import { path } from "~/utils/path";
 import Columns from "./Columns";
+import Download from "./Download";
 import { ActiveFilters, Filter } from "./Filter";
 import type { ColumnFilter } from "./Filter/types";
 import type { PaginationProps } from "./Pagination";
 import { PaginationButtons } from "./Pagination";
 import Sort from "./Sort";
-import Download from "./Download";
 
 type HeaderProps<T> = {
   renderActions?: (selectedRows: T[]) => ReactNode;
@@ -106,7 +106,7 @@ const TableHeader = <T extends object>({
   withPagination,
   withSavedView,
   withSearch,
-  withSelectableRows,
+  withSelectableRows
 }: HeaderProps<T>) => {
   const [params, setParams] = useUrlParams();
   const currentFilters = params.getAll("filter").filter(Boolean);
@@ -121,6 +121,7 @@ const TableHeader = <T extends object>({
 
   const fetcher = useFetcher<typeof savedViewAction>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success && fetcher.data.id) {
       setParams({ view: fetcher.data.id });
@@ -128,7 +129,6 @@ const TableHeader = <T extends object>({
     } else if (fetcher.data?.success === false) {
       toast.error(fetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.state, fetcher.data?.success]);
 
   const { currentView, hasView } = useSavedViews();
@@ -158,7 +158,7 @@ const TableHeader = <T extends object>({
                 columnPinning,
                 columnVisibility,
                 filters: currentFilters,
-                sorts: currentSorts,
+                sorts: currentSorts
               })}
             />
             <Hidden name="table" value={table} />

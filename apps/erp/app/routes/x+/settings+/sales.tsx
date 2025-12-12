@@ -1,3 +1,9 @@
+import { error, useCarbon } from "@carbon/auth";
+import { requirePermissions } from "@carbon/auth/auth.server";
+import { flash } from "@carbon/auth/session.server";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
+import { Boolean, Submit, ValidatedForm, validator } from "@carbon/form";
+import type { JSONContent } from "@carbon/react";
 import {
   Badge,
   Card,
@@ -14,48 +20,41 @@ import {
   ScrollArea,
   toast,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
+import { Editor } from "@carbon/react/Editor";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
-
-import { error, useCarbon } from "@carbon/auth";
-import { requirePermissions } from "@carbon/auth/auth.server";
-import { flash } from "@carbon/auth/session.server";
-import { Boolean, Submit, ValidatedForm, validator } from "@carbon/form";
-import { useFetcher, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import { LuCircleCheck } from "react-icons/lu";
 import { Users } from "~/components/Form";
+import { usePermissions, useUser } from "~/hooks";
 import {
   digitalQuoteValidator,
   getCompanySettings,
   getTerms,
   rfqReadyValidator,
   updateDigitalQuoteSetting,
-  updateRfqReadySetting,
+  updateRfqReadySetting
 } from "~/modules/settings";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
-import type { JSONContent } from "@carbon/react";
-import { Editor } from "@carbon/react/Editor";
-import { getLocalTimeZone, today } from "@internationalized/date";
-import { LuCircleCheck } from "react-icons/lu";
-import { usePermissions, useUser } from "~/hooks";
-
 export const handle: Handle = {
   breadcrumb: "Sales",
-  to: path.to.salesSettings,
+  to: path.to.salesSettings
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const [companySettings, terms] = await Promise.all([
     getCompanySettings(client, companyId),
-    getTerms(client, companyId),
+    getTerms(client, companyId)
   ]);
   if (!companySettings.data)
     throw redirect(
@@ -70,7 +69,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -97,9 +96,8 @@ export async function action({ request }: ActionFunctionArgs) {
         return json({ success: false, message: digitalQuote.error.message });
 
     case "rfq":
-      const rfqValidation = await validator(rfqReadyValidator).validate(
-        formData
-      );
+      const rfqValidation =
+        await validator(rfqReadyValidator).validate(formData);
 
       if (rfqValidation.error) {
         return json({ success: false, message: "Invalid form data" });
@@ -139,7 +137,7 @@ export default function SalesSettingsRoute() {
   const { carbon } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const [salesTermsStatus, setSalesTermsStatus] = useState<"saved" | "draft">(
@@ -159,7 +157,7 @@ export default function SalesSettingsRoute() {
         .update({
           salesTerms: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", companyId);
       setSalesTermsStatus("saved");
@@ -191,7 +189,7 @@ export default function SalesSettingsRoute() {
               digitalQuoteNotificationGroup:
                 companySettings.digitalQuoteNotificationGroup ?? [],
               digitalQuoteIncludesPurchaseOrders:
-                companySettings.digitalQuoteIncludesPurchaseOrders ?? false,
+                companySettings.digitalQuoteIncludesPurchaseOrders ?? false
             }}
             fetcher={fetcher}
           >
@@ -243,7 +241,7 @@ export default function SalesSettingsRoute() {
             validator={rfqReadyValidator}
             defaultValues={{
               rfqReadyNotificationGroup:
-                companySettings.rfqReadyNotificationGroup ?? [],
+                companySettings.rfqReadyNotificationGroup ?? []
             }}
             fetcher={fetcher}
           >
@@ -298,7 +296,7 @@ export default function SalesSettingsRoute() {
               <div
                 className="prose dark:prose-invert"
                 dangerouslySetInnerHTML={{
-                  __html: generateHTML(terms?.salesTerms as JSONContent),
+                  __html: generateHTML(terms?.salesTerms as JSONContent)
                 }}
               />
             )}

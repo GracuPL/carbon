@@ -8,7 +8,7 @@ import { LuDatabase, LuLayoutGrid, LuList, LuTags } from "react-icons/lu";
 import { Hyperlink, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { usePermissions, useUrlParams } from "~/hooks";
-import { modulesType, type CustomFieldsTableType } from "~/modules/settings";
+import { type CustomFieldsTableType, modulesType } from "~/modules/settings";
 import { tablesWithTags } from "~/modules/shared";
 import { path } from "~/utils/path";
 
@@ -36,8 +36,8 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuDatabase />,
-        },
+          icon: <LuDatabase />
+        }
       },
       {
         accessorKey: "module",
@@ -49,10 +49,10 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
             type: "static",
             options: modulesType.map((m) => ({
               label: <Enumerable value={m} />,
-              value: m,
-            })),
-          },
-        },
+              value: m
+            }))
+          }
+        }
       },
       {
         header: "Fields",
@@ -64,19 +64,20 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
               )}?${params?.toString()}`}
             >
               {Array.isArray(row.original.fields)
-                ? row.original.fields?.length ?? 0
+                ? (row.original.fields?.length ?? 0)
                 : 0}{" "}
               Fields
             </Link>
           </Button>
         ),
         meta: {
-          icon: <LuList />,
-        },
-      },
+          icon: <LuList />
+        }
+      }
     ];
   }, [params]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const renderContextMenu = useCallback(
     (row: (typeof data)[number]) => {
       return (
@@ -104,7 +105,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
         </>
       );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [navigate, params, permissions]
   );
 

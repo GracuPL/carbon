@@ -4,26 +4,26 @@ import {
   CardAction,
   CardAttribute,
   CardAttributeLabel,
-  CardAttributeValue,
   CardAttributes,
+  CardAttributeValue,
   CardContent,
   CardHeader,
   CardTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { EmployeeAvatar } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { Tags } from "~/components/Form";
+import { useCustomerTypes } from "~/components/Form/CustomerType";
 import { useRouteData } from "~/hooks";
 import type { action } from "~/routes/x+/settings+/tags";
 import { path } from "~/utils/path";
 import type { CustomerDetail, CustomerStatus } from "../../types";
-import { useCustomerTypes } from "~/components/Form/CustomerType";
 
 const CustomerHeader = () => {
   const { customerId } = useParams();
@@ -47,6 +47,7 @@ const CustomerHeader = () => {
     (status) => status.id === routeData?.customer?.customerStatusId
   )?.name;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -60,10 +61,10 @@ const CustomerHeader = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [customerId]
   );
 
@@ -110,10 +111,10 @@ const CustomerHeader = () => {
               <CardAttributeValue>
                 <ValidatedForm
                   defaultValues={{
-                    tags: routeData?.customer?.tags ?? [],
+                    tags: routeData?.customer?.tags ?? []
                   }}
                   validator={z.object({
-                    tags: z.array(z.string()).optional(),
+                    tags: z.array(z.string()).optional()
                   })}
                   className="w-full"
                 >

@@ -8,19 +8,19 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  HStack,
-  VStack,
   cn,
+  HStack,
   useKeyboardShortcuts,
+  VStack
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
-import { themes, type Theme } from "@carbon/utils";
+import { type Theme, themes } from "@carbon/utils";
 import {
   Link,
   useFetcher,
   useLoaderData,
   useNavigation,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
@@ -28,7 +28,7 @@ import { useEffect, useRef, useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { RxCheck } from "react-icons/rx";
 import { useOnboarding } from "~/hooks";
-import { themeValidator, type Theme as ThemeValue } from "~/modules/settings";
+import { type Theme as ThemeValue, themeValidator } from "~/modules/settings";
 import type { action as modeAction } from "~/root";
 import { getTheme, setTheme } from "~/services/theme.server";
 import type { Handle } from "~/utils/handle";
@@ -36,14 +36,14 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Theme",
-  to: path.to.theme,
+  to: path.to.theme
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getTheme(request);
 
   return json({
-    theme: theme ?? "zinc",
+    theme: theme ?? "zinc"
   });
 }
 
@@ -61,7 +61,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!next) throw new Error("Fatal: next is required");
 
   throw redirect(next, {
-    headers: { "Set-Cookie": setTheme(theme) },
+    headers: { "Set-Cookie": setTheme(theme) }
   });
 }
 
@@ -83,12 +83,12 @@ export default function OnboardingTheme() {
     });
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     const t = themes.find((t) => t.name === theme);
     if (t) {
       onThemeChange(t);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
   const { next, previous } = useOnboarding();
@@ -99,7 +99,7 @@ export default function OnboardingTheme() {
     formData.append("theme", theme);
     formData.append("next", next);
     submit(formData, {
-      method: "post",
+      method: "post"
     });
   };
 
@@ -110,7 +110,7 @@ export default function OnboardingTheme() {
   useKeyboardShortcuts({
     Enter: () => {
       nextRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -186,7 +186,7 @@ export default function OnboardingTheme() {
                       })`,
                       borderColor: `hsl(${
                         t?.activeColor[mode === "dark" ? "dark" : "light"]
-                      })`,
+                      })`
                     } as React.CSSProperties
                   }
                 >

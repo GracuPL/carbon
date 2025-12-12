@@ -40,7 +40,7 @@ export function TreeView<TData>({
   virtualizer,
   parentRef,
   scrollRef,
-  onScroll,
+  onScroll
 }: TreeViewProps<TData>) {
   useEffect(() => {
     if (autoFocus) {
@@ -59,6 +59,7 @@ export function TreeView<TData>({
     [onScroll]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     //subscribe to scrollRef scroll event
     if (!scrollRef?.current || onScroll === undefined) return;
@@ -89,7 +90,7 @@ export function TreeView<TData>({
           height: `${virtualizer.getTotalSize()}px`,
           width: "100%",
           position: "relative",
-          overflowY: "visible",
+          overflowY: "visible"
         }}
       >
         <div
@@ -99,7 +100,7 @@ export function TreeView<TData>({
             top: 0,
             left: 0,
             width: "100%",
-            transform: `translateY(${virtualItems.at(0)?.start ?? 0}px)`,
+            transform: `translateY(${virtualItems.at(0)?.start ?? 0}px)`
           }}
         >
           {virtualItems.map((virtualItem) => {
@@ -121,7 +122,7 @@ export function TreeView<TData>({
                   state,
                   index: virtualItem.index,
                   virtualizer: virtualizer,
-                  virtualItem,
+                  virtualItem
                 })}
               </div>
             );
@@ -193,7 +194,7 @@ export function useTree<TData, TFilterValue>({
   parentRef,
   estimatedRowHeight,
   filter,
-  isEager,
+  isEager
 }: TreeStateHookProps<TData, TFilterValue>): UseTreeStateOutput {
   const previousNodeCount = useRef(tree.length);
   const previousSelectedId = useRef<string | undefined>(selectedId);
@@ -204,6 +205,7 @@ export function useTree<TData, TFilterValue>({
   );
 
   //fire onSelectedIdChanged()
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     const selectedId = selectedIdFromState(state.nodes);
     if (selectedId !== previousSelectedId.current) {
@@ -213,6 +215,7 @@ export function useTree<TData, TFilterValue>({
   }, [state.changes.selectedId]);
 
   //update tree when the data changes or the tree length changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (isEager || tree.length !== previousNodeCount.current) {
       dispatch({ type: "UPDATE_TREE", payload: { tree } });
@@ -221,6 +224,7 @@ export function useTree<TData, TFilterValue>({
 
   //update the filter, if it's changed
   const previousFilter = useRef(filter);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     //check if the value (not reference) of the filter is the same
     const previousValue = previousFilter.current
@@ -243,12 +247,13 @@ export function useTree<TData, TFilterValue>({
       return estimatedRowHeight({
         node: tree[index],
         state: state.nodes[tree[index]?.id],
-        index,
+        index
       });
     },
-    overscan: 20,
+    overscan: 20
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const scrollToNodeFn = useCallback(
     (id: string) => {
       const itemIndex = state.visibleNodeIds.findIndex((n) => n === id);
@@ -260,16 +265,18 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectNode = useCallback(
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "SELECT_NODE",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const deselectNode = useCallback(
     (id: string) => {
       dispatch({ type: "DESELECT_NODE", payload: { id } });
@@ -277,30 +284,34 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const deselectAllNodes = useCallback(() => {
     dispatch({ type: "DESELECT_ALL_NODES" });
   }, [state]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const toggleNodeSelection = useCallback(
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "TOGGLE_NODE_SELECTION",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const expandNode = useCallback(
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "EXPAND_NODE",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const collapseNode = useCallback(
     (id: string) => {
       dispatch({ type: "COLLAPSE_NODE", payload: { id } });
@@ -308,66 +319,73 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const toggleExpandNode = useCallback(
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "TOGGLE_EXPAND_NODE",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectFirstVisibleNode = useCallback(
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_FIRST_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [tree, state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectLastVisibleNode = useCallback(
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_LAST_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [tree, state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectNextVisibleNode = useCallback(
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_NEXT_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectPreviousVisibleNode = useCallback(
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_PREVIOUS_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectParentNode = useCallback(
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_PARENT_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const expandAllBelowDepth = useCallback(
     (depth: number) => {
       dispatch({ type: "EXPAND_ALL_BELOW_DEPTH", payload: { depth } });
@@ -375,6 +393,7 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const collapseAllBelowDepth = useCallback(
     (depth: number) => {
       dispatch({ type: "COLLAPSE_ALL_BELOW_DEPTH", payload: { depth } });
@@ -382,6 +401,7 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const expandLevel = useCallback(
     (level: number) => {
       dispatch({ type: "EXPAND_LEVEL", payload: { level } });
@@ -389,6 +409,7 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const collapseLevel = useCallback(
     (level: number) => {
       dispatch({ type: "COLLAPSE_LEVEL", payload: { level } });
@@ -396,6 +417,7 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const toggleExpandLevel = useCallback(
     (level: number) => {
       dispatch({ type: "TOGGLE_EXPAND_LEVEL", payload: { level } });
@@ -403,6 +425,7 @@ export function useTree<TData, TFilterValue>({
     [state]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const getTreeProps = useCallback(() => {
     return {
       role: "tree",
@@ -490,10 +513,11 @@ export function useTree<TData, TFilterValue>({
             break;
           }
         }
-      },
+      }
     };
   }, [state]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const getNodeProps = useCallback(
     (id: string) => {
       const node = state.nodes[id];
@@ -504,7 +528,7 @@ export function useTree<TData, TFilterValue>({
         "aria-expanded": node.expanded,
         "aria-level": treeItem.level + 1,
         role: "treeitem",
-        tabIndex: node.selected ? -1 : undefined,
+        tabIndex: node.selected ? -1 : undefined
       };
     },
     [state]
@@ -533,7 +557,7 @@ export function useTree<TData, TFilterValue>({
     selectPreviousVisibleNode,
     selectParentNode,
     scrollToNode: scrollToNodeFn,
-    virtualizer,
+    virtualizer
   };
 }
 
@@ -572,7 +596,7 @@ export function flattenTree<TData>(tree: Tree<TData>): FlatTree<TData> {
       children,
       hasChildren: children.length > 0,
       level,
-      data: node.data,
+      data: node.data
     });
 
     node.children?.forEach((child) => {
@@ -622,7 +646,7 @@ export function createTreeFromFlatItems<TData>(
 export function LevelLine({
   isError = false,
   isSelected,
-  className,
+  className
 }: {
   isError?: boolean;
   isSelected: boolean;

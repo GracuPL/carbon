@@ -2,8 +2,8 @@ import { Select, ValidatedForm } from "@carbon/form";
 import {
   Badge,
   Button,
-  cn,
   Count,
+  cn,
   HStack,
   Input,
   ModalDrawer,
@@ -19,16 +19,16 @@ import {
   TabsTrigger,
   ToggleGroup,
   ToggleGroupItem,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { memo, useMemo, useState } from "react";
 import {
-  LuTriangleAlert,
   LuCalendar,
   LuCircleCheck,
   LuClock,
   LuSearch,
+  LuTriangleAlert
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { EmployeeAvatar, Empty } from "~/components";
@@ -37,7 +37,7 @@ import { usePermissions } from "~/hooks";
 import { trainingAssignmentValidator } from "~/modules/resources";
 import type {
   TrainingAssignmentStatusItem,
-  TrainingListItem,
+  TrainingListItem
 } from "~/modules/resources/types";
 import { path } from "~/utils/path";
 
@@ -91,7 +91,7 @@ function AssignmentListItem({
   assignment,
   currentPeriod,
   disabled,
-  isLast,
+  isLast
 }: {
   assignment: TrainingAssignmentStatusItem;
   currentPeriod: string | null;
@@ -162,7 +162,7 @@ function AssignmentListItem({
 const StatusList = memo(
   ({
     data,
-    currentPeriod,
+    currentPeriod
   }: {
     data: TrainingAssignmentStatusItem[];
     currentPeriod: string | null;
@@ -186,10 +186,13 @@ const StatusList = memo(
     }, [data, search, statusFilter]);
 
     const statusCounts = useMemo(() => {
-      return data.reduce((acc, assignment) => {
-        acc[assignment.status] = (acc[assignment.status] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
+      return data.reduce(
+        (acc, assignment) => {
+          acc[assignment.status] = (acc[assignment.status] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      );
     }, [data]);
 
     return (
@@ -225,7 +228,9 @@ const StatusList = memo(
               value="Completed"
             >
               <LuCircleCheck className="mr-1 size-3" />
-              Completed <Count count={statusCounts["Completed"] || 0} />
+              Completed{" "}
+              {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
+              <Count count={statusCounts["Completed"] || 0} />
             </ToggleGroupItem>
             <ToggleGroupItem
               className="flex gap-1.5 items-center"
@@ -233,7 +238,9 @@ const StatusList = memo(
               value="Pending"
             >
               <LuClock className="mr-1 size-3" />
-              Pending <Count count={statusCounts["Pending"] || 0} />
+              Pending{" "}
+              {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
+              <Count count={statusCounts["Pending"] || 0} />
             </ToggleGroupItem>
             <ToggleGroupItem
               className="flex gap-1.5 items-center"
@@ -241,7 +248,9 @@ const StatusList = memo(
               value="Overdue"
             >
               <LuTriangleAlert className="mr-1 size-3" />
-              Overdue <Count count={statusCounts["Overdue"] || 0} />
+              Overdue{" "}
+              {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
+              <Count count={statusCounts["Overdue"] || 0} />
             </ToggleGroupItem>
             <ToggleGroupItem
               className="flex gap-1.5 items-center"
@@ -298,7 +307,7 @@ const TrainingAssignmentForm = ({
   assignmentStatus = [],
   currentPeriod = null,
   open = true,
-  onClose,
+  onClose
 }: TrainingAssignmentFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher();
@@ -414,7 +423,7 @@ const TrainingAssignmentForm = ({
 
 function AssignmentFormContent({
   trainings,
-  isEditing,
+  isEditing
 }: {
   trainings: TrainingListItem[];
   isEditing: boolean;
@@ -427,7 +436,7 @@ function AssignmentFormContent({
         isReadOnly={isEditing}
         options={trainings.map((training) => ({
           label: training.name ?? "",
-          value: training.id ?? "",
+          value: training.id ?? ""
         }))}
       />
       <Users

@@ -4,8 +4,8 @@ import { flash } from "@carbon/auth/session.server";
 import {
   Badge,
   Button,
-  cn,
   Count,
+  cn,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -15,13 +15,13 @@ import {
   Input,
   ToggleGroup,
   ToggleGroupItem,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   redirect,
   useFetcher,
   useLoaderData,
-  useNavigate,
+  useNavigate
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
@@ -31,7 +31,7 @@ import {
   LuCircleCheck,
   LuClock,
   LuSearch,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { EmployeeAvatar, Empty } from "~/components";
 import { usePermissions } from "~/hooks";
@@ -42,13 +42,13 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Detail",
-  to: path.to.trainingAssignments,
+  to: path.to.trainingAssignments
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { trainingId } = params;
@@ -68,8 +68,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       limit: 10000,
       offset: 0,
       sorts: [],
-      filters: [],
-    }),
+      filters: []
+    })
   ]);
 
   if (training.error) {
@@ -91,8 +91,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     training: training.data,
-    assignments: (assignmentStatus.data ??
-      []) as TrainingAssignmentStatusItem[],
+    assignments: (assignmentStatus.data ?? []) as TrainingAssignmentStatusItem[]
   });
 }
 
@@ -137,7 +136,7 @@ function AssignmentListItem({
   assignment,
   currentPeriod,
   disabled,
-  isLast,
+  isLast
 }: {
   assignment: TrainingAssignmentStatusItem;
   currentPeriod: string | null;
@@ -230,10 +229,13 @@ export default function TrainingAssignmentDetailRoute() {
   }, [assignments, search, statusFilter]);
 
   const statusCounts = useMemo(() => {
-    return assignments.reduce((acc, assignment) => {
-      acc[assignment.status] = (acc[assignment.status] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    return assignments.reduce(
+      (acc, assignment) => {
+        acc[assignment.status] = (acc[assignment.status] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
   }, [assignments]);
 
   const onClose = () => navigate(path.to.trainingAssignments);
@@ -284,7 +286,9 @@ export default function TrainingAssignmentDetailRoute() {
                   value="Completed"
                 >
                   <LuCircleCheck className="mr-1 size-3" />
-                  Completed <Count count={statusCounts["Completed"] || 0} />
+                  Completed{" "}
+                  {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
+                  <Count count={statusCounts["Completed"] || 0} />
                 </ToggleGroupItem>
                 <ToggleGroupItem
                   className="flex gap-1.5 items-center"
@@ -292,7 +296,9 @@ export default function TrainingAssignmentDetailRoute() {
                   value="Pending"
                 >
                   <LuClock className="mr-1 size-3" />
-                  Pending <Count count={statusCounts["Pending"] || 0} />
+                  Pending{" "}
+                  {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
+                  <Count count={statusCounts["Pending"] || 0} />
                 </ToggleGroupItem>
                 <ToggleGroupItem
                   className="flex gap-1.5 items-center"
@@ -300,7 +306,9 @@ export default function TrainingAssignmentDetailRoute() {
                   value="Overdue"
                 >
                   <LuTriangleAlert className="mr-1 size-3" />
-                  Overdue <Count count={statusCounts["Overdue"] || 0} />
+                  Overdue{" "}
+                  {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
+                  <Count count={statusCounts["Overdue"] || 0} />
                 </ToggleGroupItem>
                 <ToggleGroupItem
                   className="flex gap-1.5 items-center"

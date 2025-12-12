@@ -2,7 +2,7 @@ import type {
   FetcherWithComponents,
   FormEncType,
   FormMethod,
-  SubmitOptions,
+  SubmitOptions
 } from "@remix-run/react";
 import { Form as RemixForm, useSubmit } from "@remix-run/react";
 import type { ComponentProps, FormEvent, RefObject } from "react";
@@ -11,13 +11,11 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from "react";
 import * as R from "remeda";
 import type { z } from "zod/v3";
 import { useIsSubmitting, useIsValid } from "./hooks";
-import type { MultiValueMap } from "./internal/MultiValueMap";
-import { useMultiValueMap } from "./internal/MultiValueMap";
 import { FORM_ID_FIELD } from "./internal/constants";
 import type { InternalFormContextValue } from "./internal/formContext";
 import { InternalFormContext } from "./internal/formContext";
@@ -25,8 +23,10 @@ import {
   useDefaultValuesFromLoader,
   useErrorResponseForForm,
   useHasActiveFormSubmit,
-  useSetFieldErrors,
+  useSetFieldErrors
 } from "./internal/hooks";
+import type { MultiValueMap } from "./internal/MultiValueMap";
+import { useMultiValueMap } from "./internal/MultiValueMap";
 import type { SyncedFormProps } from "./internal/state/createFormStore";
 import { useRootFormStore } from "./internal/state/createFormStore";
 import { useFormStore } from "./internal/state/storeHooks";
@@ -34,7 +34,7 @@ import { useSubmitComplete } from "./internal/submissionCallbacks";
 import {
   mergeRefs,
   useDeepEqualsMemo,
-  useIsomorphicLayoutEffect as useLayoutEffect,
+  useIsomorphicLayoutEffect as useLayoutEffect
 } from "./internal/util";
 import type { FieldErrors } from "./validation/types";
 import { validator as zodValidator } from "./zod";
@@ -135,7 +135,7 @@ const scrollIntoView = (element?: HTMLElement) => {
     // Scroll the container only
     container.scrollTo({
       top: offsetTop,
-      behavior: "smooth", // use 'auto' if you don't want smooth scrolling
+      behavior: "smooth" // use 'auto' if you don't want smooth scrolling
     });
   } else {
     element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -211,7 +211,7 @@ const useFormId = (providedId?: string): string | symbol => {
 const FormResetter = ({
   resetAfterSubmit,
   formRef,
-  onComplete,
+  onComplete
 }: {
   resetAfterSubmit: boolean;
   formRef: RefObject<HTMLFormElement>;
@@ -243,7 +243,7 @@ function formEventProxy<T extends object>(event: T): T {
       }
 
       return target[prop as keyof T];
-    },
+    }
   }) as T;
 }
 
@@ -290,7 +290,7 @@ export function ValidatedForm<
       action,
       subaction,
       defaultValuesProp: providedDefaultValues,
-      fetcher,
+      fetcher
     }),
     [action, fetcher, formId, providedDefaultValues, subaction]
   );
@@ -339,7 +339,7 @@ export function ValidatedForm<
       defaultValues: providedDefaultValues ?? backendDefaultValues ?? {},
       subaction,
       registerReceiveFocus,
-      validator: zodValidator(validator),
+      validator: zodValidator(validator)
     });
   }, [
     action,
@@ -348,13 +348,14 @@ export function ValidatedForm<
     subaction,
     syncFormProps,
     backendDefaultValues,
-    validator,
+    validator
   ]);
 
   useLayoutEffect(() => {
     setFormElementInState(formRef.current);
   }, [setFormElementInState]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     setFieldErrors(backendError?.fieldErrors ?? {});
     if (!disableFocusOnError && backendError?.fieldErrors) {
@@ -369,7 +370,7 @@ export function ValidatedForm<
     customFocusHandlers,
     disableFocusOnError,
     setFieldErrors,
-    setFieldError,
+    setFieldError
   ]);
 
   useSubmitComplete(hasActiveSubmission, () => {
@@ -422,7 +423,7 @@ export function ValidatedForm<
         preventScrollReset,
         relative,
         action,
-        encType: encType as FormEncType | undefined,
+        encType: encType as FormEncType | undefined
       };
 
       // We deviate from the Remix code here a bit because of our async submit.

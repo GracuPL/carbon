@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export function getSubscriberId({
   companyId,
-  userId,
+  userId
 }: {
   companyId: string;
   userId: string;
@@ -16,7 +16,7 @@ export function getSubscriberId({
 
 export function useNotifications({
   userId,
-  companyId,
+  companyId
 }: {
   userId: string;
   companyId: string;
@@ -34,14 +34,16 @@ export function useNotifications({
         prevNotifications.map((notification) => {
           return {
             ...notification,
-            read: true,
+            read: true
           };
         })
       );
 
       headlessService.markAllMessagesAsRead({
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
         listener: () => {},
-        onError: () => {},
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
+        onError: () => {}
       });
     }
   };
@@ -55,7 +57,7 @@ export function useNotifications({
           if (notification._id === messageId) {
             return {
               ...notification,
-              read: true,
+              read: true
             };
           }
 
@@ -65,8 +67,10 @@ export function useNotifications({
 
       headlessService.markNotificationsAsRead({
         messageId: [messageId],
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
         listener: (result) => {},
-        onError: (error) => {},
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
+        onError: (error) => {}
       });
     }
   };
@@ -76,11 +80,13 @@ export function useNotifications({
 
     if (headlessService) {
       headlessService.fetchNotifications({
+        // biome-ignore lint/correctness/noEmptyPattern: suppressed due to migration
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
         listener: ({}) => {},
         onSuccess: (response) => {
           setLoading(false);
           setNotifications(response.data);
-        },
+        }
       });
     }
   }, []);
@@ -92,12 +98,14 @@ export function useNotifications({
       setNotifications((prevNotifications) =>
         prevNotifications.map((notification) => ({
           ...notification,
-          seen: true,
+          seen: true
         }))
       );
       headlessService.markAllMessagesAsSeen({
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
         listener: () => {},
-        onError: () => {},
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
+        onError: () => {}
       });
     }
   };
@@ -106,6 +114,7 @@ export function useNotifications({
     setSubscriberId(getSubscriberId({ companyId, userId }));
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     const headlessService = headlessServiceRef.current;
 
@@ -113,7 +122,7 @@ export function useNotifications({
       headlessService.listenNotificationReceive({
         listener: () => {
           fetchNotifications();
-        },
+        }
       });
     }
   }, [headlessServiceRef.current]);
@@ -122,16 +131,18 @@ export function useNotifications({
     if (subscriberId && !headlessServiceRef.current) {
       const headlessService = new HeadlessService({
         applicationIdentifier: NOVU_APPLICATION_ID,
-        subscriberId,
+        subscriberId
       });
 
       headlessService.initializeSession({
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
         listener: () => {},
         onSuccess: () => {
           headlessServiceRef.current = headlessService;
           fetchNotifications();
         },
-        onError: () => {},
+        // biome-ignore lint/suspicious/noEmptyBlockStatements: suppressed due to migration
+        onError: () => {}
       });
     }
   }, [fetchNotifications, subscriberId]);
@@ -144,6 +155,6 @@ export function useNotifications({
     hasUnseenNotifications: notifications.some(
       (notification) => !notification.seen
     ),
-    notifications,
+    notifications
   };
 }

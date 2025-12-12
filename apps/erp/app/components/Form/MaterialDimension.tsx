@@ -1,15 +1,14 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  MaterialDimension as MaterialDimensionType,
-  getMaterialDimensionList,
-} from "~/modules/items";
-import { path } from "~/utils/path";
-
 import type { ComboboxProps } from "@carbon/form";
 import { CreatableCombobox } from "@carbon/form";
 import { useDisclosure, useMount } from "@carbon/react";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  getMaterialDimensionList,
+  MaterialDimension as MaterialDimensionType
+} from "~/modules/items";
 import MaterialDimensionForm from "~/modules/items/ui/MaterialDimensions/MaterialDimensionForm";
+import { path } from "~/utils/path";
 
 type MaterialDimensionSelectProps = Omit<
   ComboboxProps,
@@ -45,20 +44,20 @@ const MaterialDimension = (props: MaterialDimensionSelectProps) => {
     }
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (props.formId) {
       materialDimensionsLoader.load(
         path.to.api.materialDimensions(props.formId)
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.formId]);
 
   const options = useMemo(() => {
     return (materialDimensionsLoader.data?.data ?? []).map((c) => ({
       value: c.id,
       label: c.name,
-      helper: c.companyId === null ? "Standard" : undefined,
+      helper: c.companyId === null ? "Standard" : undefined
     }));
   }, [materialDimensionsLoader.data?.data]);
 

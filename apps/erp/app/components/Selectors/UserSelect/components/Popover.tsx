@@ -5,9 +5,10 @@ import useUserSelectContext from "../provider";
 const Popover = ({ children }: PropsWithChildren) => {
   const {
     aria: { popoverProps },
-    refs: { listBoxRef, popoverRef, focusableNodes },
+    refs: { listBoxRef, popoverRef, focusableNodes }
   } = useUserSelectContext();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     /* Build a triple linked-list (TreeNode[]) of focusable DOM Elements that are children 
     
@@ -71,7 +72,7 @@ const Popover = ({ children }: PropsWithChildren) => {
         expandable: parent === undefined,
         parentId: parent,
         previousId: previous?.[0] || undefined,
-        nextId: next?.[0] || undefined,
+        nextId: next?.[0] || undefined
       };
     }
   }, [children, focusableNodes, listBoxRef]);

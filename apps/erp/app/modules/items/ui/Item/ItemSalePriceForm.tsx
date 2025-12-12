@@ -4,9 +4,10 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { CustomFormFields, Hidden, Number, Submit } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import { itemUnitSalePriceValidator } from "../../items.models";
@@ -38,7 +39,7 @@ const ItemSalePriceForm = ({ initialValues }: ItemSalePriceFormProps) => {
               minValue={0}
               formatOptions={{
                 style: "currency",
-                currency: company?.baseCurrencyCode ?? "USD",
+                currency: company?.baseCurrencyCode ?? "USD"
               }}
             />
             {/* <Currency

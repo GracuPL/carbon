@@ -1,10 +1,19 @@
+import { useCarbon } from "@carbon/auth";
 import {
   toast,
   useDisclosure,
   useInterval,
-  useRealtimeChannel,
+  useRealtimeChannel
 } from "@carbon/react";
+import type { TrackedEntityAttributes } from "@carbon/utils";
+import {
+  getLocalTimeZone,
+  now,
+  parseAbsolute,
+  toZoned
+} from "@internationalized/date";
 import { useParams, useRevalidator } from "@remix-run/react";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useUrlParams, useUser } from "~/hooks";
 import type {
@@ -13,26 +22,16 @@ import type {
   JobOperationStep,
   OperationWithDetails,
   ProductionEvent,
-  TrackedEntity,
+  TrackedEntity
 } from "~/services/types";
 import { path } from "~/utils/path";
-
-import { useCarbon } from "@carbon/auth";
-import type { TrackedEntityAttributes } from "@carbon/utils";
-import {
-  getLocalTimeZone,
-  now,
-  parseAbsolute,
-  toZoned,
-} from "@internationalized/date";
-import type { RealtimeChannel } from "@supabase/supabase-js";
 
 export function useOperation({
   operation,
   events,
   trackedEntities,
   pauseInterval,
-  procedure,
+  procedure
 }: {
   operation: OperationWithDetails;
   events: ProductionEvent[];
@@ -45,9 +44,11 @@ export function useOperation({
 }) {
   const [params] = useUrlParams();
   const trackedEntityParam = params.get("trackedEntityId");
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { carbon, accessToken } = useCarbon();
   const user = useUser();
   const revalidator = useRevalidator();
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const channelRef = useRef<RealtimeChannel | null>(null);
 
   const scrapModal = useDisclosure();
@@ -105,7 +106,7 @@ export function useOperation({
             event: "*",
             schema: "public",
             table: "job",
-            filter: `id=eq.${operation.jobId}`,
+            filter: `id=eq.${operation.jobId}`
           },
           (payload) => {
             if (payload.eventType === "UPDATE") {
@@ -119,7 +120,7 @@ export function useOperation({
             event: "*",
             schema: "public",
             table: "productionEvent",
-            filter: `jobOperationId=eq.${operation.id}`,
+            filter: `jobOperationId=eq.${operation.id}`
           },
           (payload) => {
             switch (payload.eventType) {
@@ -127,7 +128,7 @@ export function useOperation({
                 const { new: inserted } = payload;
                 setEventState((prevEvents) => [
                   ...prevEvents,
-                  inserted as ProductionEvent,
+                  inserted as ProductionEvent
                 ]);
                 break;
               case "UPDATE":
@@ -138,7 +139,7 @@ export function useOperation({
                     event.id === updated.id
                       ? ({
                           ...event,
-                          ...updated,
+                          ...updated
                         } as ProductionEvent)
                       : event
                   )
@@ -161,7 +162,7 @@ export function useOperation({
             event: "*",
             schema: "public",
             table: "jobOperation",
-            filter: `id=eq.${operation.id}`,
+            filter: `id=eq.${operation.id}`
           },
           (payload) => {
             if (payload.eventType === "UPDATE") {
@@ -169,7 +170,7 @@ export function useOperation({
               setOperationState((prev) => ({
                 ...prev,
                 ...updated,
-                operationStatus: updated.status ?? prev.operationStatus,
+                operationStatus: updated.status ?? prev.operationStatus
               }));
             } else if (payload.eventType === "DELETE") {
               toast.error("This operation has been deleted");
@@ -177,7 +178,7 @@ export function useOperation({
             }
           }
         );
-    },
+    }
   });
 
   const getProgress = useCallback(() => {
@@ -204,7 +205,7 @@ export function useOperation({
       {
         setup: 0,
         labor: 0,
-        machine: 0,
+        machine: 0
       }
     );
   }, [eventState]);
@@ -227,7 +228,7 @@ export function useOperation({
       ),
       machineProductionEvent: eventState.find(
         (e) => e.type === "Machine" && e.endTime === null
-      ),
+      )
     };
   }, [eventState, events, user.id]);
 
@@ -235,7 +236,7 @@ export function useOperation({
     return {
       setup: !!activeEvents.setupProductionEvent,
       labor: !!activeEvents.laborProductionEvent,
-      machine: !!activeEvents.machineProductionEvent,
+      machine: !!activeEvents.machineProductionEvent
     };
   }, [activeEvents]);
 
@@ -253,6 +254,7 @@ export function useOperation({
     []
   );
   // show the serial selector with the remaining serial numbers for the operation
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (trackedEntityParam) return;
     const uncompletedEntities = trackedEntities.filter(
@@ -265,7 +267,6 @@ export function useOperation({
     if (uncompletedEntities.length > 0) serialModal.onOpen();
     setAvailableEntities(uncompletedEntities);
     // causes an infinite loop on navigation
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trackedEntities, trackedEntityParam]);
 
   return {
@@ -291,6 +292,6 @@ export function useOperation({
     selectedMaterial,
     setSelectedMaterial,
     setActiveTab,
-    setEventType,
+    setEventType
   };
 }

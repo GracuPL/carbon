@@ -1,10 +1,16 @@
 import {
+  Input as FormInput,
+  Number as FormNumberInput,
+  Hidden,
+  ValidatedForm
+} from "@carbon/form";
+import {
   Alert,
   AlertDescription,
   AlertTitle,
   Button,
-  cn,
   Combobox as ComboboxBase,
+  cn,
   IconButton,
   Input,
   InputGroup,
@@ -27,23 +33,13 @@ import {
   TabsList,
   TabsTrigger,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
-
-import { useFetcher } from "@remix-run/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { JobMaterial, TrackedInput } from "~/services/types";
-import { path } from "~/utils/path";
-
-import {
-  Input as FormInput,
-  Number as FormNumberInput,
-  Hidden,
-  ValidatedForm,
-} from "@carbon/form";
 import type { TrackedEntityAttributes } from "@carbon/utils";
 import { getItemReadableId } from "@carbon/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
+import { useFetcher } from "@remix-run/react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   LuArrowRightLeft,
   LuCheck,
@@ -57,11 +53,13 @@ import {
   LuScale,
   LuTrash,
   LuUndo2,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { getBatchNumbersForItem } from "~/services/inventory.service";
 import { convertEntityValidator } from "~/services/models";
+import type { JobMaterial, TrackedInput } from "~/services/types";
 import { useItems } from "~/stores";
+import { path } from "~/utils/path";
 
 export function BatchIssueModal({
   parentId,
@@ -69,7 +67,7 @@ export function BatchIssueModal({
   operationId,
   material,
   trackedInputs,
-  onClose,
+  onClose
 }: {
   parentId: string;
   parentIdIsSerialized: boolean;
@@ -102,7 +100,7 @@ export function BatchIssueModal({
               : `${batchNumber.id.slice(0, 10)} - ${
                   batchNumber.quantity
                 } Available`,
-            availableQuantity: batchNumber.quantity,
+            availableQuantity: batchNumber.quantity
           };
         }) ?? []
     );
@@ -118,13 +116,13 @@ export function BatchIssueModal({
               (input.attributes as TrackedEntityAttributes)?.["Batch Number"]
             }`
           : ""
-      }`,
+      }`
     }));
   }, [trackedInputs]);
 
   const initialQuantity = parentIdIsSerialized
-    ? material?.quantity ?? 1
-    : material?.estimatedQuantity ?? 1;
+    ? (material?.quantity ?? 1)
+    : (material?.estimatedQuantity ?? 1);
 
   const [selectedBatchNumbers, setSelectedBatchNumbers] = useState<
     Array<{
@@ -224,6 +222,7 @@ export function BatchIssueModal({
     }>;
   }>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const handleSubmit = useCallback(() => {
     // Validate all batch numbers
     let hasErrors = false;
@@ -246,24 +245,23 @@ export function BatchIssueModal({
         parentTrackedEntityId: parentId,
         children: selectedBatchNumbers.map((bn) => ({
           trackedEntityId: bn.id,
-          quantity: bn.quantity,
-        })),
+          quantity: bn.quantity
+        }))
       };
 
       fetcher.submit(JSON.stringify(payload), {
         method: "post",
         action: path.to.issueTrackedEntity,
-        encType: "application/json",
+        encType: "application/json"
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedBatchNumbers,
     validateBatchNumber,
     operationId,
     parentId,
     onClose,
-    material?.id,
+    material?.id
   ]);
 
   const [splitEntitiesResult, setSplitEntitiesResult] = useState<
@@ -297,7 +295,7 @@ export function BatchIssueModal({
               newId: entity.newId,
               originalId: entity.originalId,
               readableId: entity.readableId,
-              quantity: entity.quantity,
+              quantity: entity.quantity
             }))
           );
           toast.success(fetcher.data.message);
@@ -336,7 +334,7 @@ export function BatchIssueModal({
       if (!batchOption) {
         setErrors((prev) => ({
           ...prev,
-          [index]: "Batch number is not available",
+          [index]: "Batch number is not available"
         }));
         return false;
       }
@@ -352,7 +350,7 @@ export function BatchIssueModal({
         updateBatchNumber({
           ...currentBatchNumber,
           id: value,
-          quantity: batchOption.availableQuantity,
+          quantity: batchOption.availableQuantity
         });
 
         // Add a new row for the remaining quantity
@@ -360,7 +358,7 @@ export function BatchIssueModal({
           const newIndex = prev.length;
           return [
             ...prev,
-            { index: newIndex, id: "", quantity: remainingQuantity },
+            { index: newIndex, id: "", quantity: remainingQuantity }
           ];
         });
       }
@@ -379,6 +377,7 @@ export function BatchIssueModal({
   const [activeTab, setActiveTab] = useState("scan");
 
   const [unconsumedBatch, setUnconsumedBatch] = useState("");
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const handleUnconsume = useCallback(() => {
     const payload = {
       materialId: material?.id!,
@@ -388,23 +387,22 @@ export function BatchIssueModal({
           trackedEntityId: unconsumedBatch,
           quantity:
             trackedInputs.find((input) => input.id === unconsumedBatch)
-              ?.quantity ?? 0,
-        },
-      ],
+              ?.quantity ?? 0
+        }
+      ]
     };
 
     fetcher.submit(JSON.stringify(payload), {
       method: "post",
       action: path.to.unconsume,
-      encType: "application/json",
+      encType: "application/json"
     });
     // fetcher is not needed to be in the dependency array
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unconsumedBatch, material?.id, parentId, trackedInputs]);
 
   const [items] = useItems();
   const numberFormatter = useNumberFormatter({
-    maximumFractionDigits: 4,
+    maximumFractionDigits: 4
   });
 
   const convertDisclosure = useDisclosure();
@@ -524,7 +522,7 @@ export function BatchIssueModal({
                                   const newValue = e.target.value;
                                   updateBatchNumber({
                                     ...batchNumber,
-                                    id: newValue,
+                                    id: newValue
                                   });
                                 }}
                                 onBlur={(e) => {
@@ -548,7 +546,7 @@ export function BatchIssueModal({
                               onChange={(value) =>
                                 updateBatchNumber({
                                   ...batchNumber,
-                                  quantity: value,
+                                  quantity: value
                                 })
                               }
                               minValue={0.01}
@@ -609,7 +607,7 @@ export function BatchIssueModal({
                               onChange={(value) => {
                                 updateBatchNumber({
                                   ...batchNumber,
-                                  id: value,
+                                  id: value
                                 });
                                 validateBatchInput(value, index);
                               }}
@@ -623,7 +621,7 @@ export function BatchIssueModal({
                               onChange={(value) =>
                                 updateBatchNumber({
                                   ...batchNumber,
-                                  quantity: value,
+                                  quantity: value
                                 })
                               }
                               minValue={0.01}
@@ -757,7 +755,7 @@ export function BatchIssueModal({
                   ? {
                       ...entity,
                       readableId: convertedEntity.readableId,
-                      quantity: convertedEntity.quantity,
+                      quantity: convertedEntity.quantity
                     }
                   : entity
               )
@@ -791,7 +789,7 @@ function ConvertSplitModal({
   trackedEntity,
   itemType,
   onCancel,
-  onSuccess,
+  onSuccess
 }: {
   trackedEntity: string | null;
   itemType: string | null;
@@ -839,7 +837,7 @@ function ConvertSplitModal({
           defaultValues={{
             trackedEntityId: trackedEntity,
             newRevision: "",
-            quantity: 1,
+            quantity: 1
           }}
           validator={convertEntityValidator}
           fetcher={fetcher}
@@ -883,7 +881,7 @@ function ScrapSplitModal({
   parentTrackedEntityId,
   trackedEntity,
   onCancel,
-  onSuccess,
+  onSuccess
 }: {
   materialId: string;
   parentTrackedEntityId: string;
@@ -942,11 +940,11 @@ function useBatchNumbers(itemId?: string) {
   const batchNumbersFetcher =
     useFetcher<Awaited<ReturnType<typeof getBatchNumbersForItem>>>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (itemId) {
       batchNumbersFetcher.load(path.to.api.batchNumbers(itemId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
 
   return { data: batchNumbersFetcher.data };

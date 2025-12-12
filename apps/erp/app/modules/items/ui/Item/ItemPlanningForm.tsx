@@ -7,24 +7,25 @@ import {
   CardHeader,
   CardTitle,
   Combobox,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 
 import {
   CustomFormFields,
   Hidden,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   Select as SelectForm,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { ListItem } from "~/types";
 import { path } from "~/utils/path";
 import {
   itemPlanningValidator,
-  itemReorderingPolicies,
+  itemReorderingPolicies
 } from "../../items.models";
 
 type ItemPlanningFormProps = {
@@ -36,13 +37,13 @@ type ItemPlanningFormProps = {
 const ItemPlanningForm = ({
   initialValues,
   locations,
-  type,
+  type
 }: ItemPlanningFormProps) => {
   const permissions = usePermissions();
 
   const locationOptions = locations.map((location) => ({
     label: location.name,
-    value: location.id,
+    value: location.id
   }));
 
   const [policy, setPolicy] = useState(initialValues.reorderingPolicy);
@@ -83,7 +84,7 @@ const ItemPlanningForm = ({
               label="Reordering Policy"
               options={itemReorderingPolicies.map((policy) => ({
                 label: policy,
-                value: policy,
+                value: policy
               }))}
               onChange={(selected) => {
                 // @ts-ignore

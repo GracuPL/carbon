@@ -8,6 +8,7 @@ class FlashOverlayManager {
   private listeners: Set<(variant: FlashVariant) => void> = new Set();
 
   flash(variant: FlashVariant) {
+    // biome-ignore lint/suspicious/useIterableCallbackReturn: suppressed due to migration
     this.listeners.forEach((listener) => listener(variant));
   }
 
@@ -66,7 +67,7 @@ export function FlashOverlay() {
         isVisible ? "opacity-100" : "opacity-0"
       }`}
       style={{
-        background: `radial-gradient(circle, transparent 20%, rgba(${gradientColor}, 0.6) 100%)`,
+        background: `radial-gradient(circle, transparent 20%, rgba(${gradientColor}, 0.6) 100%)`
       }}
     />
   );

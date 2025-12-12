@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const { itemId } = params;
@@ -27,25 +27,26 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createConsumableSupplier = await upsertSupplierPart(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createConsumableSupplier.error) {
     return json({
       success: false,
-      message: "Failed to create consumable supplier",
+      message: "Failed to create consumable supplier"
     });
   }
 
   return json({
     success: true,
-    message: "Consumable supplier created successfully",
+    message: "Consumable supplier created successfully"
   });
 }
 
@@ -68,7 +69,7 @@ export default function NewConsumableSupplierRoute() {
     unitPrice: 0,
     supplierUnitOfMeasureCode: "EA",
     minimumOrderQuantity: 1,
-    conversionFactor: 1,
+    conversionFactor: 1
   };
 
   return (

@@ -1,6 +1,6 @@
-import { useCallback, useRef, useState } from "react";
-import { nanoid } from "nanoid";
 import { GOOGLE_PLACES_API_KEY } from "@carbon/auth";
+import { nanoid } from "nanoid";
+import { useCallback, useRef, useState } from "react";
 
 interface PlaceSuggestion {
   placeId: string;
@@ -69,14 +69,14 @@ export const useGooglePlaces = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
+            "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY
           },
           body: JSON.stringify({
             input,
             includedPrimaryTypes: ["street_address"],
             languageCode: "en",
-            sessionToken: sessionTokenRef.current,
-          }),
+            sessionToken: sessionTokenRef.current
+          })
         }
       );
 
@@ -93,7 +93,7 @@ export const useGooglePlaces = () => {
 
           return {
             placeId: prediction.placeId,
-            text: prediction.text.text,
+            text: prediction.text.text
           };
         })
         .filter(
@@ -126,7 +126,7 @@ export const useGooglePlaces = () => {
         city: "",
         stateProvince: "",
         postalCode: "",
-        countryCode: "",
+        countryCode: ""
       };
     }
 
@@ -169,7 +169,7 @@ export const useGooglePlaces = () => {
       city: addressMap.city || addressMap.sublocality || "",
       stateProvince: addressMap.stateProvince || "",
       postalCode: addressMap.postalCode || "",
-      countryCode: addressMap.countryCode || "",
+      countryCode: addressMap.countryCode || ""
     };
   };
 
@@ -190,8 +190,8 @@ export const useGooglePlaces = () => {
         {
           headers: {
             "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
-            "X-Goog-FieldMask": "addressComponents",
-          },
+            "X-Goog-FieldMask": "addressComponents"
+          }
         }
       );
 
@@ -217,6 +217,7 @@ export const useGooglePlaces = () => {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const selectPlace = useCallback(
     async (placeId: string): Promise<AddressComponents | null> => {
       const addressComponents = await getPlaceDetails(placeId);
@@ -227,7 +228,7 @@ export const useGooglePlaces = () => {
 
       return addressComponents;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 
@@ -242,6 +243,6 @@ export const useGooglePlaces = () => {
     error,
     getSuggestions,
     selectPlace,
-    clearSuggestions,
+    clearSuggestions
   };
 };

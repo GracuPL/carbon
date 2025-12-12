@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   ModalTitle,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -30,7 +30,7 @@ import { TaskItem, TaskProgress } from "./IssueTask";
 
 export function ReviewersList({
   reviewers,
-  isDisabled,
+  isDisabled
 }: {
   reviewers: IssueReviewer[];
   isDisabled: boolean;
@@ -39,12 +39,12 @@ export function ReviewersList({
 
   const fetcher = useFetcher<typeof reviewAction>();
   const submitted = useRef(false);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success && submitted.current) {
       disclosure.onClose();
       submitted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   if (reviewers.length === 0) {
@@ -163,7 +163,7 @@ function NewApprovalRequirement({ isDisabled }: { isDisabled: boolean }) {
 
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.bulkUpdateIssue,
+      action: path.to.bulkUpdateIssue
     });
   }, [id, routeData?.nonConformance?.approvalRequirements, fetcher]);
 

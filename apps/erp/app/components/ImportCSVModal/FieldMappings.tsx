@@ -8,11 +8,11 @@ import {
   ModalDescription,
   ModalHeader,
   ModalTitle,
-  toast,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  toast
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useFetcher } from "@remix-run/react";
@@ -47,7 +47,7 @@ type EnumData =
 export function FieldMapping({
   formId,
   table,
-  onReset,
+  onReset
 }: {
   formId: string;
   table: keyof typeof importSchemas;
@@ -75,22 +75,23 @@ export function FieldMapping({
     }, {})
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (!fileColumns || !firstRows) return;
 
     fetcher.submit(
       {
-        fileColumns,
+        fileColumns
       },
       {
         method: "POST",
         action: path.to.api.generateCsvColumns(table),
-        encType: "application/json",
+        encType: "application/json"
       }
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileColumns, firstRows]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (
       fetcher.data &&
@@ -101,15 +102,17 @@ export function FieldMapping({
       setColumnMappings((prevMappings) => {
         if (!fetcher.data || !fileColumns) return prevMappings;
 
-        return Object.entries(fetcher.data).reduce((acc, [key, value]) => {
-          if (fileColumns.includes(value)) {
-            acc[key] = value;
-          }
-          return acc;
-        }, {} as Record<string, string>);
+        return Object.entries(fetcher.data).reduce(
+          (acc, [key, value]) => {
+            if (fileColumns.includes(value)) {
+              acc[key] = value;
+            }
+            return acc;
+          },
+          {} as Record<string, string>
+        );
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data]);
 
   const enumFields: [
@@ -147,7 +150,7 @@ export function FieldMapping({
   ) => {
     setEnumMappings((prev) => ({
       ...prev,
-      [enumerable]: { ...prev[enumerable], [name]: value },
+      [enumerable]: { ...prev[enumerable], [name]: value }
     }));
   };
 
@@ -266,7 +269,7 @@ function FieldRow({
   required,
   mappedColumn,
   isLoading,
-  onColumnMappingChange,
+  onColumnMappingChange
 }: {
   name: string;
   label: string;
@@ -311,7 +314,7 @@ function FieldRow({
           value={mappedColumn}
           options={[
             ...(fileColumns?.filter((column) => column !== "") || []),
-            ...(mappedColumn && !required ? ["None"] : []),
+            ...(mappedColumn && !required ? ["None"] : [])
           ]?.map((column) => ({ value: column, label: column }))}
         />
 
@@ -348,7 +351,7 @@ function EnumMappingStep({
   mappedColumn,
   firstRows,
   mappings,
-  onEnumMappingChange,
+  onEnumMappingChange
 }: {
   name: string;
   enumData: EnumData;
@@ -369,7 +372,7 @@ function EnumMappingStep({
         return (
           enumData.options.map((option) => ({
             label: option,
-            value: option,
+            value: option
           })) || []
         );
       } else {
@@ -397,6 +400,7 @@ function EnumMappingStep({
     }
   }, [enumData, carbon, company.id]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if ("fetcher" in enumData && carbon) {
       fetchOptions();

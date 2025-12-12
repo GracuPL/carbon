@@ -2,11 +2,11 @@ import { getCarbonServiceRole } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { onShapeDataValidator } from "@carbon/ee/onshape";
 import { FunctionRegion } from "@supabase/supabase-js";
-import { json, type ActionFunctionArgs } from "@vercel/remix";
+import { type ActionFunctionArgs, json } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const formData = await request.formData();
@@ -48,15 +48,15 @@ export async function action({ request }: ActionFunctionArgs) {
           makeMethodId,
           data,
           companyId,
-          userId,
+          userId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       }),
       serviceRole
         .from("item")
         .select("externalId")
         .eq("id", record.data?.itemId as string)
-        .single(),
+        .single()
     ]);
 
     if (sync.error) {
@@ -76,19 +76,21 @@ export async function action({ request }: ActionFunctionArgs) {
     const currentExternalId =
       (item.data?.externalId as Record<string, any>) ?? {};
 
+    // biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration
     currentExternalId["onshape"] = {
       documentId,
       versionId,
       elementId,
-      lastSyncedAt: new Date().toISOString(),
+      lastSyncedAt: new Date().toISOString()
     };
 
     await client
       .from("item")
       .update({
-        externalId: currentExternalId,
+        externalId: currentExternalId
       })
       .eq("id", record.data?.itemId as string);
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (error) {
     console.error("Failed to sync onshape data");
     return json(

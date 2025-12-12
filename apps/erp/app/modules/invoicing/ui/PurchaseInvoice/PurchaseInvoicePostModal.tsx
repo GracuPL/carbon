@@ -12,9 +12,9 @@ import {
   Td,
   Th,
   Thead,
-  toast,
   Tr,
-  VStack,
+  toast,
+  VStack
 } from "@carbon/react";
 
 import { getItemReadableId } from "@carbon/utils";
@@ -39,20 +39,20 @@ const PurchaseInvoicePostModal = ({
   isOpen,
   onClose,
   invoiceId,
-  linesToReceive,
+  linesToReceive
 }: PurchaseInvoicePostModalProps) => {
   const [items] = useItems();
   const hasLinesToReceive = linesToReceive.length > 0;
 
   const fetcher = useFetcher<typeof action>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success) {
       onClose();
     } else if (fetcher.data?.success === false && fetcher.data?.message) {
       toast.error(fetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   return (

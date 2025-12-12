@@ -9,11 +9,12 @@ import {
   DrawerTitle,
   Heading,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Hidden, Input, Number, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { sequenceValidator } from "~/modules/settings";

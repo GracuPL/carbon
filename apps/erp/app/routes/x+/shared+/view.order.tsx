@@ -1,8 +1,7 @@
-import { json, type ActionFunctionArgs } from "@vercel/remix";
-
 import { assertIsPost, error } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
+import { type ActionFunctionArgs, json } from "@vercel/remix";
 import { updateSavedViewOrder } from "~/modules/shared/shared.service";
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -21,7 +20,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const updates = JSON.parse(updatesRaw).map(
       (update: { id: string; sortOrder: number }) => ({
         ...update,
-        updatedBy: userId,
+        updatedBy: userId
       })
     );
 
@@ -35,6 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
           error(updateSortOrders, "Failed to update sort order")
         )
       );
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (err) {
     await flash(request, error(null, "Failed to parse updates"));
   }

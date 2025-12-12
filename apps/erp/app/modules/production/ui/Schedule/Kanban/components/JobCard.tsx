@@ -14,12 +14,15 @@ import {
   Progress as ProgressComponent,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Link } from "@remix-run/react";
 import { cva } from "class-variance-authority";
+import { AiOutlinePartition } from "react-icons/ai";
+import { FaTasks } from "react-icons/fa";
 import {
   LuCalendarDays,
   LuEllipsisVertical,
@@ -29,15 +32,10 @@ import {
   LuPencil,
   LuStar,
   LuTriangleAlert,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
-
-import { Link } from "@remix-run/react";
 import { RiProgress8Line } from "react-icons/ri";
 import { Assignee, EmployeeAvatarGroup } from "~/components";
-
-import { AiOutlinePartition } from "react-icons/ai";
-import { FaTasks } from "react-icons/fa";
 import { getDeadlineIcon } from "~/modules/production/ui/Jobs/Deadline";
 import { useCustomers } from "~/stores";
 import { getPrivateUrl, path } from "~/utils/path";
@@ -58,11 +56,11 @@ const cardVariants = cva(
     variants: {
       highlighted: {
         true: "ring-2 ring-primary opacity-100",
-        false: "",
+        false: ""
       },
       dragging: {
         over: "ring-2 ring-primary opacity-30",
-        overlay: "ring-2 ring-primary hover:bg-muted",
+        overlay: "ring-2 ring-primary hover:bg-muted"
       },
       status: {
         Draft: "border-border",
@@ -73,12 +71,12 @@ const cardVariants = cva(
         Completed: "border-green-500/30",
         Cancelled: "border-red-500/30",
         Overdue: "border-red-500/50",
-        "Due Today": "border-orange-500/50",
-      },
+        "Due Today": "border-orange-500/50"
+      }
     },
     defaultVariants: {
-      status: "Planned",
-    },
+      status: "Planned"
+    }
   }
 );
 
@@ -95,12 +93,12 @@ const cardHeaderVariants = cva(
         Completed: "",
         Cancelled: "",
         Overdue: "",
-        "Due Today": "",
-      },
+        "Due Today": ""
+      }
     },
     defaultVariants: {
-      status: "Planned",
-    },
+      status: "Planned"
+    }
   }
 );
 
@@ -111,6 +109,7 @@ type JobCardProps = {
 };
 
 export function JobCard({ item, isOverlay, progressByItemId }: JobCardProps) {
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { displaySettings, selectedGroup, setSelectedGroup, tags } =
     useKanban();
   const {
@@ -119,23 +118,23 @@ export function JobCard({ item, isOverlay, progressByItemId }: JobCardProps) {
     listeners,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({
     id: item.id,
     data: {
       type: "item",
-      item,
+      item
     },
     attributes: {
-      roleDescription: "item",
-    },
+      roleDescription: "item"
+    }
   });
 
   const isHighlighted = selectedGroup === item.jobReadableId;
 
   const style = {
     transition,
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Translate.toString(transform)
   };
 
   const status = progressByItemId[item.id]?.active
@@ -168,14 +167,14 @@ export function JobCard({ item, isOverlay, progressByItemId }: JobCardProps) {
         cardVariants({
           dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
           status: status,
-          highlighted: isHighlighted,
+          highlighted: isHighlighted
         })
       )}
     >
       <CardHeader
         className={cn(
           cardHeaderVariants({
-            status: status,
+            status: status
           })
         )}
       >

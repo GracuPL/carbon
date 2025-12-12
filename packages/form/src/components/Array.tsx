@@ -7,7 +7,7 @@ import {
   HStack,
   IconButton,
   Input as InputBase,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { forwardRef, useRef } from "react";
 import { flushSync } from "react-dom";
@@ -21,6 +21,7 @@ type FormArrayProps = InputProps & {
   isRequired?: boolean;
 };
 
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 const Array = forwardRef<HTMLInputElement, FormArrayProps>(
   ({ name, label, isRequired, ...rest }, ref) => {
     const listRef = useRef<HTMLDivElement>(null);
@@ -77,7 +78,7 @@ const ArrayInput = forwardRef<HTMLInputElement, ArrayInputProps>(
             ref={ref}
             {...getInputProps({
               id: name,
-              ...rest,
+              ...rest
             })}
           />
           <IconButton

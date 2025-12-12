@@ -23,11 +23,11 @@ export function QuoteLineMethodForm() {
     quoteFetcher.load(path.to.api.quotes);
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (quote) {
       quoteLineFetcher.load(path.to.api.quoteLines(quote));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quote]);
 
   const quoteOptions = useMemo(
@@ -41,7 +41,7 @@ export function QuoteLineMethodForm() {
             )}
           </div>
         ),
-        value: quote.id,
+        value: quote.id
       })) ?? [],
     [quoteFetcher.data]
   );
@@ -50,7 +50,7 @@ export function QuoteLineMethodForm() {
     () =>
       quoteLineFetcher.data?.data?.map((quoteLine) => ({
         label: quoteLine.readableIdWithRevision ?? "",
-        value: quoteLine.id,
+        value: quoteLine.id
       })) ?? [],
     [quoteLineFetcher.data]
   );

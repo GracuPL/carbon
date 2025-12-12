@@ -14,9 +14,9 @@ import {
   Td,
   Th,
   Thead,
-  toast,
   Tr,
-  VStack,
+  toast,
+  VStack
 } from "@carbon/react";
 
 import type { FetcherWithComponents } from "@remix-run/react";
@@ -48,7 +48,7 @@ const SalesInvoicePostModal = ({
   invoiceId,
   linesToShip,
   customerId,
-  customerContactId,
+  customerContactId
 }: SalesInvoicePostModalProps) => {
   const hasLinesToShip = linesToShip.length > 0;
   const integrations = useIntegrations();
@@ -58,13 +58,13 @@ const SalesInvoicePostModal = ({
     canEmail ? "Email" : "None"
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success) {
       onClose();
     } else if (fetcher.data?.success === false && fetcher.data?.message) {
       toast.error(fetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   return (
@@ -81,7 +81,7 @@ const SalesInvoicePostModal = ({
           action={path.to.salesInvoicePost(invoiceId)}
           defaultValues={{
             notification: notificationType as "Email" | "None",
-            customerContact: customerContactId ?? undefined,
+            customerContact: customerContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -137,12 +137,12 @@ const SalesInvoicePostModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {

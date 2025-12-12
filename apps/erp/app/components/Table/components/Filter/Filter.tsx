@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   reactNodeToString,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
@@ -63,8 +63,10 @@ const Filter = forwardRef<HTMLButtonElement, FilterProps>(
         setActiveOptions(
           activeFilter.filter.transform
             ? activeFilter.filter.transform(fetcher.data.data)
-            : fetcher.data.data?.map((d) => ({ label: d.name, value: d.id })) ??
-                []
+            : (fetcher.data.data?.map((d) => ({
+                label: d.name,
+                value: d.id
+              })) ?? [])
         );
 
         setLoading(false);
@@ -76,11 +78,12 @@ const Filter = forwardRef<HTMLButtonElement, FilterProps>(
         filters.map((f) => ({
           value: f.accessorKey,
           label: f.header,
-          icon: f.icon,
+          icon: f.icon
         })),
       [filters]
     );
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const updateActiveOptions = useCallback(
       (value: string) => {
         const accessorKey = value.split(":")?.[1] ?? "";
@@ -102,7 +105,7 @@ const Filter = forwardRef<HTMLButtonElement, FilterProps>(
           fetcher.load(filter.filter.endpoint);
         }
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       [filters]
     );
 

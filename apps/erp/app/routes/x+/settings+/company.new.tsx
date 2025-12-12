@@ -12,7 +12,7 @@ import { upsertLocation } from "~/modules/resources";
 import {
   companyValidator,
   insertCompany,
-  seedCompany,
+  seedCompany
 } from "~/modules/settings";
 import { getPermissionCacheKey } from "~/modules/users/users.server";
 import { path } from "~/utils/path";
@@ -20,7 +20,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { userId } = await requirePermissions(request, {
-    update: ["settings", "users"],
+    update: ["settings", "users"]
   });
   const formData = await request.formData();
   const validation = await validator(companyValidator).validate(formData);
@@ -48,6 +48,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // TODO: move all of this to transaction
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { baseCurrencyCode, ...locationData } = validation.data;
   const [locationInsert] = await Promise.all([
     upsertLocation(client, {
@@ -55,8 +56,8 @@ export async function action({ request }: ActionFunctionArgs) {
       name: "Headquarters",
       companyId,
       timezone: getLocalTimeZone(),
-      createdBy: userId,
-    }),
+      createdBy: userId
+    })
   ]);
 
   if (locationInsert.error) {
@@ -73,9 +74,9 @@ export async function action({ request }: ActionFunctionArgs) {
     insertEmployeeJob(client, {
       id: userId,
       companyId,
-      locationId,
+      locationId
     }),
-    redis.del(getPermissionCacheKey(userId)),
+    redis.del(getPermissionCacheKey(userId))
   ]);
 
   if (job.error) {
@@ -89,7 +90,7 @@ export async function action({ request }: ActionFunctionArgs) {
   throw redirect(path.to.authenticatedRoot, {
     headers: [
       ["Set-Cookie", sessionCookie],
-      ["Set-Cookie", companyIdCookie],
-    ],
+      ["Set-Cookie", companyIdCookie]
+    ]
   });
 }

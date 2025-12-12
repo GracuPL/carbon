@@ -1,4 +1,5 @@
 import {
+  cn,
   HStack,
   Table,
   Tbody,
@@ -6,23 +7,22 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
-  cn,
   useEscape,
   useMount,
+  VStack
 } from "@carbon/react";
 import { clamp } from "@carbon/utils";
 import type { ColumnDef, ColumnOrderState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
-  useReactTable,
+  useReactTable
 } from "@tanstack/react-table";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LuCirclePlus } from "react-icons/lu";
 import type {
   EditableTableCellComponent,
-  Position,
+  Position
 } from "~/components/Editable";
 import { Row } from "./components";
 import { getAccessorKey, updateNestedProperty } from "./utils";
@@ -54,7 +54,7 @@ const Grid = <T extends object>({
   withSimpleSorting = true,
   onDataChange,
   onEditRow,
-  onNewRow,
+  onNewRow
 }: GridProps<T>) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -79,7 +79,7 @@ const Grid = <T extends object>({
     columns: columns,
     state: {
       columnVisibility,
-      columnOrder,
+      columnOrder
     },
     onColumnVisibilityChange: setColumnVisibility,
     onColumnOrderChange: setColumnOrder,
@@ -99,7 +99,7 @@ const Grid = <T extends object>({
                   } else {
                     return {
                       ...newRow,
-                      [columnId]: value,
+                      [columnId]: value
                     };
                   }
                 },
@@ -113,13 +113,14 @@ const Grid = <T extends object>({
 
           return newData;
         });
-      },
-    },
+      }
+    }
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [selectedCell, setSelectedCell] = useState<Position>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const focusOnSelectedCell = useCallback(() => {
     if (selectedCell == null) return;
     const cell = tableContainerRef.current?.querySelector(
@@ -150,7 +151,7 @@ const Grid = <T extends object>({
     (selectedColumn: number) => {
       const tableColumns = [
         ...table.getLeftVisibleLeafColumns(),
-        ...table.getCenterVisibleLeafColumns(),
+        ...table.getCenterVisibleLeafColumns()
       ];
 
       const column = tableColumns[selectedColumn];
@@ -201,7 +202,7 @@ const Grid = <T extends object>({
         [key: string]: [number, number];
       } = {
         Tab: [0, 1],
-        Enter: [1, 0],
+        Enter: [1, 0]
       };
 
       const navigationCodes: {
@@ -210,7 +211,7 @@ const Grid = <T extends object>({
         ArrowRight: [0, 1],
         ArrowLeft: [0, -1],
         ArrowDown: [1, 0],
-        ArrowUp: [-1, 0],
+        ArrowUp: [-1, 0]
       };
 
       const lastRow = table.getRowModel().rows.length - 1;
@@ -279,7 +280,7 @@ const Grid = <T extends object>({
         const [x1, y1] = navigate(direction, code === "Tab");
         setSelectedCell({
           row: y1,
-          column: x1,
+          column: x1
         });
         if (isEditing) {
           setIsEditing(false);
@@ -292,7 +293,7 @@ const Grid = <T extends object>({
         setIsEditing(false);
         setSelectedCell({
           row: y1,
-          column: x1,
+          column: x1
         });
         // any other key (besides shift) activates editing
         // if the column is editable and a cell is selected
@@ -309,9 +310,9 @@ const Grid = <T extends object>({
   );
 
   // reset the selected cell when the table data changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     setSelectedCell(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columnOrder, columnVisibility]);
 
   useMount(() => {
@@ -355,7 +356,7 @@ const Grid = <T extends object>({
                         sortable && "cursor-pointer"
                       )}
                       style={{
-                        width: header.getSize(),
+                        width: header.getSize()
                       }}
                     >
                       {header.isPlaceholder ? null : (

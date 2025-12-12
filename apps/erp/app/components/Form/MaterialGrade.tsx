@@ -1,15 +1,14 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  MaterialGrade as MaterialGradeType,
-  getMaterialGradeList,
-} from "~/modules/items";
-import { path } from "~/utils/path";
-
 import type { ComboboxProps } from "@carbon/form";
 import { CreatableCombobox } from "@carbon/form";
 import { useDisclosure, useMount } from "@carbon/react";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  getMaterialGradeList,
+  MaterialGrade as MaterialGradeType
+} from "~/modules/items";
 import MaterialGradeForm from "~/modules/items/ui/MaterialGrades/MaterialGradeForm";
+import { path } from "~/utils/path";
 
 type MaterialGradeSelectProps = Omit<
   ComboboxProps,
@@ -43,18 +42,18 @@ const MaterialGrade = (props: MaterialGradeSelectProps) => {
     }
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (props.substanceId) {
       materialGradesLoader.load(path.to.api.materialGrades(props.substanceId));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.substanceId]);
 
   const options = useMemo(() => {
     return (materialGradesLoader.data?.data ?? []).map((c) => ({
       value: c.id,
       label: c.name,
-      helper: c.companyId === null ? "Standard" : undefined,
+      helper: c.companyId === null ? "Standard" : undefined
     }));
   }, [materialGradesLoader.data?.data]);
 
@@ -93,7 +92,7 @@ const MaterialGrade = (props: MaterialGradeSelectProps) => {
           }}
           initialValues={{
             name: created,
-            materialSubstanceId: props.substanceId!,
+            materialSubstanceId: props.substanceId!
           }}
         />
       )}

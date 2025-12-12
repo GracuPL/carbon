@@ -7,7 +7,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   purchaseOrderLineValidator,
-  upsertPurchaseOrderLine,
+  upsertPurchaseOrderLine
 } from "~/modules/purchasing";
 import { PurchaseOrderLineForm } from "~/modules/purchasing/ui/PurchaseOrder";
 import type { MethodItemType } from "~/modules/shared";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const { orderId } = params;
@@ -32,13 +32,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createPurchaseOrderLine = await upsertPurchaseOrderLine(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createPurchaseOrderLine.error) {
@@ -75,7 +76,7 @@ export default function NewPurchaseOrderLineRoute() {
     purchaseUnitOfMeasureCode: "",
     inventoryUnitOfMeasureCode: "",
     conversionFactor: 1,
-    shelfId: "",
+    shelfId: ""
   };
 
   return <PurchaseOrderLineForm initialValues={initialValues} />;

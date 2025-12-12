@@ -3,12 +3,13 @@ import {
   Hidden,
   Input,
   MultiSelect,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Number,
   Select,
   SelectControlled,
   Submit,
   useFormContext,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Button,
@@ -35,7 +36,7 @@ import {
   useDebounce,
   useDisclosure,
   useKeyboardShortcuts,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { useFetcher, useParams } from "@remix-run/react";
@@ -44,25 +45,25 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   LuArrowRightLeft,
-  LuSquareCheck,
   LuCircleDot,
   LuCirclePlus,
   LuEllipsisVertical,
   LuGripVertical,
   LuHash,
   LuPencil,
+  LuSquareCheck,
   LuToggleLeft,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { Empty } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions, useRouteData } from "~/hooks";
+import type { Training, TrainingQuestion } from "~/modules/resources";
 import {
   trainingQuestionType,
-  trainingQuestionValidator,
+  trainingQuestionValidator
 } from "~/modules/resources";
-import type { Training, TrainingQuestion } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export default function TrainingExplorer() {
@@ -104,7 +105,7 @@ export default function TrainingExplorer() {
       ? JSON.stringify(selectedQuestion.matchingPairs)
       : "[]",
     correctNumber: selectedQuestion?.correctNumber ?? undefined,
-    tolerance: selectedQuestion?.tolerance ?? undefined,
+    tolerance: selectedQuestion?.tolerance ?? undefined
   };
 
   const isDisabled = trainingData?.training?.status !== "Draft";
@@ -141,7 +142,7 @@ export default function TrainingExplorer() {
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.trainingQuestionOrder(id),
+        action: path.to.trainingQuestionOrder(id)
       });
     },
     2500,
@@ -174,7 +175,7 @@ export default function TrainingExplorer() {
       if (!isDisabled) {
         newQuestionRef.current?.click();
       }
-    },
+    }
   });
 
   const questionMap = useMemo(
@@ -287,7 +288,7 @@ export default function TrainingExplorer() {
 
 function TrainingQuestionTypeIcon({
   type,
-  className,
+  className
 }: {
   type: TrainingQuestion["type"];
   className?: string;
@@ -319,7 +320,7 @@ function TrainingQuestionItem({
   question,
   isDisabled,
   onEdit,
-  onDelete,
+  onDelete
 }: TrainingQuestionProps) {
   const { id } = useParams();
   if (!id) throw new Error("Could not find id");
@@ -414,7 +415,7 @@ function TrainingQuestionItem({
 
 function DeleteTrainingQuestion({
   question,
-  onCancel,
+  onCancel
 }: {
   question: TrainingQuestion;
   onCancel: () => void;
@@ -437,7 +438,7 @@ function DeleteTrainingQuestion({
 function TrainingQuestionForm({
   initialValues,
   isDisabled,
-  onClose,
+  onClose
 }: {
   initialValues: z.infer<typeof trainingQuestionValidator>;
   isDisabled: boolean;
@@ -484,15 +485,15 @@ function TrainingQuestionForm({
             {t === "MultipleChoice"
               ? "Multiple Choice"
               : t === "TrueFalse"
-              ? "True/False"
-              : t === "MultipleAnswers"
-              ? "Multiple Answers"
-              : t === "MatchingPairs"
-              ? "Matching Pairs"
-              : "Numerical"}
+                ? "True/False"
+                : t === "MultipleAnswers"
+                  ? "Multiple Answers"
+                  : t === "MatchingPairs"
+                    ? "Matching Pairs"
+                    : "Numerical"}
           </HStack>
         ),
-        value: t,
+        value: t
       })),
     []
   );
@@ -656,7 +657,7 @@ function TrainingQuestionForm({
 function OptionsWithCorrectAnswers({
   type,
   initialCorrectAnswers,
-  initialOptions,
+  initialOptions
 }: {
   type: "MultipleChoice" | "MultipleAnswers";
   initialCorrectAnswers: string[];
@@ -699,7 +700,7 @@ function OptionsWithCorrectAnswers({
         .filter((opt) => opt && opt.trim() !== "")
         .map((opt) => ({
           value: opt,
-          label: opt,
+          label: opt
         })),
     [options]
   );

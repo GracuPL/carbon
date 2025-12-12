@@ -3,6 +3,7 @@
 import type { JSONContent, MentionSuggestion } from "@carbon/tiptap";
 import {
   Command,
+  createImageUpload,
   createMentionExtension,
   EditorBubble,
   EditorCommand,
@@ -11,12 +12,11 @@ import {
   EditorCommandList,
   EditorContent,
   EditorRoot,
-  ImageResizer,
-  createImageUpload,
   handleCommandNavigation,
   handleImageDrop,
   handleImagePaste,
-  renderItems,
+  ImageResizer,
+  renderItems
 } from "@carbon/tiptap";
 import TextStyle from "@tiptap/extension-text-style";
 import { useMemo, useRef, useState } from "react";
@@ -71,7 +71,7 @@ const Editor = ({
   onChange,
   onUpload,
   disableFileUpload,
-  mentions,
+  mentions
 }: EditorProp) => {
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
@@ -101,7 +101,7 @@ const Editor = ({
           return false;
         }
         return true;
-      },
+      }
     });
   }, [onUpload, disableFileUpload]);
 
@@ -110,6 +110,7 @@ const Editor = ({
     [uploadFn]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const mentionExtension = useMemo(() => {
     if (!mentions || mentions.length === 0) return null;
     // Use the first mention config - if multiple are needed with different
@@ -119,10 +120,9 @@ const Editor = ({
       name: "mention",
       char: config.char,
       // Pass a getter function so the extension always gets the latest items
-      items: () => mentionItemsRef.current,
+      items: () => mentionItemsRef.current
     });
     // Only depend on mentions existence and char, not items content
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mentions?.[0]?.char]);
 
   const extensions = useMemo(
@@ -132,10 +132,10 @@ const Editor = ({
       Command.configure({
         suggestion: {
           items: () => suggestionItems,
-          render: renderItems,
-        },
+          render: renderItems
+        }
       }),
-      ...(mentionExtension ? [mentionExtension] : []),
+      ...(mentionExtension ? [mentionExtension] : [])
     ],
     [suggestionItems, mentionExtension]
   );
@@ -148,14 +148,14 @@ const Editor = ({
         extensions={extensions}
         editorProps={{
           handleDOMEvents: {
-            keydown: (_view, event) => handleCommandNavigation(event),
+            keydown: (_view, event) => handleCommandNavigation(event)
           },
           handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
           handleDrop: (view, event, _slice, moved) =>
             handleImageDrop(view, event, moved, uploadFn),
           attributes: {
-            class: `prose dark:prose-invert focus:outline-none max-w-full`,
-          },
+            class: `prose dark:prose-invert focus:outline-none max-w-full`
+          }
         }}
         onUpdate={({ editor }) => {
           onChange(editor.getJSON());
@@ -190,7 +190,7 @@ const Editor = ({
 
         <EditorBubble
           tippyOptions={{
-            placement: "top",
+            placement: "top"
           }}
           className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl p-2"
         >

@@ -3,14 +3,14 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Link, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
-import { LuListChecks, LuPencil, LuTrash } from "react-icons/lu";
 import { BiAddToQueue } from "react-icons/bi";
 import { BsListUl } from "react-icons/bs";
+import { LuListChecks, LuPencil, LuTrash } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -56,7 +56,7 @@ const AccountCategoriesTable = memo(
             <Hyperlink to={row.original.id as string}>
               {row.original.category}
             </Hyperlink>
-          ),
+          )
         },
         {
           header: "Income/Balance",
@@ -67,11 +67,11 @@ const AccountCategoriesTable = memo(
               type: "static",
               options: incomeBalanceTypes.map((incomeBalance) => ({
                 value: incomeBalance,
-                label: <Enumerable value={incomeBalance} />,
-              })),
+                label: <Enumerable value={incomeBalance} />
+              }))
             },
-            pluralHeader: "Income/Balance",
-          },
+            pluralHeader: "Income/Balance"
+          }
         },
         {
           header: "Class",
@@ -82,11 +82,11 @@ const AccountCategoriesTable = memo(
               type: "static",
               options: accountClassTypes.map((accountClass) => ({
                 value: accountClass,
-                label: <Enumerable value={accountClass} />,
-              })),
+                label: <Enumerable value={accountClass} />
+              }))
             },
-            pluralHeader: "Income/Balance",
-          },
+            pluralHeader: "Income/Balance"
+          }
         },
 
         {
@@ -106,13 +106,14 @@ const AccountCategoriesTable = memo(
                 </Link>
               </Button>
             </HStack>
-          ),
-        },
+          )
+        }
       ];
 
       return [...defaultColumns, ...customColumns];
     }, [params, customColumns]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const renderContextMenu = useCallback(
       (row: (typeof data)[number]) => {
         if (!row.id) return null;
@@ -160,7 +161,7 @@ const AccountCategoriesTable = memo(
           </>
         );
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       [navigate, params, permissions]
     );
 

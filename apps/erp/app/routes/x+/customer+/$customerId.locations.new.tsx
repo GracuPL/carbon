@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import { useUser } from "~/hooks";
 import {
   customerLocationValidator,
-  insertCustomerLocation,
+  insertCustomerLocation
 } from "~/modules/sales";
 import { CustomerLocationForm } from "~/modules/sales/ui/Customer";
 import { setCustomFields } from "~/utils/form";
@@ -19,7 +19,7 @@ import { customerLocationsQuery } from "~/utils/react-query";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const formData = await request.formData();
@@ -36,6 +36,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, addressId, name, ...address } = validation.data;
 
   const createCustomerLocation = await insertCustomerLocation(client, {
@@ -43,7 +44,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     companyId,
     name,
     address,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (createCustomerLocation.error) {
     return modal
@@ -70,7 +71,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { customerId } = params;
   if (customerId) {
@@ -90,7 +91,7 @@ export default function CustomerLocationsNewRoute() {
 
   const initialValues = {
     name: "",
-    countryCode: company?.countryCode ?? "",
+    countryCode: company?.countryCode ?? ""
   };
 
   return (

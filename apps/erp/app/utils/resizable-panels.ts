@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 const resizableConfig = z
   .object({ layout: z.array(z.number()).optional() })
@@ -16,6 +16,7 @@ function getCookieValue(
   try {
     const json = JSON.parse(cookieValue);
     return resizableConfig.parse(json);
+    // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   } catch (e) {
     return { layout: undefined };
   }

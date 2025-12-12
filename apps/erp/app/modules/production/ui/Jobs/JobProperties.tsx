@@ -1,3 +1,11 @@
+import type { Json } from "@carbon/database";
+import {
+  DatePicker,
+  InputControlled,
+  NumberControlled,
+  Select,
+  ValidatedForm
+} from "@carbon/form";
 import {
   Badge,
   Button,
@@ -5,26 +13,15 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
   toast,
+  VStack
 } from "@carbon/react";
 import { Await, useFetcher, useParams } from "@remix-run/react";
+import type { PostgrestResponse } from "@supabase/supabase-js";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { LuCopy, LuLink, LuUnlink2 } from "react-icons/lu";
-import { usePermissions, useRouteData } from "~/hooks";
-import type { action } from "~/routes/x+/items+/update";
-
-import type { Json } from "@carbon/database";
-import {
-  DatePicker,
-  InputControlled,
-  NumberControlled,
-  Select,
-  ValidatedForm,
-} from "@carbon/form";
-import type { PostgrestResponse } from "@supabase/supabase-js";
 import { RiProgress8Line } from "react-icons/ri";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, Hyperlink, useOptimisticAssignment } from "~/components";
 import {
@@ -33,11 +30,13 @@ import {
   Location,
   Shelf,
   Tags,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
+import { usePermissions, useRouteData } from "~/hooks";
 import type { TrackedEntity } from "~/modules/inventory/types";
 import type { MethodItemType } from "~/modules/shared";
+import type { action } from "~/routes/x+/items+/update";
 import { path } from "~/utils/path";
 import { copyToClipboard } from "~/utils/string";
 import { deadlineTypes } from "../../production.models";
@@ -65,6 +64,7 @@ const JobProperties = () => {
     (routeData?.job?.itemType ?? "Part") as MethodItemType
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdate = useCallback(
     (field: keyof Job, value: string | number | null) => {
       if (value === routeData?.job[field]) {
@@ -77,13 +77,14 @@ const JobProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateJob,
+        action: path.to.bulkUpdateJob
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [jobId, routeData?.job]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateCustomFields = useCallback(
     (value: string) => {
       const formData = new FormData();
@@ -94,13 +95,14 @@ const JobProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [jobId]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateTags = useCallback(
     (value: string[]) => {
       const formData = new FormData();
@@ -113,13 +115,14 @@ const JobProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [jobId]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const onUpdateBatchNumber = useCallback(
     (trackedEntityId: string, value: string) => {
       const formData = new FormData();
@@ -133,17 +136,17 @@ const JobProperties = () => {
       formData.append("value", value);
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.jobBatchNumber(jobId),
+        action: path.to.jobBatchNumber(jobId)
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 
   const permissions = usePermissions();
   const optimisticAssignment = useOptimisticAssignment({
     id: jobId,
-    table: "job",
+    table: "job"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -233,10 +236,10 @@ const JobProperties = () => {
                       <ValidatedForm
                         key={entity.id}
                         defaultValues={{
-                          trackingNumber,
+                          trackingNumber
                         }}
                         validator={z.object({
-                          trackingNumber: zfd.text(z.string().optional()),
+                          trackingNumber: zfd.text(z.string().optional())
                         })}
                         className="w-full"
                       >
@@ -291,7 +294,7 @@ const JobProperties = () => {
           <ValidatedForm
             defaultValues={{ shelfId: routeData?.job?.shelfId ?? undefined }}
             validator={z.object({
-              shelfId: zfd.text(z.string().optional()),
+              shelfId: zfd.text(z.string().optional())
             })}
             className="w-full"
           >
@@ -320,7 +323,7 @@ const JobProperties = () => {
       <ValidatedForm
         defaultValues={{ itemId: routeData?.job?.itemId ?? undefined }}
         validator={z.object({
-          itemId: z.string().min(1, { message: "Item is required" }),
+          itemId: z.string().min(1, { message: "Item is required" })
         })}
         className="w-full"
       >
@@ -343,7 +346,7 @@ const JobProperties = () => {
         validator={z.object({
           quantity: zfd.numeric(
             z.number().min(0, { message: "Quantity is required" })
-          ),
+          )
         })}
         className="w-full"
       >
@@ -360,12 +363,12 @@ const JobProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          scrapQuantity: routeData?.job?.scrapQuantity ?? undefined,
+          scrapQuantity: routeData?.job?.scrapQuantity ?? undefined
         }}
         validator={z.object({
           scrapQuantity: zfd.numeric(
             z.number().min(0, { message: "Quantity is required" })
-          ),
+          )
         })}
         className="w-full"
       >
@@ -383,10 +386,10 @@ const JobProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          startDate: routeData?.job?.startDate ?? "",
+          startDate: routeData?.job?.startDate ?? ""
         }}
         validator={z.object({
-          startDate: zfd.text(z.string().optional()),
+          startDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -403,10 +406,10 @@ const JobProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          dueDate: routeData?.job?.dueDate ?? "",
+          dueDate: routeData?.job?.dueDate ?? ""
         }}
         validator={z.object({
-          dueDate: zfd.text(z.string().optional()),
+          dueDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -423,12 +426,12 @@ const JobProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          deadlineType: routeData?.job?.deadlineType ?? "",
+          deadlineType: routeData?.job?.deadlineType ?? ""
         }}
         validator={z.object({
           deadlineType: z
             .string()
-            .min(1, { message: "Deadline Type is required" }),
+            .min(1, { message: "Deadline Type is required" })
         })}
         className="w-full"
       >
@@ -447,7 +450,7 @@ const JobProperties = () => {
           isReadOnly={isDisabled}
           options={deadlineTypes.map((d) => ({
             value: d,
-            label: d,
+            label: d
           }))}
           onChange={(value) => {
             onUpdate("deadlineType", value?.value ?? null);
@@ -458,7 +461,7 @@ const JobProperties = () => {
       <ValidatedForm
         defaultValues={{ customerId: routeData?.job?.customerId ?? undefined }}
         validator={z.object({
-          customerId: zfd.text(z.string().optional()),
+          customerId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -475,12 +478,12 @@ const JobProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          unitOfMeasureCode: routeData?.job?.unitOfMeasureCode ?? undefined,
+          unitOfMeasureCode: routeData?.job?.unitOfMeasureCode ?? undefined
         }}
         validator={z.object({
           unitOfMeasureCode: z
             .string()
-            .min(1, { message: "Unit of Measure is required" }),
+            .min(1, { message: "Unit of Measure is required" })
         })}
         className="w-full"
       >
@@ -498,7 +501,7 @@ const JobProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.job?.locationId ?? undefined }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -517,10 +520,10 @@ const JobProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.job.tags ?? [],
+          tags: routeData?.job.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

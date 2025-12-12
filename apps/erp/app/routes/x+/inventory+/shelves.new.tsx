@@ -14,7 +14,7 @@ import { getCompanyId, shelvesQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   return null;
@@ -23,7 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -35,13 +35,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createShelf = await upsertShelf(client, {
     ...data,
     companyId,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (createShelf.error) {
     return json(
@@ -60,7 +61,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function clientAction({
   request,
-  serverAction,
+  serverAction
 }: ClientActionFunctionArgs) {
   const companyId = getCompanyId();
 
@@ -89,7 +90,7 @@ export default function NewShelfRoute() {
 
   const initialValues = {
     name: "",
-    locationId,
+    locationId
   };
 
   return (

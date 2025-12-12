@@ -5,20 +5,19 @@ import { json, redirect } from "@vercel/remix";
 import { useRouteData } from "~/hooks";
 import type {
   WarehouseTransfer,
-  WarehouseTransferLine,
+  WarehouseTransferLine
+} from "~/modules/inventory";
+import {
+  upsertWarehouseTransferLine,
+  warehouseTransferLineValidator
 } from "~/modules/inventory";
 import { WarehouseTransferLineForm } from "~/modules/inventory/ui/WarehouseTransfers";
 import { path } from "~/utils/path";
 
-import {
-  upsertWarehouseTransferLine,
-  warehouseTransferLineValidator,
-} from "~/modules/inventory";
-
 export async function action({ request, params }: ActionFunctionArgs) {
   console.log("DEBUG: new action called");
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { transferId } = params;
@@ -34,10 +33,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!validation.success) {
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createWarehouseTransferLine = await upsertWarehouseTransferLine(
@@ -46,14 +46,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
       ...data,
 
       companyId: companyId,
-      createdBy: userId,
+      createdBy: userId
     }
   );
 
   if (createWarehouseTransferLine.error) {
     return json({
       success: false,
-      message: "Failed to create warehouse transfer line",
+      message: "Failed to create warehouse transfer line"
     });
   }
 
@@ -85,7 +85,7 @@ export default function NewWarehouseTransferLineRoute() {
     fromShelfId: "",
     toShelfId: "",
     unitOfMeasureCode: "",
-    notes: "",
+    notes: ""
   };
 
   return (

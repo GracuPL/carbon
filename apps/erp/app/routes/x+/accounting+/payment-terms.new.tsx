@@ -15,7 +15,7 @@ import { getCompanyId, paymentTermsQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "accounting",
+    create: "accounting"
   });
 
   return null;
@@ -24,7 +24,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "accounting",
+    create: "accounting"
   });
 
   const formData = await request.formData();
@@ -36,13 +36,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const insertPaymentTerm = await upsertPaymentTerm(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertPaymentTerm.error) {
     return json(
@@ -77,7 +78,7 @@ export default function NewPaymentTermsRoute() {
     daysDue: 0,
     daysDiscount: 0,
     discountPercentage: 0,
-    calculationMethod: "Net" as PaymentTermCalculationMethod,
+    calculationMethod: "Net" as PaymentTermCalculationMethod
   };
 
   return (

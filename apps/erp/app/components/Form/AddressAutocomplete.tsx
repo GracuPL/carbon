@@ -10,7 +10,7 @@ import {
   FormErrorMessage,
   FormLabel,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGooglePlaces } from "~/hooks/useGooglePlaces";
@@ -21,7 +21,7 @@ type AddressAutocompleteProps = {
 };
 
 const AddressAutocomplete = ({
-  variant = "vertical",
+  variant = "vertical"
 }: AddressAutocompleteProps) => {
   const address1Field = "addressLine1";
 
@@ -44,7 +44,7 @@ const AddressAutocomplete = ({
     loading,
     getSuggestions,
     selectPlace,
-    clearSuggestions,
+    clearSuggestions
   } = useGooglePlaces();
 
   const handleInputChange = useCallback(
@@ -62,11 +62,11 @@ const AddressAutocomplete = ({
 
   const debouncedGetSuggestions = useDebounce(handleInputChange, 300);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (userInteracted) {
       debouncedGetSuggestions(value || "");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, userInteracted]);
 
   useEffect(() => {
@@ -85,6 +85,7 @@ const AddressAutocomplete = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const handleSelect = useCallback(
     async (placeId: string) => {
       setOpen(false);

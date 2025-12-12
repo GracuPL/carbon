@@ -9,7 +9,7 @@ import { ApiKeyForm, apiKeyValidator, upsertApiKey } from "~/modules/settings";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   return null;
@@ -18,7 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const formData = await request.formData();
@@ -28,12 +28,13 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const insertApiKey = await upsertApiKey(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (insertApiKey.error) {
     return json(
@@ -59,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function NewApiKeyRoute() {
   const navigate = useNavigate();
   const initialValues = {
-    name: "",
+    name: ""
   };
 
   return (

@@ -1,7 +1,5 @@
 "use client";
 
-import { LuCircleStop } from "react-icons/lu";
-
 import { useCarbon } from "@carbon/auth";
 import {
   Button,
@@ -15,12 +13,13 @@ import {
   SidebarMenuButton,
   Spinner,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { getLocalTimeZone } from "@internationalized/date";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
+import { LuCircleStop } from "react-icons/lu";
 import { useUser } from "~/hooks";
 import type { action as endShiftAction } from "~/routes/x+/end-shift";
 import { getActiveJobOperationsByEmployee } from "~/services/operations.service";
@@ -35,6 +34,7 @@ export function EndShift() {
   const [operations, setOperations] = useState<Operation[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success === true) {
       confirmModal.onClose();
@@ -44,7 +44,6 @@ export function EndShift() {
     if (fetcher.data?.success === false) {
       toast.error(fetcher.data?.message ?? "Failed to end shift");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   const openModal = async () => {
@@ -56,7 +55,7 @@ export function EndShift() {
     if (!carbon) return;
     const { data, error } = await getActiveJobOperationsByEmployee(carbon, {
       employeeId: user.id,
-      companyId: user.company.id,
+      companyId: user.company.id
     });
     if (error) {
       toast.error("Failed to fetch active operations");

@@ -9,11 +9,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  HStack,
   Heading,
+  HStack,
   IconButton,
-  VStack,
   useDisclosure,
+  VStack
 } from "@carbon/react";
 
 import { Await, Link, useParams } from "@remix-run/react";
@@ -26,7 +26,7 @@ import {
   LuGitPullRequestArrow,
   LuPanelLeft,
   LuPanelRight,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -50,9 +50,9 @@ const ProcedureHeader = () => {
   const newVersionDisclosure = useDisclosure();
   const deleteDisclosure = useDisclosure();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     newVersionDisclosure.onClose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
@@ -154,7 +154,7 @@ const ProcedureHeader = () => {
             version: (routeData?.procedure?.version ?? 0) + 1,
             processId: routeData?.procedure?.processId ?? "",
             content: JSON.stringify(routeData?.procedure?.content) ?? "",
-            copyFromId: routeData?.procedure?.id ?? "",
+            copyFromId: routeData?.procedure?.id ?? ""
           }}
           open={newVersionDisclosure.isOpen}
           onClose={newVersionDisclosure.onClose}

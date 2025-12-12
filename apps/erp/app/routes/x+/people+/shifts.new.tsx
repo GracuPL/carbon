@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "people"
   });
 
   const formData = await request.formData();
@@ -22,13 +22,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createShift = await upsertShift(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createShift.error) {
@@ -56,7 +57,7 @@ export default function NewShiftRoute() {
     saturday: false,
     sunday: false,
     startTime: "08:00",
-    endTime: "17:00",
+    endTime: "17:00"
   };
 
   return <ShiftForm initialValues={initialValues} />;

@@ -4,7 +4,7 @@ import {
   FormHelperText,
   FormLabel,
   HStack,
-  Switch,
+  Switch
 } from "@carbon/react";
 import { forwardRef, useEffect } from "react";
 import { useControlField, useField } from "../hooks";
@@ -20,6 +20,7 @@ type FormBooleanProps = {
   onChange?: (value: boolean) => void;
 };
 
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 const Boolean = forwardRef<HTMLInputElement, FormBooleanProps>(
   (
     {

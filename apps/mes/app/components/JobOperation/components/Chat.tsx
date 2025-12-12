@@ -1,3 +1,4 @@
+import { useCarbon } from "@carbon/auth";
 import {
   Avatar,
   Button,
@@ -7,18 +8,16 @@ import {
   ScrollArea,
   useDebounce,
   useMount,
-  useRealtimeChannel,
+  useRealtimeChannel
 } from "@carbon/react";
-import { useEffect, useRef, useState } from "react";
-import { useUser } from "~/hooks";
-import type { OperationWithDetails } from "~/services/types";
-import { path } from "~/utils/path";
-
-import { useCarbon } from "@carbon/auth";
 import { nanoid } from "nanoid";
+import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { LuSend } from "react-icons/lu";
+import { useUser } from "~/hooks";
+import type { OperationWithDetails } from "~/services/types";
 import { usePeople } from "~/stores";
+import { path } from "~/utils/path";
 
 type Message = {
   id: string;
@@ -28,7 +27,7 @@ type Message = {
 };
 
 export function OperationChat({
-  operation,
+  operation
 }: {
   operation: OperationWithDetails;
 }) {
@@ -37,6 +36,7 @@ export function OperationChat({
   const [messages, setMessages] = useState<Message[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { carbon, accessToken } = useCarbon();
 
   const fetchChats = async () => {
@@ -72,7 +72,7 @@ export function OperationChat({
           event: "INSERT",
           schema: "public",
           table: "jobOperationNote",
-          filter: `jobOperationId=eq.${operation.id}`,
+          filter: `jobOperationId=eq.${operation.id}`
         },
         (payload) => {
           setMessages((prev) => {
@@ -83,7 +83,7 @@ export function OperationChat({
           });
         }
       );
-    },
+    }
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -91,7 +91,7 @@ export function OperationChat({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
       block: "start",
-      behavior: messages.length > 0 ? "smooth" : "auto",
+      behavior: messages.length > 0 ? "smooth" : "auto"
     });
   }, [messages]);
 
@@ -104,13 +104,13 @@ export function OperationChat({
       const response = await fetch(path.to.messagingNotify, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           type: "jobOperationNote",
-          operationId: operation.id,
+          operationId: operation.id
         }),
-        credentials: "include", // This is sufficient for CORS with cookies
+        credentials: "include" // This is sufficient for CORS with cookies
       });
 
       if (!response.ok) {
@@ -132,7 +132,7 @@ export function OperationChat({
       createdBy: user.id,
       note: message,
       createdAt: new Date().toISOString(),
-      companyId: user.company.id,
+      companyId: user.company.id
     };
 
     flushSync(() => {
@@ -142,7 +142,7 @@ export function OperationChat({
 
     await Promise.all([
       carbon?.from("jobOperationNote").insert(newMessage),
-      notify(),
+      notify()
     ]);
   };
 
@@ -187,7 +187,7 @@ export function OperationChat({
                         <span className="text-xs opacity-70">
                           {new Date(m.createdAt).toLocaleTimeString([], {
                             hour: "2-digit",
-                            minute: "2-digit",
+                            minute: "2-digit"
                           })}
                         </span>
                       </div>

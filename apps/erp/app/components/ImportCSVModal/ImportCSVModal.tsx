@@ -3,10 +3,10 @@ import { Modal, ModalContent, toast } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import {
-  importSchemas,
   type fieldMappings,
+  importSchemas
 } from "~/modules/shared/imports.models";
 import type { action } from "~/routes/x+/shared+/import.$tableId";
 import { path } from "~/utils/path";
@@ -17,7 +17,7 @@ import { ImportCsvContext } from "./useCsvContext";
 
 enum ImportCSVPage {
   UploadCSV = "upload-csv",
-  FieldMappings = "field-mapping",
+  FieldMappings = "field-mapping"
 }
 
 const pages = [ImportCSVPage.UploadCSV, ImportCSVPage.FieldMappings] as const;
@@ -42,6 +42,7 @@ export const ImportCSVModal = ({ table, onClose }: ImportCSVModalProps) => {
     null
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     if (fetcher.data?.success === true) {
       toast.success("Import successful.");
@@ -49,7 +50,6 @@ export const ImportCSVModal = ({ table, onClose }: ImportCSVModalProps) => {
     } else if (fetcher.data?.success === false) {
       toast.error(fetcher.data.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data?.success]);
 
   // if the file upload is successful, set the page to field-mapping
@@ -81,7 +81,7 @@ export const ImportCSVModal = ({ table, onClose }: ImportCSVModalProps) => {
                   setFile,
                   setFileColumns,
                   setFirstRows,
-                  setFilePath,
+                  setFilePath
                 }}
               >
                 <div>
@@ -94,7 +94,7 @@ export const ImportCSVModal = ({ table, onClose }: ImportCSVModalProps) => {
                       filePath: z
                         .string()
                         .min(1, { message: "Path is required" }),
-                      enumMappings: z.string().optional(),
+                      enumMappings: z.string().optional()
                     })}
                     id={formId}
                     onSubmit={() => {

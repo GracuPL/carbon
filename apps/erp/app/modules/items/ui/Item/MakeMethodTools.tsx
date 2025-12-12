@@ -1,3 +1,4 @@
+// biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Number, Submit, ValidatedForm } from "@carbon/form";
 import {
   Alert,
@@ -5,6 +6,7 @@ import {
   Badge,
   Button,
   Checkbox,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -25,10 +27,9 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  VStack,
-  cn,
   toast,
   useDisclosure,
+  VStack
 } from "@carbon/react";
 import { Link, useFetcher, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
@@ -44,7 +45,7 @@ import {
   LuGitMerge,
   LuPencil,
   LuStar,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { Hidden, Item } from "~/components/Form";
 import { Confirm } from "~/components/Modals";
@@ -53,7 +54,7 @@ import type { MethodItemType } from "~/modules/shared";
 import { path } from "~/utils/path";
 import {
   getMethodValidator,
-  makeMethodVersionValidator,
+  makeMethodVersionValidator
 } from "../../items.models";
 import type { MakeMethod } from "../../types";
 import { getPathToMakeMethod } from "../Methods/utils";
@@ -69,7 +70,7 @@ type MakeMethodToolsProps = {
 const MakeMethodTools = ({
   itemId,
   makeMethods,
-  type,
+  type
 }: MakeMethodToolsProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<{ error: string | null }>();
@@ -395,7 +396,7 @@ const MakeMethodTools = ({
                 copyFromId: selectedVersion.id,
                 activeVersionId:
                   makeMethods.length === 1 ? selectedVersion.id : undefined,
-                version: maxVersion + 1,
+                version: maxVersion + 1
               }}
               onSubmit={newVersionModal.onClose}
             >

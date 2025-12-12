@@ -3,8 +3,8 @@ import { useCarbon } from "@carbon/auth";
 import {
   Badge,
   Button,
-  cn,
   Count,
+  cn,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -34,22 +34,22 @@ import {
   Td,
   Th,
   Thead,
-  toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   Tr,
+  toast,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
 import { useFetcher } from "@remix-run/react";
 import {
+  type ColumnDef,
   flexRender,
   getCoreRowModel,
-  useReactTable,
-  type ColumnDef,
+  useReactTable
 } from "@tanstack/react-table";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
@@ -64,7 +64,7 @@ import {
   LuTrash2,
   LuTriangleAlert,
   LuTruck,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import { ItemThumbnail } from "~/components";
 import { getAccessorKey } from "~/components/Table/utils";
@@ -81,13 +81,13 @@ import {
   updateTransferLineQuantity,
   useItems,
   useStockTransferWizard,
-  useStockTransferWizardLinesCount,
+  useStockTransferWizardLinesCount
 } from "~/stores";
 import { path } from "~/utils/path";
 
 export function StockTransferWizard({
   locationId,
-  onClose,
+  onClose
 }: {
   locationId: string;
   onClose: () => void;
@@ -130,7 +130,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const [wizard] = useStockTransferWizard();
@@ -158,7 +158,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
       "get_item_shelf_requirements_by_location",
       {
         company_id: companyId,
-        location_id: locationId,
+        location_id: locationId
       }
     );
 
@@ -178,7 +178,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
             item.quantityOnHandInShelf - item.quantityRequiredByShelf,
           quantityIncoming: item.quantityIncoming,
           shelfId: item.shelfId,
-          shelfName: item.shelfName,
+          shelfName: item.shelfName
         })) ?? [];
       setAllTransferToData(mappedData);
     }
@@ -206,7 +206,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
         {
           company_id: companyId,
           location_id: locationId,
-          item_id: toItem.itemId,
+          item_id: toItem.itemId
         }
       );
 
@@ -230,7 +230,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
               item.quantityOnHandInShelf - item.quantityRequiredByShelf,
             quantityIncoming: item.quantityIncoming,
             shelfId: item.shelfId,
-            shelfName: item.shelfName,
+            shelfName: item.shelfName
           })) ?? []
       );
     });
@@ -245,7 +245,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
     companyId,
     locationId,
     wizard.selectedToItemShelfIds,
-    allTransferToData,
+    allTransferToData
   ]);
 
   useMount(() => {
@@ -258,12 +258,14 @@ function TransferGrid({ locationId }: { locationId: string }) {
   }, [transferFromQuery]);
 
   // Reset offsets when page size changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     setTransferToOffset(0);
     setTransferFromOffset(0);
   }, [pageSize]);
 
   // Deselect active item/shelf when "to" table page changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   useEffect(() => {
     clearSelectedToItemShelves();
   }, [transferToOffset]);
@@ -360,12 +362,12 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </VStack>
           </HStack>
         ),
-        header: "Item ID",
+        header: "Item ID"
       },
       {
         accessorKey: "shelfName",
         cell: ({ row }) => row.original.shelfName,
-        header: "Shelf",
+        header: "Shelf"
       },
       {
         accessorKey: "quantityOnHand",
@@ -403,12 +405,12 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </div>
           );
         },
-        header: "On Shelf",
+        header: "On Shelf"
       },
       {
         accessorKey: "quantityRequired",
         cell: ({ row }) => formatter.format(row.original.quantityRequired),
-        header: "Required",
+        header: "Required"
       },
 
       {
@@ -477,12 +479,12 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </div>
           );
         },
-        header: "Available",
+        header: "Available"
       },
       {
         accessorKey: "quantityIncoming",
         cell: ({ row }) => formatter.format(row.original.quantityIncoming),
-        header: "Incoming",
+        header: "Incoming"
       },
       {
         id: "actions",
@@ -528,8 +530,8 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </div>
           );
         },
-        header: "",
-      },
+        header: ""
+      }
     ];
   }, [formatter, wizard.lines]);
 
@@ -600,7 +602,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
                       quantityAvailable: row.original.quantityAvailable,
                       quantity: defaultQuantity,
                       requiresSerialTracking: trackingType === "Serial",
-                      requiresBatchTracking: trackingType === "Batch",
+                      requiresBatchTracking: trackingType === "Batch"
                     });
                   }
                 }}
@@ -610,7 +612,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </div>
           );
         },
-        header: "",
+        header: ""
       },
       {
         id: "quantity",
@@ -670,7 +672,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </NumberField>
           );
         },
-        header: "Quantity",
+        header: "Quantity"
       },
       {
         accessorKey: "itemReadableId",
@@ -690,12 +692,12 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </VStack>
           </HStack>
         ),
-        header: "Item ID",
+        header: "Item ID"
       },
       {
         accessorKey: "shelfName",
         cell: ({ row }) => row.original.shelfName,
-        header: "Shelf",
+        header: "Shelf"
       },
       {
         accessorKey: "quantityOnHand",
@@ -742,7 +744,7 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </div>
           );
         },
-        header: "On Shelf",
+        header: "On Shelf"
       },
       {
         accessorKey: "quantityAvailable",
@@ -834,25 +836,25 @@ function TransferGrid({ locationId }: { locationId: string }) {
             </div>
           );
         },
-        header: "Available",
+        header: "Available"
       },
       {
         accessorKey: "quantityRequired",
         cell: ({ row }) => formatter.format(row.original.quantityRequired),
-        header: "Required",
+        header: "Required"
       },
       {
         accessorKey: "quantityIncoming",
         cell: ({ row }) => formatter.format(row.original.quantityIncoming),
-        header: "Incoming",
-      },
+        header: "Incoming"
+      }
     ];
   }, [
     allTransferToData,
     wizard.selectedToItemShelfIds,
     wizard.lines,
     items,
-    formatter,
+    formatter
   ]);
 
   return (
@@ -934,7 +936,7 @@ function TransferTable({
   handleNextPage,
   search,
   onSearchChange,
-  isRowSelected,
+  isRowSelected
 }: {
   title: string;
   data: TransferTableRow[];
@@ -961,7 +963,7 @@ function TransferTable({
   const table = useReactTable({
     data: data,
     columns: columns,
-    getCoreRowModel: getCoreRowModel(),
+    getCoreRowModel: getCoreRowModel()
   });
 
   const rows = table.getRowModel().rows;
@@ -1039,7 +1041,7 @@ function TransferTable({
                             sortable && "cursor-pointer"
                           )}
                           style={{
-                            width: header.getSize(),
+                            width: header.getSize()
                           }}
                         >
                           {!header.isPlaceholder && (
@@ -1141,7 +1143,7 @@ function PaginationButtons({
   canPreviousPage,
   canNextPage,
   handlePreviousPage,
-  handleNextPage,
+  handleNextPage
 }: {
   count: number;
   offset: number;

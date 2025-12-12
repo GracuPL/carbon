@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "people"
   });
 
   const formData = await request.formData();
@@ -22,13 +22,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
+  // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
   const { id, ...data } = validation.data;
 
   const createHoliday = await upsertHoliday(client, {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createHoliday.error) {
@@ -50,7 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function NewHolidayRoute() {
   const initialValues = {
     name: "",
-    date: "",
+    date: ""
   };
 
   return <HolidayForm initialValues={initialValues} />;
