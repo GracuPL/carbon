@@ -359,24 +359,36 @@ export const notifyTask = task({
     }
 
     if (payload.recipient.type === "user") {
+      const novuPayload = {
+        workflow,
+        payload: {
+          recordId: payload.documentId,
+          description,
+          event: payload.event,
+          from: payload.from,
+        },
+        user: {
+          subscriberId: getSubscriberId({
+            companyId: payload.companyId,
+            userId: payload.recipient.userId,
+          }),
+        },
+      };
+
+      console.log("Sending single user notification to Novu", {
+        event: payload.event,
+        workflow,
+        subscriberId: novuPayload.user.subscriberId,
+        description,
+        documentId: payload.documentId,
+        from: payload.from,
+      });
+
       try {
-        await trigger(novu, {
-          workflow,
-          payload: {
-            recordId: payload.documentId,
-            description,
-            event: payload.event,
-            from: payload.from,
-          },
-          user: {
-            subscriberId: getSubscriberId({
-              companyId: payload.companyId,
-              userId: payload.recipient.userId,
-            }),
-          },
-        });
+        await trigger(novu, novuPayload);
+        console.log("Successfully sent single user notification to Novu");
       } catch (error) {
-        console.error("Error triggering notifications");
+        console.error("Error triggering single user notification");
         console.error(error);
       }
     } else if (["group", "users"].includes(payload.recipient.type)) {
@@ -404,8 +416,14 @@ export const notifyTask = task({
         !Array.isArray(userIds.data) ||
         userIds.data.length === 0
       ) {
-        console.error(
-          `No userIds found for payload ${JSON.stringify(payload.recipient)}`
+        console.log(
+          `No userIds found for payload - skipping Novu notification`,
+          {
+            event: payload.event,
+            recipientType: payload.recipient.type,
+            recipient: payload.recipient,
+            reason: "No users found in group/users list",
+          }
         );
         return;
       }
@@ -414,6 +432,19 @@ export const notifyTask = task({
       const filteredUserIds = payload.from
         ? (userIds.data as string[]).filter((id) => id !== payload.from)
         : (userIds.data as string[]);
+
+      if (filteredUserIds.length === 0) {
+        console.log(
+          `No recipients after filtering sender - skipping Novu notification`,
+          {
+            event: payload.event,
+            originalUserCount: userIds.data.length,
+            from: payload.from,
+            reason: "All users filtered out (sender was only recipient)",
+          }
+        );
+        return;
+      }
 
       const notificationPayloads: TriggerPayload[] =
         [...new Set(filteredUserIds)].map((userId) => ({
@@ -433,12 +464,31 @@ export const notifyTask = task({
         })) ?? [];
 
       if (notificationPayloads.length > 0) {
+        console.log("Sending bulk notifications to Novu", {
+          event: payload.event,
+          workflow,
+          recipientCount: notificationPayloads.length,
+          description,
+          documentId: payload.documentId,
+          from: payload.from,
+          subscriberIds: notificationPayloads.map(p => p.user.subscriberId),
+        });
+
         try {
           await triggerBulk(novu, notificationPayloads.flat());
+          console.log(`Successfully sent ${notificationPayloads.length} bulk notifications to Novu`);
         } catch (error) {
-          console.error("Error triggering notifications");
+          console.error("Error triggering bulk notifications");
           console.error(error);
         }
+      } else {
+        console.log(
+          `No notification payloads generated - skipping Novu notification`,
+          {
+            event: payload.event,
+            reason: "Empty notification payloads array",
+          }
+        );
       }
     }
   },
