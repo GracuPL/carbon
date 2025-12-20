@@ -1610,8 +1610,7 @@ export async function updateJobBatchNumber(
       }
     })
     .eq("id", currentAttributes.data.id)
-    .select("id, attributes")
-    .order("createdAt", { ascending: false });
+    .select("id, attributes");
 }
 
 export async function updateJobStatus(
