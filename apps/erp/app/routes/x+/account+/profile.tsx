@@ -2,6 +2,7 @@ import { assertIsPost, error, success } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -18,7 +19,13 @@ import {
   updateAvatar,
   updatePublicAccount
 } from "~/modules/account";
-import { ProfileForm, ProfilePhotoForm } from "~/modules/account/ui/Profile";
+import {
+  LanguageForm,
+  ProfileForm,
+  ProfilePhotoForm
+} from "~/modules/account/ui/Profile";
+import { languageValidator } from "~/modules/settings";
+import { getLanguage, setLanguage } from "~/services/language.server";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
@@ -39,7 +46,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
   }
 
-  return { user: user.data };
+  return {
+    user: user.data,
+    language: getLanguage(request)
+  };
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -105,21 +115,37 @@ export async function action({ request }: ActionFunctionArgs) {
     }
   }
 
+  // Handle language change
+  if (formData.has("language")) {
+    const validation = await validator(languageValidator).validate(formData);
+
+    if (validation.error) {
+      return validationError(validation.error);
+    }
+
+    return data(
+      {},
+      {
+        headers: {
+          "Set-Cookie": setLanguage(validation.data.language)
+        }
+      }
+    );
+  }
+
   return null;
 }
 
 export default function AccountProfile() {
-  const { user } = useLoaderData<typeof loader>();
+  const { user, language } = useLoaderData<typeof loader>();
+  const { t } = useTranslation("account");
 
   return (
-    <VStack spacing={2}>
+    <VStack spacing={4}>
       <Card>
         <CardHeader>
-          <CardTitle>Profile</CardTitle>
-          <CardDescription>
-            This information will be visible to all users, so be careful what
-            you share.
-          </CardDescription>
+          <CardTitle>{t("profile")}</CardTitle>
+          <CardDescription>{t("profileDescription")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 w-full">
@@ -128,6 +154,7 @@ export default function AccountProfile() {
           </div>
         </CardContent>
       </Card>
+      <LanguageForm currentLanguage={language} />
     </VStack>
   );
 }
