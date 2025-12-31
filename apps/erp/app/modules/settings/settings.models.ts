@@ -180,6 +180,15 @@ export const themeValidator = z.object({
   })
 });
 
+export const languages = ["en", "pl"] as const;
+export type Language = (typeof languages)[number];
+
+export const languageValidator = z.object({
+  language: z.enum(languages, {
+    errorMap: (issue, ctx) => ({ message: "Language is required" })
+  })
+});
+
 export const webhookValidator = z
   .object({
     id: zfd.text(z.string().optional()),
