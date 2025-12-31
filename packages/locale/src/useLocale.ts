@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  languageNames,
   type SupportedLanguage,
+  languageNames,
   supportedLanguages
 } from "./config";
 

@@ -1,20 +1,22 @@
 // Core
+export { default as i18n, i18n as i18nInstance } from "./i18n";
+export { LocaleProvider, default as LocaleProviderDefault } from "./provider";
+export { useLocale, default as useLocaleDefault } from "./useLocale";
 
 // Re-export from react-i18next for convenience
-export { Trans, useTranslation } from "react-i18next";
+export { useTranslation, Trans } from "react-i18next";
+
 // Config
 export {
+  supportedLanguages,
   defaultLanguage,
-  defaultNamespace,
   languageNames,
-  type Namespace,
   namespaces,
+  defaultNamespace,
   type SupportedLanguage,
-  supportedLanguages
+  type Namespace
 } from "./config";
-export { default as i18n, i18n as i18nInstance } from "./i18n";
-export { default as LocaleProviderDefault, LocaleProvider } from "./provider";
+
 // Translations
 export { en } from "./translations/en";
 export { pl } from "./translations/pl";
-export { default as useLocaleDefault, useLocale } from "./useLocale";
