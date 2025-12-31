@@ -163,8 +163,8 @@ export default function MaintenanceDashboard() {
     return [
       { label: "All Work Centers", value: "all" },
       ...workCenters.map((wc) => ({
-        label: wc.name,
-        value: wc.id
+        label: wc.label,
+        value: wc.value
       }))
     ];
   }, [workCenters]);
@@ -334,7 +334,7 @@ export default function MaintenanceDashboard() {
     return `${selectedKpiData.label.replace(/ /g, "_")}_${startDate}_to_${endDate}${
       workCenterId === "all"
         ? ""
-        : `_${workCenters.find((wc) => wc.id === workCenterId)?.name}`
+        : `_${workCenters.find((wc) => wc.value === workCenterId)?.label}`
     }.csv`;
   }, [
     dateRange?.start,
@@ -746,8 +746,8 @@ function DispatchTable({ data }: { data: DispatchRow[] }) {
 
   const getWorkCenterName = (workCenterId: string | null) => {
     if (!workCenterId) return "-";
-    const wc = workCenters.find((w) => w.id === workCenterId);
-    return wc?.name ?? "-";
+    const wc = workCenters.find((w) => w.value === workCenterId);
+    return wc?.label ?? "-";
   };
 
   return (
