@@ -88,6 +88,27 @@ export const inventory = {
   deleteReceipt: "Usuń przyjęcie",
   confirmDeleteReceipt: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
 
+  // Shipment fields - Pola wysyłki
+  shipmentId: "ID wysyłki",
+  customer: "Klient",
+  editShipment: "Edytuj wysyłkę",
+  viewShipment: "Pokaż wysyłkę",
+  deleteShipment: "Usuń wysyłkę",
+  confirmDeleteShipment: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Kanban fields - Pola kanban
+  kanban: "Kanban",
+  reorderQty: "Ilość zamówienia",
+  release: "Zwolnij",
+  start: "Start",
+  complete: "Zakończ",
+  create: "Utwórz",
+  settings: "Ustawienia",
+  edit: "Edytuj",
+  viewItemMaster: "Pokaż kartę produktu",
+  actions: "Akcje",
+  printLabels: "Drukuj etykiety",
+
   // Actions - Akcje
   receive: "Przyjmij",
   ship: "Wyślij",
