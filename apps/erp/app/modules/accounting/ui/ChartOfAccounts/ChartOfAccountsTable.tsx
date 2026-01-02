@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Button, Checkbox, cn, HStack } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useMemo } from "react";
@@ -15,6 +16,7 @@ type ChartOfAccountsTableProps = {
 };
 
 const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
+  const { t } = useTranslation("accounting");
   useRealtime("journal");
 
   const customColumns = useCustomColumns<Chart>("journal");
@@ -23,7 +25,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
     const defaultColumns: ColumnDef<Chart>[] = [
       {
         accessorKey: "number",
-        header: "Number",
+        header: t("number"),
         cell: ({ row }) => {
           const isPosting = row.original.type === "Posting";
 
@@ -56,7 +58,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
       },
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => {
           const isPosting = row.original.type === "Posting";
           return (
@@ -71,7 +73,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
       },
       {
         accessorKey: "netChange",
-        header: "Net Change",
+        header: t("netChange"),
         cell: ({ row }) => {
           const hasValue = ["Posting", "End Total", "Total"].includes(
             row.original.type
@@ -81,7 +83,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
       },
       {
         accessorKey: "balanceAtDate",
-        header: "Balance at Date",
+        header: t("balanceAtDate"),
         cell: ({ row }) => {
           const hasValue = ["Posting", "End Total", "Total"].includes(
             row.original.type
@@ -91,7 +93,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
       },
       {
         accessorKey: "balance",
-        header: "Balance",
+        header: t("balance"),
         cell: ({ row }) => {
           const hasValue = ["Posting", "End Total", "Total"].includes(
             row.original.type
@@ -101,38 +103,38 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
       },
       {
         accessorKey: "incomeBalance",
-        header: "Income/Balance",
+        header: t("incomeBalance"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "type",
-        header: "Account Type",
+        header: t("accountType"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "totaling",
-        header: "Totaling",
+        header: t("totaling"),
         cell: ({ row }) => row.original.totaling ?? ""
       },
       {
         accessorKey: "accountCategory",
-        header: "Account Category",
+        header: t("accountCategory"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "accountSubCategory",
-        header: "Account Subcategory",
+        header: t("accountSubcategory"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "directPosting",
-        header: "Direct Posting",
+        header: t("directPosting"),
         cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />
       }
     ];
 
     return [...defaultColumns, ...customColumns];
-  }, [customColumns]);
+  }, [customColumns, t]);
 
   return <Grid<Chart> data={data} columns={columns} withSimpleSorting />;
 });

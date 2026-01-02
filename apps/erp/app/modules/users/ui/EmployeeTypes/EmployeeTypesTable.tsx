@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type EmployeeTypesTableProps = {
 };
 
 const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
+  const { t } = useTranslation("users");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -24,7 +26,7 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
     return [
       {
         accessorKey: "name",
-        header: "Employee Type",
+        header: t("employeeType"),
         cell: ({ row, getValue }) => (
           <Hyperlink to={row.original.id}>
             <Enumerable value={row.original.name} className="cursor-pointer" />
@@ -36,7 +38,7 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
         }
       }
     ];
-  }, []);
+  }, [t]);
 
   const renderContextMenu = useCallback(
     (row: (typeof data)[number]) => {
@@ -50,7 +52,7 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<BsPeopleFill />} />
-            View Employees
+            {t("viewEmployees")}
           </MenuItem>
           <MenuItem
             disabled={!permissions.can("update", "users")}
@@ -59,7 +61,7 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Employee Type
+            {t("editEmployeeType")}
           </MenuItem>
           <MenuItem
             destructive
@@ -71,12 +73,12 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Employee Type
+            {t("deleteEmployeeType")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -86,11 +88,11 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
       count={count}
       primaryAction={
         permissions.can("create", "users") && (
-          <New label="Employee Type" to={`new?${params.toString()}`} />
+          <New label={t("employeeType")} to={`new?${params.toString()}`} />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Employee Types"
+      title={t("employeeTypes")}
     />
   );
 });

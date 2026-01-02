@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -27,6 +28,7 @@ type AccountCategoriesTableProps = {
 
 const AccountCategoriesTable = memo(
   ({ data, count }: AccountCategoriesTableProps) => {
+    const { t } = useTranslation("accounting");
     const navigate = useNavigate();
     const [params] = useUrlParams();
     const permissions = usePermissions();
@@ -51,7 +53,7 @@ const AccountCategoriesTable = memo(
       const defaultColumns: ColumnDef<(typeof data)[number]>[] = [
         {
           accessorKey: "category",
-          header: "Category",
+          header: t("category"),
           cell: ({ row }) => (
             <Hyperlink to={row.original.id as string}>
               {row.original.category}
@@ -59,7 +61,7 @@ const AccountCategoriesTable = memo(
           )
         },
         {
-          header: "Income/Balance",
+          header: t("incomeBalance"),
           accessorKey: "incomeBalance",
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
@@ -70,11 +72,11 @@ const AccountCategoriesTable = memo(
                 label: <Enumerable value={incomeBalance} />
               }))
             },
-            pluralHeader: "Income/Balance"
+            pluralHeader: t("incomeBalance")
           }
         },
         {
-          header: "Class",
+          header: t("class"),
           accessorKey: "class",
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
@@ -85,16 +87,16 @@ const AccountCategoriesTable = memo(
                 label: <Enumerable value={accountClass} />
               }))
             },
-            pluralHeader: "Income/Balance"
+            pluralHeader: t("incomeBalance")
           }
         },
 
         {
-          header: "Subcategories",
+          header: t("subcategories"),
           cell: ({ row }) => (
             <HStack className="text-xs text-muted-foreground">
               <LuListChecks />
-              <span>{row.original.subCategoriesCount ?? 0} Subcategories</span>
+              <span>{row.original.subCategoriesCount ?? 0} {t("subcategories")}</span>
               <Button variant="secondary" size="sm" asChild>
                 <Link
                   to={`${path.to.accountingCategoryList(
@@ -102,7 +104,7 @@ const AccountCategoriesTable = memo(
                   )}?${params?.toString()}`}
                   prefetch="intent"
                 >
-                  Edit
+                  {t("edit")}
                 </Link>
               </Button>
             </HStack>
@@ -111,7 +113,7 @@ const AccountCategoriesTable = memo(
       ];
 
       return [...defaultColumns, ...customColumns];
-    }, [params, customColumns]);
+    }, [params, customColumns, t]);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const renderContextMenu = useCallback(
@@ -129,7 +131,7 @@ const AccountCategoriesTable = memo(
               }}
             >
               <MenuIcon icon={<BiAddToQueue />} />
-              New Subcategory
+              {t("newSubcategory")}
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -141,7 +143,7 @@ const AccountCategoriesTable = memo(
               }}
             >
               <MenuIcon icon={<BsListUl />} />
-              View Subcategories
+              {t("viewSubcategories")}
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -149,20 +151,20 @@ const AccountCategoriesTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Account Category
+              {t("editAccountCategory")}
             </MenuItem>
             <MenuItem
               disabled={!permissions.can("delete", "users")}
               onClick={() => onDelete(row)}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Account Category
+              {t("deleteAccountCategory")}
             </MenuItem>
           </>
         );
       },
 
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -173,18 +175,18 @@ const AccountCategoriesTable = memo(
           count={count ?? 0}
           primaryAction={
             permissions.can("update", "accounting") && (
-              <New label="Account Category" to={`new?${params.toString()}`} />
+              <New label={t("accountCategory")} to={`new?${params.toString()}`} />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Account Categories"
+          title={t("accountCategories")}
         />
 
         {selectedCategory && selectedCategory.id && (
           <ConfirmDelete
             action={path.to.deleteAccountingCategory(selectedCategory.id)}
             name={selectedCategory?.category ?? ""}
-            text={`Are you sure you want to deactivate the ${selectedCategory?.category} account category?`}
+            text={t("confirmDeleteAccountCategory", { name: selectedCategory?.category ?? "" })}
             isOpen={deleteModal.isOpen}
             onCancel={onDeleteCancel}
             onSubmit={onDeleteCancel}

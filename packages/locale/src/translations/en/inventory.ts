@@ -126,5 +126,58 @@ export const inventory = {
   // Reorder policies
   demandBased: "Demand-Based",
   planBased: "Plan-Based",
-  fixedReorder: "Fixed Reorder"
+  fixedReorder: "Fixed Reorder",
+
+  // Shelf fields
+  name: "Name",
+  newShelf: "New Shelf",
+  editShelf: "Edit Shelf",
+  deleteShelf: "Delete Shelf",
+  confirmDeleteShelf: "Are you sure you want to delete {{name}}? This cannot be undone.",
+
+  // Shipping method fields
+  carrier: "Carrier",
+  trackingUrl: "Tracking URL",
+  carrierAccount: "Carrier Account",
+  editShippingMethod: "Edit Shipping Method",
+  deleteShippingMethod: "Delete Shipping Method",
+
+  // Stock transfer fields
+  stockTransferId: "Stock Transfer ID",
+  completedAt: "Completed At",
+  addStockTransfer: "Add Stock Transfer",
+  editStockTransfer: "Edit Stock Transfer",
+  viewStockTransfer: "View Stock Transfer",
+  deleteStockTransfer: "Delete Stock Transfer",
+  confirmDeleteStockTransfer: "Are you sure you want to delete {{name}}? This cannot be undone.",
+
+  // Warehouse transfer fields
+  warehouseTransferId: "Warehouse Transfer ID",
+  sourceLocation: "Source Location",
+  destinationLocation: "Destination Location",
+  addWarehouseTransfer: "Add Warehouse Transfer",
+  editWarehouseTransfer: "Edit Warehouse Transfer",
+  viewWarehouseTransfer: "View Warehouse Transfer",
+  deleteWarehouseTransfer: "Delete Warehouse Transfer",
+  confirmDeleteWarehouseTransfer: "Are you sure you want to delete {{name}}? This cannot be undone.",
+
+  // Tracked entities
+  trackedEntity: "Tracked Entity",
+  entity: "Entity",
+  entityId: "Entity ID",
+  entityType: "Entity Type",
+  entityTypes: "Entity Types",
+  serialBatchNumber: "Serial/Batch #",
+  viewTraceabilityGraph: "View Traceability Graph",
+
+  // Warehouse transfer additional fields
+  transferId: "Transfer ID",
+  fromLocation: "From Location",
+  toLocation: "To Location",
+  reference: "Reference",
+  transferDate: "Transfer Date",
+  expectedReceipt: "Expected Receipt",
+  viewTransfer: "View Transfer",
+  editTransfer: "Edit Transfer",
+  deleteTransfer: "Delete Transfer"
 } as const;

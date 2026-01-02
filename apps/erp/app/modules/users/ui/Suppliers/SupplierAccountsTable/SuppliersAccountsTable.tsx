@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Checkbox,
   DropdownMenuContent,
@@ -44,6 +45,7 @@ const defaultColumnVisibility = {
 
 const SupplierAccountsTable = memo(
   ({ data, count, supplierTypes }: SupplierAccountsTableProps) => {
+    const { t } = useTranslation("users");
     const permissions = usePermissions();
     const [params] = useUrlParams();
 
@@ -78,7 +80,7 @@ const SupplierAccountsTable = memo(
     const columns = useMemo<ColumnDef<(typeof rows)[number]>[]>(() => {
       return [
         {
-          header: "User",
+          header: t("user"),
           cell: ({ row }) => (
             <HStack>
               <Avatar
@@ -97,7 +99,7 @@ const SupplierAccountsTable = memo(
 
         {
           accessorKey: "user.firstName",
-          header: "First Name",
+          header: t("firstName"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuUserCheck />
@@ -105,7 +107,7 @@ const SupplierAccountsTable = memo(
         },
         {
           accessorKey: "user.lastName",
-          header: "Last Name",
+          header: t("lastName"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuUserCheck />
@@ -113,7 +115,7 @@ const SupplierAccountsTable = memo(
         },
         {
           accessorKey: "user.email",
-          header: "Email",
+          header: t("email"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuMail />
@@ -121,7 +123,7 @@ const SupplierAccountsTable = memo(
         },
         {
           accessorKey: "supplier.name",
-          header: "Supplier",
+          header: t("supplier"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuContainer />,
@@ -136,7 +138,7 @@ const SupplierAccountsTable = memo(
         },
         {
           accessorKey: "supplier.supplierTypeId",
-          header: "Suppier Type",
+          header: t("supplierType"),
           cell: ({ row }) => (
             // @ts-ignore
             <Enumerable value={row.original.supplier?.supplierType?.name} />
@@ -154,7 +156,7 @@ const SupplierAccountsTable = memo(
         },
         {
           accessorKey: "active",
-          header: "Active",
+          header: t("active"),
           cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
           meta: {
             icon: <LuUserCheck />,
@@ -163,18 +165,18 @@ const SupplierAccountsTable = memo(
               options: [
                 {
                   value: "true",
-                  label: "Active"
+                  label: t("active")
                 },
                 {
                   value: "false",
-                  label: "Inactive"
+                  label: t("inactive")
                 }
               ]
             }
           }
         }
       ];
-    }, [supplierTypes, suppliers]);
+    }, [supplierTypes, suppliers, t]);
 
     const renderActions = useCallback(
       (selectedRows: typeof data) => {
@@ -195,7 +197,7 @@ const SupplierAccountsTable = memo(
               }
             >
               <LuMailCheck className="mr-2 h-4 w-4" />
-              <span>Resend Invite</span>
+              <span>{t("resendInvite")}</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -212,12 +214,12 @@ const SupplierAccountsTable = memo(
               }
             >
               <LuBan className="mr-2 h-4 w-4" />
-              <span>Deactivate Users</span>
+              <span>{t("deactivateUsers")}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         );
       },
-      [permissions, deactivateSupplierModal, resendInviteModal]
+      [permissions, deactivateSupplierModal, resendInviteModal, t]
     );
 
     const renderContextMenu = useCallback(
@@ -234,7 +236,7 @@ const SupplierAccountsTable = memo(
                   destructive
                 >
                   <MenuIcon icon={<LuBan />} />
-                  Deactivate Account
+                  {t("deactivateAccount")}
                 </MenuItem>
               </>
             ) : (
@@ -246,7 +248,7 @@ const SupplierAccountsTable = memo(
                   }}
                 >
                   <MenuIcon icon={<LuMailCheck />} />
-                  Resend Account Invite
+                  {t("resendAccountInvite")}
                 </MenuItem>
                 {permissions.can("delete", "users") && (
                   <MenuItem
@@ -257,7 +259,7 @@ const SupplierAccountsTable = memo(
                     destructive
                   >
                     <MenuIcon icon={<LuBan />} />
-                    Revoke Invite
+                    {t("revokeInvite")}
                   </MenuItem>
                 )}
               </>
@@ -269,7 +271,8 @@ const SupplierAccountsTable = memo(
         deactivateSupplierModal,
         permissions,
         resendInviteModal,
-        revokeInviteModal
+        revokeInviteModal,
+        t
       ]
     );
 
@@ -282,12 +285,12 @@ const SupplierAccountsTable = memo(
           defaultColumnVisibility={defaultColumnVisibility}
           primaryAction={
             permissions.can("create", "users") && (
-              <New label="Supplier" to={`new?${params.toString()}`} />
+              <New label={t("supplier")} to={`new?${params.toString()}`} />
             )
           }
           renderActions={renderActions}
           renderContextMenu={renderContextMenu}
-          title="Supplier Accounts"
+          title={t("supplierAccounts")}
           withSelectableRows={canEdit}
         />
 

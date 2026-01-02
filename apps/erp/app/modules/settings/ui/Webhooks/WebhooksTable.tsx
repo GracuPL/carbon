@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -56,6 +57,7 @@ type WebhooksTableProps = {
 };
 
 const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
+  const { t } = useTranslation("settings");
   const navigate = useNavigate();
   const [params] = useUrlParams();
   const permissions = usePermissions();
@@ -66,7 +68,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
     return [
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <div className="flex flex-col gap-1 justify-start items-start pb-1">
             <Hyperlink to={row.original.id!}>{row.original.name}</Hyperlink>
@@ -88,7 +90,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
       },
       {
         accessorKey: "table",
-        header: "Table",
+        header: t("table"),
         cell: ({ row }) => (
           <div className="flex flex-col gap-1 justify-start items-start pb-1">
             <Hyperlink
@@ -117,7 +119,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
       },
       {
         accessorKey: "successCount",
-        header: "Success",
+        header: t("success"),
         cell: ({ row }) => (
           <SuccessErrorBar
             successCount={row.original.successCount}
@@ -130,7 +132,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
       },
       {
         id: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -147,14 +149,14 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: t("createdAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
         }
       }
     ];
-  }, [people, webhookTables]);
+  }, [people, webhookTables, t]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const renderContextMenu = useCallback(
@@ -167,7 +169,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Webhook
+            {t("editWebhook")}
           </MenuItem>
           <MenuItem
             destructive
@@ -178,13 +180,13 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Webhook
+            {t("deleteWebhook")}
           </MenuItem>
         </>
       );
     },
 
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   const docsDisclosure = useDisclosure();
@@ -203,7 +205,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
           <HStack>
             {permissions.can("update", "users") && (
               <New
-                label="Webhook"
+                label={t("webhook")}
                 to={`${path.to.newWebhook}?${params.toString()}`}
               />
             )}
@@ -212,12 +214,12 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
               variant="secondary"
               onClick={docsDisclosure.onOpen}
             >
-              Webhooks Docs
+              {t("webhooksDocs")}
             </Button>
           </HStack>
         }
         renderContextMenu={renderContextMenu}
-        title="Webhooks"
+        title={t("webhooks")}
       />
       <Outlet />
       <WebhookDocs

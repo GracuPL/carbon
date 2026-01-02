@@ -1,0 +1,34 @@
+export const documents = {
+  // Module title - Tytuł modułu
+  title: "Dokumenty",
+
+  // Entities - Encje
+  document: "Dokument",
+
+  // Table headers - Nagłówki tabeli
+  name: "Nazwa",
+  sourceDocument: "Dokument źródłowy",
+  labels: "Etykiety",
+  size: "Rozmiar",
+  type: "Typ",
+  fileExtension: "Rozszerzenie pliku",
+  createdBy: "Utworzył",
+  createdAt: "Data utworzenia",
+  updatedBy: "Zaktualizował",
+  updatedAt: "Data aktualizacji",
+
+  // Actions - Akcje
+  edit: "Edytuj",
+  download: "Pobierz",
+  favorite: "Dodaj do ulubionych",
+  moveToTrash: "Przenieś do kosza",
+  restoreFromTrash: "Przywróć z kosza",
+  permanentlyDelete: "Usuń na stałe",
+  restore: "Przywróć",
+  create: "Utwórz",
+
+  // Confirmation dialogs - Dialogi potwierdzenia
+  confirmMoveToTrash: "Czy na pewno chcesz przenieść {{name}} do kosza?",
+  confirmRestore: "Czy na pewno chcesz przywrócić {{name}} z kosza?",
+  confirmPermanentDelete: "Czy na pewno chcesz trwale usunąć {{name}}? Tej operacji nie można cofnąć."
+} as const;

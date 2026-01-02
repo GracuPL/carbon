@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Avatar, HStack, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -17,6 +18,7 @@ type PartnersTableProps = {
 };
 
 const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
+  const { t } = useTranslation("resources");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const [params] = useUrlParams();
@@ -27,7 +29,7 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
     const defaultColumns: ColumnDef<Partner>[] = [
       {
         accessorKey: "supplierName",
-        header: "Supplier",
+        header: t("supplier"),
         cell: ({ row }) => (
           <HStack>
             <Avatar size="sm" name={row.original.supplierName ?? ""} />
@@ -53,7 +55,7 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
         }
       },
       {
-        header: "Location",
+        header: t("location"),
         cell: ({ row }) => `${row.original.city}, ${row.original.state}`
       },
       // {
@@ -72,13 +74,13 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
       // },
       {
         accessorKey: "hoursPerWeek",
-        header: "Hours per Week",
+        header: t("hoursPerWeek"),
         cell: (item) => item.getValue()
       }
     ];
 
     return [...defaultColumns, ...customColumns];
-  }, [params, customColumns, suppliers]);
+  }, [params, customColumns, suppliers, t]);
 
   const renderContextMenu = useCallback(
     (row: Partner) => {
@@ -95,7 +97,7 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Partner
+            {t("editPartner")}
           </MenuItem>
           <MenuItem
             destructive
@@ -109,12 +111,12 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Partner
+            {t("deletePartner")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -124,11 +126,11 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
       columns={columns}
       primaryAction={
         permissions.can("create", "resources") && (
-          <New label="Partner" to={`new?${params.toString()}`} />
+          <New label={t("partner")} to={`new?${params.toString()}`} />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Partners"
+      title={t("partners")}
     />
   );
 });

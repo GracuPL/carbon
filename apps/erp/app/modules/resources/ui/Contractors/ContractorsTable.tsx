@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Avatar, HStack, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -17,6 +18,7 @@ type ContractorsTableProps = {
 };
 
 const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
+  const { t } = useTranslation("resources");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const [params] = useUrlParams();
@@ -27,7 +29,7 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
   const columns = useMemo<ColumnDef<Contractor>[]>(() => {
     const defaultColumns: ColumnDef<Contractor>[] = [
       {
-        header: "Contractor",
+        header: t("contractor"),
         cell: ({ row }) => (
           <HStack>
             <Avatar
@@ -46,7 +48,7 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
       },
       {
         id: "supplierId",
-        header: "Supplier",
+        header: t("supplier"),
         cell: ({ row }) => (
           <SupplierAvatar supplierId={row.original.supplierId} />
         ),
@@ -96,13 +98,13 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
       // },
       {
         accessorKey: "hoursPerWeek",
-        header: "Hours per Week",
+        header: t("hoursPerWeek"),
         cell: (item) => item.getValue()
       }
     ];
 
     return [...defaultColumns, ...customColumns];
-  }, [suppliers, customColumns, params]);
+  }, [suppliers, customColumns, params, t]);
 
   const renderContextMenu = useCallback(
     (row: Contractor) => {
@@ -118,7 +120,7 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Contractor
+            {t("editContractor")}
           </MenuItem>
           <MenuItem
             destructive
@@ -132,12 +134,12 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Contractor
+            {t("deleteContractor")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -147,11 +149,11 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
       columns={columns}
       primaryAction={
         permissions.can("create", "resources") && (
-          <New label="Contractor" to={`new?${params.toString()}`} />
+          <New label={t("contractor")} to={`new?${params.toString()}`} />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Contractors"
+      title={t("contractors")}
     />
   );
 });

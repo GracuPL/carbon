@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   HStack,
@@ -34,6 +35,7 @@ type TrainingsTableProps = {
 };
 
 const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
+  const { t } = useTranslation("resources");
   const navigate = useNavigate();
   const permissions = usePermissions();
 
@@ -45,7 +47,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
     const defaultColumns: ColumnDef<TrainingListItem>[] = [
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <Hyperlink to={path.to.training(row.original.id!)}>
             {row.original.name}
@@ -57,7 +59,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       },
       {
         accessorKey: "status",
-        header: "Status",
+        header: t("status"),
         cell: ({ row }) => <TrainingStatus status={row.original.status} />,
         meta: {
           filter: {
@@ -76,7 +78,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       },
       {
         accessorKey: "type",
-        header: "Type",
+        header: t("type"),
         cell: ({ row }) => (
           <Badge
             variant={
@@ -90,8 +92,8 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
           filter: {
             type: "static",
             options: [
-              { value: "Mandatory", label: "Mandatory" },
-              { value: "Optional", label: "Optional" }
+              { value: "Mandatory", label: t("mandatory") },
+              { value: "Optional", label: t("optional") }
             ]
           },
           icon: <LuShapes />
@@ -99,7 +101,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       },
       {
         accessorKey: "frequency",
-        header: "Frequency",
+        header: t("frequency"),
         cell: ({ row }) => (
           <Badge variant="secondary">{row.original.frequency}</Badge>
         ),
@@ -108,16 +110,16 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
           filter: {
             type: "static",
             options: [
-              { value: "Once", label: "Once" },
-              { value: "Quarterly", label: "Quarterly" },
-              { value: "Annual", label: "Annual" }
+              { value: "Once", label: t("once") },
+              { value: "Quarterly", label: t("quarterly") },
+              { value: "Annual", label: t("annual") }
             ]
           }
         }
       },
       {
         accessorKey: "estimatedDuration",
-        header: "Duration",
+        header: t("duration"),
         cell: ({ row }) =>
           row.original.estimatedDuration ? (
             <div className="flex items-center gap-1">
@@ -135,7 +137,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       },
       {
         accessorKey: "assignee",
-        header: "Assignee",
+        header: t("assignee"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
@@ -145,7 +147,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       },
       {
         accessorKey: "tags",
-        header: "Tags",
+        header: t("tags"),
         cell: ({ row }) => (
           <HStack spacing={0} className="gap-1">
             {row.original.tags?.map((tag) => (
@@ -169,7 +171,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       }
     ];
     return [...defaultColumns];
-  }, [tags]);
+  }, [tags, t]);
 
   const renderContextMenu = useCallback(
     (row: TrainingListItem) => {
@@ -182,7 +184,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Training
+            {t("editTraining")}
           </MenuItem>
           <MenuItem
             destructive
@@ -195,12 +197,12 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Training
+            {t("deleteTraining")}
           </MenuItem>
         </>
       );
     },
-    [navigate, permissions, deleteDisclosure]
+    [navigate, permissions, deleteDisclosure, t]
   );
 
   return (
@@ -211,11 +213,11 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
         count={count}
         primaryAction={
           permissions.can("create", "resources") && (
-            <New label="Training" to={path.to.newTraining} />
+            <New label={t("training")} to={path.to.newTraining} />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Training"
+        title={t("trainings")}
         table="training"
         withSavedView
       />
@@ -231,8 +233,8 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             setSelectedTraining(null);
             deleteDisclosure.onClose();
           }}
-          name={selectedTraining.name ?? "training"}
-          text="Are you sure you want to delete this training?"
+          name={selectedTraining.name ?? t("training")}
+          text={t("confirmDeleteTraining")}
         />
       )}
     </>

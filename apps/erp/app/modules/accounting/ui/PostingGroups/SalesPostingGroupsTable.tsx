@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Table } from "~/components";
@@ -24,6 +25,7 @@ const SalesPostingGroupsTable = ({
   balanceSheetAccounts,
   incomeStatementAccounts
 }: SalesPostingGroupsTableProps) => {
+  const { t } = useTranslation("accounting");
   const { canEdit, onCellEdit } = usePostingGroups("postingGroupSales");
 
   const balanceSheetAccountOptions = useMemo(() => {
@@ -44,7 +46,7 @@ const SalesPostingGroupsTable = ({
     return [
       {
         id: "itemPostingGroupId",
-        header: "Posting Group",
+        header: t("postingGroup"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -66,7 +68,7 @@ const SalesPostingGroupsTable = ({
       },
       {
         id: "customerTypeId",
-        header: "Customer Type",
+        header: t("customerType"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -79,45 +81,45 @@ const SalesPostingGroupsTable = ({
         meta: {
           filter: {
             type: "static",
-            options: customerTypes.map((t) => ({
-              label: <Enumerable value={t.name} />,
-              value: t.id
+            options: customerTypes.map((ct) => ({
+              label: <Enumerable value={ct.name} />,
+              value: ct.id
             }))
           }
         }
       },
       {
         accessorKey: "receivablesAccount",
-        header: "Receivables",
+        header: t("receivables"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesAccount",
-        header: "Sales",
+        header: t("sales"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesDiscountAccount",
-        header: "Sales Discount",
+        header: t("salesDiscount"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesCreditAccount",
-        header: "Sales Credit",
+        header: t("salesCredit"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesPrepaymentAccount",
-        header: "Sales Prepayment",
+        header: t("salesPrepayment"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesTaxPayableAccount",
-        header: "Sales Tax Payable",
+        header: t("salesTaxPayable"),
         cell: (item) => item.getValue()
       }
     ];
-  }, [customerTypes, itemPostingGroups]);
+  }, [customerTypes, itemPostingGroups, t]);
 
   const editableComponents = useMemo(
     () => ({
@@ -148,7 +150,7 @@ const SalesPostingGroupsTable = ({
       editableComponents={editableComponents}
       withInlineEditing={canEdit}
       withSearch={false}
-      title="Sales Posting Groups"
+      title={t("salesPostingGroups")}
     />
   );
 };
