@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Avatar,
   AvatarGroup,
@@ -47,6 +48,7 @@ const defaultColumnVisibility = {
 };
 
 const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
+  const { t } = useTranslation("resources");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const [params] = useUrlParams();
@@ -58,7 +60,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
     const defaultColumns: ColumnDef<Process>[] = [
       {
         accessorKey: "name",
-        header: "Process",
+        header: t("process"),
         cell: ({ row }) =>
           row.original.processType === "Outside" ||
           ((row.original.workCenters as any[]) ?? []).length > 0 ? (
@@ -82,7 +84,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         accessorKey: "processType",
-        header: "Process Type",
+        header: t("processType"),
         cell: (item) =>
           item.getValue() === "Outside" ? (
             <Badge>Outside</Badge>
@@ -95,7 +97,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         id: "workCenters",
-        header: "Work Centers",
+        header: t("workCenters"),
         cell: ({ row }) => (
           <span className="flex gap-2 items-center flex-wrap py-2">
             {((row.original.workCenters ?? []) as Array<string>).map((wc) => {
@@ -127,7 +129,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         accessorKey: "defaultStandardFactor",
-        header: "Default Unit",
+        header: t("defaultUnit"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuRuler />,
@@ -142,7 +144,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         id: "suppliers",
-        header: "Suppliers",
+        header: t("suppliers"),
         cell: ({ row }) => (
           <AvatarGroup limit={5}>
             <AvatarGroupList>
@@ -161,7 +163,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         accessorKey: "completeAllOnScan",
-        header: "Complete All",
+        header: t("completeAll"),
         cell: ({ row }) => (
           <div className="flex w-full items-center justify-center">
             <Checkbox isChecked={row.original.completeAllOnScan ?? false} />
@@ -180,7 +182,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         id: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -197,7 +199,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       },
       {
         id: "updatedBy",
-        header: "Updated By",
+        header: t("updatedBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.updatedBy} />
         ),
@@ -214,7 +216,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [workCenters, people, customColumns, navigate]);
+  }, [workCenters, people, customColumns, navigate, t]);
 
   const renderContextMenu = useCallback(
     (row: (typeof data)[number]) => {
@@ -226,7 +228,7 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Process
+            {t("editProcess")}
           </MenuItem>
           <MenuItem
             destructive
@@ -238,12 +240,12 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Process
+            {t("deleteProcess")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -254,11 +256,11 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
       defaultColumnVisibility={defaultColumnVisibility}
       primaryAction={
         permissions.can("create", "resources") && (
-          <New label="Process" to={`new?${params.toString()}`} />
+          <New label={t("process")} to={`new?${params.toString()}`} />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Processes"
+      title={t("processes")}
       table="process"
       withSavedView
     />

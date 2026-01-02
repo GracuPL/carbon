@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Avatar, Badge, HStack, MenuIcon, MenuItem } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -27,6 +28,7 @@ const defaultColumnVisibility = {};
 
 const SuggestionsTable = memo(
   ({ data, tags, count }: SuggestionsTableProps) => {
+    const { t } = useTranslation("resources");
     const navigate = useNavigate();
     const permissions = usePermissions();
     const [params] = useUrlParams();
@@ -36,7 +38,7 @@ const SuggestionsTable = memo(
       const defaultColumns: ColumnDef<SuggestionListItem>[] = [
         {
           accessorKey: "suggestion",
-          header: "Suggestion",
+          header: t("suggestion"),
           cell: ({ row }) => (
             <Hyperlink to={row.original.id!}>
               <HStack spacing={2} className="max-w-[400px]">
@@ -56,7 +58,7 @@ const SuggestionsTable = memo(
         },
         {
           id: "employee",
-          header: "Employee",
+          header: t("employee"),
           cell: ({ row }) => (
             <HStack spacing={2}>
               <Avatar
@@ -64,7 +66,7 @@ const SuggestionsTable = memo(
                 name={row.original.employeeName ?? undefined}
                 src={row.original.employeeAvatarUrl ?? undefined}
               />
-              <span>{row.original.employeeName ?? "Anonymous"}</span>
+              <span>{row.original.employeeName ?? t("anonymous")}</span>
             </HStack>
           ),
           meta: {
@@ -80,7 +82,7 @@ const SuggestionsTable = memo(
         },
         {
           accessorKey: "tags",
-          header: "Tags",
+          header: t("tags"),
           cell: ({ row }) => (
             <HStack spacing={0} className="gap-1">
               {row.original.tags?.map((tag) => (
@@ -104,7 +106,7 @@ const SuggestionsTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Date",
+          header: t("date"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -112,7 +114,7 @@ const SuggestionsTable = memo(
         }
       ];
       return defaultColumns;
-    }, [tags, people]);
+    }, [tags, people, t]);
 
     const renderContextMenu = useCallback(
       (row: SuggestionListItem) => {
@@ -124,7 +126,7 @@ const SuggestionsTable = memo(
               }}
             >
               <MenuIcon icon={<LuEye />} />
-              View Suggestion
+              {t("viewSuggestion")}
             </MenuItem>
             <MenuItem
               destructive
@@ -136,12 +138,12 @@ const SuggestionsTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Suggestion
+              {t("deleteSuggestion")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -151,7 +153,7 @@ const SuggestionsTable = memo(
         columns={columns}
         defaultColumnVisibility={defaultColumnVisibility}
         renderContextMenu={renderContextMenu}
-        title="Suggestions"
+        title={t("suggestions")}
         table="suggestion"
         withSavedView
       />

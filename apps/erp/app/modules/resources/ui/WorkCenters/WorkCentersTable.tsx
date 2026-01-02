@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertDescription,
@@ -66,6 +67,7 @@ const defaultColumnVisibility = {
 
 const WorkCentersTable = memo(
   ({ data, count, locations }: WorkCentersTableProps) => {
+    const { t } = useTranslation("resources");
     const navigate = useNavigate();
     const [params] = useUrlParams();
     const [people] = usePeople();
@@ -101,7 +103,7 @@ const WorkCentersTable = memo(
       const defaultColumns: ColumnDef<WorkCenter>[] = [
         {
           accessorKey: "name",
-          header: "Work Center",
+          header: t("workCenter"),
           cell: ({ row }) => (
             <HStack>
               {((row.original.processes as any[]) ?? []).length > 0 ? (
@@ -127,7 +129,7 @@ const WorkCentersTable = memo(
         },
         {
           id: "processes",
-          header: "Processes",
+          header: t("processes"),
           cell: ({ row }) => (
             <span className="flex gap-2 items-center flex-wrap py-2">
               {((row.original.processes ?? []) as Array<string>).map((p) => {
@@ -157,7 +159,7 @@ const WorkCentersTable = memo(
         },
         {
           accessorKey: "locationName",
-          header: "Location",
+          header: t("location"),
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
             icon: <LuBuilding2 />,
@@ -172,13 +174,13 @@ const WorkCentersTable = memo(
         },
         {
           accessorKey: "active",
-          header: "Active",
+          header: t("active"),
           cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
           meta: {
             filter: {
               type: "static",
               options: [
-                { value: "true", label: "Active" },
+                { value: "true", label: t("active") },
                 { value: "false", label: "Inactive" }
               ]
             },
@@ -188,7 +190,7 @@ const WorkCentersTable = memo(
         },
         {
           accessorKey: "description",
-          header: "Description",
+          header: t("description"),
           cell: ({ row }) => (
             <span className="max-w-[300px] line-clamp-1">
               {row.original.description}
@@ -200,7 +202,7 @@ const WorkCentersTable = memo(
         },
         {
           accessorKey: "laborRate",
-          header: "Labor Rate",
+          header: t("laborRate"),
           cell: ({ row }) => (
             <span>{formatter.format(row.original.laborRate ?? 0)}</span>
           ),
@@ -210,7 +212,7 @@ const WorkCentersTable = memo(
         },
         {
           accessorKey: "machineRate",
-          header: "Machine Rate",
+          header: t("machineRate"),
           cell: ({ row }) => (
             <span>{formatter.format(row.original.machineRate ?? 0)}</span>
           ),
@@ -220,7 +222,7 @@ const WorkCentersTable = memo(
         },
         {
           accessorKey: "overheadRate",
-          header: "Overhead Rate",
+          header: t("overheadRate"),
           cell: ({ row }) => (
             <span>{formatter.format(row.original.overheadRate ?? 0)}</span>
           ),
@@ -230,7 +232,7 @@ const WorkCentersTable = memo(
         },
         {
           id: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.createdBy} />
           ),
@@ -247,7 +249,7 @@ const WorkCentersTable = memo(
         },
         {
           id: "updatedBy",
-          header: "Updated By",
+          header: t("updatedBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.updatedBy} />
           ),
@@ -264,7 +266,7 @@ const WorkCentersTable = memo(
         }
       ];
       return [...defaultColumns, ...customColumns];
-    }, [params, customColumns]);
+    }, [params, customColumns, t]);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
     const renderContextMenu = useCallback<(row: WorkCenter) => JSX.Element>(
@@ -276,7 +278,7 @@ const WorkCentersTable = memo(
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Work Center
+            {t("editWorkCenter")}
           </MenuItem>
           {row.active ? (
             <MenuItem
@@ -285,7 +287,7 @@ const WorkCentersTable = memo(
               onClick={() => onDelete(row)}
             >
               <MenuIcon icon={<LuTrash />} />
-              Deactivate Work Center
+              {t("deactivateWorkCenter")}
             </MenuItem>
           ) : (
             <MenuItem
@@ -293,13 +295,13 @@ const WorkCentersTable = memo(
               onClick={() => onActivate(row)}
             >
               <MenuIcon icon={<LuCheck />} />
-              Activate Work Center
+              {t("activateWorkCenter")}
             </MenuItem>
           )}
         </>
       ),
 
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -311,11 +313,11 @@ const WorkCentersTable = memo(
           count={count ?? 0}
           primaryAction={
             permissions.can("update", "resources") && (
-              <New label="Work Center" to={`new?${params.toString()}`} />
+              <New label={t("workCenter")} to={`new?${params.toString()}`} />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Work Centers"
+          title={t("workCenters")}
           table="workCenter"
           withSavedView
         />
@@ -332,9 +334,9 @@ const WorkCentersTable = memo(
         {selectedWorkCenter && selectedWorkCenter.id && (
           <Confirm
             action={path.to.workCenterActivate(selectedWorkCenter.id)}
-            title={`Activate ${selectedWorkCenter?.name} Work Center`}
-            text={`Are you sure you want to activate the ${selectedWorkCenter?.name} work center?`}
-            confirmText="Activate"
+            title={t("activateWorkCenter")}
+            text={t("confirmActivateWorkCenter")}
+            confirmText={t("activate")}
             isOpen={activateModal.isOpen}
             onCancel={onCancel}
             onSubmit={onCancel}
@@ -359,6 +361,7 @@ function DeleteWorkCenterModal({
   onCancel: () => void;
   onSubmit: () => void;
 }) {
+  const { t } = useTranslation("resources");
   const [hasNoActiveOperations, setHasNoActiveOperations] = useState(false);
   const [jobsWithActiveOperations, setJobsWithActiveOperations] = useState<
     {
@@ -423,7 +426,7 @@ function DeleteWorkCenterModal({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>Deactivate {workCenter.name}</ModalTitle>
+          <ModalTitle>{t("deactivateWorkCenter")}</ModalTitle>
         </ModalHeader>
 
         <ModalBody>
@@ -431,7 +434,7 @@ function DeleteWorkCenterModal({
             <Alert variant="destructive">
               <LuTriangleAlert className="h-4 w-4" />
               <AlertTitle>
-                Theses jobs have operations assigned to this work center:
+                {t("jobsWithOperations")}
               </AlertTitle>
               <AlertDescription>
                 <ul className="list-disc pl-4 mt-2 space-y-1">
@@ -447,15 +450,14 @@ function DeleteWorkCenterModal({
             </Alert>
           ) : (
             <p>
-              Are you sure you want to deactivate the {workCenter.name} work
-              center?
+              {t("confirmDeactivateWorkCenter")}
             </p>
           )}
         </ModalBody>
 
         <ModalFooter>
           <Button variant="secondary" onClick={onCancel}>
-            Cancel
+            {t("cancel")}
           </Button>
           <fetcher.Form
             method="post"
@@ -470,7 +472,7 @@ function DeleteWorkCenterModal({
               }
               type="submit"
             >
-              Deactivate
+              {t("deactivate")}
             </Button>
           </fetcher.Form>
         </ModalFooter>

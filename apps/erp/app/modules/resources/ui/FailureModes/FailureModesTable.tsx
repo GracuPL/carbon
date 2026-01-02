@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type FailureModesTableProps = {
 };
 
 const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
+  const { t } = useTranslation("resources");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -24,7 +26,7 @@ const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
     const defaultColumns: ColumnDef<FailureMode>[] = [
       {
         accessorKey: "name",
-        header: "Failure Mode",
+        header: t("failureMode"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id}>
             <Enumerable value={row.original.name} />
@@ -36,7 +38,7 @@ const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
       },
       {
         accessorKey: "type",
-        header: "Type",
+        header: t("type"),
         cell: ({ row }) => <Enumerable value={row.original.type} />,
         meta: {
           icon: <LuShapes />,
@@ -51,7 +53,7 @@ const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
       }
     ];
     return [...defaultColumns];
-  }, []);
+  }, [t]);
 
   const renderContextMenu = useCallback(
     (row: FailureMode) => {
@@ -63,7 +65,7 @@ const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Failure Mode
+            {t("editFailureMode")}
           </MenuItem>
           <MenuItem
             destructive
@@ -75,12 +77,12 @@ const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Failure Mode
+            {t("deleteFailureMode")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -91,13 +93,13 @@ const FailureModesTable = memo(({ data, count }: FailureModesTableProps) => {
       primaryAction={
         permissions.can("create", "resources") && (
           <New
-            label="Failure Mode"
+            label={t("failureMode")}
             to={`${path.to.newFailureMode}?${params.toString()}`}
           />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Failure Modes"
+      title={t("failureModes")}
     />
   );
 });

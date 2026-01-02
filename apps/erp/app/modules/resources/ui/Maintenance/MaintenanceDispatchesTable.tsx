@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Combobox, HStack, MenuIcon, MenuItem } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -50,6 +51,7 @@ const MaintenanceDispatchesTable = memo(
     locations,
     locationId
   }: MaintenanceDispatchesTableProps) => {
+    const { t } = useTranslation("resources");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -73,7 +75,7 @@ const MaintenanceDispatchesTable = memo(
       return [
         {
           accessorKey: "maintenanceDispatchId",
-          header: "Dispatch ID",
+          header: t("dispatchId"),
           cell: ({ row }) => (
             <Hyperlink to={path.to.maintenanceDispatch(row.original.id)}>
               {row.original.maintenanceDispatchId}
@@ -85,17 +87,17 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "workCenterId",
-          header: "Work Center",
+          header: t("workCenter"),
           cell: ({ row }) => {
             const workCenterId = row.original.workCenterId;
             if (!workCenterId) {
-              return <span className="text-muted-foreground">Unassigned</span>;
+              return <span className="text-muted-foreground">{t("unassigned")}</span>;
             }
             const workCenter = workCenters.find(
               (wc) => wc.value === workCenterId
             );
             if (!workCenter) {
-              return <span className="text-muted-foreground">Unknown</span>;
+              return <span className="text-muted-foreground">{t("unknown")}</span>;
             }
             return (
               <Hyperlink to={path.to.workCenter(workCenterId)}>
@@ -116,7 +118,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "source",
-          header: "Source",
+          header: t("source"),
           cell: (item) => {
             const source = item.getValue<(typeof maintenanceSource)[number]>();
             return <MaintenanceSource source={source} />;
@@ -134,7 +136,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "status",
-          header: "Status",
+          header: t("status"),
           cell: (item) => {
             const status =
               item.getValue<(typeof maintenanceDispatchStatus)[number]>();
@@ -154,7 +156,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "priority",
-          header: "Priority",
+          header: t("priority"),
           cell: (item) => {
             const priority =
               item.getValue<(typeof maintenanceDispatchPriority)[number]>();
@@ -174,7 +176,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "oeeImpact",
-          header: "OEE Impact",
+          header: t("oeeImpact"),
           cell: (item) => {
             const impact = item.getValue<(typeof oeeImpact)[number]>();
             return <MaintenanceOeeImpact oeeImpact={impact} />;
@@ -192,7 +194,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "plannedStartTime",
-          header: "Planned Start",
+          header: t("plannedStart"),
           cell: ({ row }) => {
             const date = row.original.plannedStartTime;
             return date ? formatDate(date) : "-";
@@ -203,11 +205,11 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "assignee",
-          header: "Assignee",
+          header: t("assignee"),
           cell: ({ row }) => {
             const assignee = row.original.assignee;
             if (!assignee) {
-              return <span className="text-muted-foreground">Unassigned</span>;
+              return <span className="text-muted-foreground">{t("unassigned")}</span>;
             }
             return (
               <HStack>
@@ -221,7 +223,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "actualFailureModeId",
-          header: "Actual Failure Mode",
+          header: t("actualFailureMode"),
           cell: ({ row }) => {
             const actualFailureModeId = row.original.actualFailureModeId;
             const failureMode = failureModes.find(
@@ -245,7 +247,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "suspectedFailureModeId",
-          header: "Suspected Failure Mode",
+          header: t("suspectedFailureMode"),
           cell: ({ row }) => {
             const suspectedFailureModeId = row.original.suspectedFailureModeId;
             const failureMode = failureModes.find(
@@ -269,7 +271,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => {
             const createdBy = row.original.createdBy;
             return <EmployeeAvatar employeeId={createdBy} size="xs" />;
@@ -287,7 +289,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Created At",
+          header: t("createdAt"),
           cell: ({ row }) => {
             const date = row.original.createdAt;
             return date ? formatDate(date) : "-";
@@ -298,7 +300,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "updatedBy",
-          header: "Updated By",
+          header: t("updatedBy"),
           cell: ({ row }) => {
             const updatedBy = row.original.updatedBy;
             return <EmployeeAvatar employeeId={updatedBy} size="xs" />;
@@ -316,7 +318,7 @@ const MaintenanceDispatchesTable = memo(
         },
         {
           accessorKey: "updatedAt",
-          header: "Updated At",
+          header: t("updatedAt"),
           cell: ({ row }) => {
             const date = row.original.updatedAt;
             return date ? formatDate(date) : "-";
@@ -326,7 +328,7 @@ const MaintenanceDispatchesTable = memo(
           }
         }
       ];
-    }, [workCenters]);
+    }, [workCenters, failureModes, people, t]);
 
     const renderContextMenu = useCallback(
       (row: MaintenanceDispatch) => {
@@ -338,7 +340,7 @@ const MaintenanceDispatchesTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Dispatch
+              {t("editDispatch")}
             </MenuItem>
             <MenuItem
               destructive
@@ -350,12 +352,12 @@ const MaintenanceDispatchesTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Dispatch
+              {t("deleteDispatch")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -389,14 +391,14 @@ const MaintenanceDispatchesTable = memo(
             )}
             {permissions.can("create", "resources") && (
               <New
-                label="Dispatch"
+                label={t("dispatch")}
                 to={`${path.to.newMaintenanceDispatch}?${params.toString()}`}
               />
             )}
           </div>
         }
         renderContextMenu={renderContextMenu}
-        title="Maintenance Dispatches"
+        title={t("dispatches")}
       />
     );
   }
