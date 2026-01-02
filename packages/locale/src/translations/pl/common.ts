@@ -22,6 +22,7 @@ export const common = {
   upload: "Prześlij",
   export: "Eksportuj",
   import: "Importuj",
+  bulkImport: "Import zbiorczy",
   print: "Drukuj",
   copy: "Kopiuj",
   duplicate: "Duplikuj",
@@ -36,8 +37,14 @@ export const common = {
   reject: "Odrzuć",
   send: "Wyślij",
   retry: "Ponów",
+  update: "Aktualizuj",
+  lock: "Zablokuj",
   loading: "Ładowanie...",
   saving: "Zapisywanie...",
+
+  // Views - Widoki
+  saveView: "Zapisz widok",
+  editView: "Edytuj widok",
 
   // Status - Statusy
   active: "Aktywny",
@@ -127,10 +134,16 @@ export const common = {
   page: "Strona",
   of: "z",
   items: "elementów",
+  rows: "wierszy",
   showing: "Wyświetlanie",
   perPage: "na stronę",
+  resultsPerPage: "Wyników na stronę",
   first: "Pierwsza",
   last: "Ostatnia",
+
+  // Filters - Filtry
+  clearFilters: "Wyczyść filtry",
+  noAvailableFilters: "Brak dostępnych filtrów",
 
   // Language - Język
   language: "Język",

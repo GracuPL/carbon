@@ -1,4 +1,5 @@
 import { Hidden, Input, Submit, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -108,6 +109,7 @@ const TableHeader = <T extends object>({
   withSearch,
   withSelectableRows
 }: HeaderProps<T>) => {
+  const { t } = useTranslation("common");
   const [params, setParams] = useUrlParams();
   const currentFilters = params.getAll("filter").filter(Boolean);
   const currentSorts = params.getAll("sort").filter(Boolean);
@@ -182,9 +184,9 @@ const TableHeader = <T extends object>({
             </CardContent>
             <CardFooter className="border-t bg-muted/30 p-4">
               <Button variant="secondary" onClick={savedViewDisclosure.onClose}>
-                Cancel
+                {t("cancel")}
               </Button>
-              <Submit>{hasView ? "Update" : "Save"}</Submit>
+              <Submit>{hasView ? t("update") : t("save")}</Submit>
             </CardFooter>
           </Card>
         </ValidatedForm>
@@ -219,7 +221,7 @@ const TableHeader = <T extends object>({
                     />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Bulk Import</DropdownMenuLabel>
+                    <DropdownMenuLabel>{t("bulkImport")}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {importCSV.map(({ table, label }) => (
                       <DropdownMenuItem
@@ -266,7 +268,7 @@ const TableHeader = <T extends object>({
               </DropdownMenu>
             )}
           {withSearch && (
-            <SearchFilter param="search" size="sm" placeholder="Search" />
+            <SearchFilter param="search" size="sm" placeholder={t("search")} />
           )}
           {!!filters?.length && <Filter filters={filters} />}
         </HStack>
@@ -293,7 +295,7 @@ const TableHeader = <T extends object>({
                 />
               </TooltipTrigger>
               <TooltipContent>
-                <p>{hasView ? "Edit View" : "Save View"}</p>
+                <p>{hasView ? t("editView") : t("saveView")}</p>
               </TooltipContent>
             </Tooltip>
           )}
@@ -312,7 +314,7 @@ const TableHeader = <T extends object>({
                 variant="secondary"
                 onClick={() => setEditMode(false)}
               >
-                Lock
+                {t("lock")}
               </Button>
             ) : (
               <Button
@@ -320,7 +322,7 @@ const TableHeader = <T extends object>({
                 variant="secondary"
                 onClick={() => setEditMode(true)}
               >
-                Edit
+                {t("edit")}
               </Button>
             ))}
         </HStack>
