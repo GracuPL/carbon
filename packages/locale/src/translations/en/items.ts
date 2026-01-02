@@ -23,7 +23,11 @@ export const items = {
   tags: "Tags",
   createdBy: "Created By",
   createdAt: "Created At",
+  updatedBy: "Updated By",
   updatedAt: "Updated At",
+  active: "Active",
+  inactive: "Inactive",
+  activeStatuses: "Active Statuses",
 
   // Configuration entities
   dimension: "Dimension",
@@ -49,6 +53,10 @@ export const items = {
   addConsumable: "Add Consumable",
   editPart: "Edit Part",
   deletePart: "Delete Part",
+  confirmDeletePart: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  versions: "Versions",
+  revision: "Revision",
+  update: "Update",
 
   // Tracking types
   inventory: "Inventory",

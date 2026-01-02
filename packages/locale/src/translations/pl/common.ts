@@ -46,6 +46,10 @@ export const common = {
   saveView: "Zapisz widok",
   editView: "Edytuj widok",
 
+  // Boolean - Wartości logiczne
+  yes: "Tak",
+  no: "Nie",
+
   // Status - Statusy
   active: "Aktywny",
   inactive: "Nieaktywny",

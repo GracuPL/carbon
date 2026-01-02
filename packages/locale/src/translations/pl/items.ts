@@ -23,7 +23,11 @@ export const items = {
   tags: "Tagi",
   createdBy: "Utworzył",
   createdAt: "Data utworzenia",
+  updatedBy: "Zaktualizował",
   updatedAt: "Data aktualizacji",
+  active: "Aktywny",
+  inactive: "Nieaktywny",
+  activeStatuses: "Statusy aktywności",
 
   // Configuration entities - Encje konfiguracyjne
   dimension: "Wymiar",
@@ -49,6 +53,10 @@ export const items = {
   addConsumable: "Dodaj materiał eksploatacyjny",
   editPart: "Edytuj część",
   deletePart: "Usuń część",
+  confirmDeletePart: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  versions: "Wersje",
+  revision: "Rewizja",
+  update: "Aktualizuj",
 
   // Tracking types - Typy śledzenia
   inventory: "Magazyn",

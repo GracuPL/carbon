@@ -46,6 +46,10 @@ export const common = {
   saveView: "Save View",
   editView: "Edit View",
 
+  // Boolean
+  yes: "Yes",
+  no: "No",
+
   // Status
   active: "Active",
   inactive: "Inactive",
