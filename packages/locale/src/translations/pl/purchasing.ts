@@ -30,6 +30,19 @@ export const purchasing = {
   // Table headers - Nagłówki tabeli
   document: "Dokument",
   status: "Status",
+  name: "Nazwa",
+  supplierStatus: "Status dostawcy",
+  type: "Typ",
+  accountManager: "Opiekun klienta",
+  tags: "Tagi",
+  currency: "Waluta",
+  phone: "Telefon",
+  fax: "Fax",
+  website: "Strona www",
+  createdBy: "Utworzył",
+  createdAt: "Data utworzenia",
+  updatedBy: "Zaktualizował",
+  updatedAt: "Data aktualizacji",
 
   // Fields - Pola
   leadTime: "Czas realizacji",
@@ -49,5 +62,8 @@ export const purchasing = {
   sendOrder: "Wyślij zamówienie",
   receiveGoods: "Przyjmij towar",
   finalize: "Finalizuj",
-  exportCsv: "Eksportuj CSV"
+  exportCsv: "Eksportuj CSV",
+  editSupplier: "Edytuj dostawcę",
+  supplierTypes: "Typy dostawców",
+  contacts: "Kontakty"
 } as const;

@@ -30,6 +30,19 @@ export const purchasing = {
   // Table headers
   document: "Document",
   status: "Status",
+  name: "Name",
+  supplierStatus: "Supplier Status",
+  type: "Type",
+  accountManager: "Account Manager",
+  tags: "Tags",
+  currency: "Currency",
+  phone: "Phone",
+  fax: "Fax",
+  website: "Website",
+  createdBy: "Created By",
+  createdAt: "Created At",
+  updatedBy: "Updated By",
+  updatedAt: "Updated At",
 
   // Fields
   leadTime: "Lead Time",
@@ -49,5 +62,8 @@ export const purchasing = {
   sendOrder: "Send Order",
   receiveGoods: "Receive Goods",
   finalize: "Finalize",
-  exportCsv: "Export CSV"
+  exportCsv: "Export CSV",
+  editSupplier: "Edit Supplier",
+  supplierTypes: "Supplier Types",
+  contacts: "Contacts"
 } as const;
