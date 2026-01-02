@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, Copy, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -24,6 +25,7 @@ type MaterialDimensionsTableProps = {
 
 const MaterialDimensionsTable = memo(
   ({ data, count }: MaterialDimensionsTableProps) => {
+    const { t } = useTranslation("items");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -35,7 +37,7 @@ const MaterialDimensionsTable = memo(
       const defaultColumns: ColumnDef<(typeof rows)[number]>[] = [
         {
           accessorKey: "formName",
-          header: "Shape",
+          header: t("shape"),
           cell: ({ row }) => <Enumerable value={row.original.formName} />,
           meta: {
             icon: <LuShapes />,
@@ -50,7 +52,7 @@ const MaterialDimensionsTable = memo(
         },
         {
           accessorKey: "name",
-          header: "Dimension",
+          header: t("dimension"),
           cell: ({ row }) =>
             row.original.companyId === null ? (
               row.original.name
@@ -69,7 +71,7 @@ const MaterialDimensionsTable = memo(
         },
         {
           accessorKey: "id",
-          header: "ID",
+          header: t("id"),
           cell: ({ row }) => (
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs">{row.original.id}</span>
@@ -82,12 +84,12 @@ const MaterialDimensionsTable = memo(
         },
         {
           accessorKey: "companyId",
-          header: "Standard",
+          header: t("standard"),
           cell: ({ row }) => {
             return row.original.companyId === null ? (
-              <Badge variant="outline">Standard</Badge>
+              <Badge variant="outline">{t("standard")}</Badge>
             ) : (
-              <Badge variant="blue">Custom</Badge>
+              <Badge variant="blue">{t("custom")}</Badge>
             );
           },
           meta: {
@@ -96,7 +98,7 @@ const MaterialDimensionsTable = memo(
         }
       ];
       return [...defaultColumns];
-    }, [params, shapes]);
+    }, [params, shapes, t]);
 
     const renderContextMenu = useCallback(
       (row: (typeof rows)[number]) => {
@@ -113,7 +115,7 @@ const MaterialDimensionsTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Material Dimension
+              {t("editMaterialDimension")}
             </MenuItem>
             <MenuItem
               disabled={
@@ -129,12 +131,12 @@ const MaterialDimensionsTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Material Dimension
+              {t("deleteMaterialDimension")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -145,13 +147,13 @@ const MaterialDimensionsTable = memo(
         primaryAction={
           permissions.can("create", "parts") && (
             <New
-              label="Material Dimension"
+              label={t("materialDimension")}
               to={`${path.to.newMaterialDimension}?${params.toString()}`}
             />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Material Dimensions"
+        title={t("materialDimensions")}
       />
     );
   }

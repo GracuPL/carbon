@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Checkbox, MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -18,6 +19,7 @@ type RequiredActionsTableProps = {
 
 const RequiredActionsTable = memo(
   ({ data, count }: RequiredActionsTableProps) => {
+    const { t } = useTranslation("quality");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -29,7 +31,7 @@ const RequiredActionsTable = memo(
       const defaultColumns: ColumnDef<RequiredAction>[] = [
         {
           accessorKey: "name",
-          header: "Required Action",
+          header: t("requiredAction"),
           cell: ({ row }) => (
             <Hyperlink to={row.original.id}>
               <Enumerable value={row.original.name} />
@@ -41,12 +43,12 @@ const RequiredActionsTable = memo(
         },
         {
           accessorKey: "active",
-          header: "Active",
+          header: t("active"),
           cell: ({ row }) => <Checkbox checked={row.original.active} />
         }
       ];
       return defaultColumns;
-    }, []);
+    }, [t]);
 
     const renderContextMenu = useCallback(
       (row: RequiredAction) => {
@@ -60,7 +62,7 @@ const RequiredActionsTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Action
+              {t("editRequiredAction")}
             </MenuItem>
             <MenuItem
               destructive
@@ -73,12 +75,12 @@ const RequiredActionsTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Action
+              {t("deleteRequiredAction")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions, deleteDisclosure]
+      [navigate, params, permissions, deleteDisclosure, t]
     );
 
     return (
@@ -90,13 +92,13 @@ const RequiredActionsTable = memo(
           primaryAction={
             permissions.can("create", "quality") && (
               <New
-                label="Required Action"
+                label={t("requiredAction")}
                 to={`${path.to.newRequiredAction}?${params.toString()}`}
               />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Required Actions"
+          title={t("requiredActions")}
         />
         {deleteDisclosure.isOpen && selectedRequiredAction && (
           <ConfirmDelete
@@ -110,8 +112,8 @@ const RequiredActionsTable = memo(
               setSelectedRequiredAction(null);
               deleteDisclosure.onClose();
             }}
-            name={selectedRequiredAction.name ?? "required action"}
-            text="Are you sure you want to delete this required action?"
+            name={selectedRequiredAction.name ?? t("requiredAction")}
+            text={t("confirmDeleteIssue")}
           />
         )}
       </>

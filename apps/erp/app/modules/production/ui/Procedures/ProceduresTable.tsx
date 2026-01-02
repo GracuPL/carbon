@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   HoverCard,
@@ -39,6 +40,7 @@ type ProceduresTableProps = {
 };
 
 const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
+  const { t } = useTranslation("production");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const processes = useProcesses();
@@ -51,14 +53,14 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
     const defaultColumns: ColumnDef<Procedures>[] = [
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <div className="flex flex-col gap-0">
             <Hyperlink to={path.to.procedure(row.original.id!)}>
               {row.original.name}
             </Hyperlink>
             <span className="text-sm text-muted-foreground">
-              Version {row.original.version}
+              {t("version")} {row.original.version}
             </span>
           </div>
         ),
@@ -68,7 +70,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
       },
       {
         accessorKey: "processId",
-        header: "Process",
+        header: t("process"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -87,7 +89,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
       },
       {
         accessorKey: "status",
-        header: "Status",
+        header: t("status"),
         cell: ({ row }) => <ProcedureStatus status={row.original.status} />,
         meta: {
           icon: <LuCalendar />
@@ -95,7 +97,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
       },
       {
         accessorKey: "assignee",
-        header: "Assignee",
+        header: t("assignee"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
@@ -105,7 +107,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
       },
       {
         accessorKey: "tags",
-        header: "Tags",
+        header: t("tags"),
         cell: ({ row }) => (
           <HStack spacing={0} className="gap-1">
             {row.original.tags?.map((tag) => (
@@ -129,7 +131,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
       },
       {
         id: "versions",
-        header: "Versions",
+        header: t("versions"),
         cell: ({ row }) => {
           const versions = row.original?.versions as Array<{
             id: string;
@@ -141,7 +143,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
             <HoverCard>
               <HoverCardTrigger>
                 <Badge variant="secondary" className="cursor-pointer">
-                  {versions?.length ?? 0} Version
+                  {versions?.length ?? 0} {t("version")}
                   {versions?.length === 1 ? "" : "s"}
                   <LuEllipsisVertical className="w-3 h-3 ml-2" />
                 </Badge>
@@ -159,7 +161,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
                           to={path.to.procedure(version.id)}
                           className="flex items-center justify-start gap-1"
                         >
-                          Version {version.version}
+                          {t("version")} {version.version}
                         </Hyperlink>
                         <div className="flex items-center justify-end">
                           <ProcedureStatus status={version.status} />
@@ -177,7 +179,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
       }
     ];
     return [...defaultColumns];
-  }, [processes, tags]);
+  }, [processes, tags, t]);
 
   const renderContextMenu = useCallback(
     (row: Procedures) => {
@@ -190,7 +192,7 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Procedure
+            {t("editProcedure")}
           </MenuItem>
           <MenuItem
             destructive
@@ -203,12 +205,12 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Procedure
+            {t("deleteProcedure")}
           </MenuItem>
         </>
       );
     },
-    [navigate, permissions, deleteDisclosure]
+    [navigate, permissions, deleteDisclosure, t]
   );
 
   return (
@@ -219,11 +221,11 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
         count={count}
         primaryAction={
           permissions.can("create", "production") && (
-            <New label="Procedure" to={path.to.newProcedure} />
+            <New label={t("procedure")} to={path.to.newProcedure} />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Procedures"
+        title={t("procedures")}
         table="procedure"
         withSavedView
       />
@@ -239,8 +241,8 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
             setSelectedProcedure(null);
             deleteDisclosure.onClose();
           }}
-          name={selectedProcedure.name ?? "procedure"}
-          text="Are you sure you want to delete this procedure?"
+          name={selectedProcedure.name ?? t("procedure")}
+          text={t("confirmDeleteProcedure")}
         />
       )}
     </>

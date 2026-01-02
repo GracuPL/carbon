@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type ItemGroupsTableProps = {
 };
 
 const ItemGroupsTable = memo(({ data, count }: ItemGroupsTableProps) => {
+  const { t } = useTranslation("items");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -27,7 +29,7 @@ const ItemGroupsTable = memo(({ data, count }: ItemGroupsTableProps) => {
     const defaultColumns: ColumnDef<(typeof rows)[number]>[] = [
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <Enumerable
             value={row.original.name}
@@ -44,12 +46,12 @@ const ItemGroupsTable = memo(({ data, count }: ItemGroupsTableProps) => {
       },
       {
         accessorKey: "description",
-        header: "Description",
+        header: t("description"),
         cell: (item) => item.getValue()
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [navigate, params, customColumns]);
+  }, [navigate, params, customColumns, t]);
 
   const renderContextMenu = useCallback(
     (row: (typeof rows)[number]) => {
@@ -64,7 +66,7 @@ const ItemGroupsTable = memo(({ data, count }: ItemGroupsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Item Group
+            {t("editItemGroup")}
           </MenuItem>
           <MenuItem
             destructive
@@ -76,12 +78,12 @@ const ItemGroupsTable = memo(({ data, count }: ItemGroupsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Item Group
+            {t("deleteItemGroup")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -92,13 +94,13 @@ const ItemGroupsTable = memo(({ data, count }: ItemGroupsTableProps) => {
       primaryAction={
         permissions.can("create", "parts") && (
           <New
-            label="Group"
+            label={t("itemGroup")}
             to={`${path.to.newItemPostingGroup}?${params.toString()}`}
           />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Item Groups"
+      title={t("itemGroups")}
     />
   );
 });

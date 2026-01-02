@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type ScrapReasonsTableProps = {
 };
 
 const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
+  const { t } = useTranslation("production");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -25,7 +27,7 @@ const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
     const defaultColumns: ColumnDef<ScrapReason>[] = [
       {
         accessorKey: "name",
-        header: "Scrap Reason",
+        header: t("scrapReason"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id}>
             <Enumerable value={row.original.name} />
@@ -37,7 +39,7 @@ const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns]);
+  }, [customColumns, t]);
 
   const renderContextMenu = useCallback(
     (row: ScrapReason) => {
@@ -49,7 +51,7 @@ const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Scrap Reason
+            {t("editScrapReason")}
           </MenuItem>
           <MenuItem
             destructive
@@ -61,12 +63,12 @@ const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Scrap Reason
+            {t("deleteScrapReason")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -77,13 +79,13 @@ const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
       primaryAction={
         permissions.can("create", "sales") && (
           <New
-            label="Scrap Reason"
+            label={t("scrapReason")}
             to={`${path.to.newScrapReason}?${params.toString()}`}
           />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Scrap Reasons"
+      title={t("scrapReasons")}
     />
   );
 });

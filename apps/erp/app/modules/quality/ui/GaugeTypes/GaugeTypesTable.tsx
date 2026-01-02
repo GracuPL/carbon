@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type GaugeTypesTableProps = {
 };
 
 const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
+  const { t } = useTranslation("quality");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -26,7 +28,7 @@ const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
     const defaultColumns: ColumnDef<GaugeType>[] = [
       {
         accessorKey: "name",
-        header: "Gauge Type",
+        header: t("gaugeType"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id}>
             <Enumerable value={row.original.name} />
@@ -38,7 +40,7 @@ const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns]);
+  }, [customColumns, t]);
 
   const renderContextMenu = useCallback(
     (row: GaugeType) => {
@@ -50,7 +52,7 @@ const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Type
+            {t("editGaugeType")}
           </MenuItem>
           <MenuItem
             destructive
@@ -62,12 +64,12 @@ const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Type
+            {t("deleteGaugeType")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -78,13 +80,13 @@ const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
       primaryAction={
         permissions.can("create", "quality") && (
           <New
-            label="Gauge Type"
+            label={t("gaugeType")}
             to={`${path.to.newGaugeType}?${params.toString()}`}
           />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Gauge Types"
+      title={t("gaugeTypes")}
     />
   );
 });

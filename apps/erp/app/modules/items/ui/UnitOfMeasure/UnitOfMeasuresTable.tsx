@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -17,6 +18,7 @@ type UnitOfMeasuresTableProps = {
 
 const UnitOfMeasuresTable = memo(
   ({ data, count }: UnitOfMeasuresTableProps) => {
+    const { t } = useTranslation("items");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -26,7 +28,7 @@ const UnitOfMeasuresTable = memo(
       const defaultColumns: ColumnDef<(typeof data)[number]>[] = [
         {
           accessorKey: "name",
-          header: "Name",
+          header: t("name"),
           cell: ({ row }) => (
             <Hyperlink to={row.original.id}>
               <Enumerable value={row.original.name} />
@@ -38,7 +40,7 @@ const UnitOfMeasuresTable = memo(
         },
         {
           accessorKey: "code",
-          header: "Code",
+          header: t("code"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuCode />
@@ -46,7 +48,7 @@ const UnitOfMeasuresTable = memo(
         }
       ];
       return [...defaultColumns, ...customColumns];
-    }, [customColumns]);
+    }, [customColumns, t]);
 
     const renderContextMenu = useCallback(
       (row: (typeof data)[number]) => {
@@ -59,7 +61,7 @@ const UnitOfMeasuresTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Unit of Measure
+              {t("editUnitOfMeasure")}
             </MenuItem>
             <MenuItem
               destructive
@@ -69,12 +71,12 @@ const UnitOfMeasuresTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Unit of Measure
+              {t("deleteUnitOfMeasure")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -85,13 +87,13 @@ const UnitOfMeasuresTable = memo(
         primaryAction={
           permissions.can("create", "parts") && (
             <New
-              label="Unit of Measure"
+              label={t("unitOfMeasure")}
               to={`${path.to.newUom}?${params.toString()}`}
             />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Unit of Measures"
+        title={t("unitOfMeasures")}
       />
     );
   }
