@@ -22,6 +22,7 @@ export const common = {
   upload: "Upload",
   export: "Export",
   import: "Import",
+  bulkImport: "Bulk Import",
   print: "Print",
   copy: "Copy",
   duplicate: "Duplicate",
@@ -36,8 +37,14 @@ export const common = {
   reject: "Reject",
   send: "Send",
   retry: "Retry",
+  update: "Update",
+  lock: "Lock",
   loading: "Loading...",
   saving: "Saving...",
+
+  // Views
+  saveView: "Save View",
+  editView: "Edit View",
 
   // Status
   active: "Active",
@@ -126,10 +133,16 @@ export const common = {
   page: "Page",
   of: "of",
   items: "items",
+  rows: "rows",
   showing: "Showing",
   perPage: "per page",
+  resultsPerPage: "Results per page",
   first: "First",
   last: "Last",
+
+  // Filters
+  clearFilters: "Clear Filters",
+  noAvailableFilters: "No available filters",
 
   // Language
   language: "Language",

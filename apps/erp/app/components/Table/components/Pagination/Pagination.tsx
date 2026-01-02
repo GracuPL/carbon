@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DropdownMenu,
@@ -34,6 +35,7 @@ export type PaginationProps = {
 };
 
 const Pagination = (props: PaginationProps) => {
+  const { t } = useTranslation("common");
   const { pageSize, setPageSize } = props;
 
   const pageSizes = [20, 100, 500, 1000];
@@ -51,10 +53,10 @@ const Pagination = (props: PaginationProps) => {
       >
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="secondary">{pageSize} rows</Button>
+            <Button variant="secondary">{pageSize} {t("rows")}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-48">
-            <DropdownMenuLabel>Results per page</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("resultsPerPage")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup value={`${pageSize}`}>
               {pageSizes.map((size) => (
@@ -89,6 +91,7 @@ export const PaginationButtons = ({
   pageSize,
   previousPage
 }: PaginationProps & { condensed?: boolean }) => {
+  const { t } = useTranslation("common");
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const previousButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -156,7 +159,7 @@ export const PaginationButtons = ({
         <>
           <div className="text-foreground text-sm font-medium align-center hidden lg:flex">
             {count > 0 ? offset + 1 : 0} - {Math.min(offset + pageSize, count)}{" "}
-            of {count}
+            {t("of")} {count}
           </div>
           <Tooltip>
             <TooltipTrigger>
@@ -167,7 +170,7 @@ export const PaginationButtons = ({
                 onClick={handlePreviousPage}
                 leftIcon={<BsChevronLeft />}
               >
-                Previous
+                {t("previous")}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -183,7 +186,7 @@ export const PaginationButtons = ({
                 onClick={handleNextPage}
                 rightIcon={<BsChevronRight />}
               >
-                Next
+                {t("next")}
               </Button>
             </TooltipTrigger>
             <TooltipContent>

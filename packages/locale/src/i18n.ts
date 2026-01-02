@@ -1,5 +1,4 @@
 import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import {
   defaultLanguage,
@@ -16,32 +15,21 @@ const resources = {
 
 // Only initialize if not already initialized
 if (!i18n.isInitialized) {
-  i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      resources,
-      fallbackLng: defaultLanguage,
-      supportedLngs: [...supportedLanguages],
-      defaultNS: defaultNamespace,
-      ns: Object.keys(en),
+  i18n.use(initReactI18next).init({
+    resources,
+    fallbackLng: defaultLanguage,
+    supportedLngs: [...supportedLanguages],
+    defaultNS: defaultNamespace,
+    ns: Object.keys(en),
 
-      detection: {
-        order: ["cookie", "localStorage", "navigator", "htmlTag"],
-        caches: ["cookie", "localStorage"],
-        cookieMinutes: 525600, // 1 year
-        lookupCookie: "language",
-        lookupLocalStorage: "language"
-      },
+    interpolation: {
+      escapeValue: false // React already escapes
+    },
 
-      interpolation: {
-        escapeValue: false // React already escapes
-      },
-
-      react: {
-        useSuspense: false
-      }
-    });
+    react: {
+      useSuspense: false
+    }
+  });
 }
 
 export default i18n;
