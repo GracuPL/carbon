@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import type { ButtonProps } from "@carbon/react";
 import {
   Button,
@@ -19,6 +20,7 @@ type NewProps = {
 };
 
 const New = ({ label, to, variant = "primary" }: NewProps) => {
+  const { t } = useTranslation("common");
   const buttonRef = useRef<HTMLButtonElement>(null);
   useKeyboardShortcuts({
     n: (event: KeyboardEvent) => {
@@ -37,7 +39,7 @@ const New = ({ label, to, variant = "primary" }: NewProps) => {
           ref={buttonRef}
         >
           <Link to={to} prefetch="intent">
-            Add {label}
+            {t("add")} {label}
           </Link>
         </Button>
       </TooltipTrigger>
