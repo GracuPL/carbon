@@ -11,13 +11,14 @@ export const languageNames: Record<SupportedLanguage, string> = {
 export const namespaces = [
   "common",
   "account",
-  "sales",
-  "purchasing",
+  "errors",
   "inventory",
-  "manufacturing",
+  "items",
+  "navigation",
+  "production",
+  "purchasing",
   "resources",
-  "settings",
-  "errors"
+  "sales"
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];
