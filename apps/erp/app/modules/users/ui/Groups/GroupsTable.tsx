@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   AvatarGroup,
   AvatarGroupList,
@@ -20,6 +21,7 @@ type GroupsTableProps = {
 };
 
 const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
+  const { t } = useTranslation("users");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const [params] = useUrlParams();
@@ -44,7 +46,7 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
     return [
       {
         accessorKey: "name",
-        header: "Group Name",
+        header: t("groupName"),
         cell: ({ row }) =>
           row.original.isEmployeeTypeGroup ||
           row.original.isCustomerTypeGroup ||
@@ -60,7 +62,7 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
         }
       },
       {
-        header: "Members",
+        header: t("members"),
         // accessorKey: undefined, // makes the column unsortable
         cell: ({ row }) => (
           <AvatarGroup limit={3}>
@@ -87,7 +89,7 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
         }
       }
     ];
-  }, []);
+  }, [t]);
 
   const renderContextMenu = useCallback(
     (row: (typeof rows)[number]) => {
@@ -105,7 +107,7 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
             }}
           >
             <DropdownMenuIcon icon={<LuPencil />} />
-            Edit Group
+            {t("editGroup")}
           </MenuItem>
           <MenuItem
             destructive
@@ -120,12 +122,12 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
             }}
           >
             <DropdownMenuIcon icon={<LuTrash />} />
-            Delete Group
+            {t("deleteGroup")}
           </MenuItem>
         </>
       );
     },
-    [navigate, permissions]
+    [t, navigate, permissions]
   );
 
   return (
@@ -135,11 +137,11 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
       columns={columns}
       primaryAction={
         permissions.can("create", "users") && (
-          <New label="Group" to={`new?${params.toString()}`} />
+          <New label={t("group")} to={`new?${params.toString()}`} />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Groups"
+      title={t("groups")}
     />
   );
 });

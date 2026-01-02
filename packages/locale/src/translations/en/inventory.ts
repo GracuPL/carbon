@@ -88,6 +88,27 @@ export const inventory = {
   deleteReceipt: "Delete Receipt",
   confirmDeleteReceipt: "Are you sure you want to delete {{name}}? This cannot be undone.",
 
+  // Shipment fields
+  shipmentId: "Shipment ID",
+  customer: "Customer",
+  editShipment: "Edit Shipment",
+  viewShipment: "View Shipment",
+  deleteShipment: "Delete Shipment",
+  confirmDeleteShipment: "Are you sure you want to delete {{name}}? This cannot be undone.",
+
+  // Kanban fields
+  kanban: "Kanban",
+  reorderQty: "Reorder Qty.",
+  release: "Release",
+  start: "Start",
+  complete: "Complete",
+  create: "Create",
+  settings: "Settings",
+  edit: "Edit",
+  viewItemMaster: "View Item Master",
+  actions: "Actions",
+  printLabels: "Print Labels",
+
   // Actions
   receive: "Receive",
   ship: "Ship",

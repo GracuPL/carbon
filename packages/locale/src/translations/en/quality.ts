@@ -80,6 +80,14 @@ export const quality = {
   activate: "Activate",
   deactivate: "Deactivate",
 
+  // Action fields
+  actionType: "Action Type",
+  actionStatus: "Action Status",
+  issueStatus: "Issue Status",
+  completedDate: "Completed Date",
+  created: "Created",
+  viewIssue: "View Issue",
+
   // Messages
   noDataExists: "No data exists",
   noIssuesFound: "No issues found",

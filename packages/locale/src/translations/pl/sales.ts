@@ -57,5 +57,24 @@ export const sales = {
 
   // Table headers - Nagłówki tabeli
   document: "Dokument",
-  status: "Status"
+  status: "Status",
+  statuses: "Statusy",
+  name: "Nazwa",
+  type: "Typ",
+  accountManager: "Opiekun klienta",
+  tags: "Tagi",
+  currency: "Waluta",
+  phone: "Telefon",
+  fax: "Fax",
+  website: "Strona www",
+  createdBy: "Utworzył",
+  createdAt: "Data utworzenia",
+  updatedBy: "Zaktualizował",
+  updatedAt: "Data aktualizacji",
+
+  // Customer actions - Akcje klienta
+  edit: "Edytuj",
+  customerTypes: "Typy klientów",
+  contacts: "Kontakty",
+  confirmDeleteCustomer: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć."
 } as const;
