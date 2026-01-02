@@ -2,6 +2,7 @@ import { account } from "./account";
 import { common } from "./common";
 import { errors } from "./errors";
 import { inventory } from "./inventory";
+import { invoicing } from "./invoicing";
 import { items } from "./items";
 import { navigation } from "./navigation";
 import { production } from "./production";
@@ -19,6 +20,7 @@ export const en = {
   sales,
   production,
   inventory,
+  invoicing,
   items,
   purchasing,
   quality,
@@ -31,6 +33,7 @@ export {
   common,
   errors,
   inventory,
+  invoicing,
   items,
   navigation,
   production,
