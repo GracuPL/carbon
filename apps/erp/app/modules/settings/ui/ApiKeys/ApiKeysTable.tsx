@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, Button, HStack, MenuIcon, MenuItem } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -24,6 +25,7 @@ type ApiKeysTableProps = {
 };
 
 const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
+  const { t } = useTranslation("settings");
   const navigate = useNavigate();
   const [params] = useUrlParams();
   const permissions = usePermissions();
@@ -33,7 +35,7 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
     return [
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id!}>{row.original.name}</Hyperlink>
         ),
@@ -43,7 +45,7 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
       },
       {
         accessorKey: "key",
-        header: "Key",
+        header: t("key"),
         cell: (item) => (
           <Badge variant="secondary">{item.getValue<string>()}</Badge>
         ),
@@ -53,7 +55,7 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
       },
       {
         id: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -70,14 +72,14 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: t("createdAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
         }
       }
     ];
-  }, [people]);
+  }, [people, t]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const renderContextMenu = useCallback(
@@ -90,7 +92,7 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit API Key
+            {t("editApiKey")}
           </MenuItem>
           <MenuItem
             destructive
@@ -101,13 +103,13 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete API Key
+            {t("deleteApiKey")}
           </MenuItem>
         </>
       );
     },
 
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -120,17 +122,17 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
           <HStack>
             {permissions.can("update", "users") && (
               <New
-                label="API Key"
+                label={t("apiKey")}
                 to={`${path.to.newApiKey}?${params.toString()}`}
               />
             )}
             <Button leftIcon={<LuCode />} variant="secondary" asChild>
-              <Link to={path.to.apiIntroduction}>API Docs</Link>
+              <Link to={path.to.apiIntroduction}>{t("apiDocs")}</Link>
             </Button>
           </HStack>
         }
         renderContextMenu={renderContextMenu}
-        title="API Keys"
+        title={t("apiKeys")}
       />
       <Outlet />
     </>

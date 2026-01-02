@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Table } from "~/components";
@@ -24,6 +25,7 @@ const PurchasingPostingGroupsTable = ({
   balanceSheetAccounts,
   incomeStatementAccounts
 }: PurchasingPostingGroupsTableProps) => {
+  const { t } = useTranslation("accounting");
   const { canEdit, onCellEdit } = usePostingGroups("postingGroupPurchasing");
 
   const balanceSheetAccountOptions = useMemo(() => {
@@ -44,7 +46,7 @@ const PurchasingPostingGroupsTable = ({
     return [
       {
         id: "itemPostingGroupId",
-        header: "Posting Group",
+        header: t("postingGroup"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -66,7 +68,7 @@ const PurchasingPostingGroupsTable = ({
       },
       {
         id: "supplierTypeId",
-        header: "Supplier Type",
+        header: t("supplierType"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -79,45 +81,45 @@ const PurchasingPostingGroupsTable = ({
         meta: {
           filter: {
             type: "static",
-            options: supplierTypes.map((t) => ({
-              label: <Enumerable value={t.name} />,
-              value: t.id
+            options: supplierTypes.map((st) => ({
+              label: <Enumerable value={st.name} />,
+              value: st.id
             }))
           }
         }
       },
       {
         accessorKey: "payablesAccount",
-        header: "Payables",
+        header: t("payables"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseAccount",
-        header: "Purchase",
+        header: t("purchase"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseDiscountAccount",
-        header: "Purchase Discount",
+        header: t("purchaseDiscount"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseCreditAccount",
-        header: "Purchase Credit",
+        header: t("purchaseCredit"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchasePrepaymentAccount",
-        header: "Purchase Prepayment",
+        header: t("purchasePrepayment"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseTaxPayableAccount",
-        header: "Purchase Tax Payable",
+        header: t("purchaseTaxPayable"),
         cell: (item) => item.getValue()
       }
     ];
-  }, [supplierTypes, itemPostingGroups]);
+  }, [supplierTypes, itemPostingGroups, t]);
 
   const editableComponents = useMemo(
     () => ({
@@ -151,7 +153,7 @@ const PurchasingPostingGroupsTable = ({
       editableComponents={editableComponents}
       withInlineEditing={canEdit}
       withSearch={false}
-      title="Purchasing Posting Groups"
+      title={t("purchasingPostingGroups")}
     />
   );
 };

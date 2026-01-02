@@ -1,0 +1,44 @@
+export const settings = {
+  // Module title
+  title: "Settings",
+
+  // API Keys
+  apiKey: "API Key",
+  apiKeys: "API Keys",
+  key: "Key",
+  editApiKey: "Edit API Key",
+  deleteApiKey: "Delete API Key",
+  apiDocs: "API Docs",
+
+  // Sequences
+  sequence: "Sequence",
+  sequences: "Sequences",
+  prefix: "Prefix",
+  current: "Current",
+  size: "Size",
+  step: "Step",
+  suffix: "Suffix",
+  editSequence: "Edit Sequence",
+
+  // Custom Fields
+  customField: "Custom Field",
+  customFields: "Custom Fields",
+  table: "Table",
+  module: "Module",
+  fields: "Fields",
+  newField: "New Field",
+  viewCustomFields: "View Custom Fields",
+
+  // Webhooks
+  webhook: "Webhook",
+  webhooks: "Webhooks",
+  success: "Success",
+  webhooksDocs: "Webhooks Docs",
+  editWebhook: "Edit Webhook",
+  deleteWebhook: "Delete Webhook",
+
+  // Common fields
+  name: "Name",
+  createdBy: "Created By",
+  createdAt: "Created At"
+} as const;

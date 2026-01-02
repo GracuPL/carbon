@@ -1,0 +1,44 @@
+export const settings = {
+  // Module title - Tytuł modułu
+  title: "Ustawienia",
+
+  // API Keys - Klucze API
+  apiKey: "Klucz API",
+  apiKeys: "Klucze API",
+  key: "Klucz",
+  editApiKey: "Edytuj klucz API",
+  deleteApiKey: "Usuń klucz API",
+  apiDocs: "Dokumentacja API",
+
+  // Sequences - Sekwencje
+  sequence: "Sekwencja",
+  sequences: "Sekwencje",
+  prefix: "Prefiks",
+  current: "Bieżący",
+  size: "Rozmiar",
+  step: "Krok",
+  suffix: "Sufiks",
+  editSequence: "Edytuj sekwencję",
+
+  // Custom Fields - Pola niestandardowe
+  customField: "Pole niestandardowe",
+  customFields: "Pola niestandardowe",
+  table: "Tabela",
+  module: "Moduł",
+  fields: "Pola",
+  newField: "Nowe pole",
+  viewCustomFields: "Pokaż pola niestandardowe",
+
+  // Webhooks
+  webhook: "Webhook",
+  webhooks: "Webhooki",
+  success: "Sukces",
+  webhooksDocs: "Dokumentacja webhooków",
+  editWebhook: "Edytuj webhook",
+  deleteWebhook: "Usuń webhook",
+
+  // Common fields - Wspólne pola
+  name: "Nazwa",
+  createdBy: "Utworzony przez",
+  createdAt: "Utworzony"
+} as const;

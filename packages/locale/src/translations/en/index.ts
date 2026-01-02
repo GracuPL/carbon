@@ -1,4 +1,5 @@
 import { account } from "./account";
+import { accounting } from "./accounting";
 import { common } from "./common";
 import { errors } from "./errors";
 import { inventory } from "./inventory";
@@ -10,11 +11,13 @@ import { purchasing } from "./purchasing";
 import { quality } from "./quality";
 import { resources } from "./resources";
 import { sales } from "./sales";
+import { settings } from "./settings";
 import { users } from "./users";
 
 export const en = {
   common,
   account,
+  accounting,
   errors,
   navigation,
   sales,
@@ -25,11 +28,14 @@ export const en = {
   purchasing,
   quality,
   resources,
+  sales,
+  settings,
   users
 } as const;
 
 export {
   account,
+  accounting,
   common,
   errors,
   inventory,
@@ -41,5 +47,6 @@ export {
   quality,
   resources,
   sales,
+  settings,
   users
 };

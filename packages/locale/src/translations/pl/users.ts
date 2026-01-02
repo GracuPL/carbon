@@ -17,6 +17,17 @@ export const users = {
   // Employee types - Typy pracowników
   employeeType: "Typ pracownika",
   employeeTypes: "Typy pracowników",
+  viewEmployees: "Pokaż pracowników",
+  editEmployeeType: "Edytuj typ pracownika",
+  deleteEmployeeType: "Usuń typ pracownika",
+
+  // Customer/Supplier types - Typy klientów/dostawców
+  customerType: "Typ klienta",
+  customerTypes: "Typy klientów",
+  supplierType: "Typ dostawcy",
+  supplierTypes: "Typy dostawców",
+  customerAccounts: "Konta klientów",
+  supplierAccounts: "Konta dostawców",
 
   // Table headers - Nagłówki tabeli
   name: "Nazwa",

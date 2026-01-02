@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Table } from "~/components";
@@ -24,6 +25,7 @@ const InventoryPostingGroupsTable = ({
   balanceSheetAccounts,
   incomeStatementAccounts
 }: InventoryPostingGroupsTableProps) => {
+  const { t } = useTranslation("accounting");
   const { canEdit, onCellEdit } = usePostingGroups("postingGroupInventory");
 
   const balanceSheetAccountOptions = useMemo(() => {
@@ -44,7 +46,7 @@ const InventoryPostingGroupsTable = ({
     return [
       {
         id: "itemPostingGroupId",
-        header: "Posting Group",
+        header: t("postingGroup"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -66,7 +68,7 @@ const InventoryPostingGroupsTable = ({
       },
       {
         id: "locationId",
-        header: "Location",
+        header: t("location"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -87,76 +89,76 @@ const InventoryPostingGroupsTable = ({
       },
       {
         accessorKey: "costOfGoodsSoldAccount",
-        header: "COGS",
+        header: t("cogs"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryAccount",
-        header: "Inventory",
+        header: t("inventory"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryInterimAccrualAccount",
-        header: "Inv. Interim Accrual",
+        header: t("invInterimAccrual"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryReceivedNotInvoicedAccount",
-        header: "Received Not Invoiced",
+        header: t("receivedNotInvoiced"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryInvoicedNotReceivedAccount",
-        header: "Invoiced Not Received",
+        header: t("invoicedNotReceived"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryShippedNotInvoicedAccount",
-        header: "Shipped Not Invoiced",
+        header: t("shippedNotInvoiced"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "workInProgressAccount",
-        header: "WIP",
+        header: t("wip"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "directCostAppliedAccount",
-        header: "Direct Cost Applied",
+        header: t("directCostApplied"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "overheadCostAppliedAccount",
-        header: "Overhead Cost Applied",
+        header: t("overheadCostApplied"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseVarianceAccount",
-        header: "Purchase Variance",
+        header: t("purchaseVariance"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryAdjustmentVarianceAccount",
-        header: "Inv. Adjustment Variance",
+        header: t("invAdjustmentVariance"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "materialVarianceAccount",
-        header: "Material Variance",
+        header: t("materialVariance"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "capacityVarianceAccount",
-        header: "Capacity Variance",
+        header: t("capacityVariance"),
         cell: (item) => item.getValue()
       },
       {
         accessorKey: "overheadAccount",
-        header: "Overhead",
+        header: t("overhead"),
         cell: (item) => item.getValue()
       }
     ];
-  }, [locations, itemPostingGroups]);
+  }, [locations, itemPostingGroups, t]);
 
   const editableComponents = useMemo(
     () => ({
@@ -222,7 +224,7 @@ const InventoryPostingGroupsTable = ({
       editableComponents={editableComponents}
       withInlineEditing={canEdit}
       withSearch={false}
-      title="Inventory Posting Groups"
+      title={t("inventoryPostingGroups")}
     />
   );
 };

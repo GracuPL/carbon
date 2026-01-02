@@ -17,6 +17,17 @@ export const users = {
   // Employee types
   employeeType: "Employee Type",
   employeeTypes: "Employee Types",
+  viewEmployees: "View Employees",
+  editEmployeeType: "Edit Employee Type",
+  deleteEmployeeType: "Delete Employee Type",
+
+  // Customer/Supplier types
+  customerType: "Customer Type",
+  customerTypes: "Customer Types",
+  supplierType: "Supplier Type",
+  supplierTypes: "Supplier Types",
+  customerAccounts: "Customer Accounts",
+  supplierAccounts: "Supplier Accounts",
 
   // Table headers
   name: "Name",

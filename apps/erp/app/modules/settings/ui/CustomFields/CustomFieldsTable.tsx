@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Button, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -18,6 +19,7 @@ type CustomFieldsTableProps = {
 };
 
 const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
+  const { t } = useTranslation("settings");
   const navigate = useNavigate();
   const [params] = useUrlParams();
   const permissions = usePermissions();
@@ -26,7 +28,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
     return [
       {
         accessorKey: "name",
-        header: "Table",
+        header: t("table"),
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
             <Hyperlink to={row.original.table!}>{row.original.name}</Hyperlink>
@@ -41,7 +43,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
       },
       {
         accessorKey: "module",
-        header: "Module",
+        header: t("module"),
         cell: ({ row }) => <Enumerable value={row.original.module} />,
         meta: {
           icon: <LuLayoutGrid />,
@@ -55,7 +57,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
         }
       },
       {
-        header: "Fields",
+        header: t("fields"),
         cell: ({ row }) => (
           <Button variant="secondary" asChild>
             <Link
@@ -66,7 +68,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
               {Array.isArray(row.original.fields)
                 ? (row.original.fields?.length ?? 0)
                 : 0}{" "}
-              Fields
+              {t("fields")}
             </Link>
           </Button>
         ),
@@ -75,7 +77,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
         }
       }
     ];
-  }, [params]);
+  }, [params, t]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
   const renderContextMenu = useCallback(
@@ -90,7 +92,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
             }}
           >
             <MenuIcon icon={<BiAddToQueue />} />
-            New Field
+            {t("newField")}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -100,13 +102,13 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
             }}
           >
             <MenuIcon icon={<BsListUl />} />
-            View Custom Fields
+            {t("viewCustomFields")}
           </MenuItem>
         </>
       );
     },
 
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -115,7 +117,7 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
         data={data}
         columns={columns}
         count={count ?? 0}
-        title="Custom Fields"
+        title={t("customFields")}
         renderContextMenu={renderContextMenu}
       />
     </>
