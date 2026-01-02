@@ -26,10 +26,16 @@ export const production = {
   inProgress: "W trakcie",
   completed: "Zakończone",
   onHold: "Wstrzymane",
+  inactive: "Nieaktywny",
 
   // Actions - Akcje
   newJob: "Nowe zlecenie",
   startJob: "Rozpocznij zlecenie",
   completeJob: "Zakończ zlecenie",
-  viewMaintenanceDispatch: "Zobacz dyspozycję konserwacji"
+  viewMaintenanceDispatch: "Zobacz dyspozycję konserwacji",
+  exportCsv: "Eksportuj CSV",
+
+  // Work center cards - Karty stanowisk pracy
+  blockedBy: "Zablokowane przez",
+  due: "Termin"
 } as const;

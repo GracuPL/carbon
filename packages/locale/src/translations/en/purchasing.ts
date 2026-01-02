@@ -5,6 +5,7 @@ export const purchasing = {
   // Dashboard cards
   openPurchaseOrders: "Open Purchase Orders",
   openPurchaseInvoices: "Open Purchase Invoices",
+  activeSupplierQuotes: "Active Supplier Quotes",
   viewOpenPOs: "View Open POs",
   viewOpenInvoices: "View Open Invoices",
   viewActiveQuotes: "View Active Quotes",
@@ -18,12 +19,17 @@ export const purchasing = {
   // Entities
   supplier: "Supplier",
   suppliers: "Suppliers",
+  allSuppliers: "All Suppliers",
   purchaseOrder: "Purchase Order",
   purchaseOrders: "Purchase Orders",
   purchaseInvoice: "Purchase Invoice",
   purchaseInvoices: "Purchase Invoices",
   supplierQuote: "Supplier Quote",
   supplierQuotes: "Supplier Quotes",
+
+  // Table headers
+  document: "Document",
+  status: "Status",
 
   // Fields
   leadTime: "Lead Time",
@@ -42,5 +48,6 @@ export const purchasing = {
   newSupplier: "New Supplier",
   sendOrder: "Send Order",
   receiveGoods: "Receive Goods",
-  finalize: "Finalize"
+  finalize: "Finalize",
+  exportCsv: "Export CSV"
 } as const;

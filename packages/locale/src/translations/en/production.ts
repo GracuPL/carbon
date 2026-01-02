@@ -26,10 +26,16 @@ export const production = {
   inProgress: "In Progress",
   completed: "Completed",
   onHold: "On Hold",
+  inactive: "Inactive",
 
   // Actions
   newJob: "New Job",
   startJob: "Start Job",
   completeJob: "Complete Job",
-  viewMaintenanceDispatch: "View maintenance dispatch"
+  viewMaintenanceDispatch: "View maintenance dispatch",
+  exportCsv: "Export CSV",
+
+  // Work center cards
+  blockedBy: "Blocked by",
+  due: "Due"
 } as const;

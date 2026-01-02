@@ -15,6 +15,7 @@ export const resources = {
   recentlyCreatedDescription: "Newly created maintenance dispatches",
   assignedToMe: "Assigned to Me",
   assignedToMeDescription: "Dispatches currently assigned to you",
+  errorLoadingDispatches: "Error loading assigned dispatches",
 
   // Entities
   equipment: "Equipment",
@@ -23,12 +24,25 @@ export const resources = {
   maintenance: "Maintenance",
   training: "Training",
   trainings: "Trainings",
+  workCenter: "Work Center",
+  workCenters: "Work Centers",
+  allWorkCenters: "All Work Centers",
+
+  // Table headers
+  source: "Source",
+  status: "Status",
 
   // Statuses
   pending: "Pending",
   overdue: "Overdue",
   scheduled: "Scheduled",
   reactive: "Reactive",
+
+  // KPIs
+  failures: "failures",
+
+  // Actions
+  exportCsv: "Export CSV",
 
   // Other
   yourself: "yourself"
