@@ -73,6 +73,12 @@ export const users = {
   updatePermission: "Update",
   deletePermission: "Delete",
 
+  // Department fields
+  departments: "Departments",
+  subDepartments: "Sub-Departments",
+  editDepartment: "Edit Department",
+  deleteDepartment: "Delete Department",
+
   // Group fields
   groupName: "Group Name",
   members: "Members",

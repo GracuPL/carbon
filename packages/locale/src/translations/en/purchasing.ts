@@ -30,6 +30,7 @@ export const purchasing = {
   // Table headers
   document: "Document",
   status: "Status",
+  statuses: "Statuses",
   name: "Name",
   supplierStatus: "Supplier Status",
   type: "Type",
@@ -43,6 +44,26 @@ export const purchasing = {
   createdAt: "Created At",
   updatedBy: "Updated By",
   updatedAt: "Updated At",
+  assignee: "Assignee",
+  location: "Location",
+
+  // Purchase Order fields
+  poNumber: "PO Number",
+  supplierRef: "Supplier Ref.",
+  orderDate: "Order Date",
+  requestedDate: "Requested Date",
+  promisedDate: "Promised Date",
+  orderTotal: "Order Total",
+  shippingMethod: "Shipping Method",
+  paymentMethod: "Payment Method",
+  dropShipment: "Drop Shipment",
+  dropShipmentStatuses: "Drop Shipment Statuses",
+
+  // Supplier Quote fields
+  quoteNumber: "Quote Number",
+  supplierReference: "Supplier Reference",
+  quotedDate: "Quoted Date",
+  expirationDate: "Expiration Date",
 
   // Fields
   leadTime: "Lead Time",
@@ -61,9 +82,16 @@ export const purchasing = {
   newSupplier: "New Supplier",
   sendOrder: "Send Order",
   receiveGoods: "Receive Goods",
+  receive: "Receive",
   finalize: "Finalize",
   exportCsv: "Export CSV",
+  edit: "Edit",
+  delete: "Delete",
+  update: "Update",
+  deletePurchaseOrders: "Delete Purchase Orders",
   editSupplier: "Edit Supplier",
   supplierTypes: "Supplier Types",
-  contacts: "Contacts"
+  contacts: "Contacts",
+  confirmDeletePurchaseOrder: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  confirmDeleteSupplierQuote: "Are you sure you want to delete {{name}}? This cannot be undone."
 } as const;

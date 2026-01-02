@@ -71,10 +71,42 @@ export const sales = {
   createdAt: "Data utworzenia",
   updatedBy: "Zaktualizował",
   updatedAt: "Data aktualizacji",
+  assignee: "Przypisany do",
+  location: "Lokalizacja",
+
+  // Quote fields - Pola oferty
+  quoteNumber: "Numer oferty",
+  customerRfq: "Zapytanie klienta",
+  salesPerson: "Handlowiec",
+  estimator: "Kosztorysant",
+  dueDate: "Termin",
+  expirationDate: "Data ważności",
+
+  // Sales Order fields - Pola zamówienia
+  salesOrderNumber: "Numer zamówienia",
+  jobs: "Zlecenia",
+  customerPo: "Zamówienie klienta",
+  orderDate: "Data zamówienia",
+  orderTotal: "Wartość zamówienia",
+  promisedDate: "Obiecana data",
+  shippingMethod: "Metoda wysyłki",
+  paymentMethod: "Metoda płatności",
+  dropShipment: "Wysyłka bezpośrednia",
+  dropShipmentStatuses: "Statusy wysyłki bezpośredniej",
+  salesOrder: "Zamówienie sprzedaży",
+  salesOrders: "Zamówienia sprzedaży",
+
+  // RFQ fields - Pola zapytania
+  rfqNumber: "Numer zapytania",
+  rfqDate: "Data zapytania",
 
   // Customer actions - Akcje klienta
   edit: "Edytuj",
+  delete: "Usuń",
   customerTypes: "Typy klientów",
   contacts: "Kontakty",
-  confirmDeleteCustomer: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć."
+  confirmDeleteCustomer: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  confirmDeleteQuote: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  confirmDeleteSalesOrder: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  confirmDeleteRfq: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć."
 } as const;

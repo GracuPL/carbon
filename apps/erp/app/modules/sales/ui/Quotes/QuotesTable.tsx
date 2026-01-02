@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   MenuIcon,
@@ -44,6 +45,7 @@ type QuotesTableProps = {
 };
 
 const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const navigate = useNavigate();
 
@@ -65,7 +67,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
     const defaultColumns: ColumnDef<Quotation>[] = [
       {
         accessorKey: "quoteId",
-        header: "Quote Number",
+        header: t("quoteNumber"),
         cell: ({ row }) => (
           <HStack>
             <ItemThumbnail
@@ -92,7 +94,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         id: "customerId",
-        header: "Customer",
+        header: t("customer"),
         cell: ({ row }) => (
           <CustomerAvatar customerId={row.original.customerId} />
         ),
@@ -110,7 +112,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
 
       {
         accessorKey: "status",
-        header: "Status",
+        header: t("status"),
         cell: ({ row }) => {
           const status = row.original.status;
           const lines = row.original.lines ?? 0;
@@ -133,13 +135,13 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
               label: <QuoteStatus status={status} />
             }))
           },
-          pluralHeader: "Statuses",
+          pluralHeader: t("statuses"),
           icon: <LuStar />
         }
       },
       {
         accessorKey: "customerReference",
-        header: "Customer RFQ",
+        header: t("customerRfq"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuQrCode />
@@ -147,7 +149,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "salesPersonId",
-        header: "Sales Person",
+        header: t("salesPerson"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.salesPersonId} />
         ),
@@ -161,7 +163,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "estimatorId",
-        header: "Estimator",
+        header: t("estimator"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.estimatorId} />
         ),
@@ -175,7 +177,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         id: "assignee",
-        header: "Assignee",
+        header: t("assignee"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
@@ -189,7 +191,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "dueDate",
-        header: "Due Date",
+        header: t("dueDate"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -197,7 +199,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "expirationDate",
-        header: "Expiration Date",
+        header: t("expirationDate"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -205,7 +207,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "locationName",
-        header: "Location",
+        header: t("location"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />,
         meta: {
           filter: {
@@ -222,7 +224,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         id: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -239,7 +241,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: t("createdAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -247,7 +249,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         id: "updatedBy",
-        header: "Updated By",
+        header: t("updatedBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.updatedBy} />
         ),
@@ -264,7 +266,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
       },
       {
         accessorKey: "updatedAt",
-        header: "Updated At",
+        header: t("updatedAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -273,14 +275,14 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
     ];
 
     return [...defaultColumns, ...customColumns];
-  }, [customers, people, customColumns]);
+  }, [customers, people, customColumns, t]);
 
   const renderContextMenu = useMemo(() => {
     return (row: Quotation) => (
       <>
         <MenuItem onClick={() => navigate(path.to.quoteDetails(row.id!))}>
           <MenuIcon icon={<LuPencil />} />
-          Edit
+          {t("edit")}
         </MenuItem>
         <MenuItem
           disabled={!permissions.can("delete", "sales")}
@@ -291,11 +293,11 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
           }}
         >
           <MenuIcon icon={<LuTrash />} />
-          Delete
+          {t("delete")}
         </MenuItem>
       </>
     );
-  }, [deleteQuotationModal, navigate, permissions]);
+  }, [deleteQuotationModal, navigate, permissions, t]);
 
   return (
     <>
@@ -314,12 +316,12 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
         }}
         primaryAction={
           permissions.can("create", "sales") && (
-            <New label="Quote" to={path.to.newQuote} />
+            <New label={t("quote")} to={path.to.newQuote} />
           )
         }
         renderContextMenu={renderContextMenu}
         table="quote"
-        title="Quotes"
+        title={t("quotes")}
         withSavedView
       />
       {selectedQuotation && selectedQuotation.id && (
@@ -327,7 +329,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
           action={path.to.deleteQuote(selectedQuotation.id)}
           isOpen={deleteQuotationModal.isOpen}
           name={selectedQuotation.quoteId!}
-          text={`Are you sure you want to delete ${selectedQuotation.quoteId!}? This cannot be undone.`}
+          text={t("confirmDeleteQuote", { name: selectedQuotation.quoteId! })}
           onCancel={() => {
             deleteQuotationModal.onClose();
             setSelectedQuotation(null);

@@ -73,6 +73,12 @@ export const users = {
   updatePermission: "Edycja",
   deletePermission: "Usuwanie",
 
+  // Department fields - Pola działu
+  departments: "Działy",
+  subDepartments: "Poddziały",
+  editDepartment: "Edytuj dział",
+  deleteDepartment: "Usuń dział",
+
   // Group fields - Pola grupy
   groupName: "Nazwa grupy",
   members: "Członkowie",
