@@ -54,11 +54,16 @@ export const users = {
   deleteEmployee: "Delete Employee",
   inviteUser: "Invite User",
   resendInvite: "Resend Invite",
+  resendAccountInvite: "Resend Account Invite",
   revokeInvite: "Revoke Invite",
   deactivateUser: "Deactivate User",
+  deactivateUsers: "Deactivate Users",
+  deactivateAccount: "Deactivate Account",
   activateUser: "Activate User",
   editPermissions: "Edit Permissions",
   bulkEditPermissions: "Bulk Edit Permissions",
+  account: "Account",
+  employeeAccounts: "Employee Accounts",
 
   // Permissions
   permission: "Permission",

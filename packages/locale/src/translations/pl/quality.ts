@@ -34,12 +34,23 @@ export const quality = {
 
   // Table headers - Nagłówki tabeli
   issueId: "ID problemu",
+  name: "Nazwa",
+  status: "Status",
+  type: "Typ",
   severity: "Ważność",
   priority: "Priorytet",
+  source: "Źródło",
+  location: "Lokalizacja",
   assignee: "Przypisany",
+  items: "Pozycje",
+  openDate: "Data otwarcia",
+  closeDate: "Data zamknięcia",
+  createdBy: "Utworzył",
+  createdAt: "Data utworzenia",
   dueDate: "Termin",
   resolution: "Rozwiązanie",
   rootCause: "Przyczyna źródłowa",
+  confirmDeleteIssue: "Czy na pewno chcesz usunąć ten problem?",
 
   // Statuses - Statusy
   open: "Otwarty",

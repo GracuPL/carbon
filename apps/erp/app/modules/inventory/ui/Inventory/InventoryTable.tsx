@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Checkbox,
@@ -68,6 +69,7 @@ type InventoryTableProps = {
 
 const InventoryTable = memo(
   ({ data, count, locationId, forms, substances }: InventoryTableProps) => {
+    const { t } = useTranslation("inventory");
     const [params] = useUrlParams();
 
     const locations = useLocations();
@@ -82,7 +84,7 @@ const InventoryTable = memo(
       return [
         {
           accessorKey: "readableIdWithRevision",
-          header: "Item ID",
+          header: t("itemId"),
           cell: ({ row }) => (
             <HStack className="py-1">
               <ItemThumbnail
@@ -111,7 +113,7 @@ const InventoryTable = memo(
 
         {
           accessorKey: "quantityOnHand",
-          header: "On Hand",
+          header: t("onHand"),
           cell: ({ row }) =>
             row.original.itemTrackingType === "Non-Inventory" ? (
               <TrackingTypeIcon type="Non-Inventory" />
@@ -126,7 +128,7 @@ const InventoryTable = memo(
 
         {
           accessorKey: "daysRemaining",
-          header: "Days",
+          header: t("days"),
           cell: ({ row }) => numberFormatter.format(row.original.daysRemaining),
           meta: {
             icon: <LuClock />,
@@ -135,7 +137,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "leadTime",
-          header: "Lead Time",
+          header: t("leadTime"),
           cell: ({ row }) => numberFormatter.format(row.original.leadTime),
           meta: {
             icon: <LuClock />,
@@ -144,7 +146,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "reorderingPolicy",
-          header: "Reorder Policy",
+          header: t("reorderPolicy"),
           cell: ({ row }) => {
             return (
               <HStack>
@@ -174,7 +176,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "replenishmentSystem",
-          header: "Replenishment",
+          header: t("replenishment"),
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
             filter: {
@@ -190,7 +192,7 @@ const InventoryTable = memo(
 
         {
           accessorKey: "usageLast30Days",
-          header: "Usage/Day (30d)",
+          header: t("usagePerDay"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.usageLast30Days),
           meta: {
@@ -200,7 +202,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "usageLast90Days",
-          header: "Usage/Day (90d)",
+          header: t("usagePerDay90"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.usageLast90Days),
           meta: {
@@ -210,7 +212,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "quantityOnPurchaseOrder",
-          header: "On Purchase Order",
+          header: t("onPurchaseOrder"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.quantityOnPurchaseOrder),
           meta: {
@@ -220,7 +222,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "quantityOnProductionOrder",
-          header: "On Jobs",
+          header: t("onJobs"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.quantityOnProductionOrder),
           meta: {
@@ -230,7 +232,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "quantityOnProductionDemand",
-          header: "On Jobs",
+          header: t("onJobsDemand"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.quantityOnProductionDemand),
           meta: {
@@ -240,7 +242,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "quantityOnSalesOrder",
-          header: "On Sales Order",
+          header: t("onSalesOrder"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.quantityOnSalesOrder),
           meta: {
@@ -250,7 +252,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "unitOfMeasureCode",
-          header: "Unit of Measure",
+          header: t("unitOfMeasure"),
           cell: ({ row }) => {
             const unitOfMeasure = unitOfMeasures.find(
               (uom) => uom.value === row.original.unitOfMeasureCode
@@ -267,7 +269,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "materialFormId",
-          header: "Shape",
+          header: t("shape"),
           cell: ({ row }) => {
             const form = forms.find(
               (f) => f.id === row.original.materialFormId
@@ -287,7 +289,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "materialSubstanceId",
-          header: "Substance",
+          header: t("substance"),
           cell: ({ row }) => {
             const substance = substances.find(
               (s) => s.id === row.original.materialSubstanceId
@@ -307,7 +309,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "finish",
-          header: "Finish",
+          header: t("finish"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuPaintBucket />,
@@ -324,7 +326,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "grade",
-          header: "Grade",
+          header: t("grade"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuStar />,
@@ -341,7 +343,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "dimension",
-          header: "Dimension",
+          header: t("dimension"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuExpand />,
@@ -358,7 +360,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "materialType",
-          header: "Type",
+          header: t("type"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuPuzzle />,
@@ -378,7 +380,7 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "type",
-          header: "Item Type",
+          header: t("itemType"),
           cell: ({ row }) =>
             row.original.type && (
               <HStack>
@@ -404,22 +406,23 @@ const InventoryTable = memo(
         },
         {
           accessorKey: "active",
-          header: "Active",
+          header: t("active"),
           cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
           meta: {
             filter: {
               type: "static",
               options: [
-                { value: "true", label: "Active" },
-                { value: "false", label: "Inactive" }
+                { value: "true", label: t("active") },
+                { value: "false", label: t("inactive") }
               ]
             },
-            pluralHeader: "Active Statuses",
+            pluralHeader: t("activeStatuses"),
             icon: <LuCheck />
           }
         }
       ];
     }, [
+      t,
       forms,
       materialFormId,
       materialSubstanceId,
@@ -473,7 +476,7 @@ const InventoryTable = memo(
                     isDisabled={mrpFetcher.state !== "idle"}
                     isLoading={mrpFetcher.state !== "idle"}
                   >
-                    Recalculate
+                    {t("recalculate")}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -484,7 +487,7 @@ const InventoryTable = memo(
             </mrpFetcher.Form>
           </div>
         }
-        title="Inventory"
+        title={t("title")}
         table="inventory"
         withSavedView
       />
