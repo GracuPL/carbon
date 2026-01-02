@@ -1,4 +1,5 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -141,6 +142,7 @@ export default function MaintenanceDashboard() {
     recentlyCreated,
     assignedToMe
   } = useLoaderData<typeof loader>();
+  const { t } = useTranslation("resources");
 
   const kpiFetcher = useFetcher<typeof kpiLoader>();
   const isFetching = kpiFetcher.state !== "idle" || !kpiFetcher.data;
@@ -161,13 +163,13 @@ export default function MaintenanceDashboard() {
   const workCenters = useWorkCenters();
   const workCenterOptions = useMemo(() => {
     return [
-      { label: "All Work Centers", value: "all" },
+      { label: t("allWorkCenters"), value: "all" },
       ...workCenters.map((wc) => ({
         label: wc.label,
         value: wc.value
       }))
     ];
-  }, [workCenters]);
+  }, [workCenters, t]);
 
   const [interval, setInterval] = useState("month");
   const [selectedKpi, setSelectedKpi] = useState("mttr");
@@ -363,7 +365,7 @@ export default function MaintenanceDashboard() {
                   path.to.maintenanceDispatches
                 }?filter=status:in:${OPEN_STATUSES.join(",")}`}
               >
-                View Open
+                {t("viewOpen")}
               </Link>
             </Button>
           </HStack>
@@ -372,7 +374,7 @@ export default function MaintenanceDashboard() {
               {openDispatches}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Dispatches
+              {t("openDispatches")}
             </p>
           </div>
         </Card>
@@ -393,7 +395,7 @@ export default function MaintenanceDashboard() {
                   path.to.maintenanceDispatches
                 }?filter=status:in:${OPEN_STATUSES.join(",")}&filter=source:eq:Scheduled`}
               >
-                View Scheduled
+                {t("viewScheduled")}
               </Link>
             </Button>
           </HStack>
@@ -402,7 +404,7 @@ export default function MaintenanceDashboard() {
               {openScheduled}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Scheduled
+              {t("openScheduled")}
             </p>
           </div>
         </Card>
@@ -423,7 +425,7 @@ export default function MaintenanceDashboard() {
                   path.to.maintenanceDispatches
                 }?filter=status:in:${OPEN_STATUSES.join(",")}&filter=source:eq:Reactive`}
               >
-                View Reactive
+                {t("viewReactive")}
               </Link>
             </Button>
           </HStack>
@@ -432,7 +434,7 @@ export default function MaintenanceDashboard() {
               {openReactive}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Reactive
+              {t("openReactive")}
             </p>
           </div>
         </Card>
@@ -549,7 +551,7 @@ export default function MaintenanceDashboard() {
                     className="flex flex-row items-center gap-2"
                   >
                     <DropdownMenuIcon icon={<LuFile />} />
-                    Export CSV
+                    {t("exportCsv")}
                   </CSVLink>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -585,7 +587,7 @@ export default function MaintenanceDashboard() {
                     content={
                       <ChartTooltipContent
                         formatter={(value) =>
-                          `${numberFormatter.format(value as number)} failures`
+                          `${numberFormatter.format(value as number)} ${t("failures")}`
                         }
                       />
                     }
@@ -683,15 +685,15 @@ export default function MaintenanceDashboard() {
       <div className="grid w-full gap-4 grid-cols-1 lg:grid-cols-2">
         <Card>
           <CardHeader className="px-6 pb-0">
-            <CardTitle>Recently Created</CardTitle>
+            <CardTitle>{t("recentlyCreated")}</CardTitle>
             <CardDescription className="text-sm">
-              Newly created maintenance dispatches
+              {t("recentlyCreatedDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
             <div className="min-h-[200px] max-h-[360px] w-full overflow-y-auto">
               {recentlyCreated.length > 0 ? (
-                <DispatchTable data={recentlyCreated} />
+                <DispatchTable data={recentlyCreated} t={t} />
               ) : (
                 <div className="flex justify-center items-center h-full">
                   <Empty />
@@ -703,20 +705,20 @@ export default function MaintenanceDashboard() {
 
         <Card>
           <CardHeader className="px-6 pb-0">
-            <CardTitle>Assigned to Me</CardTitle>
+            <CardTitle>{t("assignedToMe")}</CardTitle>
             <CardDescription className="text-sm">
-              Dispatches currently assigned to you
+              {t("assignedToMeDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 min-h-[200px]">
             <Suspense fallback={<Loading isLoading />}>
               <Await
                 resolve={assignedToMe}
-                errorElement={<div>Error loading assigned dispatches</div>}
+                errorElement={<div>{t("errorLoadingDispatches")}</div>}
               >
                 {(dispatches) =>
                   dispatches.length > 0 ? (
-                    <DispatchTable data={dispatches} />
+                    <DispatchTable data={dispatches} t={t} />
                   ) : (
                     <div className="flex justify-center items-center h-full">
                       <Empty />
@@ -741,7 +743,7 @@ type DispatchRow = {
   workCenterId: string | null;
 };
 
-function DispatchTable({ data }: { data: DispatchRow[] }) {
+function DispatchTable({ data, t }: { data: DispatchRow[]; t: (key: string) => string }) {
   const workCenters = useWorkCenters();
 
   const getWorkCenterName = (workCenterId: string | null) => {
@@ -754,10 +756,10 @@ function DispatchTable({ data }: { data: DispatchRow[] }) {
     <Table>
       <Thead>
         <Tr>
-          <Th>Dispatch</Th>
-          <Th>Status</Th>
-          <Th>Source</Th>
-          <Th>Work Center</Th>
+          <Th>{t("dispatch")}</Th>
+          <Th>{t("status")}</Th>
+          <Th>{t("source")}</Th>
+          <Th>{t("workCenter")}</Th>
         </Tr>
       </Thead>
       <Tbody>
