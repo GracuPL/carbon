@@ -99,5 +99,39 @@ export const users = {
   // Messages
   noEmployeesFound: "No employees found",
   noCustomersFound: "No customers found",
-  noSuppliersFound: "No suppliers found"
+  noSuppliersFound: "No suppliers found",
+
+  // Attribute categories
+  attributeCategories: "Attribute Categories",
+  attributeCategory: "Attribute Category",
+  category: "Category",
+  attributes: "Attributes",
+  visibility: "Visibility",
+  visibilities: "Visibilities",
+  public: "Public",
+  private: "Private",
+  newAttribute: "New Attribute",
+  viewAttributes: "View Attributes",
+  editCategory: "Edit Category",
+  deleteCategory: "Delete Category",
+  confirmDeleteAttributeCategory: "Are you sure you want to deactivate the {{name}} attribute category?",
+
+  // Holidays
+  holidays: "Holidays",
+  holiday: "Holiday",
+  year: "Year",
+  date: "Date",
+  editHoliday: "Edit Holiday",
+  deleteHoliday: "Delete Holiday",
+
+  // Shifts
+  shifts: "Shifts",
+  shift: "Shift",
+  startTime: "Start Time",
+  endTime: "End Time",
+  location: "Location",
+  days: "Days",
+  editShift: "Edit Shift",
+  deleteShift: "Delete Shift",
+  edit: "Edit"
 } as const;

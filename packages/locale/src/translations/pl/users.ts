@@ -99,5 +99,39 @@ export const users = {
   // Messages - Komunikaty
   noEmployeesFound: "Nie znaleziono pracowników",
   noCustomersFound: "Nie znaleziono klientów",
-  noSuppliersFound: "Nie znaleziono dostawców"
+  noSuppliersFound: "Nie znaleziono dostawców",
+
+  // Attribute categories - Kategorie atrybutów
+  attributeCategories: "Kategorie atrybutów",
+  attributeCategory: "Kategoria atrybutów",
+  category: "Kategoria",
+  attributes: "Atrybuty",
+  visibility: "Widoczność",
+  visibilities: "Widoczności",
+  public: "Publiczny",
+  private: "Prywatny",
+  newAttribute: "Nowy atrybut",
+  viewAttributes: "Zobacz atrybuty",
+  editCategory: "Edytuj kategorię",
+  deleteCategory: "Usuń kategorię",
+  confirmDeleteAttributeCategory: "Czy na pewno chcesz dezaktywować kategorię atrybutów {{name}}?",
+
+  // Holidays - Dni wolne
+  holidays: "Dni wolne",
+  holiday: "Dzień wolny",
+  year: "Rok",
+  date: "Data",
+  editHoliday: "Edytuj dzień wolny",
+  deleteHoliday: "Usuń dzień wolny",
+
+  // Shifts - Zmiany
+  shifts: "Zmiany",
+  shift: "Zmiana",
+  startTime: "Godzina rozpoczęcia",
+  endTime: "Godzina zakończenia",
+  location: "Lokalizacja",
+  days: "Dni",
+  editShift: "Edytuj zmianę",
+  deleteShift: "Usuń zmianę",
+  edit: "Edytuj"
 } as const;
