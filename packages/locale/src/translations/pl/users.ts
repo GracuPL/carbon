@@ -54,11 +54,16 @@ export const users = {
   deleteEmployee: "Usuń pracownika",
   inviteUser: "Zaproś użytkownika",
   resendInvite: "Wyślij ponownie zaproszenie",
+  resendAccountInvite: "Wyślij ponownie zaproszenie do konta",
   revokeInvite: "Anuluj zaproszenie",
   deactivateUser: "Dezaktywuj użytkownika",
+  deactivateUsers: "Dezaktywuj użytkowników",
+  deactivateAccount: "Dezaktywuj konto",
   activateUser: "Aktywuj użytkownika",
   editPermissions: "Edytuj uprawnienia",
   bulkEditPermissions: "Edycja zbiorcza uprawnień",
+  account: "Konto",
+  employeeAccounts: "Konta pracowników",
 
   // Permissions - Uprawnienia
   permission: "Uprawnienie",

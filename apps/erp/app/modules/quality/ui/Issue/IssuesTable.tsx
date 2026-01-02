@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -43,6 +44,7 @@ type IssuesTableProps = {
 };
 
 const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
+  const { t } = useTranslation("quality");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const deleteDisclosure = useDisclosure();
@@ -57,7 +59,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
     const defaultColumns: ColumnDef<Issue>[] = [
       {
         accessorKey: "nonConformanceId",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <Hyperlink to={path.to.issue(row.original.id!)}>
             <div className="flex flex-col gap-0">
@@ -77,7 +79,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
 
       {
         accessorKey: "status",
-        header: "Status",
+        header: t("status"),
         cell: ({ row }) => <IssueStatus status={row.original.status} />,
         meta: {
           icon: <LuCircleGauge />,
@@ -92,7 +94,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "nonConformanceTypeId",
-        header: "Type",
+        header: t("type"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -116,7 +118,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
 
       {
         accessorKey: "priority",
-        header: "Priority",
+        header: t("priority"),
         cell: ({ row }) => (
           <div className="flex gap-2 items-center">
             {getPriorityIcon(row.original.priority ?? "Low", false)}
@@ -136,7 +138,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "source",
-        header: "Source",
+        header: t("source"),
         cell: ({ row }) => (
           <div className="flex gap-2 items-center">
             {getSourceIcon(row.original.source ?? "Internal", false)}
@@ -156,7 +158,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "locationId",
-        header: "Location",
+        header: t("location"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -179,7 +181,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "assignee",
-        header: "Assignee",
+        header: t("assignee"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
@@ -197,7 +199,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
 
       {
         id: "items",
-        header: "Items",
+        header: t("items"),
         cell: ({ row }) => (
           <span className="flex gap-2 items-center flex-wrap py-2">
             {((row.original.items ?? []) as Array<string>).map((i) => {
@@ -227,7 +229,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "openDate",
-        header: "Open Date",
+        header: t("openDate"),
         cell: ({ row }) => formatDate(row.original.openDate),
         meta: {
           icon: <LuCalendar />
@@ -235,7 +237,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "closeDate",
-        header: "Closed Date",
+        header: t("closeDate"),
         cell: ({ row }) => formatDate(row.original.closeDate),
         meta: {
           icon: <LuCalendar />
@@ -243,7 +245,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -260,7 +262,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: t("createdAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -268,7 +270,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns, items, locations, people, types]);
+  }, [t, customColumns, items, locations, people, types]);
 
   const renderContextMenu = useCallback(
     (row: Issue) => {
@@ -281,7 +283,7 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Issue
+            {t("editIssue")}
           </MenuItem>
           <MenuItem
             destructive
@@ -294,12 +296,12 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Issue
+            {t("deleteIssue")}
           </MenuItem>
         </>
       );
     },
-    [navigate, permissions, deleteDisclosure]
+    [t, navigate, permissions, deleteDisclosure]
   );
 
   return (
@@ -310,11 +312,11 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
         count={count}
         primaryAction={
           permissions.can("create", "quality") && (
-            <New label="Issue" to={path.to.newIssue} />
+            <New label={t("issue")} to={path.to.newIssue} />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Issues"
+        title={t("issues")}
         table="nonConformance"
         withSavedView
       />
@@ -330,8 +332,8 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             setSelectedIssue(null);
             deleteDisclosure.onClose();
           }}
-          name={selectedIssue.name ?? "issue"}
-          text="Are you sure you want to delete this issue?"
+          name={selectedIssue.name ?? t("issue")}
+          text={t("confirmDeleteIssue")}
         />
       )}
     </>

@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Checkbox,
   DropdownMenuContent,
@@ -46,6 +47,7 @@ const defaultColumnVisibility = {
 
 const EmployeesTable = memo(
   ({ data, count, employeeTypes }: EmployeesTableProps) => {
+    const { t } = useTranslation("users");
     const navigate = useNavigate();
     const permissions = usePermissions();
     const [params] = useUrlParams();
@@ -72,7 +74,7 @@ const EmployeesTable = memo(
     const columns = useMemo<ColumnDef<(typeof data)[number]>[]>(() => {
       return [
         {
-          header: "User",
+          header: t("user"),
           cell: ({ row }) => (
             <Hyperlink
               className={row.original.active === true ? "" : "opacity-70"}
@@ -91,7 +93,7 @@ const EmployeesTable = memo(
 
         {
           accessorKey: "firstName",
-          header: "First Name",
+          header: t("firstName"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuUserCheck />
@@ -99,7 +101,7 @@ const EmployeesTable = memo(
         },
         {
           accessorKey: "lastName",
-          header: "Last Name",
+          header: t("lastName"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuUserCheck />
@@ -107,7 +109,7 @@ const EmployeesTable = memo(
         },
         {
           accessorKey: "email",
-          header: "Email",
+          header: t("email"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuMail />
@@ -115,7 +117,7 @@ const EmployeesTable = memo(
         },
         {
           id: "employeeTypeId",
-          header: "Employee Type",
+          header: t("employeeType"),
           cell: ({ row }) => (
             <Enumerable
               value={
@@ -136,7 +138,7 @@ const EmployeesTable = memo(
         },
         {
           accessorKey: "active",
-          header: "Active",
+          header: t("active"),
           cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
           meta: {
             filter: {
@@ -144,11 +146,11 @@ const EmployeesTable = memo(
               options: [
                 {
                   value: "true",
-                  label: "Active"
+                  label: t("active")
                 },
                 {
                   value: "false",
-                  label: "Inactive"
+                  label: t("inactive")
                 }
               ]
             },
@@ -156,7 +158,7 @@ const EmployeesTable = memo(
           }
         }
       ];
-    }, [params]);
+    }, [t, params]);
 
     const renderActions = useCallback(
       (selectedRows: typeof data) => {
@@ -177,7 +179,7 @@ const EmployeesTable = memo(
               }
             >
               <LuShield className="mr-2 h-4 w-4" />
-              <span>Edit Permissions</span>
+              <span>{t("editPermissions")}</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -194,7 +196,7 @@ const EmployeesTable = memo(
               }
             >
               <LuMailCheck className="mr-2 h-4 w-4" />
-              <span>Resend Invite</span>
+              <span>{t("resendInvite")}</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -211,12 +213,12 @@ const EmployeesTable = memo(
               }
             >
               <LuBan className="mr-2 h-4 w-4" />
-              <span>Deactivate Users</span>
+              <span>{t("deactivateUsers")}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         );
       },
-      [permissions, bulkEditDrawer, deactivateEmployeeModal, resendInviteModal]
+      [t, permissions, bulkEditDrawer, deactivateEmployeeModal, resendInviteModal]
     );
 
     const renderContextMenu = useCallback(
@@ -233,7 +235,7 @@ const EmployeesTable = memo(
                   }
                 >
                   <MenuIcon icon={<LuPencil />} />
-                  Edit Permissions
+                  {t("editPermissions")}
                 </MenuItem>
                 <MenuItem
                   onClick={(e) => {
@@ -243,7 +245,7 @@ const EmployeesTable = memo(
                   destructive
                 >
                   <MenuIcon icon={<LuBan />} />
-                  Deactivate Account
+                  {t("deactivateAccount")}
                 </MenuItem>
               </>
             ) : (
@@ -255,7 +257,7 @@ const EmployeesTable = memo(
                   }}
                 >
                   <MenuIcon icon={<LuMailCheck />} />
-                  Resend Account Invite
+                  {t("resendAccountInvite")}
                 </MenuItem>
                 {permissions.can("delete", "users") && (
                   <MenuItem
@@ -266,7 +268,7 @@ const EmployeesTable = memo(
                     destructive
                   >
                     <MenuIcon icon={<LuBan />} />
-                    Revoke Invite
+                    {t("revokeInvite")}
                   </MenuItem>
                 )}
               </>
@@ -275,6 +277,7 @@ const EmployeesTable = memo(
         );
       },
       [
+        t,
         deactivateEmployeeModal,
         navigate,
         params,
@@ -293,12 +296,12 @@ const EmployeesTable = memo(
           defaultColumnVisibility={defaultColumnVisibility}
           primaryAction={
             permissions.can("create", "users") && (
-              <New label="Account" to={`new?${params.toString()}`} />
+              <New label={t("account")} to={`new?${params.toString()}`} />
             )
           }
           renderActions={renderActions}
           renderContextMenu={renderContextMenu}
-          title="Employee Accounts"
+          title={t("employeeAccounts")}
           withSelectableRows={canEdit}
         />
         {bulkEditDrawer.isOpen && (

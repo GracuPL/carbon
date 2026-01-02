@@ -34,12 +34,23 @@ export const quality = {
 
   // Table headers
   issueId: "Issue ID",
+  name: "Name",
+  status: "Status",
+  type: "Type",
   severity: "Severity",
   priority: "Priority",
+  source: "Source",
+  location: "Location",
   assignee: "Assignee",
+  items: "Items",
+  openDate: "Open Date",
+  closeDate: "Closed Date",
+  createdBy: "Created By",
+  createdAt: "Created At",
   dueDate: "Due Date",
   resolution: "Resolution",
   rootCause: "Root Cause",
+  confirmDeleteIssue: "Are you sure you want to delete this issue?",
 
   // Statuses
   open: "Open",
