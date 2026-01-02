@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type IssueTypesTableProps = {
 };
 
 const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
+  const { t } = useTranslation("quality");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -26,7 +28,7 @@ const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
     const defaultColumns: ColumnDef<IssueType>[] = [
       {
         accessorKey: "name",
-        header: "Issue Type",
+        header: t("issueType"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id}>
             <Enumerable value={row.original.name} />
@@ -38,7 +40,7 @@ const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns]);
+  }, [customColumns, t]);
 
   const renderContextMenu = useCallback(
     (row: IssueType) => {
@@ -50,7 +52,7 @@ const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Type
+            {t("editIssueType")}
           </MenuItem>
           <MenuItem
             destructive
@@ -62,12 +64,12 @@ const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Type
+            {t("deleteIssueType")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -78,13 +80,13 @@ const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
       primaryAction={
         permissions.can("create", "quality") && (
           <New
-            label="Issue Type"
+            label={t("issueType")}
             to={`${path.to.newIssueType}?${params.toString()}`}
           />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Issue Types"
+      title={t("issueTypes")}
     />
   );
 });
