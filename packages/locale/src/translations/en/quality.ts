@@ -91,5 +91,37 @@ export const quality = {
   // Messages
   noDataExists: "No data exists",
   noIssuesFound: "No issues found",
-  noActionsFound: "No actions found"
+  noActionsFound: "No actions found",
+
+  // Risk register
+  riskRegister: "Risk Register",
+  riskRegisters: "Risk Registers",
+  editRisk: "Edit Risk",
+  deleteRisk: "Delete Risk",
+
+  // Gauges and calibrations
+  editGauge: "Edit Gauge",
+  deleteGauge: "Delete Gauge",
+  editGaugeType: "Edit Gauge Type",
+  deleteGaugeType: "Delete Gauge Type",
+  editCalibration: "Edit Calibration",
+  deleteCalibration: "Delete Calibration",
+  calibrationDate: "Calibration Date",
+  nextCalibrationDate: "Next Calibration Date",
+  result: "Result",
+  calibrationResult: "Calibration Result",
+  pass: "Pass",
+  fail: "Fail",
+  description: "Description",
+  code: "Code",
+  active: "Active",
+  inactive: "Inactive",
+
+  // Issue types and workflows
+  editIssueType: "Edit Issue Type",
+  deleteIssueType: "Delete Issue Type",
+  editIssueWorkflow: "Edit Issue Workflow",
+  deleteIssueWorkflow: "Delete Issue Workflow",
+  editRequiredAction: "Edit Required Action",
+  deleteRequiredAction: "Delete Required Action"
 } as const;

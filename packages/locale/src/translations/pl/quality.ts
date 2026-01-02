@@ -91,5 +91,37 @@ export const quality = {
   // Messages - Komunikaty
   noDataExists: "Brak danych",
   noIssuesFound: "Nie znaleziono problemów",
-  noActionsFound: "Nie znaleziono działań"
+  noActionsFound: "Nie znaleziono działań",
+
+  // Risk register - Rejestr ryzyk
+  riskRegister: "Rejestr ryzyk",
+  riskRegisters: "Rejestry ryzyk",
+  editRisk: "Edytuj ryzyko",
+  deleteRisk: "Usuń ryzyko",
+
+  // Gauges and calibrations - Przyrządy i kalibracje
+  editGauge: "Edytuj przyrząd",
+  deleteGauge: "Usuń przyrząd",
+  editGaugeType: "Edytuj typ przyrządu",
+  deleteGaugeType: "Usuń typ przyrządu",
+  editCalibration: "Edytuj kalibrację",
+  deleteCalibration: "Usuń kalibrację",
+  calibrationDate: "Data kalibracji",
+  nextCalibrationDate: "Data następnej kalibracji",
+  result: "Wynik",
+  calibrationResult: "Wynik kalibracji",
+  pass: "Pozytywny",
+  fail: "Negatywny",
+  description: "Opis",
+  code: "Kod",
+  active: "Aktywny",
+  inactive: "Nieaktywny",
+
+  // Issue types and workflows - Typy problemów i przepływy
+  editIssueType: "Edytuj typ problemu",
+  deleteIssueType: "Usuń typ problemu",
+  editIssueWorkflow: "Edytuj przepływ problemu",
+  deleteIssueWorkflow: "Usuń przepływ problemu",
+  editRequiredAction: "Edytuj wymagane działanie",
+  deleteRequiredAction: "Usuń wymagane działanie"
 } as const;

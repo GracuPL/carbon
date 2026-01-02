@@ -69,5 +69,22 @@ export const production = {
   createdBy: "Utworzył",
   createdAt: "Data utworzenia",
   updatedBy: "Zaktualizował",
-  updatedAt: "Data aktualizacji"
+  updatedAt: "Data aktualizacji",
+
+  // Procedures - Procedury
+  procedure: "Procedura",
+  procedures: "Procedury",
+  process: "Proces",
+  version: "Wersja",
+  versions: "Wersje",
+  editProcedure: "Edytuj procedurę",
+  deleteProcedure: "Usuń procedurę",
+  confirmDeleteProcedure: "Czy na pewno chcesz usunąć tę procedurę?",
+  name: "Nazwa",
+
+  // Scrap reasons - Przyczyny braków
+  scrapReason: "Przyczyna braku",
+  scrapReasons: "Przyczyny braków",
+  editScrapReason: "Edytuj przyczynę braku",
+  deleteScrapReason: "Usuń przyczynę braku"
 } as const;
