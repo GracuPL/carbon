@@ -57,5 +57,24 @@ export const sales = {
 
   // Table headers
   document: "Document",
-  status: "Status"
+  status: "Status",
+  statuses: "Statuses",
+  name: "Name",
+  type: "Type",
+  accountManager: "Account Manager",
+  tags: "Tags",
+  currency: "Currency",
+  phone: "Phone",
+  fax: "Fax",
+  website: "Website",
+  createdBy: "Created By",
+  createdAt: "Created At",
+  updatedBy: "Updated By",
+  updatedAt: "Updated At",
+
+  // Customer actions
+  edit: "Edit",
+  customerTypes: "Customer Types",
+  contacts: "Contacts",
+  confirmDeleteCustomer: "Are you sure you want to delete {{name}}? This cannot be undone."
 } as const;
