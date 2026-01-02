@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -78,6 +79,8 @@ const defaultColumnVisibility = {
 
 const KanbansTable = memo(
   ({ data, count, locationId, kanbanOutput }: KanbansTableProps) => {
+    const { t } = useTranslation("inventory");
+    const { t: tc } = useTranslation("common");
     const [params] = useUrlParams();
 
     const permissions = usePermissions();
@@ -90,7 +93,7 @@ const KanbansTable = memo(
       () => [
         {
           accessorKey: "itemId",
-          header: "Item",
+          header: t("item"),
           cell: ({ row }) => (
             <HStack className="py-1">
               <ItemThumbnail
@@ -161,7 +164,7 @@ const KanbansTable = memo(
                           className="flex flex-row items-center gap-1"
                         >
                           <LuTag />
-                          Create
+                          {t("create")}
                         </Badge>
                       </a>
                     </TooltipTrigger>
@@ -190,7 +193,7 @@ const KanbansTable = memo(
                               className="flex flex-row items-center gap-1"
                             >
                               <LuTag />
-                              Start
+                              {t("start")}
                             </Badge>
                           </a>
                         </TooltipTrigger>
@@ -214,7 +217,7 @@ const KanbansTable = memo(
                               className="flex flex-row items-center gap-1"
                             >
                               <LuTag />
-                              Complete
+                              {t("complete")}
                             </Badge>
                           </a>
                         </TooltipTrigger>
@@ -238,7 +241,7 @@ const KanbansTable = memo(
                             className="flex flex-row items-center gap-1 cursor-pointer"
                           >
                             <LuQrCode />
-                            Create
+                            {t("create")}
                           </Badge>
                         </HoverCardTrigger>
                       </TooltipTrigger>
@@ -277,7 +280,7 @@ const KanbansTable = memo(
                                 className="flex flex-row items-center gap-1 cursor-pointer"
                               >
                                 <LuQrCode />
-                                Start
+                                {t("start")}
                               </Badge>
                             </HoverCardTrigger>
                           </TooltipTrigger>
@@ -311,7 +314,7 @@ const KanbansTable = memo(
                                 className="flex flex-row items-center gap-1 cursor-pointer"
                               >
                                 <LuQrCode />
-                                Complete
+                                {t("complete")}
                               </Badge>
                             </HoverCardTrigger>
                           </TooltipTrigger>
@@ -343,7 +346,7 @@ const KanbansTable = memo(
               {kanbanOutput === "url" && (
                 <HStack>
                   <CopyBadge
-                    text="Create"
+                    text={t("create")}
                     url={path.to.api.kanban(row.original.id!)}
                     tooltip={`Copy link to create a ${
                       row.original.replenishmentSystem === "Make"
@@ -354,13 +357,13 @@ const KanbansTable = memo(
                   {row.original.replenishmentSystem === "Make" && (
                     <>
                       <CopyBadge
-                        text="Start"
+                        text={t("start")}
                         url={path.to.api.kanbanStart(row.original.id!)}
                         tooltip={`Copy link to start the next operation for this kanban`}
                       />
 
                       <CopyBadge
-                        text="Complete"
+                        text={t("complete")}
                         url={path.to.api.kanbanComplete(row.original.id!)}
                         tooltip={`Copy link to complete the current operation for this kanban`}
                       />
@@ -373,7 +376,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "quantity",
-          header: "Reorder Qty.",
+          header: t("reorderQty"),
           cell: ({ row }) => {
             const { quantity, purchaseUnitOfMeasureCode } = row.original;
             const baseQuantity = quantity || 0;
@@ -391,7 +394,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "replenishmentSystem",
-          header: "Replenishment",
+          header: t("replenishment"),
           cell: ({ row }) => (
             <Enumerable value={row.original.replenishmentSystem} />
           ),
@@ -408,7 +411,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "supplierId",
-          header: "Supplier",
+          header: t("supplier"),
           cell: ({ row }) => (
             <SupplierAvatar supplierId={row.original.supplierId} />
           ),
@@ -425,7 +428,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "shelfName",
-          header: "Shelf",
+          header: t("shelf"),
           cell: ({ row }) => row.original.shelfName || "",
           meta: {
             icon: <LuMapPin />
@@ -433,7 +436,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "autoRelease",
-          header: "Release",
+          header: t("release"),
           cell: ({ row }) =>
             row.original.replenishmentSystem === "Make" ? (
               <div className="flex w-full items-center justify-center">
@@ -445,15 +448,15 @@ const KanbansTable = memo(
             filter: {
               type: "static",
               options: [
-                { value: "true", label: "Yes" },
-                { value: "false", label: "No" }
+                { value: "true", label: tc("yes") },
+                { value: "false", label: tc("no") }
               ]
             }
           }
         },
         {
           accessorKey: "autoStartJob",
-          header: "Start",
+          header: t("start"),
           cell: ({ row }) =>
             row.original.replenishmentSystem === "Make" ? (
               <div className="flex w-full items-center justify-center">
@@ -465,15 +468,15 @@ const KanbansTable = memo(
             filter: {
               type: "static",
               options: [
-                { value: "true", label: "Yes" },
-                { value: "false", label: "No" }
+                { value: "true", label: tc("yes") },
+                { value: "false", label: tc("no") }
               ]
             }
           }
         },
         {
           accessorKey: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.createdBy} />
           ),
@@ -490,7 +493,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Created At",
+          header: t("createdAt"),
           cell: ({ row }) =>
             row.original.createdAt
               ? new Date(row.original.createdAt).toLocaleDateString()
@@ -501,7 +504,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "updatedBy",
-          header: "Updated By",
+          header: t("updatedBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.updatedBy} />
           ),
@@ -518,7 +521,7 @@ const KanbansTable = memo(
         },
         {
           accessorKey: "updatedAt",
-          header: "Updated At",
+          header: t("updatedAt"),
           cell: ({ row }) =>
             row.original.updatedAt
               ? new Date(row.original.updatedAt).toLocaleDateString()
@@ -528,7 +531,7 @@ const KanbansTable = memo(
           }
         }
       ],
-      [items, kanbanOutput, params, people, suppliers]
+      [t, tc, items, kanbanOutput, params, people, suppliers]
     );
 
     const renderContextMenu = useCallback(
@@ -543,7 +546,7 @@ const KanbansTable = memo(
               <MenuItem asChild>
                 <Link to={`${path.to.kanban(row.id!)}?${params}`}>
                   <LuPencil className="mr-2 size-4" />
-                  Edit
+                  {t("edit")}
                 </Link>
               </MenuItem>
             )}
@@ -566,7 +569,7 @@ const KanbansTable = memo(
                         type={itemType}
                         className="mr-2 size-4"
                       />
-                      View Item Master
+                      {t("viewItemMaster")}
                     </Link>
                   </MenuItem>
                 );
@@ -575,14 +578,14 @@ const KanbansTable = memo(
               <MenuItem destructive asChild>
                 <Link to={`${path.to.deleteKanban(row.id!)}?${params}`}>
                   <LuTrash className="mr-2 size-4" />
-                  Delete
+                  {tc("delete")}
                 </Link>
               </MenuItem>
             )}
           </>
         );
       },
-      [params, permissions]
+      [t, tc, items, params, permissions]
     );
 
     const renderActions = useCallback((selectedRows: typeof data) => {
@@ -600,17 +603,17 @@ const KanbansTable = memo(
 
       return (
         <DropdownMenuContent align="end" className="min-w-[200px]">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={handlePrintLabels}>
               <LuPrinter className="mr-2 size-4" />
-              Print Labels ({selectedRows.length})
+              {t("printLabels")} ({selectedRows.length})
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       );
-    }, []);
+    }, [t]);
 
     return (
       <Table<Kanban>
@@ -631,16 +634,16 @@ const KanbansTable = memo(
               }}
             />
             <Button variant="secondary" asChild leftIcon={<LuSettings />}>
-              <Link to={path.to.inventorySettings}>Settings</Link>
+              <Link to={path.to.inventorySettings}>{t("settings")}</Link>
             </Button>
             {permissions.can("create", "inventory") && (
-              <New label="Kanban" to={path.to.newKanban} />
+              <New label={t("kanban")} to={path.to.newKanban} />
             )}
           </div>
         }
         renderActions={renderActions}
         renderContextMenu={renderContextMenu}
-        title="Kanbans"
+        title={t("kanbans")}
         table="kanban"
         withSavedView
         withSelectableRows
