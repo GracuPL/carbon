@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Checkbox, HStack, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -27,6 +28,7 @@ type PeopleTableProps = {
 
 const PeopleTable = memo(
   ({ attributeCategories, data, count, employeeTypes }: PeopleTableProps) => {
+    const { t } = useTranslation("users");
     const navigate = useNavigate();
     const permissions = usePermissions();
     const [params] = useUrlParams();
@@ -93,7 +95,7 @@ const PeopleTable = memo(
     const columns = useMemo<ColumnDef<(typeof data)[number]>[]>(() => {
       const defaultColumns: ColumnDef<(typeof data)[number]>[] = [
         {
-          header: "User",
+          header: t("user"),
           cell: ({ row }) => (
             <HStack>
               <Hyperlink to={path.to.personDetails(row?.original.id!)}>
@@ -108,7 +110,7 @@ const PeopleTable = memo(
 
         {
           accessorKey: "firstName",
-          header: "First Name",
+          header: t("firstName"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuUser />
@@ -116,7 +118,7 @@ const PeopleTable = memo(
         },
         {
           accessorKey: "lastName",
-          header: "Last Name",
+          header: t("lastName"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuUser />
@@ -124,7 +126,7 @@ const PeopleTable = memo(
         },
         {
           accessorKey: "email",
-          header: "Email",
+          header: t("email"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuMail />
@@ -132,7 +134,7 @@ const PeopleTable = memo(
         },
         {
           id: "employeeTypeId",
-          header: "Employee Type",
+          header: t("employeeType"),
           cell: ({ row }) => (
             <Enumerable
               value={
@@ -154,14 +156,14 @@ const PeopleTable = memo(
         },
         {
           accessorKey: "active",
-          header: "Active",
+          header: t("active"),
           cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
           meta: {
             filter: {
               type: "static",
               options: [
-                { value: "true", label: "Active" },
-                { value: "false", label: "Inactive" }
+                { value: "true", label: t("active") },
+                { value: "false", label: t("inactive") }
               ]
             },
             icon: <LuToggleRight />
@@ -193,7 +195,8 @@ const PeopleTable = memo(
       attributeCategories,
       employeeTypes,
       employeeTypesById,
-      renderGenericAttribute
+      renderGenericAttribute,
+      t
     ]);
 
     const renderContextMenu = useMemo(() => {
@@ -208,12 +211,12 @@ const PeopleTable = memo(
                 }
               >
                 <MenuIcon icon={<LuPencil />} />
-                Edit Employee
+                {t("editEmployee")}
               </MenuItem>
             );
           }
         : undefined;
-    }, [navigate, params, permissions]);
+    }, [navigate, params, permissions, t]);
 
     return (
       <>
@@ -227,13 +230,13 @@ const PeopleTable = memo(
           primaryAction={
             permissions.can("create", "users") && (
               <New
-                label="Employee"
+                label={t("employee")}
                 to={`${path.to.newEmployee}?${params.toString()}`}
               />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Employees"
+          title={t("employees")}
           table="employee"
           withSavedView
         />

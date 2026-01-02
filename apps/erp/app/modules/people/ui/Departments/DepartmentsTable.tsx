@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { HStack, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -16,6 +17,7 @@ type DepartmentsTableProps = {
 };
 
 const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
+  const { t } = useTranslation("users");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const [params] = useUrlParams();
@@ -33,7 +35,7 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
     const defaultColumns: ColumnDef<(typeof rows)[number]>[] = [
       {
         accessorKey: "name",
-        header: "Department",
+        header: t("department"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id}>
             <Enumerable value={row.original.name} />
@@ -44,7 +46,7 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
         }
       },
       {
-        header: "Sub-Departments",
+        header: t("subDepartments"),
         cell: ({ row }) => (
           <HStack>
             {row.original.parentDepartment.split(", ").map((v) => (
@@ -58,7 +60,7 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns]);
+  }, [customColumns, t]);
 
   const renderContextMenu = useCallback(
     (row: (typeof data)[number]) => {
@@ -70,7 +72,7 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Department
+            {t("editDepartment")}
           </MenuItem>
           <MenuItem
             destructive
@@ -82,12 +84,12 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Department
+            {t("deleteDepartment")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -97,11 +99,11 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
       columns={columns}
       primaryAction={
         permissions.can("create", "people") && (
-          <New label="Department" to={`new?${params.toString()}`} />
+          <New label={t("department")} to={`new?${params.toString()}`} />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Departments"
+      title={t("departments")}
     />
   );
 });
