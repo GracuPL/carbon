@@ -73,6 +73,12 @@ export const users = {
   updatePermission: "Edycja",
   deletePermission: "Usuwanie",
 
+  // Group fields - Pola grupy
+  groupName: "Nazwa grupy",
+  members: "Członkowie",
+  editGroup: "Edytuj grupę",
+  deleteGroup: "Usuń grupę",
+
   // Messages - Komunikaty
   noEmployeesFound: "Nie znaleziono pracowników",
   noCustomersFound: "Nie znaleziono klientów",

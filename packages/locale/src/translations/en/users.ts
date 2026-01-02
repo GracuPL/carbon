@@ -73,6 +73,12 @@ export const users = {
   updatePermission: "Update",
   deletePermission: "Delete",
 
+  // Group fields
+  groupName: "Group Name",
+  members: "Members",
+  editGroup: "Edit Group",
+  deleteGroup: "Delete Group",
+
   // Messages
   noEmployeesFound: "No employees found",
   noCustomersFound: "No customers found",

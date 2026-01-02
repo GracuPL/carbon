@@ -80,6 +80,14 @@ export const quality = {
   activate: "Aktywuj",
   deactivate: "Dezaktywuj",
 
+  // Action fields - Pola działania
+  actionType: "Typ działania",
+  actionStatus: "Status działania",
+  issueStatus: "Status problemu",
+  completedDate: "Data zakończenia",
+  created: "Utworzono",
+  viewIssue: "Pokaż problem",
+
   // Messages - Komunikaty
   noDataExists: "Brak danych",
   noIssuesFound: "Nie znaleziono problemów",
