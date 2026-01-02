@@ -34,8 +34,40 @@ export const production = {
   completeJob: "Zakończ zlecenie",
   viewMaintenanceDispatch: "Zobacz dyspozycję konserwacji",
   exportCsv: "Eksportuj CSV",
+  editJob: "Edytuj zlecenie",
+  deleteJob: "Usuń zlecenie",
+  deleteJobs: "Usuń zlecenia",
+  update: "Aktualizuj",
+  confirmDeleteJob: "Czy na pewno chcesz usunąć zlecenie: {{jobId}}?",
 
   // Work center cards - Karty stanowisk pracy
   blockedBy: "Zablokowane przez",
-  due: "Termin"
+  due: "Termin",
+
+  // Table headers - Nagłówki tabeli
+  jobId: "ID zlecenia",
+  item: "Pozycja",
+  tracking: "Śledzenie",
+  quantity: "Ilość",
+  customer: "Klient",
+  salesOrder: "Zamówienie sprzedaży",
+  status: "Status",
+  statuses: "Statusy",
+  assignee: "Przypisany do",
+  startDate: "Data rozpoczęcia",
+  dueDate: "Termin",
+  deadlineType: "Typ terminu",
+  tags: "Tagi",
+  orderQty: "Ilość zam.",
+  inventoryQty: "Ilość mag.",
+  productionQty: "Ilość prod.",
+  scrapQty: "Ilość braku",
+  completedQty: "Ilość wyk.",
+  shippedQty: "Ilość wys.",
+  receivedQty: "Ilość przyj.",
+  location: "Lokalizacja",
+  createdBy: "Utworzył",
+  createdAt: "Data utworzenia",
+  updatedBy: "Zaktualizował",
+  updatedAt: "Data aktualizacji"
 } as const;
