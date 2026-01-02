@@ -71,5 +71,61 @@ export const items = {
   // Replenishment - Uzupełnianie
   demandBased: "Na żądanie",
   planBased: "Według planu",
-  fixedReorder: "Stałe zamówienie"
+  fixedReorder: "Stałe zamówienie",
+
+  // Additional table headers - Dodatkowe nagłówki tabeli
+  toolId: "ID narzędzia",
+  consumableId: "ID materiału eksploatacyjnego",
+  unitOfMeasure: "Jednostka miary",
+  unitOfMeasures: "Jednostki miary",
+  name: "Nazwa",
+  code: "Kod",
+  defaultMethodType: "Domyślny typ metody",
+  trackingType: "Typ śledzenia",
+
+  // Material/Tool/Consumable actions - Akcje materiałów/narzędzi/materiałów eksploatacyjnych
+  editMaterial: "Edytuj materiał",
+  deleteMaterial: "Usuń materiał",
+  confirmDeleteMaterial: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  editTool: "Edytuj narzędzie",
+  deleteTool: "Usuń narzędzie",
+  confirmDeleteTool: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  editConsumable: "Edytuj materiał eksploatacyjny",
+  deleteConsumable: "Usuń materiał eksploatacyjny",
+  confirmDeleteConsumable: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Material configuration entity actions - Akcje encji konfiguracyjnych materiałów
+  editDimension: "Edytuj wymiar",
+  deleteDimension: "Usuń wymiar",
+  editFinish: "Edytuj wykończenie",
+  deleteFinish: "Usuń wykończenie",
+  editGrade: "Edytuj gatunek",
+  deleteGrade: "Usuń gatunek",
+  editShape: "Edytuj kształt",
+  deleteShape: "Usuń kształt",
+  editSubstance: "Edytuj substancję",
+  deleteSubstance: "Usuń substancję",
+  editType: "Edytuj typ",
+  deleteType: "Usuń typ",
+  editUnit: "Edytuj jednostkę",
+  deleteUnit: "Usuń jednostkę",
+  editItemGroup: "Edytuj grupę produktów",
+  deleteItemGroup: "Usuń grupę produktów",
+
+  // Methods - Metody
+  method: "Metoda",
+  methods: "Metody",
+  materialName: "Nazwa materiału",
+  quantity: "Ilość",
+  editMethod: "Edytuj metodę",
+  deleteMethod: "Usuń metodę",
+  sequence: "Kolejność",
+  operation: "Operacja",
+  operations: "Operacje",
+  operationType: "Typ operacji",
+  workCenter: "Stanowisko pracy",
+  setupTime: "Czas ustawienia",
+  productionTime: "Czas produkcji",
+  waitTime: "Czas oczekiwania",
+  moveTime: "Czas przemieszczenia"
 } as const;

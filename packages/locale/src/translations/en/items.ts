@@ -71,5 +71,61 @@ export const items = {
   // Replenishment
   demandBased: "Demand-Based",
   planBased: "Plan-Based",
-  fixedReorder: "Fixed Reorder"
+  fixedReorder: "Fixed Reorder",
+
+  // Additional table headers
+  toolId: "Tool ID",
+  consumableId: "Consumable ID",
+  unitOfMeasure: "Unit of Measure",
+  unitOfMeasures: "Units of Measure",
+  name: "Name",
+  code: "Code",
+  defaultMethodType: "Default Method Type",
+  trackingType: "Tracking Type",
+
+  // Material/Tool/Consumable actions
+  editMaterial: "Edit Material",
+  deleteMaterial: "Delete Material",
+  confirmDeleteMaterial: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  editTool: "Edit Tool",
+  deleteTool: "Delete Tool",
+  confirmDeleteTool: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  editConsumable: "Edit Consumable",
+  deleteConsumable: "Delete Consumable",
+  confirmDeleteConsumable: "Are you sure you want to delete {{name}}? This cannot be undone.",
+
+  // Material configuration entity actions
+  editDimension: "Edit Dimension",
+  deleteDimension: "Delete Dimension",
+  editFinish: "Edit Finish",
+  deleteFinish: "Delete Finish",
+  editGrade: "Edit Grade",
+  deleteGrade: "Delete Grade",
+  editShape: "Edit Shape",
+  deleteShape: "Delete Shape",
+  editSubstance: "Edit Substance",
+  deleteSubstance: "Delete Substance",
+  editType: "Edit Type",
+  deleteType: "Delete Type",
+  editUnit: "Edit Unit",
+  deleteUnit: "Delete Unit",
+  editItemGroup: "Edit Item Group",
+  deleteItemGroup: "Delete Item Group",
+
+  // Methods
+  method: "Method",
+  methods: "Methods",
+  materialName: "Material Name",
+  quantity: "Quantity",
+  editMethod: "Edit Method",
+  deleteMethod: "Delete Method",
+  sequence: "Sequence",
+  operation: "Operation",
+  operations: "Operations",
+  operationType: "Operation Type",
+  workCenter: "Work Center",
+  setupTime: "Setup Time",
+  productionTime: "Production Time",
+  waitTime: "Wait Time",
+  moveTime: "Move Time"
 } as const;

@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -72,6 +73,7 @@ type ToolsTableProps = {
 };
 
 const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
+  const { t } = useTranslation("items");
   const navigate = useNavigate();
   const permissions = usePermissions();
 
@@ -86,7 +88,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
     const defaultColumns: ColumnDef<Tool>[] = [
       {
         accessorKey: "id",
-        header: "Tool ID",
+        header: t("toolId"),
         cell: ({ row }) => (
           <HStack className="py-1 min-w-[200px] truncate">
             <ItemThumbnail
@@ -110,7 +112,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "description",
-        header: "Description",
+        header: t("description"),
         cell: (item) => (
           <div className="max-w-[320px] truncate">
             {item.getValue<string>()}
@@ -122,7 +124,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "itemPostingGroupId",
-        header: "Item Group",
+        header: t("itemGroup"),
         cell: (item) => {
           const itemPostingGroupId = item.getValue<string>();
           const itemPostingGroup = itemPostingGroups.find(
@@ -143,7 +145,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "itemTrackingType",
-        header: "Tracking",
+        header: t("tracking"),
         cell: (item) => (
           <Badge variant="secondary">
             <TrackingTypeIcon type={item.getValue<string>()} className="mr-2" />
@@ -169,7 +171,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
 
       {
         accessorKey: "defaultMethodType",
-        header: "Default Method",
+        header: t("defaultMethod"),
         cell: (item) => (
           <Badge variant="secondary">
             <MethodIcon type={item.getValue<string>()} className="mr-2" />
@@ -194,7 +196,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "replenishmentSystem",
-        header: "Replenishment",
+        header: t("replenishment"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />,
         meta: {
           filter: {
@@ -209,7 +211,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "tags",
-        header: "Tags",
+        header: t("tags"),
         cell: ({ row }) => (
           <HStack spacing={0} className="gap-1">
             {row.original.tags?.map((tag) => (
@@ -233,17 +235,17 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "active",
-        header: "Active",
+        header: t("active"),
         cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
         meta: {
           filter: {
             type: "static",
             options: [
-              { value: "true", label: "Active" },
-              { value: "false", label: "Inactive" }
+              { value: "true", label: t("active") },
+              { value: "false", label: t("inactive") }
             ]
           },
-          pluralHeader: "Active Statuses",
+          pluralHeader: t("activeStatuses"),
           icon: <LuCheck />
         }
       },
@@ -265,7 +267,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       // },
       {
         id: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -282,7 +284,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: t("createdAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -290,7 +292,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         id: "updatedBy",
-        header: "Updated By",
+        header: t("updatedBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.updatedBy} />
         ),
@@ -307,7 +309,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       },
       {
         accessorKey: "updatedAt",
-        header: "Updated At",
+        header: t("updatedAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -315,7 +317,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns, people, tags, itemPostingGroups]);
+  }, [customColumns, people, tags, itemPostingGroups, t]);
 
   const fetcher = useFetcher<typeof action>();
   useEffect(() => {
@@ -354,11 +356,11 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
     (selectedRows: typeof data) => {
       return (
         <DropdownMenuContent align="end" className="min-w-[200px]">
-          <DropdownMenuLabel>Update</DropdownMenuLabel>
+          <DropdownMenuLabel>{t("update")}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Item Group</DropdownMenuSubTrigger>
+              <DropdownMenuSubTrigger>{t("itemGroup")}</DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   {itemPostingGroups.map((group) => (
@@ -380,7 +382,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             </DropdownMenuSub>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                Default Method Type
+                {t("defaultMethodType")}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
@@ -401,7 +403,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
               </DropdownMenuPortal>
             </DropdownMenuSub>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Tracking Type</DropdownMenuSubTrigger>
+              <DropdownMenuSubTrigger>{t("trackingType")}</DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   {itemTrackingTypes.map((type) => (
@@ -424,7 +426,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
         </DropdownMenuContent>
       );
     },
-    [onBulkUpdate, itemPostingGroups]
+    [onBulkUpdate, itemPostingGroups, t]
   );
 
   const renderContextMenu = useMemo(() => {
@@ -438,13 +440,13 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
         <>
           <MenuItem onClick={() => navigate(path.to.tool(row.id!))}>
             <MenuIcon icon={<LuPencil />} />
-            Edit Tool
+            {t("editTool")}
           </MenuItem>
           {revisions && revisions.length > 1 && (
             <MenuSub>
               <MenuSubTrigger>
                 <MenuIcon icon={<LuGitPullRequestArrow />} />
-                Versions
+                {t("versions")}
               </MenuSubTrigger>
               <MenuSubContent>
                 {revisions.map((revision) => (
@@ -453,7 +455,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
                     onClick={() => navigate(path.to.tool(revision.id))}
                   >
                     <MenuIcon icon={<LuTag />} />
-                    Revision {revision.revision}
+                    {t("revision")} {revision.revision}
                   </MenuItem>
                 ))}
               </MenuSubContent>
@@ -468,12 +470,12 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Tool
+            {t("deleteTool")}
           </MenuItem>
         </>
       );
     };
-  }, [deleteItemModal, navigate, permissions]);
+  }, [deleteItemModal, navigate, permissions, t]);
 
   return (
     <>
@@ -495,22 +497,22 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
         importCSV={[
           {
             table: "tool",
-            label: "Tools"
+            label: t("tools")
           }
         ]}
         primaryAction={
           permissions.can("create", "parts") && (
             <div className="flex items-center gap-2">
               <Button variant="secondary" leftIcon={<LuGroup />} asChild>
-                <Link to={path.to.itemPostingGroups}>Item Groups</Link>
+                <Link to={path.to.itemPostingGroups}>{t("itemGroups")}</Link>
               </Button>
-              <New label="Tool" to={path.to.newTool} />
+              <New label={t("tool")} to={path.to.newTool} />
             </div>
           )
         }
         renderActions={renderActions}
         renderContextMenu={renderContextMenu}
-        title="Tools"
+        title={t("tools")}
         table="tool"
         withSavedView
         withSelectableRows
@@ -520,7 +522,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
           action={path.to.deleteItem(selectedItem.id!)}
           isOpen={deleteItemModal.isOpen}
           name={selectedItem.readableIdWithRevision!}
-          text={`Are you sure you want to delete ${selectedItem.readableIdWithRevision!}? This cannot be undone.`}
+          text={t("confirmDeleteTool", { name: selectedItem.readableIdWithRevision! })}
           onCancel={() => {
             deleteItemModal.onClose();
             setSelectedItem(null);
