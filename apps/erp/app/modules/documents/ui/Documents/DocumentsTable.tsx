@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   BadgeCloseButton,
@@ -56,6 +57,7 @@ type DocumentsTableProps = {
 
 const DocumentsTable = memo(
   ({ data, count, labels, extensions }: DocumentsTableProps) => {
+    const { t } = useTranslation("documents");
     const permissions = usePermissions();
     const revalidator = useRevalidator();
     const [params] = useUrlParams();
@@ -167,7 +169,7 @@ const DocumentsTable = memo(
       return [
         {
           accessorKey: "name",
-          header: "Name",
+          header: t("name"),
           cell: ({ row }) => (
             <HStack>
               {row.original.favorite ? (
@@ -199,7 +201,7 @@ const DocumentsTable = memo(
         },
         {
           accessorKey: "sourceDocument",
-          header: "Source Document",
+          header: t("sourceDocument"),
           cell: ({ row }) =>
             row.original.sourceDocument &&
             row.original.sourceDocumentId && (
@@ -231,7 +233,7 @@ const DocumentsTable = memo(
         },
         {
           id: "labels",
-          header: "Labels",
+          header: t("labels"),
           cell: ({ row }) => (
             <HStack spacing={1}>
               {row.original.labels?.map((label: string) => (
@@ -288,7 +290,7 @@ const DocumentsTable = memo(
         },
         {
           accessorKey: "size",
-          header: "Size",
+          header: t("size"),
           cell: ({ row }) => convertKbToString(row.original.size ?? 0),
           meta: {
             icon: <LuRuler />
@@ -296,7 +298,7 @@ const DocumentsTable = memo(
         },
         {
           accessorKey: "type",
-          header: "Type",
+          header: t("type"),
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
             icon: <LuFileText />,
@@ -316,7 +318,7 @@ const DocumentsTable = memo(
         },
         {
           accessorKey: "extension",
-          header: "File Extension",
+          header: t("fileExtension"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuFileText />,
@@ -331,7 +333,7 @@ const DocumentsTable = memo(
         },
         {
           id: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.createdBy} />
           ),
@@ -348,7 +350,7 @@ const DocumentsTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Created At",
+          header: t("createdAt"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuFileText />
@@ -356,7 +358,7 @@ const DocumentsTable = memo(
         },
         {
           id: "updatedBy",
-          header: "Updated By",
+          header: t("updatedBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.updatedBy} />
           ),
@@ -373,7 +375,7 @@ const DocumentsTable = memo(
         },
         {
           accessorKey: "updatedAt",
-          header: "Updated At",
+          header: t("updatedAt"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuFileText />
@@ -389,7 +391,8 @@ const DocumentsTable = memo(
       onLabel,
       people,
       setLabel,
-      view
+      view,
+      t
     ]);
 
     const defaultColumnVisibility = {
@@ -406,11 +409,11 @@ const DocumentsTable = memo(
         <>
           <MenuItem disabled={canUpdate(row)} onClick={() => edit(row)}>
             <MenuIcon icon={<LuPencil />} />
-            Edit
+            {t("edit")}
           </MenuItem>
           <MenuItem onClick={() => download(row)}>
             <MenuIcon icon={<LuDownload />} />
-            Download
+            {t("download")}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -418,7 +421,7 @@ const DocumentsTable = memo(
             }}
           >
             <MenuIcon icon={<LuPin />} />
-            Favorite
+            {t("favorite")}
           </MenuItem>
           <MenuItem
             disabled={canDelete(row)}
@@ -428,7 +431,7 @@ const DocumentsTable = memo(
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            {filter !== "trash" ? "Move to Trash" : "Restore from Trash"}
+            {filter !== "trash" ? t("moveToTrash") : t("restoreFromTrash")}
           </MenuItem>
           <MenuItem
             disabled={canDelete(row)}
@@ -439,7 +442,7 @@ const DocumentsTable = memo(
             }}
           >
             <MenuIcon icon={<LuCircleX />} />
-            Permanently Delete
+            {t("permanentlyDelete")}
           </MenuItem>
         </>
       );
@@ -451,7 +454,8 @@ const DocumentsTable = memo(
       download,
       onFavorite,
       moveDocumentModal,
-      deleteDocumentModal
+      deleteDocumentModal,
+      t
     ]);
 
     return (
@@ -465,7 +469,7 @@ const DocumentsTable = memo(
             permissions.can("create", "documents") && <DocumentCreateForm />
           }
           renderContextMenu={renderContextMenu}
-          title="Documents"
+          title={t("title")}
         />
 
         {selectedDocument && selectedDocument.id && (
@@ -475,7 +479,7 @@ const DocumentsTable = memo(
                 action={path.to.deleteDocument(selectedDocument.id)}
                 isOpen
                 name={selectedDocument.name ?? ""}
-                text={`Are you sure you want to move ${selectedDocument.name} to the trash?`}
+                text={t("confirmMoveToTrash", { name: selectedDocument.name })}
                 onCancel={() => {
                   moveDocumentModal.onClose();
                   setSelectedDocument(null);
@@ -491,9 +495,9 @@ const DocumentsTable = memo(
               <Confirm
                 action={path.to.documentRestore(selectedDocument.id)}
                 isOpen
-                title={`Restore ${selectedDocument.name}`}
-                text={`Are you sure you want to restore ${selectedDocument.name} from the trash?`}
-                confirmText="Restore"
+                title={t("restore")}
+                text={t("confirmRestore", { name: selectedDocument.name })}
+                confirmText={t("restore")}
                 onCancel={() => {
                   moveDocumentModal.onClose();
                   setSelectedDocument(null);
@@ -510,7 +514,7 @@ const DocumentsTable = memo(
                 action={path.to.deleteDocumentPermanently(selectedDocument.id)}
                 isOpen
                 name={selectedDocument.name ?? ""}
-                text={`Are you sure you want to delete ${selectedDocument.name} permanently? This cannot be undone.`}
+                text={t("confirmPermanentDelete", { name: selectedDocument.name })}
                 onCancel={() => {
                   deleteDocumentModal.onClose();
                   setSelectedDocument(null);

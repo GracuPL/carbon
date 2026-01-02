@@ -1,6 +1,7 @@
 import { account } from "./account";
 import { accounting } from "./accounting";
 import { common } from "./common";
+import { documents } from "./documents";
 import { errors } from "./errors";
 import { inventory } from "./inventory";
 import { invoicing } from "./invoicing";
@@ -18,6 +19,7 @@ export const en = {
   common,
   account,
   accounting,
+  documents,
   errors,
   navigation,
   sales,
@@ -37,6 +39,7 @@ export {
   account,
   accounting,
   common,
+  documents,
   errors,
   inventory,
   invoicing,
