@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, Copy, MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -24,6 +25,7 @@ type MaterialGradesTableProps = {
 
 const MaterialGradesTable = memo(
   ({ data, count }: MaterialGradesTableProps) => {
+    const { t } = useTranslation("items");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -35,7 +37,7 @@ const MaterialGradesTable = memo(
       const defaultColumns: ColumnDef<(typeof rows)[number]>[] = [
         {
           accessorKey: "substanceName",
-          header: "Substance",
+          header: t("substance"),
           cell: ({ row }) => <Enumerable value={row.original.substanceName} />,
           meta: {
             icon: <LuGlassWater />,
@@ -50,7 +52,7 @@ const MaterialGradesTable = memo(
         },
         {
           accessorKey: "name",
-          header: "Grade",
+          header: t("grade"),
           cell: ({ row }) =>
             row.original.companyId === null ? (
               row.original.name
@@ -69,7 +71,7 @@ const MaterialGradesTable = memo(
         },
         {
           accessorKey: "id",
-          header: "ID",
+          header: t("id"),
           cell: ({ row }) => (
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs">{row.original.id}</span>
@@ -82,12 +84,12 @@ const MaterialGradesTable = memo(
         },
         {
           accessorKey: "companyId",
-          header: "Standard",
+          header: t("standard"),
           cell: ({ row }) => {
             return row.original.companyId === null ? (
-              <Badge variant="outline">Standard</Badge>
+              <Badge variant="outline">{t("standard")}</Badge>
             ) : (
-              <Badge variant="blue">Custom</Badge>
+              <Badge variant="blue">{t("custom")}</Badge>
             );
           },
           meta: {
@@ -96,7 +98,7 @@ const MaterialGradesTable = memo(
         }
       ];
       return [...defaultColumns];
-    }, [params, substances]);
+    }, [params, substances, t]);
 
     const renderContextMenu = useCallback(
       (row: (typeof rows)[number]) => {
@@ -113,7 +115,7 @@ const MaterialGradesTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Material Grade
+              {t("editMaterialGrade")}
             </MenuItem>
             <MenuItem
               disabled={
@@ -127,12 +129,12 @@ const MaterialGradesTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Material Grade
+              {t("deleteMaterialGrade")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -143,13 +145,13 @@ const MaterialGradesTable = memo(
         primaryAction={
           permissions.can("create", "parts") && (
             <New
-              label="Material Grade"
+              label={t("materialGrade")}
               to={`${path.to.newMaterialGrade}?${params.toString()}`}
             />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Material Grades"
+        title={t("materialGrades")}
       />
     );
   }
