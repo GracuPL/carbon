@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -24,6 +25,7 @@ type ShippingMethodsTableProps = {
 
 const ShippingMethodsTable = memo(
   ({ data, count }: ShippingMethodsTableProps) => {
+    const { t } = useTranslation("inventory");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -40,7 +42,7 @@ const ShippingMethodsTable = memo(
       let result: ColumnDef<(typeof rows)[number]>[] = [
         {
           accessorKey: "name",
-          header: "Name",
+          header: t("name"),
           cell: ({ row }) => (
             <Hyperlink
               to={`${path.to.shippingMethod(
@@ -56,7 +58,7 @@ const ShippingMethodsTable = memo(
         },
         {
           accessorKey: "carrier",
-          header: "Carrier",
+          header: t("carrier"),
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
             filter: {
@@ -71,7 +73,7 @@ const ShippingMethodsTable = memo(
         },
         {
           accessorKey: "trackingUrl",
-          header: "Tracking URL",
+          header: t("trackingUrl"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuGlobe />
@@ -84,7 +86,7 @@ const ShippingMethodsTable = memo(
         ? result.concat([
             {
               accessorKey: "carrierAccountId",
-              header: "Carrier Account",
+              header: t("carrierAccount"),
               cell: (item) => item.getValue(),
               meta: {
                 icon: <LuBanknote />
@@ -92,7 +94,7 @@ const ShippingMethodsTable = memo(
             }
           ])
         : result;
-    }, [permissions, customColumns]);
+    }, [permissions, customColumns, t]);
 
     const renderContextMenu = useCallback(
       (row: (typeof data)[number]) => {
@@ -107,7 +109,7 @@ const ShippingMethodsTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Shipping Method
+              {t("editShippingMethod")}
             </MenuItem>
             <MenuItem
               disabled={!permissions.can("delete", "inventory")}
@@ -119,12 +121,12 @@ const ShippingMethodsTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Shipping Method
+              {t("deleteShippingMethod")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -135,13 +137,13 @@ const ShippingMethodsTable = memo(
         primaryAction={
           permissions.can("create", "inventory") && (
             <New
-              label="Shipping Method"
+              label={t("shippingMethod")}
               to={`${path.to.newShippingMethod}?${params.toString()}`}
             />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Shipping Methods"
+        title={t("shippingMethods")}
       />
     );
   }

@@ -126,5 +126,58 @@ export const inventory = {
   // Reorder policies - Polityki zamówień
   demandBased: "Na żądanie",
   planBased: "Według planu",
-  fixedReorder: "Stałe zamówienie"
+  fixedReorder: "Stałe zamówienie",
+
+  // Shelf fields - Pola półki
+  name: "Nazwa",
+  newShelf: "Nowa półka",
+  editShelf: "Edytuj półkę",
+  deleteShelf: "Usuń półkę",
+  confirmDeleteShelf: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Shipping method fields - Pola metody wysyłki
+  carrier: "Przewoźnik",
+  trackingUrl: "URL śledzenia",
+  carrierAccount: "Konto przewoźnika",
+  editShippingMethod: "Edytuj metodę wysyłki",
+  deleteShippingMethod: "Usuń metodę wysyłki",
+
+  // Stock transfer fields - Pola transferu magazynowego
+  stockTransferId: "ID transferu magazynowego",
+  completedAt: "Zakończono",
+  addStockTransfer: "Dodaj transfer magazynowy",
+  editStockTransfer: "Edytuj transfer magazynowy",
+  viewStockTransfer: "Pokaż transfer magazynowy",
+  deleteStockTransfer: "Usuń transfer magazynowy",
+  confirmDeleteStockTransfer: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Warehouse transfer fields - Pola transferu międzymagazynowego
+  warehouseTransferId: "ID transferu międzymagazynowego",
+  sourceLocation: "Lokalizacja źródłowa",
+  destinationLocation: "Lokalizacja docelowa",
+  addWarehouseTransfer: "Dodaj transfer międzymagazynowy",
+  editWarehouseTransfer: "Edytuj transfer międzymagazynowy",
+  viewWarehouseTransfer: "Pokaż transfer międzymagazynowy",
+  deleteWarehouseTransfer: "Usuń transfer międzymagazynowy",
+  confirmDeleteWarehouseTransfer: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Tracked entities - Śledzone jednostki
+  trackedEntity: "Śledzona jednostka",
+  entity: "Jednostka",
+  entityId: "ID jednostki",
+  entityType: "Typ jednostki",
+  entityTypes: "Typy jednostek",
+  serialBatchNumber: "Nr seryjny/partii",
+  viewTraceabilityGraph: "Pokaż graf śledzenia",
+
+  // Warehouse transfer additional fields - Dodatkowe pola transferu
+  transferId: "ID transferu",
+  fromLocation: "Z lokalizacji",
+  toLocation: "Do lokalizacji",
+  reference: "Referencja",
+  transferDate: "Data transferu",
+  expectedReceipt: "Oczekiwane przyjęcie",
+  viewTransfer: "Pokaż transfer",
+  editTransfer: "Edytuj transfer",
+  deleteTransfer: "Usuń transfer"
 } as const;

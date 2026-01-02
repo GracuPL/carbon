@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -30,6 +31,7 @@ type WarehouseTransfersTableProps = {
 
 const WarehouseTransfersTable = memo(
   ({ data, count }: WarehouseTransfersTableProps) => {
+    const { t } = useTranslation("inventory");
     useRealtime(
       "warehouseTransfer",
       `id=in.(${data.map((d) => d.id).join(",")})`
@@ -48,7 +50,7 @@ const WarehouseTransfersTable = memo(
       const result: ColumnDef<(typeof rows)[number]>[] = [
         {
           accessorKey: "transferId",
-          header: "Transfer ID",
+          header: t("transferId"),
           cell: ({ row }) => (
             <Hyperlink to={path.to.warehouseTransferDetails(row.original.id!)}>
               {row.original.transferId}
@@ -60,7 +62,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           accessorKey: "status",
-          header: "Status",
+          header: t("status"),
           cell: (item) => {
             const status =
               item.getValue<(typeof warehouseTransferStatusType)[number]>();
@@ -74,13 +76,13 @@ const WarehouseTransfersTable = memo(
                 label: <WarehouseTransferStatus status={type} />
               }))
             },
-            pluralHeader: "Statuses",
+            pluralHeader: t("statuses"),
             icon: <LuClock />
           }
         },
         {
           id: "fromLocation",
-          header: "From Location",
+          header: t("fromLocation"),
           cell: ({ row }) => row.original.fromLocation?.name || "N/A",
           meta: {
             icon: <LuMapPin />
@@ -88,7 +90,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           id: "toLocation",
-          header: "To Location",
+          header: t("toLocation"),
           cell: ({ row }) => row.original.toLocation?.name || "N/A",
           meta: {
             icon: <LuMapPin />
@@ -96,7 +98,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           accessorKey: "reference",
-          header: "Reference",
+          header: t("reference"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuHash />
@@ -104,7 +106,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           accessorKey: "transferDate",
-          header: "Transfer Date",
+          header: t("transferDate"),
           cell: (item) => {
             const date = item.getValue<string>();
             return date ? formatDate(date) : "N/A";
@@ -115,7 +117,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           accessorKey: "expectedReceiptDate",
-          header: "Expected Receipt",
+          header: t("expectedReceipt"),
           cell: (item) => {
             const date = item.getValue<string>();
             return date ? formatDate(date) : "N/A";
@@ -126,7 +128,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           id: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.createdBy} />
           ),
@@ -143,7 +145,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Created At",
+          header: t("createdAt"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -151,7 +153,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           id: "updatedBy",
-          header: "Updated By",
+          header: t("updatedBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.updatedBy} />
           ),
@@ -168,7 +170,7 @@ const WarehouseTransfersTable = memo(
         },
         {
           accessorKey: "updatedAt",
-          header: "Updated At",
+          header: t("updatedAt"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -177,7 +179,7 @@ const WarehouseTransfersTable = memo(
       ];
 
       return [...result, ...customColumns];
-    }, [people, customColumns]);
+    }, [people, customColumns, t]);
 
     const [selectedTransfer, setSelectedTransfer] =
       useState<WarehouseTransfer | null>(null);
@@ -198,7 +200,7 @@ const WarehouseTransfersTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              {row.status !== "Draft" ? "View Transfer" : "Edit Transfer"}
+              {row.status !== "Draft" ? t("viewTransfer") : t("editTransfer")}
             </MenuItem>
             <MenuItem
               disabled={
@@ -212,12 +214,12 @@ const WarehouseTransfersTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Transfer
+              {t("deleteTransfer")}
             </MenuItem>
           </>
         );
       },
-      [deleteTransferModal, navigate, params, permissions]
+      [deleteTransferModal, navigate, params, permissions, t]
     );
 
     return (
@@ -238,13 +240,13 @@ const WarehouseTransfersTable = memo(
           primaryAction={
             permissions.can("create", "inventory") && (
               <New
-                label="Warehouse Transfer"
+                label={t("warehouseTransfer")}
                 to={path.to.newWarehouseTransfer}
               />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Warehouse Transfers"
+          title={t("warehouseTransfers")}
           table="warehouseTransfer"
           withSavedView
         />
@@ -253,7 +255,7 @@ const WarehouseTransfersTable = memo(
             action={path.to.deleteWarehouseTransfer(selectedTransfer.id)}
             isOpen={deleteTransferModal.isOpen}
             name={selectedTransfer.transferId!}
-            text={`Are you sure you want to delete ${selectedTransfer.transferId!}? This cannot be undone.`}
+            text={t("confirmDeleteWarehouseTransfer", { name: selectedTransfer.transferId! })}
             onCancel={() => {
               deleteTransferModal.onClose();
               setSelectedTransfer(null);

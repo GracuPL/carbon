@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Checkbox,
@@ -42,6 +43,7 @@ type ShelvesTableProps = {
 };
 
 const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
+  const { t } = useTranslation("inventory");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -54,7 +56,7 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
     return [
       {
         accessorKey: "name",
-        header: "Name",
+        header: t("name"),
         cell: ({ row }) => (
           <HStack className="py-1">
             <Hyperlink to={`${path.to.shelf(row.original.id!)}?${params}`}>
@@ -68,7 +70,7 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
       },
       {
         accessorKey: "locationId",
-        header: "Location",
+        header: t("location"),
         cell: ({ row }) => {
           const location = locations.find(
             (l) => l.value === row.original.locationId
@@ -83,22 +85,22 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
       },
       {
         accessorKey: "active",
-        header: "Active",
+        header: t("active"),
         cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
         meta: {
           filter: {
             type: "static",
             options: [
-              { value: "true", label: "Active" },
-              { value: "false", label: "Inactive" }
+              { value: "true", label: t("active") },
+              { value: "false", label: t("inactive") }
             ]
           },
-          pluralHeader: "Active Statuses",
+          pluralHeader: t("activeStatuses"),
           icon: <LuCheck />
         }
       }
     ];
-  }, [locations, params]);
+  }, [locations, params, t]);
 
   const defaultColumnVisibility = {
     active: false
@@ -123,12 +125,12 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
         />
         <Button asChild leftIcon={<LuPlus />}>
           <Link to={`${path.to.newShelf}?location=${locationId}`}>
-            New Shelf
+            {t("newShelf")}
           </Link>
         </Button>
       </div>
     );
-  }, [locationId, locations]);
+  }, [locationId, locations, t]);
 
   const renderContextMenu = useCallback(
     (row: Shelf) => {
@@ -141,7 +143,7 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Shelf
+            {t("editShelf")}
           </MenuItem>
           <MenuItem
             disabled={!permissions.can("delete", "inventory")}
@@ -152,12 +154,12 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Shelf
+            {t("deleteShelf")}
           </MenuItem>
         </>
       );
     },
-    [deleteShelfModal, navigate, params, permissions]
+    [deleteShelfModal, navigate, params, permissions, t]
   );
 
   return (
@@ -170,7 +172,7 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
         defaultColumnPinning={defaultColumnPinning}
         primaryAction={actions}
         renderContextMenu={renderContextMenu}
-        title="Shelves"
+        title={t("shelves")}
         table="shelf"
         withSavedView
       />
@@ -179,7 +181,7 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
           action={path.to.deleteShelf(selectedShelf.id)}
           isOpen={deleteShelfModal.isOpen}
           name={selectedShelf.name!}
-          text={`Are you sure you want to delete ${selectedShelf.name!}? This cannot be undone.`}
+          text={t("confirmDeleteShelf", { name: selectedShelf.name! })}
           onCancel={() => {
             deleteShelfModal.onClose();
             setSelectedShelf(null);
