@@ -1,4 +1,5 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -130,6 +131,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function SalesDashboard() {
   const { openSalesOrders, openQuotes, openRFQs, assignedToMe } =
     useLoaderData<typeof loader>();
+  const { t } = useTranslation("sales");
 
   const mergedOpenDocs = useMemo(() => {
     const merged = [
@@ -376,7 +378,7 @@ export default function SalesDashboard() {
                   path.to.salesRfqs
                 }?filter=status:in:${OPEN_RFQ_STATUSES.join(",")}`}
               >
-                View Open RFQs
+                {t("viewOpenRFQs")}
               </Link>
             </Button>
           </HStack>
@@ -385,7 +387,7 @@ export default function SalesDashboard() {
               {openRFQs.count ?? 0}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open RFQs
+              {t("openRFQs")}
             </p>
           </div>
         </Card>
@@ -405,7 +407,7 @@ export default function SalesDashboard() {
                   path.to.quotes
                 }?filter=status:in:${OPEN_QUOTE_STATUSES.join(",")}`}
               >
-                View Open Quotes
+                {t("viewOpenQuotes")}
               </Link>
             </Button>
           </HStack>
@@ -414,7 +416,7 @@ export default function SalesDashboard() {
               {openQuotes.count ?? 0}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Quotes
+              {t("openQuotes")}
             </p>
           </div>
         </Card>
@@ -435,7 +437,7 @@ export default function SalesDashboard() {
                   path.to.salesOrders
                 }?filter=status:in:${OPEN_SALES_ORDER_STATUSES.join(",")}`}
               >
-                View Open Orders
+                {t("viewOpenOrders")}
               </Link>
             </Button>
           </HStack>
@@ -444,7 +446,7 @@ export default function SalesDashboard() {
               {openSalesOrders.count ?? 0}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Sales Orders
+              {t("openSalesOrders")}
             </p>
           </div>
         </Card>
@@ -656,9 +658,9 @@ export default function SalesDashboard() {
       <div className="grid w-full gap-4 grid-cols-1 lg:grid-cols-2">
         <Card>
           <CardHeader className="px-6 pb-0">
-            <CardTitle>Recently Created</CardTitle>
+            <CardTitle>{t("recentlyCreated")}</CardTitle>
             <CardDescription className="text-sm">
-              Newly created sales documents
+              {t("recentlyCreatedDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
@@ -667,9 +669,9 @@ export default function SalesDashboard() {
                 <Table>
                   <Thead>
                     <Tr>
-                      <Th>Document</Th>
-                      <Th>Status</Th>
-                      <Th>Customer</Th>
+                      <Th>{t("document")}</Th>
+                      <Th>{t("status")}</Th>
+                      <Th>{t("customer")}</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -713,9 +715,9 @@ export default function SalesDashboard() {
 
         <Card>
           <CardHeader className="px-6 pb-0">
-            <CardTitle>Assigned to Me</CardTitle>
+            <CardTitle>{t("assignedToMe")}</CardTitle>
             <CardDescription className="text-sm">
-              Sales documents currently assigned to me
+              {t("assignedToMeDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 min-h-[200px]">
@@ -729,9 +731,9 @@ export default function SalesDashboard() {
                     <Table>
                       <Thead>
                         <Tr>
-                          <Th>Document</Th>
-                          <Th>Status</Th>
-                          <Th>Customer</Th>
+                          <Th>{t("document")}</Th>
+                          <Th>{t("status")}</Th>
+                          <Th>{t("customer")}</Th>
                         </Tr>
                       </Thead>
                       <Tbody>

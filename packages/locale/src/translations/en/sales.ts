@@ -53,5 +53,9 @@ export const sales = {
   newInvoice: "New Invoice",
   convertToOrder: "Convert to Order",
   sendQuote: "Send Quote",
-  confirmOrder: "Confirm Order"
+  confirmOrder: "Confirm Order",
+
+  // Table headers
+  document: "Document",
+  status: "Status"
 } as const;

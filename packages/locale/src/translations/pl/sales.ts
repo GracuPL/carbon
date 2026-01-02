@@ -53,5 +53,9 @@ export const sales = {
   newInvoice: "Nowa faktura",
   convertToOrder: "Konwertuj na zamówienie",
   sendQuote: "Wyślij ofertę",
-  confirmOrder: "Potwierdź zamówienie"
+  confirmOrder: "Potwierdź zamówienie",
+
+  // Table headers - Nagłówki tabeli
+  document: "Dokument",
+  status: "Status"
 } as const;
