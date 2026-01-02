@@ -3,8 +3,8 @@ export const items = {
   title: "Produkty",
 
   // Entity types - Typy encji
-  part: "Część",
-  parts: "Części",
+  part: "Wyrób",
+  parts: "Wyroby",
   material: "Materiał",
   materials: "Materiały",
   tool: "Narzędzie",
@@ -13,7 +13,7 @@ export const items = {
   consumables: "Materiały eksploatacyjne",
 
   // Table headers - Nagłówki tabeli
-  partId: "ID części",
+  partId: "ID wyrobu",
   materialId: "ID materiału",
   description: "Opis",
   itemGroup: "Grupa produktów",
@@ -47,12 +47,12 @@ export const items = {
   itemGroups: "Grupy produktów",
 
   // Actions - Akcje
-  addPart: "Dodaj część",
+  addPart: "Dodaj wyrób",
   addMaterial: "Dodaj materiał",
   addTool: "Dodaj narzędzie",
   addConsumable: "Dodaj materiał eksploatacyjny",
-  editPart: "Edytuj część",
-  deletePart: "Usuń część",
+  editPart: "Edytuj wyrób",
+  deletePart: "Usuń wyrób",
   confirmDeletePart: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
   versions: "Wersje",
   revision: "Rewizja",
