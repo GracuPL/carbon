@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Checkbox,
@@ -71,6 +72,7 @@ type SalesOrdersTableProps = {
 };
 
 const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const currencyFormatter = useCurrencyFormatter();
 
@@ -94,7 +96,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
     const defaultColumns: ColumnDef<SalesOrder>[] = [
       {
         accessorKey: "salesOrderId",
-        header: "Sales Order Number",
+        header: t("salesOrderNumber"),
         cell: ({ row }) => (
           <HStack>
             <ItemThumbnail
@@ -114,7 +116,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         id: "customerId",
-        header: "Customer",
+        header: t("customer"),
         cell: ({ row }) => {
           return <CustomerAvatar customerId={row.original.customerId} />;
         },
@@ -131,7 +133,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "status",
-        header: "Status",
+        header: t("status"),
         cell: (item) => {
           const status = item.getValue<(typeof salesOrderStatusType)[number]>();
           return <SalesStatus status={status} />;
@@ -144,13 +146,13 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
               label: <SalesStatus status={status} />
             }))
           },
-          pluralHeader: "Statuses",
+          pluralHeader: t("statuses"),
           icon: <LuStar />
         }
       },
       {
         id: "jobs",
-        header: "Jobs",
+        header: t("jobs"),
         cell: ({ row }) => {
           const jobs = (row.original.jobs ?? []) as SalesOrderJob[];
           const lines =
@@ -284,7 +286,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "customerReference",
-        header: "Customer PO",
+        header: t("customerPo"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuQrCode />
@@ -292,7 +294,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "orderDate",
-        header: "Order Date",
+        header: t("orderDate"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -300,7 +302,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "orderTotal",
-        header: "Order Total",
+        header: t("orderTotal"),
         cell: (item) => currencyFormatter.format(item.getValue<number>()),
         meta: {
           icon: <LuDollarSign />,
@@ -311,7 +313,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
 
       {
         id: "assignee",
-        header: "Assignee",
+        header: t("assignee"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
@@ -328,7 +330,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "receiptPromisedDate",
-        header: "Promised Date",
+        header: t("promisedDate"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -336,7 +338,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "shippingMethodId",
-        header: "Shipping Method",
+        header: t("shippingMethod"),
         cell: (item) => (
           <Enumerable
             value={
@@ -351,7 +353,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "locationId",
-        header: "Location",
+        header: t("location"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -373,7 +375,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "paymentTermId",
-        header: "Payment Method",
+        header: t("paymentMethod"),
         cell: (item) => (
           <Enumerable
             value={
@@ -388,7 +390,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "dropShipment",
-        header: "Drop Shipment",
+        header: t("dropShipment"),
         cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
         meta: {
           filter: {
@@ -398,13 +400,13 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
               { value: "false", label: "No" }
             ]
           },
-          pluralHeader: "Drop Shipment Statuses",
+          pluralHeader: t("dropShipmentStatuses"),
           icon: <LuTruck />
         }
       },
       {
         id: "createdBy",
-        header: "Created By",
+        header: t("createdBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.createdBy} />
         ),
@@ -421,7 +423,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: t("createdAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -429,7 +431,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         id: "updatedBy",
-        header: "Updated By",
+        header: t("updatedBy"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.updatedBy} />
         ),
@@ -446,7 +448,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
       },
       {
         accessorKey: "updatedAt",
-        header: "Updated At",
+        header: t("updatedAt"),
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
           icon: <LuCalendar />
@@ -463,7 +465,8 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
     todaysDate,
     currencyFormatter,
     shippingMethods,
-    paymentTerms
+    paymentTerms,
+    t
   ]);
 
   const renderContextMenu = useMemo(() => {
@@ -474,7 +477,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           onClick={() => edit(row)}
         >
           <MenuIcon icon={<LuPencil />} />
-          Edit
+          {t("edit")}
         </MenuItem>
 
         {/*<MenuItem
@@ -499,11 +502,11 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           }}
         >
           <MenuIcon icon={<LuTrash />} />
-          Delete
+          {t("delete")}
         </MenuItem>
       </>
     );
-  }, [deleteSalesOrderModal, edit, permissions /*receive*/]);
+  }, [deleteSalesOrderModal, edit, permissions, t /*receive*/]);
 
   return (
     <>
@@ -527,11 +530,11 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
         }}
         primaryAction={
           permissions.can("create", "sales") && (
-            <New label="Sales Order" to={path.to.newSalesOrder} />
+            <New label={t("salesOrder")} to={path.to.newSalesOrder} />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Sales Orders"
+        title={t("salesOrders")}
         table="salesOrder"
         withSavedView
       />
@@ -541,7 +544,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           action={path.to.deleteSalesOrder(selectedSalesOrder.id)}
           isOpen={deleteSalesOrderModal.isOpen}
           name={selectedSalesOrder.salesOrderId!}
-          text={`Are you sure you want to delete ${selectedSalesOrder.salesOrderId!}? This cannot be undone.`}
+          text={t("confirmDeleteSalesOrder", { name: selectedSalesOrder.salesOrderId! })}
           onCancel={() => {
             deleteSalesOrderModal.onClose();
             setSelectedSalesOrder(null);

@@ -71,10 +71,42 @@ export const sales = {
   createdAt: "Created At",
   updatedBy: "Updated By",
   updatedAt: "Updated At",
+  assignee: "Assignee",
+  location: "Location",
+
+  // Quote fields
+  quoteNumber: "Quote Number",
+  customerRfq: "Customer RFQ",
+  salesPerson: "Sales Person",
+  estimator: "Estimator",
+  dueDate: "Due Date",
+  expirationDate: "Expiration Date",
+
+  // Sales Order fields
+  salesOrderNumber: "Sales Order Number",
+  jobs: "Jobs",
+  customerPo: "Customer PO",
+  orderDate: "Order Date",
+  orderTotal: "Order Total",
+  promisedDate: "Promised Date",
+  shippingMethod: "Shipping Method",
+  paymentMethod: "Payment Method",
+  dropShipment: "Drop Shipment",
+  dropShipmentStatuses: "Drop Shipment Statuses",
+  salesOrder: "Sales Order",
+  salesOrders: "Sales Orders",
+
+  // RFQ fields
+  rfqNumber: "RFQ Number",
+  rfqDate: "RFQ Date",
 
   // Customer actions
   edit: "Edit",
+  delete: "Delete",
   customerTypes: "Customer Types",
   contacts: "Contacts",
-  confirmDeleteCustomer: "Are you sure you want to delete {{name}}? This cannot be undone."
+  confirmDeleteCustomer: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  confirmDeleteQuote: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  confirmDeleteSalesOrder: "Are you sure you want to delete {{name}}? This cannot be undone.",
+  confirmDeleteRfq: "Are you sure you want to delete {{name}}? This cannot be undone."
 } as const;

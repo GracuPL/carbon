@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Checkbox,
   DropdownMenuContent,
@@ -59,6 +60,7 @@ type PurchaseOrdersTableProps = {
 
 const PurchaseOrdersTable = memo(
   ({ data, count }: PurchaseOrdersTableProps) => {
+    const { t } = useTranslation("purchasing");
     useRealtime("purchaseOrder");
 
     const permissions = usePermissions();
@@ -82,7 +84,7 @@ const PurchaseOrdersTable = memo(
       const defaultColumns: ColumnDef<PurchaseOrder>[] = [
         {
           accessorKey: "purchaseOrderId",
-          header: "PO Number",
+          header: t("poNumber"),
           cell: ({ row }) => (
             <HStack>
               <ItemThumbnail
@@ -102,7 +104,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           id: "supplierId",
-          header: "Supplier",
+          header: t("supplier"),
           cell: ({ row }) => {
             return <SupplierAvatar supplierId={row.original.supplierId} />;
           },
@@ -119,7 +121,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "status",
-          header: "Status",
+          header: t("status"),
           cell: (item) => {
             const status =
               item.getValue<(typeof purchaseOrderStatusType)[number]>();
@@ -133,13 +135,13 @@ const PurchaseOrdersTable = memo(
                 label: <PurchasingStatus status={status} />
               }))
             },
-            pluralHeader: "Statuses",
+            pluralHeader: t("statuses"),
             icon: <LuStar />
           }
         },
         {
           accessorKey: "supplierReference",
-          header: "Supplier Ref.",
+          header: t("supplierRef"),
           cell: (item) => item.getValue(),
           meta: {
             icon: <LuQrCode />
@@ -147,7 +149,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "orderDate",
-          header: "Order Date",
+          header: t("orderDate"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -155,7 +157,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "receiptRequestedDate",
-          header: "Requested Date",
+          header: t("requestedDate"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -163,7 +165,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "receiptPromisedDate",
-          header: "Promised Date",
+          header: t("promisedDate"),
           cell: ({ row }) => {
             const isReceivedOnTime =
               row.original.deliveryDate &&
@@ -196,7 +198,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "orderTotal",
-          header: "Order Total",
+          header: t("orderTotal"),
           cell: (item) => currencyFormatter.format(item.getValue<number>()),
           meta: {
             icon: <LuDollarSign />,
@@ -206,7 +208,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           id: "assignee",
-          header: "Assignee",
+          header: t("assignee"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.assignee} />
           ),
@@ -224,7 +226,7 @@ const PurchaseOrdersTable = memo(
 
         {
           accessorKey: "shippingMethodId",
-          header: "Shipping Method",
+          header: t("shippingMethod"),
           cell: (item) => (
             <Enumerable
               value={
@@ -240,7 +242,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "paymentTermId",
-          header: "Payment Method",
+          header: t("paymentMethod"),
           cell: (item) => (
             <Enumerable
               value={
@@ -255,7 +257,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "dropShipment",
-          header: "Drop Shipment",
+          header: t("dropShipment"),
           cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
           meta: {
             filter: {
@@ -265,13 +267,13 @@ const PurchaseOrdersTable = memo(
                 { value: "false", label: "No" }
               ]
             },
-            pluralHeader: "Drop Shipment Statuses",
+            pluralHeader: t("dropShipmentStatuses"),
             icon: <LuTruck />
           }
         },
         {
           id: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.createdBy} />
           ),
@@ -288,7 +290,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Created At",
+          header: t("createdAt"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -296,7 +298,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           id: "updatedBy",
-          header: "Updated By",
+          header: t("updatedBy"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.updatedBy} />
           ),
@@ -313,7 +315,7 @@ const PurchaseOrdersTable = memo(
         },
         {
           accessorKey: "updatedAt",
-          header: "Updated At",
+          header: t("updatedAt"),
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
             icon: <LuCalendar />
@@ -328,7 +330,8 @@ const PurchaseOrdersTable = memo(
       customColumns,
       currencyFormatter,
       shippingMethods,
-      paymentTerms
+      paymentTerms,
+      t
     ]);
 
     const fetcher = useFetcher<typeof action>();
@@ -360,7 +363,7 @@ const PurchaseOrdersTable = memo(
       (selectedRows: typeof data) => {
         return (
           <DropdownMenuContent align="end" className="min-w-[200px]">
-            <DropdownMenuLabel>Update</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("update")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem
@@ -374,13 +377,13 @@ const PurchaseOrdersTable = memo(
                 onClick={() => onBulkUpdate(selectedRows, "delete")}
               >
                 <MenuIcon icon={<LuTrash />} />
-                Delete Purchase Orders
+                {t("deletePurchaseOrders")}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         );
       },
-      [onBulkUpdate, permissions]
+      [onBulkUpdate, permissions, t]
     );
 
     const renderContextMenu = useCallback(
@@ -391,7 +394,7 @@ const PurchaseOrdersTable = memo(
             onClick={() => edit(row)}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit
+            {t("edit")}
           </MenuItem>
 
           <MenuItem
@@ -405,7 +408,7 @@ const PurchaseOrdersTable = memo(
             }}
           >
             <MenuIcon icon={<LuHandCoins />} />
-            Receive
+            {t("receive")}
           </MenuItem>
           <MenuItem
             disabled={
@@ -419,11 +422,11 @@ const PurchaseOrdersTable = memo(
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete
+            {t("delete")}
           </MenuItem>
         </>
       ),
-      [deletePurchaseOrderModal, edit, permissions, receive]
+      [deletePurchaseOrderModal, edit, permissions, receive, t]
     );
 
     return (
@@ -446,12 +449,12 @@ const PurchaseOrdersTable = memo(
           }}
           primaryAction={
             permissions.can("create", "purchasing") && (
-              <New label="Purchase Order" to={path.to.newPurchaseOrder} />
+              <New label={t("purchaseOrder")} to={path.to.newPurchaseOrder} />
             )
           }
           renderContextMenu={renderContextMenu}
           renderActions={renderActions}
-          title="Purchase Orders"
+          title={t("purchaseOrders")}
           table="purchaseOrder"
           withSavedView
           withSelectableRows
@@ -462,7 +465,7 @@ const PurchaseOrdersTable = memo(
             action={path.to.deletePurchaseOrder(selectedPurchaseOrder.id)}
             isOpen={deletePurchaseOrderModal.isOpen}
             name={selectedPurchaseOrder.purchaseOrderId!}
-            text={`Are you sure you want to delete ${selectedPurchaseOrder.purchaseOrderId!}? This cannot be undone.`}
+            text={t("confirmDeletePurchaseOrder", { name: selectedPurchaseOrder.purchaseOrderId! })}
             onCancel={() => {
               deletePurchaseOrderModal.onClose();
               setSelectedPurchaseOrder(null);

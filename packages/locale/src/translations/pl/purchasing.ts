@@ -30,6 +30,7 @@ export const purchasing = {
   // Table headers - Nagłówki tabeli
   document: "Dokument",
   status: "Status",
+  statuses: "Statusy",
   name: "Nazwa",
   supplierStatus: "Status dostawcy",
   type: "Typ",
@@ -43,6 +44,26 @@ export const purchasing = {
   createdAt: "Data utworzenia",
   updatedBy: "Zaktualizował",
   updatedAt: "Data aktualizacji",
+  assignee: "Przypisany do",
+  location: "Lokalizacja",
+
+  // Purchase Order fields - Pola zamówienia zakupu
+  poNumber: "Numer ZZ",
+  supplierRef: "Ref. dostawcy",
+  orderDate: "Data zamówienia",
+  requestedDate: "Data żądana",
+  promisedDate: "Data obiecana",
+  orderTotal: "Wartość zamówienia",
+  shippingMethod: "Metoda wysyłki",
+  paymentMethod: "Metoda płatności",
+  dropShipment: "Wysyłka bezpośrednia",
+  dropShipmentStatuses: "Statusy wysyłki bezpośredniej",
+
+  // Supplier Quote fields - Pola oferty dostawcy
+  quoteNumber: "Numer oferty",
+  supplierReference: "Referencja dostawcy",
+  quotedDate: "Data wyceny",
+  expirationDate: "Data ważności",
 
   // Fields - Pola
   leadTime: "Czas realizacji",
@@ -61,9 +82,16 @@ export const purchasing = {
   newSupplier: "Nowy dostawca",
   sendOrder: "Wyślij zamówienie",
   receiveGoods: "Przyjmij towar",
+  receive: "Przyjmij",
   finalize: "Finalizuj",
   exportCsv: "Eksportuj CSV",
+  edit: "Edytuj",
+  delete: "Usuń",
+  update: "Aktualizuj",
+  deletePurchaseOrders: "Usuń zamówienia zakupu",
   editSupplier: "Edytuj dostawcę",
   supplierTypes: "Typy dostawców",
-  contacts: "Kontakty"
+  contacts: "Kontakty",
+  confirmDeletePurchaseOrder: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+  confirmDeleteSupplierQuote: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć."
 } as const;
