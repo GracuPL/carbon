@@ -2,9 +2,16 @@ export const inventory = {
   // Module title - Tytuł modułu
   title: "Magazyn",
 
+  // Main views - Główne widoki
+  quantities: "Stany magazynowe",
+  kanbans: "Kanbany",
+  trackedEntities: "Śledzone jednostki",
+  traceability: "Śledzenie",
+
   // Entities - Encje
   item: "Pozycja",
   items: "Pozycje",
+  itemId: "ID pozycji",
   part: "Część",
   parts: "Części",
   location: "Lokalizacja",
@@ -19,6 +26,20 @@ export const inventory = {
   shipments: "Wysyłki",
   stockTransfer: "Transfer magazynowy",
   stockTransfers: "Transfery magazynowe",
+  warehouseTransfer: "Transfer międzymagazynowy",
+  warehouseTransfers: "Transfery międzymagazynowe",
+  shippingMethod: "Metoda wysyłki",
+  shippingMethods: "Metody wysyłki",
+
+  // Table headers - Nagłówki tabeli
+  onHand: "Na stanie",
+  days: "Dni",
+  leadTime: "Czas realizacji",
+  reorderPolicy: "Polityka zamówień",
+  replenishment: "Uzupełnianie",
+  usagePerDay: "Zużycie/dzień",
+  onPurchaseOrder: "Na zamówieniu",
+  onJobs: "Na zleceniach",
 
   // Fields - Pola
   quantity: "Ilość",
@@ -37,10 +58,16 @@ export const inventory = {
   transfer: "Przenieś",
   adjust: "Skoryguj",
   count: "Inwentaryzuj",
+  recalculate: "Przelicz",
 
   // Statuses - Statusy
   inStock: "Na stanie",
   outOfStock: "Brak na stanie",
   lowStock: "Niski stan",
-  reserved: "Zarezerwowane"
+  reserved: "Zarezerwowane",
+
+  // Reorder policies - Polityki zamówień
+  demandBased: "Na żądanie",
+  planBased: "Według planu",
+  fixedReorder: "Stałe zamówienie"
 } as const;
