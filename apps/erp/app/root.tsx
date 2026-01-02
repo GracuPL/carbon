@@ -1,6 +1,7 @@
 import { CONTROLLED_ENVIRONMENT, error, getBrowserEnv } from "@carbon/auth";
 import { getSessionFlash } from "@carbon/auth/session.server";
 import { validator } from "@carbon/form";
+import { LocaleProvider } from "@carbon/locale";
 import {
   Button,
   Heading,
@@ -32,6 +33,7 @@ import {
   ScrollRestoration,
   useLoaderData
 } from "react-router";
+import { getLanguage } from "~/services/language.server";
 import { getMode, setMode } from "~/services/mode.server";
 import Background from "~/styles/background.css?url";
 import NProgress from "~/styles/nprogress.css?url";
@@ -94,6 +96,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       },
       mode: getMode(request),
       theme: getTheme(request),
+      language: getLanguage(request),
       preferences: getPreferenceHeaders(request),
       result: sessionFlash?.result
     },
@@ -191,6 +194,7 @@ export default function App() {
   const env = loaderData?.env ?? {};
   const result = loaderData?.result;
   const theme = loaderData?.theme ?? "blue";
+  const language = loaderData?.language ?? "en";
   const prefs = loaderData?.preferences;
   const mode = useMode();
 
@@ -220,14 +224,16 @@ export default function App() {
   return (
     <OperatingSystemContextProvider platform={prefs.platform}>
       <I18nProvider locale={prefs.locale}>
-        <Document mode={mode} theme={theme}>
-          <Outlet />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.env = ${JSON.stringify(env)};`
-            }}
-          />
-        </Document>
+        <LocaleProvider locale={language}>
+          <Document mode={mode} theme={theme}>
+            <Outlet />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.env = ${JSON.stringify(env)};`
+              }}
+            />
+          </Document>
+        </LocaleProvider>
       </I18nProvider>
     </OperatingSystemContextProvider>
   );

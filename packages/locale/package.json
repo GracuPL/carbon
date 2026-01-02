@@ -1,0 +1,31 @@
+{
+  "name": "@carbon/locale",
+  "version": "*",
+  "private": true,
+  "sideEffects": false,
+  "dependencies": {
+    "i18next": "^24.2.3",
+    "react-i18next": "^15.4.1",
+    "i18next-browser-languagedetector": "^8.0.4"
+  },
+  "devDependencies": {
+    "@carbon/tsconfig": "*",
+    "@types/node": "^20.12.5",
+    "@types/react": "^18.2.74",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./src/config.ts",
+    "./provider": "./src/provider.tsx",
+    "./translations/en": "./src/translations/en/index.ts",
+    "./translations/pl": "./src/translations/pl/index.ts"
+  },
+  "scripts": {
+    "clean": "rimraf .turbo node_modules",
+    "lint": "biome lint --write "
+  }
+}
