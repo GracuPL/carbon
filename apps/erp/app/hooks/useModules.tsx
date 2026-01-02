@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   LuBox,
   LuCrown,
@@ -19,53 +20,54 @@ import { usePermissions } from "./usePermissions";
 
 export function useModules() {
   const permissions = usePermissions();
+  const { t } = useTranslation("navigation");
 
   const modules: Authenticated<NavItem>[] = [
     {
-      name: "Shop Floor",
+      name: t("shopFloor"),
       to: path.to.external.mes,
       icon: LuTvMinimalPlay,
       role: "employee"
     },
     {
       permission: "sales",
-      name: "Sales",
+      name: t("sales"),
       to: path.to.sales,
       icon: LuCrown
     },
     {
       permission: "production",
-      name: "Production",
+      name: t("production"),
       to: path.to.production,
       icon: LuFactory
     },
     {
       permission: "parts",
-      name: "Items",
+      name: t("items"),
       to: path.to.parts,
       icon: LuSquareStack
     },
     {
       permission: "inventory",
-      name: "Inventory",
+      name: t("inventory"),
       to: path.to.inventory,
       icon: LuBox
     },
     {
       permission: "purchasing",
-      name: "Purchasing",
+      name: t("purchasing"),
       to: path.to.purchasing,
       icon: LuShoppingCart
     },
     {
       permission: "quality",
-      name: "Quality",
+      name: t("quality"),
       to: path.to.quality,
       icon: LuFolderCheck
     },
     {
       permission: "accounting",
-      name: "Finance",
+      name: t("finance"),
       to: path.to.currencies,
       icon: LuLandmark
     },
@@ -77,31 +79,31 @@ export function useModules() {
     // },
     {
       permission: "people",
-      name: "People",
+      name: t("people"),
       to: path.to.people,
       icon: LuUsers
     },
     {
       permission: "resources",
-      name: "Resources",
+      name: t("resources"),
       to: path.to.resources,
       icon: LuWrench
     },
     {
       permission: "documents",
-      name: "Documents",
+      name: t("documents"),
       to: path.to.documents,
       icon: LuFiles
     },
     {
       permission: "users",
-      name: "Users",
+      name: t("users"),
       to: path.to.employeeAccounts,
       icon: LuShield
     },
     {
       permission: "settings",
-      name: "Settings",
+      name: t("settings"),
       to: path.to.company,
       icon: LuSettings
     }
