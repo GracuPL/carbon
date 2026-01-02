@@ -1,4 +1,5 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -147,6 +148,7 @@ export default function PurchaseDashboard() {
     openPurchaseInvoices,
     assignedToMe
   } = useLoaderData<typeof loader>();
+  const { t } = useTranslation("purchasing");
 
   const mergedOpenDocs = useMemo(() => {
     const merged = [
@@ -194,13 +196,13 @@ export default function PurchaseDashboard() {
   const [suppliers] = useSuppliers();
   const supplierOptions = useMemo(() => {
     return [
-      { label: "All Suppliers", value: "all" },
+      { label: t("allSuppliers"), value: "all" },
       ...suppliers.map((supplier) => ({
         label: supplier.name,
         value: supplier.id
       }))
     ];
-  }, [suppliers]);
+  }, [suppliers, t]);
 
   const [interval, setInterval] = useState("month");
   const [selectedKpi, setSelectedKpi] = useState("purchaseOrderAmount");
@@ -294,7 +296,7 @@ export default function PurchaseDashboard() {
                   path.to.supplierQuotes
                 }?filter=status:in:${OPEN_SUPPLIER_QUOTE_STATUSES.join(",")}`}
               >
-                View Active Quotes
+                {t("viewActiveQuotes")}
               </Link>
             </Button>
           </HStack>
@@ -303,7 +305,7 @@ export default function PurchaseDashboard() {
               {openSupplierQuotes.count ?? 0}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Active Supplier Quotes
+              {t("activeSupplierQuotes")}
             </p>
           </div>
         </Card>
@@ -323,7 +325,7 @@ export default function PurchaseDashboard() {
                   path.to.purchaseOrders
                 }?filter=status:in:${OPEN_PURCHASE_ORDER_STATUSES.join(",")}`}
               >
-                View Open POs
+                {t("viewOpenPOs")}
               </Link>
             </Button>
           </HStack>
@@ -332,7 +334,7 @@ export default function PurchaseDashboard() {
               {openPurchaseOrders.count ?? 0}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Purchase Orders
+              {t("openPurchaseOrders")}
             </p>
           </div>
         </Card>
@@ -353,7 +355,7 @@ export default function PurchaseDashboard() {
                   path.to.purchaseInvoices
                 }?filter=status:in:${OPEN_INVOICE_STATUSES.join(",")}`}
               >
-                View Open Invoices
+                {t("viewOpenInvoices")}
               </Link>
             </Button>
           </HStack>
@@ -362,7 +364,7 @@ export default function PurchaseDashboard() {
               {openPurchaseInvoices.count ?? 0}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Open Purchase Invoices
+              {t("openPurchaseInvoices")}
             </p>
           </div>
         </Card>
@@ -479,7 +481,7 @@ export default function PurchaseDashboard() {
                     className="flex flex-row items-center gap-2"
                   >
                     <DropdownMenuIcon icon={<LuFile />} />
-                    Export CSV
+                    {t("exportCsv")}
                   </CSVLink>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -560,9 +562,9 @@ export default function PurchaseDashboard() {
       <div className="grid w-full gap-4 grid-cols-1 lg:grid-cols-2">
         <Card>
           <CardHeader className="px-6 pb-0">
-            <CardTitle>Recently Created</CardTitle>
+            <CardTitle>{t("recentlyCreated")}</CardTitle>
             <CardDescription className="text-sm">
-              Recently created purchasing documents
+              {t("recentlyCreatedDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
@@ -571,9 +573,9 @@ export default function PurchaseDashboard() {
                 <Table>
                   <Thead>
                     <Tr>
-                      <Th>Document</Th>
-                      <Th>Status</Th>
-                      <Th>Customer</Th>
+                      <Th>{t("document")}</Th>
+                      <Th>{t("status")}</Th>
+                      <Th>{t("supplier")}</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -617,9 +619,9 @@ export default function PurchaseDashboard() {
 
         <Card>
           <CardHeader className="px-6 pb-0">
-            <CardTitle>Assigned to Me</CardTitle>
+            <CardTitle>{t("assignedToMe")}</CardTitle>
             <CardDescription className="text-sm">
-              Sales documents currently assigned to me
+              {t("assignedToMeDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 min-h-[200px]">
@@ -633,9 +635,9 @@ export default function PurchaseDashboard() {
                     <Table>
                       <Thead>
                         <Tr>
-                          <Th>Document</Th>
-                          <Th>Status</Th>
-                          <Th>Customer</Th>
+                          <Th>{t("document")}</Th>
+                          <Th>{t("status")}</Th>
+                          <Th>{t("supplier")}</Th>
                         </Tr>
                       </Thead>
                       <Tbody>

@@ -15,6 +15,7 @@ export const resources = {
   recentlyCreatedDescription: "Nowo utworzone dyspozycje konserwacji",
   assignedToMe: "Przypisane do mnie",
   assignedToMeDescription: "Dyspozycje przypisane do Ciebie",
+  errorLoadingDispatches: "Błąd podczas ładowania dyspozycji",
 
   // Entities - Encje
   equipment: "Sprzęt",
@@ -23,12 +24,25 @@ export const resources = {
   maintenance: "Konserwacja",
   training: "Szkolenie",
   trainings: "Szkolenia",
+  workCenter: "Stanowisko pracy",
+  workCenters: "Stanowiska pracy",
+  allWorkCenters: "Wszystkie stanowiska pracy",
+
+  // Table headers - Nagłówki tabeli
+  source: "Źródło",
+  status: "Status",
 
   // Statuses - Statusy
   pending: "Oczekujące",
   overdue: "Zaległe",
   scheduled: "Planowane",
   reactive: "Reaktywne",
+
+  // KPIs - Wskaźniki
+  failures: "awarii",
+
+  // Actions - Akcje
+  exportCsv: "Eksportuj CSV",
 
   // Other - Inne
   yourself: "Ciebie"

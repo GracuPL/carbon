@@ -5,6 +5,7 @@ export const purchasing = {
   // Dashboard cards - Karty pulpitu
   openPurchaseOrders: "Otwarte zamówienia zakupu",
   openPurchaseInvoices: "Otwarte faktury zakupu",
+  activeSupplierQuotes: "Aktywne oferty dostawców",
   viewOpenPOs: "Zobacz otwarte ZZ",
   viewOpenInvoices: "Zobacz otwarte faktury",
   viewActiveQuotes: "Zobacz aktywne oferty",
@@ -18,12 +19,17 @@ export const purchasing = {
   // Entities - Encje
   supplier: "Dostawca",
   suppliers: "Dostawcy",
+  allSuppliers: "Wszyscy dostawcy",
   purchaseOrder: "Zamówienie zakupu",
   purchaseOrders: "Zamówienia zakupu",
   purchaseInvoice: "Faktura zakupu",
   purchaseInvoices: "Faktury zakupu",
   supplierQuote: "Oferta dostawcy",
   supplierQuotes: "Oferty dostawców",
+
+  // Table headers - Nagłówki tabeli
+  document: "Dokument",
+  status: "Status",
 
   // Fields - Pola
   leadTime: "Czas realizacji",
@@ -42,5 +48,6 @@ export const purchasing = {
   newSupplier: "Nowy dostawca",
   sendOrder: "Wyślij zamówienie",
   receiveGoods: "Przyjmij towar",
-  finalize: "Finalizuj"
+  finalize: "Finalizuj",
+  exportCsv: "Eksportuj CSV"
 } as const;

@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -124,6 +125,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function ProductionDashboard() {
   const { activeJobs, assignedJobs, events, workCenters } =
     useLoaderData<typeof loader>();
+  const { t } = useTranslation("production");
 
   const user = useUser();
   const kpiFetcher = useFetcher<typeof kpiLoader>();
@@ -292,7 +294,7 @@ export default function ProductionDashboard() {
                   ","
                 )}`}
               >
-                View Active Jobs
+                {t("viewActiveJobs")}
               </Link>
             </Button>
           </HStack>
@@ -301,7 +303,7 @@ export default function ProductionDashboard() {
               {activeJobs}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Active Jobs
+              {t("activeJobs")}
             </p>
           </div>
         </Card>
@@ -317,7 +319,7 @@ export default function ProductionDashboard() {
               variant="secondary"
             >
               <Link to={`${path.to.jobs}?filter=assignee:eq:${user.id}`}>
-                View Assigned Jobs
+                {t("viewAssignedJobs")}
               </Link>
             </Button>
           </HStack>
@@ -326,7 +328,7 @@ export default function ProductionDashboard() {
               {assignedJobs}
             </h3>
             <p className="text-sm text-muted-foreground tracking-tight">
-              Jobs Assigned to Me
+              {t("jobsAssignedToMe")}
             </p>
           </div>
         </Card>
@@ -434,7 +436,7 @@ export default function ProductionDashboard() {
                       className="flex flex-row items-center gap-2"
                     >
                       <DropdownMenuIcon icon={<LuFile />} />
-                      Export CSV
+                      {t("exportCsv")}
                     </CSVLink>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -642,6 +644,7 @@ function WorkCenterCards({
   events: ActiveProductionEvent[];
   workCenters: WorkCenterWithBlocking[];
 }) {
+  const { t } = useTranslation("production");
   const [events, setEvents] = useState<ActiveProductionEvent[]>(initialEvents);
   const [jobOperationMetaData, setJobOperationMetaData] = useState<
     Record<string, JobOperationMetaData>
@@ -854,12 +857,12 @@ function WorkCenterCards({
                         className="inline-flex items-center gap-1 text-xs font-normal"
                       >
                         <span>
-                          Blocked by {workCenter.blockingDispatchReadableId}
+                          {t("blockedBy")} {workCenter.blockingDispatchReadableId}
                         </span>
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>View maintenance dispatch</p>
+                      <p>{t("viewMaintenanceDispatch")}</p>
                     </TooltipContent>
                   </Tooltip>
                 )}
@@ -873,7 +876,7 @@ function WorkCenterCards({
             <CardContent className="flex items-start justify-start p-6 pt-3 border-t">
               {!hasEvents ? (
                 <p className="text-muted-foreground text-center w-full h-full flex flex-col gap-2 items-center justify-center text-sm">
-                  Inactive
+                  {t("inactive")}
                 </p>
               ) : (
                 <div className="flex flex-col gap-2 items-start justify-start text-sm">
