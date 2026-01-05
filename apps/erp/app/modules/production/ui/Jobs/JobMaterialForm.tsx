@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -51,6 +52,7 @@ const JobMaterialForm = ({
   const permissions = usePermissions();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation("production");
 
   const { jobId, materialId } = useParams();
   if (!jobId) throw new Error("jobId not found");
@@ -105,7 +107,7 @@ const JobMaterialForm = ({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

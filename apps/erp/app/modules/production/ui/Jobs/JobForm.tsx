@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { InputControlled, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -64,6 +65,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
+  const { t } = useTranslation("production");
   const [type, setType] = useState<MethodItemType>(
     initialValues.itemType ?? "Item"
   );
@@ -195,7 +197,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
       ]);
 
       if (parameters.error || groups.error) {
-        toast.error("Failed to load configuration parameters");
+        toast.error(t("failedToLoadConfigurationParameters"));
         return;
       }
 

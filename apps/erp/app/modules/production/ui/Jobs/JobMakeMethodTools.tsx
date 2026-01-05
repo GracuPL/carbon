@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { SelectControlled, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertTitle,
@@ -59,6 +60,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
   const permissions = usePermissions();
   const { jobId, methodId } = useParams();
   if (!jobId) throw new Error("jobId not found");
+  const { t } = useTranslation("production");
 
   const fetcher = useFetcher<{ error: string | null }>();
   const routeData = useRouteData<{
@@ -357,7 +359,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                     // Get configuration parameters for the source item
                     const companyId = replenishmentData?.companyId;
                     if (!companyId) {
-                      toast.error("Unable to get company ID");
+                      toast.error(t("unableToGetCompanyId"));
                       return;
                     }
                     const configParams = await getConfigurationParameters(

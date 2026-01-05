@@ -107,7 +107,7 @@ const ProductionPlanningTable = ({
     }
 
     if (bulkUpdateFetcher.data?.success === true) {
-      toast.success("Orders submitted");
+      toast.success(t("ordersSubmitted"));
     }
   }, [bulkUpdateFetcher.data?.success]);
 

@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DatePicker,
@@ -71,6 +72,7 @@ export const ProductionPlanningOrderDrawer = memo(
     isOpen,
     onClose
   }: ProductionPlanningOrderDrawerProps) => {
+    const { t } = useTranslation("production");
     const fetcher = useFetcher<typeof bulkUpdateAction>();
     const { carbon } = useCarbon();
 
@@ -244,7 +246,7 @@ export const ProductionPlanningOrderDrawer = memo(
       }
 
       if (fetcher.data?.success === true) {
-        toast.success("Orders submitted");
+        toast.success(t("ordersSubmitted"));
         setOrders(row, []);
         onClose();
       }

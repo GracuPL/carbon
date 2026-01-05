@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import type { Database } from "@carbon/database";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -97,6 +98,7 @@ const JobEstimatesVsActuals = ({
   const { jobId } = useParams();
   const user = useUser();
   if (!jobId) throw new Error("Could not find jobId");
+  const { t } = useTranslation("production");
 
   const [items] = useItems();
   const currencyFormatter = useCurrencyFormatter();
@@ -114,7 +116,7 @@ const JobEstimatesVsActuals = ({
       .in("itemId", itemIds);
 
     if (!itemCosts?.data) {
-      toast.error("Failed to fetch item costs");
+      toast.error(t("failedToFetchItemCosts"));
       return;
     }
 

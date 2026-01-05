@@ -6,6 +6,7 @@ import {
   Select,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -46,6 +47,7 @@ import { getDeadlineIcon } from "./Deadline";
 const JobProperties = () => {
   const { jobId } = useParams();
   if (!jobId) throw new Error("jobId not found");
+  const { t } = useTranslation("production");
 
   const routeData = useRouteData<{
     job: Job;
@@ -128,7 +130,7 @@ const JobProperties = () => {
       const formData = new FormData();
 
       if (!trackedEntityId) {
-        toast.error("Tracked entity ID is required but none was found");
+        toast.error(t("trackedEntityIdRequired"));
         return;
       }
 

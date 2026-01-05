@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Card,
@@ -34,6 +35,7 @@ const JobNotes = ({
   } = useUser();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
+  const { t } = useTranslation("production");
 
   const [notes, setInternalNotes] = useState(initialNotes ?? {});
 
@@ -44,12 +46,12 @@ const JobNotes = ({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
