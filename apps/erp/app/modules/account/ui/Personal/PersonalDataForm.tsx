@@ -19,7 +19,7 @@ const PersonalDataForm = ({ personalData }: PersonalDataFormProps) => {
         defaultValues={personalData}
       >
         <VStack spacing={4} className="mt-4">
-          <Submit>Save</Submit>
+          <Submit />
         </VStack>
       </ValidatedForm>
     </div>

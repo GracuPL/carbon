@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -34,6 +35,8 @@ const NoQuoteReasonForm = ({
   type = "drawer",
   onClose
 }: NoQuoteReasonFormProps) => {
+  const { t } = useTranslation("sales");
+  const { t: tNav } = useTranslation("navigation");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -42,13 +45,13 @@ const NoQuoteReasonForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created no quote reason`);
+      toast.success(t("createdNoQuoteReason"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create no quote reason: ${fetcher.data.error.message}`
+        t("failedToCreateNoQuoteReason", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
@@ -91,9 +94,9 @@ const NoQuoteReasonForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled} />
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {tNav("cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

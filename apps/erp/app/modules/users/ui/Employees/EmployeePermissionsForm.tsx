@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -33,6 +34,7 @@ const EmployeePermissionsForm = ({
   employeeTypes,
   initialValues
 }: EmployeePermissionsFormProps) => {
+  const { t } = useTranslation("navigation");
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
 
@@ -97,9 +99,9 @@ const EmployeePermissionsForm = ({
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit>Save</Submit>
+              <Submit />
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

@@ -2,6 +2,7 @@ import { assertIsPost } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { destroyAuthSession } from "@carbon/auth/session.server";
 import { ValidatedForm, validationError, validator } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -68,6 +69,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function OnboardingUser() {
+  const { t } = useTranslation("navigation");
   const { user } = useLoaderData<typeof loader>();
   const { next, previous } = useOnboarding();
 
@@ -113,10 +115,10 @@ export default function OnboardingUser() {
               tabIndex={-1}
             >
               <Link to={previous} prefetch="intent">
-                Previous
+                {t("previous")}
               </Link>
             </Button>
-            <Submit>Next</Submit>
+            <Submit>{t("next")}</Submit>
           </HStack>
         </CardFooter>
       </ValidatedForm>
