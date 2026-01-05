@@ -1,6 +1,7 @@
 "use client";
 import { useCarbon } from "@carbon/auth";
 import { Array as ArrayInput, Input, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Alert,
@@ -202,6 +203,7 @@ const BillOfProcess = ({
   parameters,
   tags
 }: BillOfProcessProps) => {
+  const { t } = useTranslation("items");
   const permissions = usePermissions();
   const isReadOnly =
     permissions.can("update", "parts") === false ||
@@ -343,7 +345,7 @@ const BillOfProcess = ({
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -1710,6 +1712,7 @@ function AttributesForm({
   onConfigure?: (c: Configuration) => void;
   itemMentions: { id: string; label: string }[];
 }) {
+  const { t } = useTranslation("items");
   const fetcher = useFetcher<typeof newMethodOperationParameterAction>();
   const sortOrderFetcher = useFetcher<{ success: boolean }>();
   const [type, setType] = useState<OperationStep["type"]>("Task");
@@ -1782,12 +1785,12 @@ function AttributesForm({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -2059,12 +2062,12 @@ function AttributesListItem({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -2403,6 +2406,7 @@ function ParametersForm({
   rulesByField: Map<string, ConfigurationRule>;
   onConfigure?: (c: Configuration) => void;
 }) {
+  const { t } = useTranslation("items");
   const fetcher = useFetcher<typeof newMethodOperationParameterAction>();
 
   if (isDisabled && temporaryItems[operationId]) {

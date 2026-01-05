@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   cn,
@@ -60,6 +61,7 @@ function startsWithLetter(value: string) {
 }
 
 const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
+  const { t } = useTranslation("items");
   const { company } = useUser();
   const baseCurrency = company?.baseCurrencyCode ?? "USD";
 
@@ -96,11 +98,11 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
     ]);
 
     if (fileUpload.error || recordInsert.error) {
-      toast.error(`Failed to upload model`);
+      toast.error(t("failedToUploadModel"));
     } else {
       setModelUploadId(modelId);
       setModelFile(file);
-      toast.success(`Uploaded model`);
+      toast.success(t("uploadedModel"));
     }
 
     setModelIsUploading(false);
@@ -120,12 +122,12 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
 
       const fileExtension = file.name.split(".").pop()?.toLowerCase();
       if (!fileExtension || !supportedModelTypes.includes(fileExtension)) {
-        toast.error("File type not supported");
+        toast.error(t("fileTypeNotSupported"));
         return;
       }
 
       if (file.size > fileSizeLimit) {
-        toast.error(`File size too big (max. ${fileSizeLimitMb} MB)`);
+        toast.error(t("fileSizeTooBig", { maxSize: convertKbToString(fileSizeLimitMb * 1024) }));
         return;
       }
 
@@ -135,9 +137,9 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
       const { errors } = fileRejections[0];
       let message;
       if (errors[0].code === "file-too-large") {
-        message = `File size too big (max. ${fileSizeLimitMb} MB)`;
+        message = t("fileSizeTooBig", { maxSize: convertKbToString(fileSizeLimitMb * 1024) });
       } else if (errors[0].code === "file-invalid-type") {
-        message = "File type not supported";
+        message = t("fileTypeNotSupported");
       } else {
         message = errors[0].message;
       }
@@ -150,11 +152,11 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created tool`);
+      toast.success(t("createdTool"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create tool: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateTool", { message: fetcher.data.error.message }));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const { id, onIdChange, loading } = useNextItemId("Tool");
   const permissions = usePermissions();

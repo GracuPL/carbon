@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -40,6 +41,7 @@ const ItemPostingGroupForm = ({
   type = "drawer",
   onClose
 }: ItemPostingGroupFormProps) => {
+  const { t } = useTranslation("items");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string; name: string }>>();
 
@@ -53,9 +55,9 @@ const ItemPostingGroupForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created item group`);
+      toast.success(t("createdItemGroup"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create item group: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateItemGroup", { message: fetcher.data.error.message }));
     }
   }, [fetcher.data, fetcher.state, onClose, type]);
 

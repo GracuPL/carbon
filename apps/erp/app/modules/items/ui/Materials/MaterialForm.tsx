@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   cn,
   ModalCard,
@@ -61,6 +62,7 @@ const MaterialForm = ({
   type = "card",
   onClose
 }: MaterialFormProps) => {
+  const { t } = useTranslation("items");
   const [materialId, setMaterialId] = useState(initialValues.id ?? "");
   const [description, setDescription] = useState(
     initialValues.description ?? ""
@@ -98,9 +100,9 @@ const MaterialForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created material`);
+      toast.success(t("createdMaterial"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create material: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateMaterial", { message: fetcher.data.error.message }));
     }
   }, [fetcher.data, fetcher.state, onClose, type]);
 
