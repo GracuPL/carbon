@@ -150,5 +150,33 @@ export const common = {
 
   // Language
   language: "Language",
-  selectLanguage: "Select Language"
+  selectLanguage: "Select Language",
+
+  // Entities (commonly used across modules)
+  part: "Part",
+  parts: "Parts",
+  addPart: "Add Part",
+  item: "Item",
+  items: "Items",
+  customer: "Customer",
+  customers: "Customers",
+  supplier: "Supplier",
+  suppliers: "Suppliers",
+  employee: "Employee",
+  employees: "Employees",
+  location: "Location",
+  locations: "Locations",
+  document: "Document",
+  documents: "Documents",
+  file: "File",
+  files: "Files",
+
+  // Common toast messages
+  failedToUploadImage: "Failed to upload image",
+  carbonClientNotAvailable: "Carbon client not available",
+  errorDownloadingFile: "Error downloading file",
+  errorDeletingFile: "Error deleting file",
+  uploadingFile: "Uploading {{name}}",
+  fileUploaded: "Uploaded: {{name}}",
+  fileDeleted: "{{name}} deleted successfully"
 } as const;

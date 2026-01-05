@@ -106,20 +106,20 @@ export const production = {
 
   // Planning - Planowanie
   planning: "Planowanie",
-  partId: "ID części",
+  partId: "ID wyrobu",
   reorderPolicy: "Polityka zamówień",
   onHand: "Na stanie",
   type: "Typ",
   blocked: "Zablokowane",
   order: "Zamów",
-  orderParts: "Zamów części",
+  orderParts: "Zamów wyroby",
   recalculate: "Przelicz ponownie",
   presentWeek: "Bieżący tydzień",
   week: "Tydzień",
 
   // Demand Projections - Projekcje popytu
   demandProjections: "Projekcje popytu",
-  part: "Część",
+  part: "Wyrób",
   edit: "Edytuj",
   delete: "Usuń",
   confirmDeleteProjection: "Czy na pewno chcesz usunąć wszystkie projekcje dla {{partId}}? Tej operacji nie można cofnąć.",

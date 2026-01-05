@@ -151,5 +151,33 @@ export const common = {
 
   // Language - Język
   language: "Język",
-  selectLanguage: "Wybierz język"
+  selectLanguage: "Wybierz język",
+
+  // Entities (commonly used across modules) - Encje (używane w wielu modułach)
+  part: "Wyrób",
+  parts: "Wyroby",
+  addPart: "Dodaj Wyrób",
+  item: "Pozycja",
+  items: "Pozycje",
+  customer: "Klient",
+  customers: "Klienci",
+  supplier: "Dostawca",
+  suppliers: "Dostawcy",
+  employee: "Pracownik",
+  employees: "Pracownicy",
+  location: "Lokalizacja",
+  locations: "Lokalizacje",
+  document: "Dokument",
+  documents: "Dokumenty",
+  file: "Plik",
+  files: "Pliki",
+
+  // Common toast messages - Wspólne komunikaty toast
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  carbonClientNotAvailable: "Klient Carbon niedostępny",
+  errorDownloadingFile: "Błąd pobierania pliku",
+  errorDeletingFile: "Błąd usuwania pliku",
+  uploadingFile: "Przesyłanie {{name}}",
+  fileUploaded: "Przesłano: {{name}}",
+  fileDeleted: "{{name}} został usunięty"
 } as const;

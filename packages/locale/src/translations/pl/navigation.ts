@@ -16,7 +16,7 @@ export const navigation = {
 
   // Create menu - Menu tworzenia
   create: "Utwórz",
-  createPart: "Część",
+  createPart: "Wyrób",
   createIssue: "Zgłoszenie",
   createJob: "Zlecenie",
   createMaintenance: "Konserwacja",
