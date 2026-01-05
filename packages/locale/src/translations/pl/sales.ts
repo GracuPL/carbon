@@ -100,6 +100,24 @@ export const sales = {
   rfqNumber: "Numer zapytania",
   rfqDate: "Data zapytania",
 
+  // Customer Status - Status klienta
+  customerStatus: "Status klienta",
+  customerStatuses: "Statusy klientów",
+  viewCustomers: "Zobacz klientów",
+  editCustomerStatus: "Edytuj status klienta",
+  deleteCustomerStatus: "Usuń status klienta",
+
+  // Customer Type - Typ klienta
+  customerType: "Typ klienta",
+  editCustomerType: "Edytuj typ klienta",
+  deleteCustomerType: "Usuń typ klienta",
+
+  // No Quote Reasons - Powody braku oferty
+  reason: "Powód",
+  reasons: "Powody",
+  editReason: "Edytuj powód",
+  deleteReason: "Usuń powód",
+
   // Customer actions - Akcje klienta
   edit: "Edytuj",
   delete: "Usuń",
