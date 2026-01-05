@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import { getItemReadableId } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -44,6 +45,7 @@ const defaultColumnVisibility = {
 };
 
 const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
+  const { t } = useTranslation("quality");
   const navigate = useNavigate();
   const [params] = useUrlParams();
   const [items] = useItems();
@@ -70,7 +72,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
     const defaultColumns: ColumnDef<Risk>[] = [
       {
         accessorKey: "title",
-        header: "Title",
+        header: t("title"),
         cell: ({ row }) => (
           <Hyperlink to={row.original.id!} className="font-medium">
             <div className="flex flex-col gap-1">
@@ -86,7 +88,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         accessorKey: "type",
-        header: "Type",
+        header: t("type"),
         cell: ({ row }) => {
           return <RiskType type={row.original.type} />;
         },
@@ -103,7 +105,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         accessorKey: "itemId",
-        header: "Item",
+        header: t("item"),
         cell: ({ row }) => getItemReadableId(items, row.original.itemId),
         meta: {
           icon: <LuSquareStack />,
@@ -118,7 +120,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         accessorKey: "source",
-        header: "Source",
+        header: t("source"),
         cell: (item) => <Enumerable value={item.getValue<string>()} />,
         meta: {
           icon: <LuDna />,
@@ -133,7 +135,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         accessorKey: "status",
-        header: "Status",
+        header: t("status"),
         cell: ({ row }) => <RiskStatus status={row.original.status} />,
         meta: {
           icon: <LuStar />,
@@ -149,7 +151,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         accessorKey: "severity",
-        header: "Severity",
+        header: t("severity"),
         cell: ({ row }) => <RiskRating rating={row.original.severity ?? 1} />,
         meta: {
           icon: <LuTriangleAlert />,
@@ -165,7 +167,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         accessorKey: "likelihood",
-        header: "Likelihood",
+        header: t("likelihood"),
         cell: ({ row }) => <RiskRating rating={row.original.likelihood ?? 1} />,
         meta: {
           icon: <LuDice5 />,
@@ -180,7 +182,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       },
       {
         id: "assignee",
-        header: "Assignee",
+        header: t("assignee"),
         cell: ({ row }) => (
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
@@ -197,7 +199,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       }
     ];
     return defaultColumns;
-  }, [people, items]);
+  }, [people, items, t]);
 
   const renderContextMenu = useCallback<(row: Risk) => JSX.Element>(
     (row) => (
@@ -208,7 +210,7 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
           }}
         >
           <MenuIcon icon={<LuPencil />} />
-          Edit Risk
+          {t("editRisk")}
         </MenuItem>
         <MenuItem
           destructive
@@ -216,11 +218,11 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
           onClick={() => onDelete(row)}
         >
           <MenuIcon icon={<LuTrash />} />
-          Delete Risk
+          {t("deleteRisk")}
         </MenuItem>
       </>
     ),
-    [permissions, navigate, params, onDelete]
+    [permissions, navigate, params, onDelete, t]
   );
 
   return (
@@ -232,11 +234,11 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
         count={count ?? 0}
         primaryAction={
           permissions.can("create", "quality") && (
-            <New label="Risk" to={`new?${params.toString()}`} />
+            <New label={t("risk")} to={`new?${params.toString()}`} />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Risks"
+        title={t("risks")}
         table="riskRegister"
         withSavedView
       />
@@ -244,9 +246,9 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
       {selectedRisk && selectedRisk.id && (
         <Confirm
           action={path.to.deleteRisk(selectedRisk.id)}
-          title={`Delete ${selectedRisk?.title} Risk`}
-          text={`Are you sure you want to delete this risk? This cannot be undone.`}
-          confirmText="Delete"
+          title={`${t("deleteRisk")} ${selectedRisk?.title}`}
+          text={t("confirmDeleteRisk")}
+          confirmText={t("delete")}
           isOpen={deleteModal.isOpen}
           onCancel={onCancel}
           onSubmit={onCancel}

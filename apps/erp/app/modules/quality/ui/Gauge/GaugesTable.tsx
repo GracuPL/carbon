@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -61,6 +62,7 @@ const defaultColumnVisibility = {
 };
 
 const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
+  const { t } = useTranslation("quality");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -80,7 +82,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
     const defaultColumns: ColumnDef<Gauge>[] = [
       {
         accessorKey: "gaugeId",
-        header: "ID",
+        header: t("id"),
         cell: ({ row }) => (
           <Hyperlink to={path.to.gauge(row.original.id!)}>
             <div className="flex flex-col gap-0">
@@ -99,7 +101,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
       },
       {
         id: "supplierId",
-        header: "Manufacturer",
+        header: t("manufacturer"),
         cell: ({ row }) => {
           return <SupplierAvatar supplierId={row.original.supplierId} />;
         },
@@ -117,7 +119,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
 
       {
         accessorKey: "gaugeTypeId",
-        header: "Type",
+        header: t("type"),
         cell: ({ row }) => (
           <Enumerable
             value={
@@ -139,7 +141,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
       },
       {
         accessorKey: "gaugeCalibrationStatus",
-        header: "Calibration Status",
+        header: t("calibrationStatus"),
         cell: ({ row }) => (
           <GaugeCalibrationStatus
             status={row.original.gaugeCalibrationStatus}
@@ -189,7 +191,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
       },
       {
         accessorKey: "gaugeStatus",
-        header: "Status",
+        header: t("status"),
         cell: ({ row }) => <GaugeStatus status={row.original.gaugeStatus} />,
         meta: {
           icon: <LuCircleGauge />,
@@ -294,7 +296,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [customColumns, locations, people, suppliers, types]);
+  }, [customColumns, locations, people, suppliers, types, t]);
 
   const renderContextMenu = useCallback(
     (row: Gauge) => {
@@ -307,7 +309,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Gauge
+            {t("editGauge")}
           </MenuItem>
           {row.gaugeStatus === "Active" ? (
             <MenuItem
@@ -321,7 +323,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
               }}
             >
               <MenuIcon icon={<LuCircleX />} />
-              Deactivate Gauge
+              {t("deactivateGauge")}
             </MenuItem>
           ) : (
             <MenuItem
@@ -334,7 +336,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
               }}
             >
               <MenuIcon icon={<LuCircleCheck />} />
-              Activate Gauge
+              {t("activateGauge")}
             </MenuItem>
           )}
           <MenuItem
@@ -348,7 +350,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Gauge
+            {t("deleteGauge")}
           </MenuItem>
         </>
       );
@@ -359,7 +361,8 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
       params,
       deactivateDisclosure,
       activateDisclosure,
-      deleteDisclosure
+      deleteDisclosure,
+      t
     ]
   );
 
@@ -373,13 +376,13 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
         primaryAction={
           permissions.can("create", "quality") && (
             <New
-              label="Gauge"
+              label={t("gauge")}
               to={`${path.to.newGauge}?${params?.toString()}`}
             />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Gauges"
+        title={t("gauges")}
         table="gauge"
         withSavedView
       />
@@ -395,24 +398,8 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             setSelectedGauge(null);
             deleteDisclosure.onClose();
           }}
-          name={selectedGauge.gaugeId ?? "gauge"}
-          text="Are you sure you want to delete this gauge?"
-        />
-      )}
-      {deleteDisclosure.isOpen && selectedGauge && (
-        <ConfirmDelete
-          action={path.to.deleteGauge(selectedGauge.id!)}
-          isOpen
-          onCancel={() => {
-            setSelectedGauge(null);
-            deleteDisclosure.onClose();
-          }}
-          onSubmit={() => {
-            setSelectedGauge(null);
-            deleteDisclosure.onClose();
-          }}
-          name={selectedGauge.gaugeId ?? "gauge"}
-          text="Are you sure you want to delete this gauge?"
+          name={selectedGauge.gaugeId ?? t("gauge")}
+          text={t("confirmDeleteGauge")}
         />
       )}
       {activateDisclosure.isOpen && selectedGauge && (
@@ -427,9 +414,9 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             setSelectedGauge(null);
             activateDisclosure.onClose();
           }}
-          text="Are you sure you want to activate this gauge?."
-          title={`Activate ${selectedGauge.gaugeId}`}
-          confirmText={"Activate"}
+          text={t("confirmActivateGauge")}
+          title={`${t("activate")} ${selectedGauge.gaugeId}`}
+          confirmText={t("activate")}
         />
       )}
       {deactivateDisclosure.isOpen && selectedGauge && (
@@ -444,9 +431,9 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             setSelectedGauge(null);
             deactivateDisclosure.onClose();
           }}
-          text="Are you sure you want to deactivate this gauge?."
-          title={`Deactivate ${selectedGauge.gaugeId}`}
-          confirmText={"Deactivate"}
+          text={t("confirmDeactivateGauge")}
+          title={`${t("deactivate")} ${selectedGauge.gaugeId}`}
+          confirmText={t("deactivate")}
         />
       )}
     </>

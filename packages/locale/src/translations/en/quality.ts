@@ -123,5 +123,36 @@ export const quality = {
   editIssueWorkflow: "Edit Issue Workflow",
   deleteIssueWorkflow: "Delete Issue Workflow",
   editRequiredAction: "Edit Required Action",
-  deleteRequiredAction: "Delete Required Action"
+  deleteRequiredAction: "Delete Required Action",
+
+  // Gauges additional
+  manufacturer: "Manufacturer",
+  id: "ID",
+  calibrationStatus: "Calibration Status",
+  modelNumber: "Model Number",
+  serialNumber: "Serial Number",
+  role: "Role",
+  nextCalibration: "Next Calibration",
+  lastCalibration: "Last Calibration",
+  updatedBy: "Updated By",
+  updatedAt: "Updated At",
+  deactivateGauge: "Deactivate Gauge",
+  activateGauge: "Activate Gauge",
+  confirmDeleteGauge: "Are you sure you want to delete this gauge?",
+  confirmDeactivateGauge: "Are you sure you want to deactivate this gauge?",
+  confirmActivateGauge: "Are you sure you want to activate this gauge?",
+
+  // Issue Workflows additional
+  defaultSource: "Default Source",
+  defaultPriority: "Default Priority",
+  editTemplate: "Edit Template",
+  deleteTemplate: "Delete Template",
+  confirmDeleteIssueWorkflow: "Are you sure you want to delete this issue workflow?",
+
+  // Risk Register additional
+  title: "Title",
+  item: "Item",
+  likelihood: "Likelihood",
+  confirmDeleteRisk: "Are you sure you want to delete this risk? This cannot be undone.",
+  delete: "Delete"
 } as const;
