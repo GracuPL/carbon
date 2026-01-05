@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   cn,
@@ -79,6 +80,7 @@ const QuoteToOrderDrawer = ({
   pricing,
   onClose
 }: QuoteToOrderDrawerProps) => {
+  const { t } = useTranslation("sales");
   const [step, setStep] = useState(0);
   const [selectedLines, setSelectedLines] = useState<
     Record<string, SelectedLine>
@@ -102,7 +104,7 @@ const QuoteToOrderDrawer = ({
 
   const onDrop = async (acceptedFiles: File[]) => {
     if (!carbon) {
-      toast.error("Carbon client not available");
+      toast.error(t("carbonClientNotAvailable"));
       return;
     }
 
@@ -135,7 +137,7 @@ const QuoteToOrderDrawer = ({
 
       if (error) {
         console.error("Error updating opportunity:", error);
-        toast.error("Failed to update opportunity with purchase order");
+        toast.error(t("failedToUpdateOpportunityWithPurchaseOrder"));
       } else {
         setTimeout(() => {
           setPurchaseOrder(file);
@@ -148,7 +150,7 @@ const QuoteToOrderDrawer = ({
 
   const removePurchaseOrder = async () => {
     if (!carbon) {
-      toast.error("Failed to initialize Carbon client");
+      toast.error(t("failedToInitializeCarbonClient"));
       return;
     }
 
@@ -166,11 +168,11 @@ const QuoteToOrderDrawer = ({
     ]);
 
     if (opportunityDelete.error) {
-      toast.error("Failed to remove purchase order");
+      toast.error(t("failedToRemovePurchaseOrder"));
     } else {
       setPurchaseOrder(null);
       setPoNumber("");
-      toast.success("Purchase order removed successfully");
+      toast.success(t("purchaseOrderRemoved"));
     }
     setUploading(false);
   };
