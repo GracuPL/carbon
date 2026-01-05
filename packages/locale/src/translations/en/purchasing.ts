@@ -93,5 +93,28 @@ export const purchasing = {
   supplierTypes: "Supplier Types",
   contacts: "Contacts",
   confirmDeletePurchaseOrder: "Are you sure you want to delete {{name}}? This cannot be undone.",
-  confirmDeleteSupplierQuote: "Are you sure you want to delete {{name}}? This cannot be undone."
+  confirmDeleteSupplierQuote: "Are you sure you want to delete {{name}}? This cannot be undone.",
+
+  // Supplier Status
+  viewSuppliers: "View Suppliers",
+  editSupplierStatus: "Edit Supplier Status",
+  deleteSupplierStatus: "Delete Supplier Status",
+
+  // Supplier Type
+  supplierType: "Supplier Type",
+  editSupplierType: "Edit Supplier Type",
+  deleteSupplierType: "Delete Supplier Type",
+
+  // Planning
+  planning: "Planning",
+  partId: "Part ID",
+  noSupplier: "No Supplier",
+  reorderPolicy: "Reorder Policy",
+  onHand: "On Hand",
+  order: "Order",
+  blocked: "Blocked",
+  recalculate: "Recalculate",
+  orderParts: "Order Parts",
+  presentWeek: "Present Week",
+  week: "Week"
 } as const;

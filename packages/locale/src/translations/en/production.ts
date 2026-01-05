@@ -86,5 +86,65 @@ export const production = {
   scrapReason: "Scrap Reason",
   scrapReasons: "Scrap Reasons",
   editScrapReason: "Edit Scrap Reason",
-  deleteScrapReason: "Delete Scrap Reason"
+  deleteScrapReason: "Delete Scrap Reason",
+
+  // Planning
+  planning: "Planning",
+  partId: "Part ID",
+  reorderPolicy: "Reorder Policy",
+  onHand: "On Hand",
+  type: "Type",
+  blocked: "Blocked",
+  order: "Order",
+  orderParts: "Order Parts",
+  recalculate: "Recalculate",
+  presentWeek: "Present Week",
+  week: "Week",
+
+  // Demand Projections
+  demandProjections: "Demand Projections",
+  part: "Part",
+  edit: "Edit",
+  delete: "Delete",
+  confirmDeleteProjection: "Are you sure you want to delete all projections for {{partId}}? This action cannot be undone.",
+
+  // Job Materials Table
+  required: "Required",
+  onShelf: "On Shelf",
+  incoming: "Incoming",
+  transfer: "Transfer",
+  materials: "Materials",
+  removeTransfer: "Remove Transfer",
+  removeOrder: "Remove Order",
+
+  // Job Operations Table
+  description: "Description",
+  operationType: "Operation Type",
+  qtyComplete: "Qty. Complete",
+  qtyScrapped: "Qty. Scrapped",
+  qtyReworked: "Qty. Reworked",
+
+  // Job Operation Step Records Table
+  step: "Step",
+  value: "Value",
+  stepRecords: "Step Records",
+  viewFile: "View File",
+
+  // Production Events Table
+  employee: "Employee",
+  duration: "Duration",
+  startTime: "Start Time",
+  endTime: "End Time",
+  notes: "Notes",
+  productionEvent: "Production Event",
+  productionEvents: "Production Events",
+  editEvent: "Edit Event",
+  deleteEvent: "Delete Event",
+  confirmDeleteEvent: "Are you sure you want to delete this production event? This action cannot be undone.",
+
+  // Production Quantities Table
+  productionQuantities: "Production Quantities",
+  editQuantity: "Edit Quantity",
+  deleteQuantity: "Delete Quantity",
+  confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone."
 } as const;

@@ -93,5 +93,28 @@ export const purchasing = {
   supplierTypes: "Typy dostawców",
   contacts: "Kontakty",
   confirmDeletePurchaseOrder: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
-  confirmDeleteSupplierQuote: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć."
+  confirmDeleteSupplierQuote: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Supplier Status - Status dostawcy
+  viewSuppliers: "Zobacz dostawców",
+  editSupplierStatus: "Edytuj status dostawcy",
+  deleteSupplierStatus: "Usuń status dostawcy",
+
+  // Supplier Type - Typ dostawcy
+  supplierType: "Typ dostawcy",
+  editSupplierType: "Edytuj typ dostawcy",
+  deleteSupplierType: "Usuń typ dostawcy",
+
+  // Planning - Planowanie
+  planning: "Planowanie",
+  partId: "ID części",
+  noSupplier: "Brak dostawcy",
+  reorderPolicy: "Polityka zamówień",
+  onHand: "Na stanie",
+  order: "Zamów",
+  blocked: "Zablokowane",
+  recalculate: "Przelicz ponownie",
+  orderParts: "Zamów części",
+  presentWeek: "Bieżący tydzień",
+  week: "Tydzień"
 } as const;

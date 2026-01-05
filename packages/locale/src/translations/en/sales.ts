@@ -100,6 +100,31 @@ export const sales = {
   rfqNumber: "RFQ Number",
   rfqDate: "RFQ Date",
 
+  // Customer Status
+  customerStatus: "Customer Status",
+  customerStatuses: "Customer Statuses",
+  viewCustomers: "View Customers",
+  editCustomerStatus: "Edit Customer Status",
+  deleteCustomerStatus: "Delete Customer Status",
+
+  // Customer Type
+  customerType: "Customer Type",
+  editCustomerType: "Edit Customer Type",
+  deleteCustomerType: "Delete Customer Type",
+
+  // No Quote Reasons
+  reason: "Reason",
+  reasons: "Reasons",
+  editReason: "Edit Reason",
+  deleteReason: "Delete Reason",
+
+  // Customer Portals
+  customerPortal: "Customer Portal",
+  customerPortals: "Customer Portals",
+  portalLink: "Portal Link",
+  editPortal: "Edit Portal",
+  deletePortal: "Delete Portal",
+
   // Customer actions
   edit: "Edit",
   delete: "Delete",

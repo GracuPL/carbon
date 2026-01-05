@@ -1,4 +1,5 @@
 import type { Database } from "@carbon/database";
+import { useTranslation } from "@carbon/locale";
 import { Checkbox, cn } from "@carbon/react";
 import { formatDateTime } from "@carbon/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
@@ -53,6 +54,7 @@ type JobOperationStepRecordsTableProps = {
 
 const JobOperationStepRecordsTable = memo(
   ({ data, count }: JobOperationStepRecordsTableProps) => {
+    const { t } = useTranslation("production");
     const { jobId } = useParams();
     if (!jobId) throw new Error("Job ID is required");
 
@@ -64,7 +66,7 @@ const JobOperationStepRecordsTable = memo(
       return [
         {
           accessorKey: "operationDescription",
-          header: "Operation",
+          header: t("operation"),
           cell: ({ row }) => row.original.operationDescription,
           meta: {
             icon: <LuSettings />
@@ -72,7 +74,7 @@ const JobOperationStepRecordsTable = memo(
         },
         {
           accessorKey: "name",
-          header: "Step",
+          header: t("step"),
           cell: ({ row }) => row.original.name,
           meta: {
             icon: <LuClipboardList />
@@ -80,7 +82,7 @@ const JobOperationStepRecordsTable = memo(
         },
         {
           id: "value",
-          header: "Value",
+          header: t("value"),
           cell: ({ row }) => {
             const record = row.original;
 
@@ -140,7 +142,7 @@ const JobOperationStepRecordsTable = memo(
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        View File
+                        {t("viewFile")}
                       </a>
                     </div>
                   );
@@ -158,7 +160,7 @@ const JobOperationStepRecordsTable = memo(
                           rel="noopener noreferrer"
                           className="text-xs"
                         >
-                          View File
+                          {t("viewFile")}
                         </a>
                       </>
                     )}
@@ -175,7 +177,7 @@ const JobOperationStepRecordsTable = memo(
         },
         {
           id: "type",
-          header: "Type",
+          header: t("type"),
           cell: ({ row }) => (
             <div className="flex items-center gap-2">
               <ProcedureStepTypeIcon type={row.original.type} />
@@ -200,7 +202,7 @@ const JobOperationStepRecordsTable = memo(
         },
         {
           accessorKey: "createdBy",
-          header: "Created By",
+          header: t("createdBy"),
           cell: ({ row }) => (
             <EmployeeAvatar
               employeeId={row.original.createdBy}
@@ -213,14 +215,14 @@ const JobOperationStepRecordsTable = memo(
         },
         {
           accessorKey: "createdAt",
-          header: "Created At",
+          header: t("createdAt"),
           cell: ({ row }) => formatDateTime(row.original.createdAt ?? ""),
           meta: {
             icon: <LuCalendar />
           }
         }
       ];
-    }, [numberFormatter, unitOfMeasures, employees]);
+    }, [numberFormatter, unitOfMeasures, employees, t]);
 
     return (
       <Table<JobOperationStepRecord>
@@ -228,7 +230,7 @@ const JobOperationStepRecordsTable = memo(
         count={count}
         columns={columns}
         data={data}
-        title="Step Records"
+        title={t("stepRecords")}
       />
     );
   }

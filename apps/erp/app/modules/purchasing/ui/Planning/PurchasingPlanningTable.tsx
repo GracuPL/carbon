@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Combobox,
@@ -74,6 +75,7 @@ type PlanningTableProps = {
 
 const PlanningTable = memo(
   ({ data, count, locationId, periods }: PlanningTableProps) => {
+    const { t } = useTranslation("purchasing");
     const permissions = usePermissions();
 
     const dateFormatter = useDateFormatter({
@@ -245,7 +247,7 @@ const PlanningTable = memo(
             header: () => (
               <VStack spacing={0}>
                 <div>
-                  {isCurrentWeek ? "Present Week" : `Week ${weekNumber}`}
+                  {isCurrentWeek ? t("presentWeek") : `${t("week")} ${weekNumber}`}
                 </div>
                 <div className="text-xs text-muted-foreground">
                   {dateFormatter.format(startDate)} -{" "}
@@ -271,7 +273,7 @@ const PlanningTable = memo(
       return [
         {
           accessorKey: "readableIdWithRevision",
-          header: "Part ID",
+          header: t("partId"),
           cell: ({ row }) => (
             <HStack
               className="py-1 cursor-pointer"
@@ -312,10 +314,10 @@ const PlanningTable = memo(
         },
         {
           accessorKey: "preferredSupplierId",
-          header: "Supplier",
+          header: t("supplier"),
           cell: ({ row }) => {
             const supplierId = suppliersMap[row.original.id];
-            if (!supplierId) return <Status color="red">No Supplier</Status>;
+            if (!supplierId) return <Status color="red">{t("noSupplier")}</Status>;
 
             return <SupplierAvatar supplierId={supplierId} />;
           },
@@ -332,7 +334,7 @@ const PlanningTable = memo(
         },
         {
           accessorKey: "leadTime",
-          header: "Lead Time",
+          header: t("leadTime"),
           cell: ({ row }) => {
             const leadTime = row.original.leadTime;
             const weeks = Math.ceil(leadTime / 7);
@@ -348,7 +350,7 @@ const PlanningTable = memo(
         },
         {
           accessorKey: "reorderingPolicy",
-          header: "Reorder Policy",
+          header: t("reorderPolicy"),
           cell: ({ row }) => {
             return (
               <HStack>
@@ -378,7 +380,7 @@ const PlanningTable = memo(
         },
         {
           accessorKey: "quantityOnHand",
-          header: "On Hand",
+          header: t("onHand"),
           cell: ({ row }) =>
             numberFormatter.format(row.original.quantityOnHand),
           meta: {
@@ -389,7 +391,7 @@ const PlanningTable = memo(
         ...periodColumns,
         {
           accessorKey: "type",
-          header: "Type",
+          header: t("type"),
           cell: ({ row }) =>
             row.original.type && (
               <HStack>
@@ -440,14 +442,14 @@ const PlanningTable = memo(
                   }}
                 >
                   {isBlocked ? (
-                    "Blocked"
+                    t("blocked")
                   ) : hasOrders ? (
                     <HStack>
                       <PulsingDot />
-                      <span>Order {orderQuantity}</span>
+                      <span>{t("order")} {orderQuantity}</span>
                     </HStack>
                   ) : (
-                    "Order"
+                    t("order")
                   )}
                 </Button>
               </div>
@@ -470,7 +472,7 @@ const PlanningTable = memo(
       (selectedRows: typeof data) => {
         return (
           <DropdownMenuContent align="end" className="min-w-[200px]">
-            <DropdownMenuLabel>Update</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("update")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
             <DropdownMenuItem
@@ -478,12 +480,12 @@ const PlanningTable = memo(
               disabled={bulkUpdateFetcher.state !== "idle"}
             >
               <DropdownMenuIcon icon={<LuSquareChartGantt />} />
-              Order Parts
+              {t("orderParts")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         );
       },
-      [bulkUpdateFetcher.state, onBulkUpdate]
+      [bulkUpdateFetcher.state, onBulkUpdate, t]
     );
 
     const defaultColumnVisibility = {
@@ -528,7 +530,7 @@ const PlanningTable = memo(
                       isDisabled={mrpFetcher.state !== "idle"}
                       isLoading={mrpFetcher.state !== "idle"}
                     >
-                      Recalculate
+                      {t("recalculate")}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -540,7 +542,7 @@ const PlanningTable = memo(
             </div>
           }
           renderActions={renderActions}
-          title="Planning"
+          title={t("planning")}
           table="planning"
           withSavedView
           withSelectableRows

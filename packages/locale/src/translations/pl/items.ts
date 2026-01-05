@@ -162,5 +162,18 @@ export const items = {
   postingGroup: "Grupa księgowania",
   postingGroups: "Grupy księgowania",
   editPostingGroup: "Edytuj grupę księgowania",
-  deletePostingGroup: "Usuń grupę księgowania"
+  deletePostingGroup: "Usuń grupę księgowania",
+
+  // Method Materials Table - Tabela materiałów metod
+  methodId: "ID metody",
+  methodType: "Typ metody",
+  uom: "Jm.",
+  qtyPerParent: "Ilość na jednostkę",
+  methodMaterials: "Materiały metod",
+  itemId: "ID produktu",
+
+  // Method Operations Table - Tabela operacji metod
+  laborTime: "Czas pracy",
+  machineTime: "Czas maszynowy",
+  methodOperations: "Operacje metod"
 } as const;

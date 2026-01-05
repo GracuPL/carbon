@@ -1,4 +1,5 @@
 import type { Result } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -56,6 +57,7 @@ type JobMaterialsTableProps = {
   count: number;
 };
 const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
+  const { t } = useTranslation("production");
   const { jobId } = useParams();
   if (!jobId) throw new Error("Job ID is required");
 
@@ -162,7 +164,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
     return [
       {
         accessorKey: "readableIdWithRevision",
-        header: "Item",
+        header: t("item"),
         cell: ({ row }) => (
           <HStack className="py-1">
             <ItemThumbnail
@@ -200,7 +202,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       },
       {
         accessorKey: "estimatedQuantity",
-        header: "Required",
+        header: t("required"),
         cell: ({ row }) => formatter.format(row.original.estimatedQuantity),
         meta: {
           icon: <LuHash />
@@ -208,7 +210,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       },
       {
         id: "method",
-        header: "Method",
+        header: t("method"),
         cell: ({ row }) => (
           <HStack>
             <Badge variant="secondary">
@@ -225,7 +227,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
 
       {
         id: "quantityOnHandInShelf",
-        header: "On Shelf",
+        header: t("onShelf"),
         cell: ({ row }) => {
           const isInventoried =
             row.original.itemTrackingType !== "Non-Inventory";
@@ -274,7 +276,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       },
       {
         id: "quantityOnHand",
-        header: "On Hand",
+        header: t("onHand"),
         cell: ({ row }) => {
           if (
             row.original.itemTrackingType === "Non-Inventory" ||
@@ -318,7 +320,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       },
       {
         id: "required",
-        header: "Required",
+        header: t("required"),
         cell: ({ row }) =>
           formatter.format(
             row.original.quantityFromProductionOrderInShelf +
@@ -331,7 +333,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       },
       {
         id: "incoming",
-        header: "Incoming",
+        header: t("incoming"),
         cell: ({ row }) =>
           formatter.format(
             row.original.quantityOnPurchaseOrder +
@@ -343,7 +345,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       },
       {
         id: "transfer",
-        header: "Transfer",
+        header: t("transfer"),
         cell: ({ row }) =>
           formatter.format(row.original.quantityInTransitToShelf),
         meta: {
@@ -352,6 +354,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
       }
     ];
   }, [
+    t,
     items,
     jobId,
     setSelectedMaterialId,
@@ -417,7 +420,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTruck />} />
-            {isInSessionForTransfer ? "Remove Transfer" : "Transfer"}
+            {isInSessionForTransfer ? t("removeTransfer") : t("transfer")}
           </MenuItem>
           <MenuItem
             destructive={isInSessionForOrder}
@@ -442,12 +445,12 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
             }}
           >
             <MenuIcon icon={<LuShoppingCart />} />
-            {isInSessionForOrder ? "Remove Order" : "Order"}
+            {isInSessionForOrder ? t("removeOrder") : t("order")}
           </MenuItem>
         </>
       );
     };
-  }, [isRequired, session.items]);
+  }, [isRequired, session.items, t]);
 
   const permissions = usePermissions();
 
@@ -468,13 +471,13 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
                 type="submit"
                 variant="secondary"
               >
-                Recalculate
+                {t("recalculate")}
               </Button>
             </fetcher.Form>
           ) : undefined
         }
         renderContextMenu={renderContextMenu}
-        title="Materials"
+        title={t("materials")}
       />
       <StockTransferSessionWidget jobId={jobId} />
     </>

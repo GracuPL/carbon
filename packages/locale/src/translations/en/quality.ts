@@ -123,5 +123,63 @@ export const quality = {
   editIssueWorkflow: "Edit Issue Workflow",
   deleteIssueWorkflow: "Delete Issue Workflow",
   editRequiredAction: "Edit Required Action",
-  deleteRequiredAction: "Delete Required Action"
+  deleteRequiredAction: "Delete Required Action",
+
+  // Gauges additional
+  manufacturer: "Manufacturer",
+  id: "ID",
+  calibrationStatus: "Calibration Status",
+  modelNumber: "Model Number",
+  serialNumber: "Serial Number",
+  role: "Role",
+  nextCalibration: "Next Calibration",
+  lastCalibration: "Last Calibration",
+  updatedBy: "Updated By",
+  updatedAt: "Updated At",
+  deactivateGauge: "Deactivate Gauge",
+  activateGauge: "Activate Gauge",
+  confirmDeleteGauge: "Are you sure you want to delete this gauge?",
+  confirmDeactivateGauge: "Are you sure you want to deactivate this gauge?",
+  confirmActivateGauge: "Are you sure you want to activate this gauge?",
+
+  // Issue Workflows additional
+  defaultSource: "Default Source",
+  defaultPriority: "Default Priority",
+  editTemplate: "Edit Template",
+  deleteTemplate: "Delete Template",
+  confirmDeleteIssueWorkflow: "Are you sure you want to delete this issue workflow?",
+
+  // Risk Register additional
+  title: "Title",
+  item: "Item",
+  likelihood: "Likelihood",
+  confirmDeleteRisk: "Are you sure you want to delete this risk? This cannot be undone.",
+  delete: "Delete",
+
+  // Gauge Calibration Records Table
+  dateCalibrated: "Date Calibrated",
+  inspectionStatus: "Inspection Status",
+  requiresAction: "Requires Action",
+  requiresAdjustment: "Requires Adjustment",
+  requiresRepair: "Requires Repair",
+  calibrationSupplier: "Calibration Supplier",
+  temperature: "Temperature",
+  humidity: "Humidity",
+  approvedBy: "Approved By",
+  editRecord: "Edit Record",
+  deleteRecord: "Delete Record",
+  calibrationRecords: "Calibration Records",
+  yes: "Yes",
+  no: "No",
+  confirmDeleteCalibrationRecord: "Are you sure you want to delete this record?",
+
+  // Quality Documents Table
+  tags: "Tags",
+  versions: "Versions",
+  version: "Version",
+  editDocument: "Edit Document",
+  deleteDocument: "Delete Document",
+  loadTemplates: "Load Templates",
+  qualityDocuments: "Quality Documents",
+  confirmDeleteDocument: "Are you sure you want to delete this quality document?"
 } as const;

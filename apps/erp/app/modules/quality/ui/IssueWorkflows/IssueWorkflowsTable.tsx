@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -24,6 +25,7 @@ type IssueWorkflowsTableProps = {
 
 const IssueWorkflowsTable = memo(
   ({ data, count }: IssueWorkflowsTableProps) => {
+    const { t } = useTranslation("quality");
     const navigate = useNavigate();
     const permissions = usePermissions();
     const deleteDisclosure = useDisclosure();
@@ -34,7 +36,7 @@ const IssueWorkflowsTable = memo(
       const defaultColumns: ColumnDef<IssueWorkflow>[] = [
         {
           accessorKey: "name",
-          header: "Name",
+          header: t("name"),
           cell: ({ row }) => (
             <div className="flex flex-col gap-0">
               <Hyperlink to={path.to.issueWorkflow(row.original.id!)}>
@@ -48,7 +50,7 @@ const IssueWorkflowsTable = memo(
         },
         {
           accessorKey: "source",
-          header: "Default Source",
+          header: t("defaultSource"),
           cell: ({ row }) => (
             <div className="flex gap-2 items-center">
               {getSourceIcon(row.original.source, false)}
@@ -61,7 +63,7 @@ const IssueWorkflowsTable = memo(
         },
         {
           accessorKey: "priority",
-          header: "Default Priority",
+          header: t("defaultPriority"),
           cell: ({ row }) => (
             <div className="flex gap-2 items-center">
               {getPriorityIcon(row.original.priority, false)}
@@ -74,7 +76,7 @@ const IssueWorkflowsTable = memo(
         }
       ];
       return [...defaultColumns];
-    }, []);
+    }, [t]);
 
     const renderContextMenu = useCallback(
       (row: IssueWorkflow) => {
@@ -87,7 +89,7 @@ const IssueWorkflowsTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Template
+              {t("editTemplate")}
             </MenuItem>
             <MenuItem
               destructive
@@ -100,12 +102,12 @@ const IssueWorkflowsTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Template
+              {t("deleteTemplate")}
             </MenuItem>
           </>
         );
       },
-      [navigate, permissions, deleteDisclosure]
+      [navigate, permissions, deleteDisclosure, t]
     );
 
     return (
@@ -116,11 +118,11 @@ const IssueWorkflowsTable = memo(
           count={count}
           primaryAction={
             permissions.can("create", "quality") && (
-              <New label="Issue Workflow" to={path.to.newIssueWorkflow} />
+              <New label={t("issueWorkflow")} to={path.to.newIssueWorkflow} />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Issue Workflows"
+          title={t("issueWorkflows")}
           table="nonConformanceWorkflow"
           withSavedView
         />
@@ -136,8 +138,8 @@ const IssueWorkflowsTable = memo(
               setSelectedIssueWorkflow(null);
               deleteDisclosure.onClose();
             }}
-            name={selectedIssueWorkflow.name ?? "issue workflow"}
-            text="Are you sure you want to delete this issue workflow?"
+            name={selectedIssueWorkflow.name ?? t("issueWorkflow")}
+            text={t("confirmDeleteIssueWorkflow")}
           />
         )}
       </>

@@ -123,5 +123,63 @@ export const quality = {
   editIssueWorkflow: "Edytuj przepływ problemu",
   deleteIssueWorkflow: "Usuń przepływ problemu",
   editRequiredAction: "Edytuj wymagane działanie",
-  deleteRequiredAction: "Usuń wymagane działanie"
+  deleteRequiredAction: "Usuń wymagane działanie",
+
+  // Gauges additional - Przyrządy dodatkowe
+  manufacturer: "Producent",
+  id: "ID",
+  calibrationStatus: "Status kalibracji",
+  modelNumber: "Numer modelu",
+  serialNumber: "Numer seryjny",
+  role: "Rola",
+  nextCalibration: "Następna kalibracja",
+  lastCalibration: "Ostatnia kalibracja",
+  updatedBy: "Zaktualizował",
+  updatedAt: "Data aktualizacji",
+  deactivateGauge: "Dezaktywuj przyrząd",
+  activateGauge: "Aktywuj przyrząd",
+  confirmDeleteGauge: "Czy na pewno chcesz usunąć ten przyrząd?",
+  confirmDeactivateGauge: "Czy na pewno chcesz dezaktywować ten przyrząd?",
+  confirmActivateGauge: "Czy na pewno chcesz aktywować ten przyrząd?",
+
+  // Issue Workflows additional - Przepływy dodatkowe
+  defaultSource: "Domyślne źródło",
+  defaultPriority: "Domyślny priorytet",
+  editTemplate: "Edytuj szablon",
+  deleteTemplate: "Usuń szablon",
+  confirmDeleteIssueWorkflow: "Czy na pewno chcesz usunąć ten przepływ problemu?",
+
+  // Risk Register additional - Rejestr ryzyk dodatkowe
+  title: "Tytuł",
+  item: "Pozycja",
+  likelihood: "Prawdopodobieństwo",
+  confirmDeleteRisk: "Czy na pewno chcesz usunąć to ryzyko? Tej operacji nie można cofnąć.",
+  delete: "Usuń",
+
+  // Gauge Calibration Records Table - Tabela rekordów kalibracji przyrządów
+  dateCalibrated: "Data kalibracji",
+  inspectionStatus: "Status inspekcji",
+  requiresAction: "Wymaga działania",
+  requiresAdjustment: "Wymaga regulacji",
+  requiresRepair: "Wymaga naprawy",
+  calibrationSupplier: "Dostawca kalibracji",
+  temperature: "Temperatura",
+  humidity: "Wilgotność",
+  approvedBy: "Zatwierdzony przez",
+  editRecord: "Edytuj zapis",
+  deleteRecord: "Usuń zapis",
+  calibrationRecords: "Zapisy kalibracji",
+  yes: "Tak",
+  no: "Nie",
+  confirmDeleteCalibrationRecord: "Czy na pewno chcesz usunąć ten zapis?",
+
+  // Quality Documents Table - Tabela dokumentów jakości
+  tags: "Tagi",
+  versions: "Wersje",
+  version: "Wersja",
+  editDocument: "Edytuj dokument",
+  deleteDocument: "Usuń dokument",
+  loadTemplates: "Wczytaj szablony",
+  qualityDocuments: "Dokumenty jakości",
+  confirmDeleteDocument: "Czy na pewno chcesz usunąć ten dokument jakości?"
 } as const;
