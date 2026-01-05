@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import type { Database } from "@carbon/database";
+import { useTranslation } from "@carbon/locale";
 import type { ShortcutDefinition } from "@carbon/react";
 import {
   Button,
@@ -74,6 +75,7 @@ const shortcut: ShortcutDefinition = {
 };
 
 const SearchModal = () => {
+  const { t } = useTranslation("navigation");
   const { company } = useUser();
   const { carbon } = useCarbon();
   const navigate = useNavigate();
@@ -170,17 +172,17 @@ const SearchModal = () => {
       >
         <Command>
           <CommandInput
-            placeholder="Type a command or search..."
+            placeholder={t("searchPlaceholder")}
             value={input}
             onValueChange={onInputChange}
           />
           <CommandList>
             <CommandEmpty key="empty">
-              {loading ? "Loading..." : "No results found."}
+              {loading ? t("loading") : t("noResults")}
             </CommandEmpty>
             {recentResults.length > 0 && (
               <>
-                <CommandGroup heading="Recent Searches" key="recent">
+                <CommandGroup heading={t("recentSearches")} key="recent">
                   {recentResults.map((result, index) => (
                     <CommandItem
                       key={`${result.to}-${nanoid()}-${index}`}
@@ -216,7 +218,7 @@ const SearchModal = () => {
               </>
             ))}
             {searchResults.length > 0 && (
-              <CommandGroup heading="Search Results" key="search">
+              <CommandGroup heading={t("searchResults")} key="search">
                 {searchResults.map((result) => (
                   <CommandItem
                     key={`${result.id}-${nanoid()}`}
@@ -290,6 +292,7 @@ function ResultIcon({ entity }: { entity: SearchResult["entity"] | "Module" }) {
 }
 
 const SearchButton = () => {
+  const { t } = useTranslation("navigation");
   const { openSearchModal } = useUIStore();
 
   useShortcutKeys({
@@ -306,7 +309,7 @@ const SearchButton = () => {
         onClick={openSearchModal}
       >
         <HStack className="w-full">
-          <div className="flex flex-grow">Search</div>
+          <div className="flex flex-grow">{t("search")}</div>
           <ShortcutKey variant="small" shortcut={shortcut} />
         </HStack>
       </Button>

@@ -5,6 +5,7 @@ import {
   TextAreaControlled,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   BadgeCloseButton,
@@ -39,6 +40,7 @@ type EmojiData = {
 };
 
 const Suggestion = () => {
+  const { t } = useTranslation("navigation");
   const fetcher = useFetcher<typeof action>();
   const location = useLocation();
   const popoverTriggerRef = useRef<HTMLButtonElement>(null);
@@ -108,7 +110,7 @@ const Suggestion = () => {
   return (
     <Popover>
       <PopoverTrigger ref={popoverTriggerRef} asChild>
-        <Button variant="secondary">Suggestion</Button>
+        <Button variant="secondary">{t("suggestion")}</Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[380px] ">
         <ValidatedForm
@@ -128,7 +130,7 @@ const Suggestion = () => {
                 label=""
                 value={suggestion}
                 onChange={(value) => setSuggestion(value)}
-                placeholder="Ideas, suggestions or problems?"
+                placeholder={t("suggestionPlaceholder")}
               />
               {attachment && (
                 <Badge className="-mt-2 truncate" variant="secondary">
@@ -148,7 +150,7 @@ const Suggestion = () => {
                   isChecked={anonymous}
                   onCheckedChange={(checked) => setAnonymous(checked === true)}
                 />
-                <span className="text-sm">Submit anonymously</span>
+                <span className="text-sm">{t("submitAnonymously")}</span>
               </HStack>
               <Popover open={emojiPickerOpen} onOpenChange={setEmojiPickerOpen}>
                 <PopoverTrigger asChild>
@@ -186,7 +188,7 @@ const Suggestion = () => {
                   popoverTriggerRef.current?.click();
                 }}
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <HStack spacing={1}>
                 <Button
@@ -194,7 +196,7 @@ const Suggestion = () => {
                   variant="secondary"
                   onClick={() => setSuggestion("")}
                 >
-                  Clear
+                  {t("clear")}
                 </Button>
                 <File
                   accept="image/*"
@@ -206,7 +208,7 @@ const Suggestion = () => {
                 >
                   <LuImage />
                 </File>
-                <Submit isDisabled={suggestion.length < 3}>Send</Submit>
+                <Submit isDisabled={suggestion.length < 3}>{t("send")}</Submit>
               </HStack>
             </HStack>
           </VStack>
