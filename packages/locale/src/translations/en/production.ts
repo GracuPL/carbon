@@ -29,8 +29,13 @@ export const production = {
   method: "Method",
   methods: "Methods",
 
-  // Charts
+  // Charts / KPIs
   utilizationPercent: "Utilization (%)",
+  workCenterUtilization: "Work Center Utilization",
+  noUtilizationData: "No work center utilization data within range",
+  estimatesVsActuals: "Estimates vs Actuals",
+  noCompletedJobs: "No completed jobs within range",
+  completionTime: "Completion Time",
 
   // Statuses
   pending: "Pending",

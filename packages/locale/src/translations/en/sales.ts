@@ -25,8 +25,9 @@ export const sales = {
   assignedToMe: "Assigned to Me",
   assignedToMeDescription: "Sales documents currently assigned to me",
 
-  // Charts
+  // Charts / KPIs
   salesRevenue: "Sales Revenue",
+  salesFunnel: "Sales Funnel",
   lastMonth: "Last Month",
   allCustomers: "All Customers",
 

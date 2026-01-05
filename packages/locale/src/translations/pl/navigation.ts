@@ -42,5 +42,15 @@ export const navigation = {
   submitAnonymously: "Wyślij anonimowo",
   cancel: "Anuluj",
   clear: "Wyczyść",
-  send: "Wyślij"
+  send: "Wyślij",
+
+  // Dashboard / Charts - Pulpit / Wykresy
+  prettyEmptyAroundHere: "Tu jest dość pusto",
+  allCustomers: "Wszyscy klienci",
+  lastInterval: "Ostatni {{interval}}",
+  week: "Tydzień",
+  month: "Miesiąc",
+  quarter: "Kwartał",
+  year: "Rok",
+  custom: "Własny"
 } as const;

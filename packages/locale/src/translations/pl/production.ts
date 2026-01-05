@@ -29,8 +29,13 @@ export const production = {
   method: "Metoda",
   methods: "Metody",
 
-  // Charts - Wykresy
+  // Charts / KPIs - Wykresy / KPI
   utilizationPercent: "Wykorzystanie (%)",
+  workCenterUtilization: "Wykorzystanie stanowisk pracy",
+  noUtilizationData: "Brak danych o wykorzystaniu stanowisk w wybranym okresie",
+  estimatesVsActuals: "Szacunki vs Rzeczywiste",
+  noCompletedJobs: "Brak zakończonych zleceń w wybranym okresie",
+  completionTime: "Czas realizacji",
 
   // Statuses - Statusy
   pending: "Oczekujące",

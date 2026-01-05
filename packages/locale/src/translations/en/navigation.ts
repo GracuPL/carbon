@@ -42,5 +42,15 @@ export const navigation = {
   submitAnonymously: "Submit anonymously",
   cancel: "Cancel",
   clear: "Clear",
-  send: "Send"
+  send: "Send",
+
+  // Dashboard / Charts
+  prettyEmptyAroundHere: "Pretty empty around here",
+  allCustomers: "All Customers",
+  lastInterval: "Last {{interval}}",
+  week: "Week",
+  month: "Month",
+  quarter: "Quarter",
+  year: "Year",
+  custom: "Custom"
 } as const;

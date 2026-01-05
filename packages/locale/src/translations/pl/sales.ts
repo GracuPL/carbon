@@ -25,8 +25,9 @@ export const sales = {
   assignedToMe: "Przypisane do mnie",
   assignedToMeDescription: "Dokumenty sprzedaży przypisane do mnie",
 
-  // Charts - Wykresy
+  // Charts / KPIs - Wykresy / KPI
   salesRevenue: "Przychody ze sprzedaży",
+  salesFunnel: "Lejek sprzedażowy",
   lastMonth: "Ostatni miesiąc",
   allCustomers: "Wszyscy klienci",
 
