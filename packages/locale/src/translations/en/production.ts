@@ -106,5 +106,45 @@ export const production = {
   part: "Part",
   edit: "Edit",
   delete: "Delete",
-  confirmDeleteProjection: "Are you sure you want to delete all projections for {{partId}}? This action cannot be undone."
+  confirmDeleteProjection: "Are you sure you want to delete all projections for {{partId}}? This action cannot be undone.",
+
+  // Job Materials Table
+  required: "Required",
+  onShelf: "On Shelf",
+  incoming: "Incoming",
+  transfer: "Transfer",
+  materials: "Materials",
+  removeTransfer: "Remove Transfer",
+  removeOrder: "Remove Order",
+
+  // Job Operations Table
+  description: "Description",
+  operationType: "Operation Type",
+  qtyComplete: "Qty. Complete",
+  qtyScrapped: "Qty. Scrapped",
+  qtyReworked: "Qty. Reworked",
+
+  // Job Operation Step Records Table
+  step: "Step",
+  value: "Value",
+  stepRecords: "Step Records",
+  viewFile: "View File",
+
+  // Production Events Table
+  employee: "Employee",
+  duration: "Duration",
+  startTime: "Start Time",
+  endTime: "End Time",
+  notes: "Notes",
+  productionEvent: "Production Event",
+  productionEvents: "Production Events",
+  editEvent: "Edit Event",
+  deleteEvent: "Delete Event",
+  confirmDeleteEvent: "Are you sure you want to delete this production event? This action cannot be undone.",
+
+  // Production Quantities Table
+  productionQuantities: "Production Quantities",
+  editQuantity: "Edit Quantity",
+  deleteQuantity: "Delete Quantity",
+  confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone."
 } as const;

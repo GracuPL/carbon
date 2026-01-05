@@ -106,5 +106,45 @@ export const production = {
   part: "Część",
   edit: "Edytuj",
   delete: "Usuń",
-  confirmDeleteProjection: "Czy na pewno chcesz usunąć wszystkie projekcje dla {{partId}}? Tej operacji nie można cofnąć."
+  confirmDeleteProjection: "Czy na pewno chcesz usunąć wszystkie projekcje dla {{partId}}? Tej operacji nie można cofnąć.",
+
+  // Job Materials Table - Tabela materiałów zlecenia
+  required: "Wymagane",
+  onShelf: "Na półce",
+  incoming: "Przychodzące",
+  transfer: "Przesunięcie",
+  materials: "Materiały",
+  removeTransfer: "Usuń przesunięcie",
+  removeOrder: "Usuń zamówienie",
+
+  // Job Operations Table - Tabela operacji zlecenia
+  description: "Opis",
+  operationType: "Typ operacji",
+  qtyComplete: "Il. ukończ.",
+  qtyScrapped: "Il. braku",
+  qtyReworked: "Il. poprawek",
+
+  // Job Operation Step Records Table - Tabela rekordów kroków operacji
+  step: "Krok",
+  value: "Wartość",
+  stepRecords: "Rekordy kroków",
+  viewFile: "Wyświetl plik",
+
+  // Production Events Table - Tabela zdarzeń produkcyjnych
+  employee: "Pracownik",
+  duration: "Czas trwania",
+  startTime: "Czas rozpoczęcia",
+  endTime: "Czas zakończenia",
+  notes: "Notatki",
+  productionEvent: "Zdarzenie produkcyjne",
+  productionEvents: "Zdarzenia produkcyjne",
+  editEvent: "Edytuj zdarzenie",
+  deleteEvent: "Usuń zdarzenie",
+  confirmDeleteEvent: "Czy na pewno chcesz usunąć to zdarzenie produkcyjne? Tej operacji nie można cofnąć.",
+
+  // Production Quantities Table - Tabela ilości produkcyjnych
+  productionQuantities: "Ilości produkcyjne",
+  editQuantity: "Edytuj ilość",
+  deleteQuantity: "Usuń ilość",
+  confirmDeleteQuantity: "Czy na pewno chcesz usunąć tę ilość produkcyjną? Tej operacji nie można cofnąć."
 } as const;

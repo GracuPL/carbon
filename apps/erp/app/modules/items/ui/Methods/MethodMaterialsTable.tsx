@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, HStack } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useMemo } from "react";
@@ -14,6 +15,7 @@ type MethodMaterialsTableProps = {
 
 const MethodMaterialsTable = memo(
   ({ data, count }: MethodMaterialsTableProps) => {
+    const { t } = useTranslation("items");
     const parts = useParts();
     const tools = useTools();
 
@@ -23,7 +25,7 @@ const MethodMaterialsTable = memo(
       return [
         {
           accessorKey: "makeMethod.item.readableIdWithRevision",
-          header: "Method Id",
+          header: t("methodId"),
           cell: ({ row }) => (
             <HStack className="py-1">
               <Hyperlink
@@ -45,7 +47,7 @@ const MethodMaterialsTable = memo(
         },
         {
           accessorKey: "itemReadableIdWithRevision",
-          header: "Material ID",
+          header: t("materialId"),
           cell: (item) => item.getValue(),
           meta: {
             filter: {
@@ -59,12 +61,12 @@ const MethodMaterialsTable = memo(
         },
         {
           accessorKey: "item.name",
-          header: "Description",
+          header: t("description"),
           cell: ({ row }) => row.original.item?.name
         },
         {
           accessorKey: "methodType",
-          header: "Method Type",
+          header: t("methodType"),
           cell: (item) => (
             <Badge variant="secondary">
               <MethodIcon type={item.getValue<string>()} className="mr-2" />
@@ -88,7 +90,7 @@ const MethodMaterialsTable = memo(
         },
         {
           accessorKey: "itemType",
-          header: "Type",
+          header: t("type"),
           cell: ({ row }) => (
             <Badge variant="secondary">
               <MethodItemTypeIcon
@@ -116,23 +118,23 @@ const MethodMaterialsTable = memo(
 
         {
           accessorKey: "unitOfMeasureCode",
-          header: "UoM",
+          header: t("uom"),
           cell: (item) => item.getValue()
         },
         {
           accessorKey: "quantity",
-          header: "Qty. per Parent",
+          header: t("qtyPerParent"),
           cell: (item) => item.getValue()
         }
       ];
-    }, [items]);
+    }, [items, t]);
 
     return (
       <Table<MethodMaterial>
         count={count}
         columns={columns}
         data={data}
-        title="Method Materials"
+        title={t("methodMaterials")}
       />
     );
   }

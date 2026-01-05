@@ -162,5 +162,18 @@ export const items = {
   postingGroup: "Posting Group",
   postingGroups: "Posting Groups",
   editPostingGroup: "Edit Posting Group",
-  deletePostingGroup: "Delete Posting Group"
+  deletePostingGroup: "Delete Posting Group",
+
+  // Method Materials Table
+  methodId: "Method ID",
+  methodType: "Method Type",
+  uom: "UoM",
+  qtyPerParent: "Qty. per Parent",
+  methodMaterials: "Method Materials",
+  itemId: "Item ID",
+
+  // Method Operations Table
+  laborTime: "Labor Time",
+  machineTime: "Machine Time",
+  methodOperations: "Method Operations"
 } as const;

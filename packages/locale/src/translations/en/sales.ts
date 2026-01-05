@@ -118,6 +118,13 @@ export const sales = {
   editReason: "Edit Reason",
   deleteReason: "Delete Reason",
 
+  // Customer Portals
+  customerPortal: "Customer Portal",
+  customerPortals: "Customer Portals",
+  portalLink: "Portal Link",
+  editPortal: "Edit Portal",
+  deletePortal: "Delete Portal",
+
   // Customer actions
   edit: "Edit",
   delete: "Delete",
