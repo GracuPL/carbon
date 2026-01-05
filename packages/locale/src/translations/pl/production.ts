@@ -86,5 +86,25 @@ export const production = {
   scrapReason: "Przyczyna braku",
   scrapReasons: "Przyczyny braków",
   editScrapReason: "Edytuj przyczynę braku",
-  deleteScrapReason: "Usuń przyczynę braku"
+  deleteScrapReason: "Usuń przyczynę braku",
+
+  // Planning - Planowanie
+  planning: "Planowanie",
+  partId: "ID części",
+  reorderPolicy: "Polityka zamówień",
+  onHand: "Na stanie",
+  type: "Typ",
+  blocked: "Zablokowane",
+  order: "Zamów",
+  orderParts: "Zamów części",
+  recalculate: "Przelicz ponownie",
+  presentWeek: "Bieżący tydzień",
+  week: "Tydzień",
+
+  // Demand Projections - Projekcje popytu
+  demandProjections: "Projekcje popytu",
+  part: "Część",
+  edit: "Edytuj",
+  delete: "Usuń",
+  confirmDeleteProjection: "Czy na pewno chcesz usunąć wszystkie projekcje dla {{partId}}? Tej operacji nie można cofnąć."
 } as const;

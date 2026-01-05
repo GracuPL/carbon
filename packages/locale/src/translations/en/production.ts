@@ -86,5 +86,25 @@ export const production = {
   scrapReason: "Scrap Reason",
   scrapReasons: "Scrap Reasons",
   editScrapReason: "Edit Scrap Reason",
-  deleteScrapReason: "Delete Scrap Reason"
+  deleteScrapReason: "Delete Scrap Reason",
+
+  // Planning
+  planning: "Planning",
+  partId: "Part ID",
+  reorderPolicy: "Reorder Policy",
+  onHand: "On Hand",
+  type: "Type",
+  blocked: "Blocked",
+  order: "Order",
+  orderParts: "Order Parts",
+  recalculate: "Recalculate",
+  presentWeek: "Present Week",
+  week: "Week",
+
+  // Demand Projections
+  demandProjections: "Demand Projections",
+  part: "Part",
+  edit: "Edit",
+  delete: "Delete",
+  confirmDeleteProjection: "Are you sure you want to delete all projections for {{partId}}? This action cannot be undone."
 } as const;

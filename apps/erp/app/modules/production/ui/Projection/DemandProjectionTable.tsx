@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Combobox,
   DropdownMenu,
@@ -43,6 +44,7 @@ const defaultColumnPinning = {
 
 const DemandProjectionsTable = memo(
   ({ data, count, locationId, periods }: DemandProjectionsTableProps) => {
+    const { t } = useTranslation("production");
     const numberFormatter = useNumberFormatter();
     const dateFormatter = useDateFormatter({
       month: "short",
@@ -71,7 +73,7 @@ const DemandProjectionsTable = memo(
             header: () => (
               <VStack spacing={0}>
                 <div>
-                  {isCurrentWeek ? "Present Week" : `Week ${weekNumber}`}
+                  {isCurrentWeek ? t("presentWeek") : `${t("week")} ${weekNumber}`}
                 </div>
                 <div className="text-xs text-muted-foreground">
                   {dateFormatter.format(startDate)} -{" "}
@@ -92,7 +94,7 @@ const DemandProjectionsTable = memo(
       return [
         {
           accessorKey: "readableIdWithRevision",
-          header: "Part ID",
+          header: t("partId"),
           cell: ({ row }) => (
             <Hyperlink
               to={path.to.demandProjection(row.original.id!, locationId)}
@@ -145,7 +147,7 @@ const DemandProjectionsTable = memo(
                         )}
                       >
                         <DropdownMenuIcon icon={<LuPencil />} />
-                        Edit
+                        {t("edit")}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
@@ -153,7 +155,7 @@ const DemandProjectionsTable = memo(
                       destructive
                     >
                       <DropdownMenuIcon icon={<LuTrash2 />} />
-                      Delete
+                      {t("delete")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -162,7 +164,7 @@ const DemandProjectionsTable = memo(
           }
         }
       ];
-    }, [periods, dateFormatter, numberFormatter, locationId, permissions]);
+    }, [periods, dateFormatter, numberFormatter, locationId, permissions, t]);
 
     return (
       <>
@@ -171,7 +173,7 @@ const DemandProjectionsTable = memo(
           columns={columns}
           count={count}
           defaultColumnPinning={defaultColumnPinning}
-          title="Demand Projections"
+          title={t("demandProjections")}
           table="production-planning"
           withSavedView
           withSelectableRows
@@ -189,7 +191,7 @@ const DemandProjectionsTable = memo(
                 }}
               />
               {permissions.can("create", "production") && (
-                <New label="Part" to={`new?${params.toString()}`} />
+                <New label={t("part")} to={`new?${params.toString()}`} />
               )}
             </div>
           }
@@ -202,7 +204,7 @@ const DemandProjectionsTable = memo(
               locationId
             )}
             name={`${selectedItem.readableIdWithRevision} projections`}
-            text={`Are you sure you want to delete all projections for ${selectedItem.readableIdWithRevision}? This action cannot be undone.`}
+            text={t("confirmDeleteProjection", { partId: selectedItem.readableIdWithRevision })}
             onCancel={() => setSelectedItem(null)}
             onSubmit={() => setSelectedItem(null)}
           />

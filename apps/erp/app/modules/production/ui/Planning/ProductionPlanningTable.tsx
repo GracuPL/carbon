@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Combobox,
@@ -67,6 +68,7 @@ const ProductionPlanningTable = ({
   locationId,
   periods
 }: ProductionPlanningTableProps) => {
+  const { t } = useTranslation("production");
   const permissions = usePermissions();
 
   const dateFormatter = useDateFormatter({
@@ -223,7 +225,7 @@ const ProductionPlanningTable = ({
           accessorKey: weekKey,
           header: () => (
             <VStack spacing={0}>
-              <div>{isCurrentWeek ? "Present Week" : `Week ${weekNumber}`}</div>
+              <div>{isCurrentWeek ? t("presentWeek") : `${t("week")} ${weekNumber}`}</div>
               <div className="text-xs text-muted-foreground">
                 {dateFormatter.format(startDate)} -{" "}
                 {dateFormatter.format(endDate)}
@@ -248,7 +250,7 @@ const ProductionPlanningTable = ({
     return [
       {
         accessorKey: "readableIdWithRevision",
-        header: "Part ID",
+        header: t("partId"),
         cell: ({ row }) => (
           <HStack
             className="py-1 cursor-pointer"
@@ -290,7 +292,7 @@ const ProductionPlanningTable = ({
       },
       {
         accessorKey: "reorderingPolicy",
-        header: "Reorder Policy",
+        header: t("reorderPolicy"),
         cell: ({ row }) => {
           return (
             <HStack>
@@ -320,7 +322,7 @@ const ProductionPlanningTable = ({
       },
       {
         accessorKey: "quantityOnHand",
-        header: "On Hand",
+        header: t("onHand"),
         cell: ({ row }) => numberFormatter.format(row.original.quantityOnHand),
         meta: {
           icon: <LuPackage />,
@@ -330,7 +332,7 @@ const ProductionPlanningTable = ({
       ...periodColumns,
       {
         accessorKey: "type",
-        header: "Type",
+        header: t("type"),
         cell: ({ row }) =>
           row.original.type && (
             <HStack>
@@ -381,14 +383,14 @@ const ProductionPlanningTable = ({
                 }}
               >
                 {isBlocked ? (
-                  "Blocked"
+                  t("blocked")
                 ) : hasOrders ? (
                   <HStack>
                     <PulsingDot />
-                    <span>Order {orderQuantity}</span>
+                    <span>{t("order")} {orderQuantity}</span>
                   </HStack>
                 ) : (
-                  "Order"
+                  t("order")
                 )}
               </Button>
             </div>
@@ -409,7 +411,7 @@ const ProductionPlanningTable = ({
     (selectedRows: typeof data) => {
       return (
         <DropdownMenuContent align="end" className="min-w-[200px]">
-          <DropdownMenuLabel>Update</DropdownMenuLabel>
+          <DropdownMenuLabel>{t("update")}</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
@@ -417,12 +419,12 @@ const ProductionPlanningTable = ({
             disabled={bulkUpdateFetcher.state !== "idle"}
           >
             <DropdownMenuIcon icon={<LuSquareChartGantt />} />
-            Order Parts
+            {t("orderParts")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       );
     },
-    [bulkUpdateFetcher.state, onBulkUpdate]
+    [bulkUpdateFetcher.state, onBulkUpdate, t]
   );
 
   const defaultColumnVisibility = {
@@ -465,7 +467,7 @@ const ProductionPlanningTable = ({
                     isDisabled={mrpFetcher.state !== "idle"}
                     isLoading={mrpFetcher.state !== "idle"}
                   >
-                    Recalculate
+                    {t("recalculate")}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -477,7 +479,7 @@ const ProductionPlanningTable = ({
           </div>
         }
         renderActions={renderActions}
-        title="Planning"
+        title={t("planning")}
         table="production-planning"
         withSavedView
         withSelectableRows
