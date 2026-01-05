@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -18,6 +19,7 @@ type SupplierStatusesTableProps = {
 
 const SupplierStatusesTable = memo(
   ({ data, count }: SupplierStatusesTableProps) => {
+    const { t } = useTranslation("purchasing");
     const [params] = useUrlParams();
     const navigate = useNavigate();
     const permissions = usePermissions();
@@ -27,7 +29,7 @@ const SupplierStatusesTable = memo(
       const defaultColumns: ColumnDef<SupplierStatus>[] = [
         {
           accessorKey: "name",
-          header: "Supplier Status",
+          header: t("supplierStatus"),
           cell: ({ row }) => (
             <Hyperlink to={`${row.original.id}?${params.toString()}`}>
               <Enumerable value={row.original.name} />
@@ -39,7 +41,7 @@ const SupplierStatusesTable = memo(
         }
       ];
       return [...defaultColumns, ...customColumns];
-    }, [params, customColumns]);
+    }, [params, customColumns, t]);
 
     const renderContextMenu = useCallback(
       (row: SupplierStatus) => {
@@ -51,7 +53,7 @@ const SupplierStatusesTable = memo(
               }}
             >
               <MenuIcon icon={<BsPeopleFill />} />
-              View Suppliers
+              {t("viewSuppliers")}
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -61,7 +63,7 @@ const SupplierStatusesTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Supplier Status
+              {t("editSupplierStatus")}
             </MenuItem>
             <MenuItem
               destructive
@@ -73,12 +75,12 @@ const SupplierStatusesTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Supplier Status
+              {t("deleteSupplierStatus")}
             </MenuItem>
           </>
         );
       },
-      [navigate, params, permissions]
+      [navigate, params, permissions, t]
     );
 
     return (
@@ -89,13 +91,13 @@ const SupplierStatusesTable = memo(
         primaryAction={
           permissions.can("create", "purchasing") && (
             <New
-              label="Supplier Status"
+              label={t("supplierStatus")}
               to={`${path.to.newSupplierStatus}?${params.toString()}`}
             />
           )
         }
         renderContextMenu={renderContextMenu}
-        title="Supplier Statuses"
+        title={t("statuses")}
       />
     );
   }

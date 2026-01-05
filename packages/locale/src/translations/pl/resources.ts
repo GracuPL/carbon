@@ -160,5 +160,14 @@ export const resources = {
   deactivate: "Dezaktywuj",
   activate: "Aktywuj",
   jobsWithOperations: "Te zlecenia mają operacje przypisane do tego stanowiska pracy:",
-  anonymous: "Anonimowy"
+  anonymous: "Anonimowy",
+
+  // Maintenance schedules table - Tabela harmonogramów konserwacji
+  scheduleName: "Nazwa harmonogramu",
+  estDuration: "Sząc. czas trwania",
+  scheduledMaintenance: "Planowana konserwacja",
+  scheduledMaintenances: "Planowane konserwacje",
+  editSchedule: "Edytuj harmonogram",
+  deleteSchedule: "Usuń harmonogram",
+  inactive: "Nieaktywny"
 } as const;

@@ -160,5 +160,14 @@ export const resources = {
   deactivate: "Deactivate",
   activate: "Activate",
   jobsWithOperations: "These jobs have operations assigned to this work center:",
-  anonymous: "Anonymous"
+  anonymous: "Anonymous",
+
+  // Maintenance schedules table
+  scheduleName: "Schedule Name",
+  estDuration: "Est. Duration",
+  scheduledMaintenance: "Scheduled Maintenance",
+  scheduledMaintenances: "Scheduled Maintenances",
+  editSchedule: "Edit Schedule",
+  deleteSchedule: "Delete Schedule",
+  inactive: "Inactive"
 } as const;

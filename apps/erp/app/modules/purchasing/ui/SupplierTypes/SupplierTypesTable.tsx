@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { MenuIcon, MenuItem } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -17,6 +18,7 @@ type SupplierTypesTableProps = {
 };
 
 const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
+  const { t } = useTranslation("purchasing");
   const [params] = useUrlParams();
   const navigate = useNavigate();
   const permissions = usePermissions();
@@ -26,7 +28,7 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
     const defaultColumns: ColumnDef<SupplierType>[] = [
       {
         accessorKey: "name",
-        header: "Supplier Type",
+        header: t("supplierType"),
         cell: ({ row }) => (
           <Enumerable
             value={row.original.name}
@@ -40,7 +42,7 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
       }
     ];
     return [...defaultColumns, ...customColumns];
-  }, [navigate, customColumns]);
+  }, [navigate, customColumns, t]);
 
   const renderContextMenu = useCallback(
     (row: SupplierType) => {
@@ -52,7 +54,7 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<BsPeopleFill />} />
-            View Suppliers
+            {t("viewSuppliers")}
           </MenuItem>
           <MenuItem
             disabled={row.protected || !permissions.can("update", "purchasing")}
@@ -61,7 +63,7 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Supplier Type
+            {t("editSupplierType")}
           </MenuItem>
           <MenuItem
             destructive
@@ -73,12 +75,12 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
             }}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Supplier Type
+            {t("deleteSupplierType")}
           </MenuItem>
         </>
       );
     },
-    [navigate, params, permissions]
+    [navigate, params, permissions, t]
   );
 
   return (
@@ -89,13 +91,13 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
       primaryAction={
         permissions.can("create", "purchasing") && (
           <New
-            label="Supplier Type"
+            label={t("supplierType")}
             to={`${path.to.newSupplierType}?${params.toString()}`}
           />
         )
       }
       renderContextMenu={renderContextMenu}
-      title="Supplier Types"
+      title={t("supplierTypes")}
     />
   );
 });
