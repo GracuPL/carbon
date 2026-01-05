@@ -1,6 +1,7 @@
 import { useCarbon } from "@carbon/auth";
 // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Combobox, Hidden, Number, Submit, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Count,
@@ -355,6 +356,7 @@ function NewSupplierAssociation() {
 }
 
 function NewJobOperationAssociation({ items }: { items?: string[] }) {
+  const { t } = useTranslation("quality");
   const [jobs, setJobs] = useState<{ label: string; value: string }[]>([]);
 
   const [jobsAreLoading, setJobsAreLoading] = useState(true);
@@ -367,12 +369,12 @@ function NewJobOperationAssociation({ items }: { items?: string[] }) {
 
   async function fetchJobs() {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
     const { data, error } = await carbon.from("job").select("id, jobId");
     if (error) {
-      toast.error("Failed to load jobs");
+      toast.error(t("failedToLoadJobs"));
     }
     setJobs(data?.map((job) => ({ label: job.jobId, value: job.id })) ?? []);
     setJobsAreLoading(false);
@@ -380,7 +382,7 @@ function NewJobOperationAssociation({ items }: { items?: string[] }) {
 
   async function fetchJobOperations(jobId: string) {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
     const { data, error } = await carbon
@@ -389,7 +391,7 @@ function NewJobOperationAssociation({ items }: { items?: string[] }) {
       .eq("jobId", jobId);
 
     if (error) {
-      toast.error("Failed to load job operations");
+      toast.error(t("failedToLoadJobOperations"));
     }
 
     setJobOperations(
@@ -432,6 +434,7 @@ function NewJobOperationAssociation({ items }: { items?: string[] }) {
 }
 
 function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
+  const { t } = useTranslation("quality");
   const [purchaseOrders, setPurchaseOrders] = useState<
     { label: string; value: string }[]
   >([]);
@@ -446,7 +449,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchPurchaseOrders() {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
     const { data, error } = await carbon
@@ -454,7 +457,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
       .select("id, purchaseOrderId");
 
     if (error) {
-      toast.error("Failed to load purchase orders");
+      toast.error(t("failedToLoadPurchaseOrders"));
       return;
     }
 
@@ -469,7 +472,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchPurchaseOrderLines(purchaseOrderId: string) {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
 
@@ -491,7 +494,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
     const { data, error } = await query;
 
     if (error) {
-      toast.error("Failed to load purchase order lines");
+      toast.error(t("failedToLoadPurchaseOrderLines"));
     }
 
     setPurchaseOrderLines(
@@ -536,6 +539,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
 }
 
 function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
+  const { t } = useTranslation("quality");
   const { carbon } = useCarbon();
   const [salesOrders, setSalesOrders] = useState<
     { label: string; value: string }[]
@@ -549,7 +553,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchSalesOrders() {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
     const { data, error } = await carbon
@@ -557,7 +561,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
       .select("id, salesOrderId");
 
     if (error) {
-      toast.error("Failed to load sales orders");
+      toast.error(t("failedToLoadSalesOrders"));
     }
 
     setSalesOrders(
@@ -571,7 +575,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchSalesOrderLines(salesOrderId: string) {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
 
@@ -593,7 +597,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
     const { data, error } = await query;
 
     if (error) {
-      toast.error("Failed to load sales order lines");
+      toast.error(t("failedToLoadSalesOrderLines"));
     }
 
     setSalesOrderLines(
@@ -638,6 +642,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
 }
 
 function NewShipmentLineAssociation({ items }: { items?: string[] }) {
+  const { t } = useTranslation("quality");
   const { carbon } = useCarbon();
   const [storedItems] = useItems();
   const [shipments, setShipments] = useState<
@@ -651,7 +656,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchShipments() {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
     const { data, error } = await carbon
@@ -659,7 +664,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
       .select("id, shipmentId");
 
     if (error) {
-      toast.error("Failed to load shipments");
+      toast.error(t("failedToLoadShipments"));
     }
 
     setShipments(
@@ -673,7 +678,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchShipmentLines(shipmentId: string) {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
 
@@ -689,7 +694,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
     const { data, error } = await query;
 
     if (error) {
-      toast.error("Failed to load shipment lines");
+      toast.error(t("failedToLoadShipmentLines"));
     }
 
     setShipmentLines(
@@ -734,6 +739,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
 }
 
 function NewReceiptLineAssociation({ items }: { items?: string[] }) {
+  const { t } = useTranslation("quality");
   const { carbon } = useCarbon();
   const [storedItems] = useItems();
   const [receipts, setReceipts] = useState<{ label: string; value: string }[]>(
@@ -747,7 +753,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchReceipts() {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
     const { data, error } = await carbon
@@ -755,7 +761,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
       .select("id, receiptId");
 
     if (error) {
-      toast.error("Failed to load receipts");
+      toast.error(t("failedToLoadReceipts"));
     }
 
     setReceipts(
@@ -769,7 +775,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
 
   async function fetchReceiptLines(receiptId: string) {
     if (!carbon) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
 
@@ -785,7 +791,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
     const { data, error } = await query;
 
     if (error) {
-      toast.error("Failed to load receipt lines");
+      toast.error(t("failedToLoadReceiptLines"));
     }
 
     setReceiptLines(
@@ -830,6 +836,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
 }
 
 function NewTrackedEntityAssociation({ items }: { items?: string[] }) {
+  const { t } = useTranslation("quality");
   const { carbon } = useCarbon();
   const [trackedEntities, setTrackedEntities] = useState<
     { label: string; value: string; helper?: string }[]
@@ -843,7 +850,7 @@ function NewTrackedEntityAssociation({ items }: { items?: string[] }) {
 
   async function fetchTrackedEntities() {
     if (!carbon || !items) {
-      toast.error("Failed to load data");
+      toast.error(t("failedToLoadData"));
       return;
     }
 
@@ -854,7 +861,7 @@ function NewTrackedEntityAssociation({ items }: { items?: string[] }) {
       .in("sourceDocumentId", items!);
 
     if (error) {
-      toast.error("Failed to load tracked entities");
+      toast.error(t("failedToLoadTrackedEntities"));
     }
 
     setTrackedEntities(

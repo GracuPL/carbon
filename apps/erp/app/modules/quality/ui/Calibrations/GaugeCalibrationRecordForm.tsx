@@ -9,6 +9,7 @@ import {
   Number,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Button,
@@ -82,6 +83,7 @@ const GaugeCalibrationRecordForm = ({
   type = "drawer",
   onClose
 }: GaugeCalibrationRecordFormProps) => {
+  const { t } = useTranslation("quality");
   const permissions = usePermissions();
   const {
     company: { id: companyId }
@@ -124,7 +126,7 @@ const GaugeCalibrationRecordForm = ({
       .eq("id", gaugeId)
       .single();
     if (!result?.data) {
-      toast.error("Gauge not found");
+      toast.error(t("gaugeNotFound"));
       setSelectedGauge(null);
       setLoading(false);
       return;
@@ -157,12 +159,12 @@ const GaugeCalibrationRecordForm = ({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);

@@ -184,5 +184,21 @@ export const quality = {
   deleteDocument: "Usuń dokument",
   loadTemplates: "Wczytaj szablony",
   qualityDocuments: "Dokumenty jakości",
-  confirmDeleteDocument: "Czy na pewno chcesz usunąć ten dokument jakości?"
+  confirmDeleteDocument: "Czy na pewno chcesz usunąć ten dokument jakości?",
+
+  // Toast messages - Errors - Komunikaty błędów
+  gaugeNotFound: "Nie znaleziono przyrządu pomiarowego",
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  failedToLoadData: "Nie udało się załadować danych",
+  failedToLoadJobs: "Nie udało się załadować zleceń",
+  failedToLoadJobOperations: "Nie udało się załadować operacji zlecenia",
+  failedToLoadPurchaseOrders: "Nie udało się załadować zamówień zakupu",
+  failedToLoadPurchaseOrderLines: "Nie udało się załadować linii zamówień zakupu",
+  failedToLoadSalesOrders: "Nie udało się załadować zamówień sprzedaży",
+  failedToLoadSalesOrderLines: "Nie udało się załadować linii zamówień sprzedaży",
+  failedToLoadShipments: "Nie udało się załadować wysyłek",
+  failedToLoadShipmentLines: "Nie udało się załadować linii wysyłek",
+  failedToLoadReceipts: "Nie udało się załadować przyjęć",
+  failedToLoadReceiptLines: "Nie udało się załadować linii przyjęć",
+  failedToLoadTrackedEntities: "Nie udało się załadować śledzonych jednostek"
 } as const;

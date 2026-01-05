@@ -184,5 +184,21 @@ export const quality = {
   deleteDocument: "Delete Document",
   loadTemplates: "Load Templates",
   qualityDocuments: "Quality Documents",
-  confirmDeleteDocument: "Are you sure you want to delete this quality document?"
+  confirmDeleteDocument: "Are you sure you want to delete this quality document?",
+
+  // Toast messages - Errors
+  gaugeNotFound: "Gauge not found",
+  failedToUploadImage: "Failed to upload image",
+  failedToLoadData: "Failed to load data",
+  failedToLoadJobs: "Failed to load jobs",
+  failedToLoadJobOperations: "Failed to load job operations",
+  failedToLoadPurchaseOrders: "Failed to load purchase orders",
+  failedToLoadPurchaseOrderLines: "Failed to load purchase order lines",
+  failedToLoadSalesOrders: "Failed to load sales orders",
+  failedToLoadSalesOrderLines: "Failed to load sales order lines",
+  failedToLoadShipments: "Failed to load shipments",
+  failedToLoadShipmentLines: "Failed to load shipment lines",
+  failedToLoadReceipts: "Failed to load receipts",
+  failedToLoadReceiptLines: "Failed to load receipt lines",
+  failedToLoadTrackedEntities: "Failed to load tracked entities"
 } as const;

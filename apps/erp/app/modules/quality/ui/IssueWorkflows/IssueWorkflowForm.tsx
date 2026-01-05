@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { MultiSelect, Select, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Button,
@@ -77,6 +78,7 @@ const IssueWorkflowForm = ({
   requiredActions,
   onClose
 }: IssueWorkflowFormProps) => {
+  const { t } = useTranslation("quality");
   const permissions = usePermissions();
 
   const [content, setContent] = useState<JSONContent>(
@@ -134,12 +136,12 @@ const IssueWorkflowForm = ({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);

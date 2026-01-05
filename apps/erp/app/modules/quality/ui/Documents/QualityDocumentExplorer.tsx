@@ -9,6 +9,7 @@ import {
   Submit,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Button,
@@ -415,6 +416,7 @@ function QualityDocumentStepForm({
   isDisabled: boolean;
   onClose: () => void;
 }) {
+  const { t } = useTranslation("quality");
   const { id: qualityDocumentId } = useParams();
   if (!qualityDocumentId) throw new Error("id not found");
 
@@ -492,12 +494,12 @@ function QualityDocumentStepForm({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
