@@ -2,6 +2,22 @@ export const settings = {
   // Module title - Tytuł modułu
   title: "Ustawienia",
 
+  // Navigation groups - Grupy nawigacji
+  company: "Firma",
+  modules: "Moduły",
+  system: "System",
+  billing: "Rozliczenia",
+  labels: "Etykiety",
+  logos: "Logotypy",
+  inventory: "Magazyn",
+  items: "Produkty",
+  purchasing: "Zakupy",
+  production: "Produkcja",
+  quality: "Jakość",
+  sales: "Sprzedaż",
+  resources: "Zasoby",
+  integrations: "Integracje",
+
   // API Keys - Klucze API
   apiKey: "Klucz API",
   apiKeys: "Klucze API",

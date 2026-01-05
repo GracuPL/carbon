@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   LuCalendarClock,
   LuCalendarHeart,
@@ -9,47 +10,48 @@ import { useSavedViews } from "~/hooks/useSavedViews";
 import type { RouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const peopleRoutes: RouteGroup[] = [
-  {
-    name: "Manage",
-    routes: [
-      {
-        name: "People",
-        to: path.to.people,
-        icon: <LuUsers />,
-        table: "employee"
-      }
-    ]
-  },
-  {
-    name: "Configure",
-    routes: [
-      {
-        name: "Attributes",
-        to: path.to.attributes,
-        icon: <LuListChecks />
-      },
-      {
-        name: "Departments",
-        to: path.to.departments,
-        icon: <LuNetwork />
-      },
-      {
-        name: "Holidays",
-        to: path.to.holidays,
-        icon: <LuCalendarHeart />
-      },
-      {
-        name: "Shifts",
-        to: path.to.shifts,
-        icon: <LuCalendarClock />
-      }
-    ]
-  }
-];
-
 export default function usePeopleSubmodules() {
+  const { t } = useTranslation("users");
   const { addSavedViewsToRoutes } = useSavedViews();
+
+  const peopleRoutes: RouteGroup[] = [
+    {
+      name: t("manage"),
+      routes: [
+        {
+          name: t("people"),
+          to: path.to.people,
+          icon: <LuUsers />,
+          table: "employee"
+        }
+      ]
+    },
+    {
+      name: t("configure"),
+      routes: [
+        {
+          name: t("attributes"),
+          to: path.to.attributes,
+          icon: <LuListChecks />
+        },
+        {
+          name: t("departments"),
+          to: path.to.departments,
+          icon: <LuNetwork />
+        },
+        {
+          name: t("holidays"),
+          to: path.to.holidays,
+          icon: <LuCalendarHeart />
+        },
+        {
+          name: t("shifts"),
+          to: path.to.shifts,
+          icon: <LuCalendarClock />
+        }
+      ]
+    }
+  ];
 
   return {
     groups: peopleRoutes.map((group) => ({

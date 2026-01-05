@@ -2,6 +2,15 @@ export const purchasing = {
   // Module title - Tytuł modułu
   title: "Zakupy",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  plan: "Plan",
+  configure: "Konfiguracja",
+
+  // Navigation items - Elementy nawigacji
+  planning: "Planowanie",
+  types: "Typy",
+
   // Dashboard cards - Karty pulpitu
   openPurchaseOrders: "Otwarte zamówienia zakupu",
   openPurchaseInvoices: "Otwarte faktury zakupu",

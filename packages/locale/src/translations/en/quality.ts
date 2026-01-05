@@ -2,6 +2,9 @@ export const quality = {
   // Module title
   title: "Quality",
 
+  // Navigation groups
+  configure: "Configure",
+
   // Main entities
   issue: "Issue",
   issues: "Issues",

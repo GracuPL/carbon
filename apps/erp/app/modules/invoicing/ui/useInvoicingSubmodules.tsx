@@ -1,30 +1,33 @@
+import { useTranslation } from "@carbon/locale";
 import { BsCartDash } from "react-icons/bs";
 import { usePermissions } from "~/hooks";
 import type { AuthenticatedRouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const invoicingRoutes: AuthenticatedRouteGroup[] = [
-  {
-    name: "Manage",
-    routes: [
-      {
-        name: "Purchasing",
-        to: path.to.purchaseInvoices,
-        role: "employee",
-        icon: <BsCartDash />
-      }
-      // {
-      //   name: "Sales",
-      //   to: path.to.salesInvoices,
-      //   role: "employee",
-      //   icon: <BsCartPlus />,
-      // },
-    ]
-  }
-];
-
 export default function useInvoicingSubmodules() {
+  const { t } = useTranslation("invoicing");
   const permissions = usePermissions();
+
+  const invoicingRoutes: AuthenticatedRouteGroup[] = [
+    {
+      name: t("manage"),
+      routes: [
+        {
+          name: t("purchasing"),
+          to: path.to.purchaseInvoices,
+          role: "employee",
+          icon: <BsCartDash />
+        }
+        // {
+        //   name: "Sales",
+        //   to: path.to.salesInvoices,
+        //   role: "employee",
+        //   icon: <BsCartPlus />,
+        // },
+      ]
+    }
+  ];
+
   return {
     groups: invoicingRoutes
       .filter((group) => {

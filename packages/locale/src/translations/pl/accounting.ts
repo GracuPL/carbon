@@ -2,6 +2,9 @@ export const accounting = {
   // Module title - Tytuł modułu
   title: "Księgowość",
 
+  // Navigation groups - Grupy nawigacji
+  configure: "Konfiguracja",
+
   // Main entities - Główne encje
   account: "Konto",
   accounts: "Konta",

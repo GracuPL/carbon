@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   LuContainer,
   LuCreditCard,
@@ -12,70 +13,71 @@ import { useSavedViews } from "~/hooks/useSavedViews";
 import type { AuthenticatedRouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const purchasingRoutes: AuthenticatedRouteGroup[] = [
-  {
-    name: "Manage",
-    routes: [
-      {
-        name: "Suppliers",
-        to: path.to.suppliers,
-        icon: <LuContainer />,
-        table: "supplier"
-      },
-      {
-        name: "Quotes",
-        to: path.to.supplierQuotes,
-        icon: <LuPackageSearch />,
-        table: "supplierQuote"
-      },
-      {
-        name: "Orders",
-        to: path.to.purchaseOrders,
-        icon: <LuLayoutList />,
-        table: "purchaseOrder"
-      },
-      {
-        name: "Invoices",
-        to: path.to.purchaseInvoices,
-        icon: <LuCreditCard />,
-        table: "purchaseInvoice",
-        permission: "invoicing"
-      }
-    ]
-  },
-  {
-    name: "Plan",
-    routes: [
-      {
-        name: "Planning",
-        to: path.to.purchasingPlanning,
-        icon: <LuSquareChartGantt />,
-        table: "purchase-planning"
-      }
-    ]
-  },
-  {
-    name: "Configure",
-    routes: [
-      {
-        name: "Statuses",
-        to: path.to.supplierStatuses,
-        role: "employee",
-        icon: <LuShapes />
-      },
-      {
-        name: "Types",
-        to: path.to.supplierTypes,
-        role: "employee",
-        icon: <LuStar />
-      }
-    ]
-  }
-];
-
 export default function usePurchasingSubmodules() {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const { addSavedViewsToRoutes } = useSavedViews();
+
+  const purchasingRoutes: AuthenticatedRouteGroup[] = [
+    {
+      name: t("manage"),
+      routes: [
+        {
+          name: t("suppliers"),
+          to: path.to.suppliers,
+          icon: <LuContainer />,
+          table: "supplier"
+        },
+        {
+          name: t("supplierQuotes"),
+          to: path.to.supplierQuotes,
+          icon: <LuPackageSearch />,
+          table: "supplierQuote"
+        },
+        {
+          name: t("purchaseOrders"),
+          to: path.to.purchaseOrders,
+          icon: <LuLayoutList />,
+          table: "purchaseOrder"
+        },
+        {
+          name: t("purchaseInvoices"),
+          to: path.to.purchaseInvoices,
+          icon: <LuCreditCard />,
+          table: "purchaseInvoice",
+          permission: "invoicing"
+        }
+      ]
+    },
+    {
+      name: t("plan"),
+      routes: [
+        {
+          name: t("planning"),
+          to: path.to.purchasingPlanning,
+          icon: <LuSquareChartGantt />,
+          table: "purchase-planning"
+        }
+      ]
+    },
+    {
+      name: t("configure"),
+      routes: [
+        {
+          name: t("statuses"),
+          to: path.to.supplierStatuses,
+          role: "employee",
+          icon: <LuShapes />
+        },
+        {
+          name: t("types"),
+          to: path.to.supplierTypes,
+          role: "employee",
+          icon: <LuStar />
+        }
+      ]
+    }
+  ];
 
   return {
     groups: purchasingRoutes

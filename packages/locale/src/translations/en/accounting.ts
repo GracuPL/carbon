@@ -2,6 +2,9 @@ export const accounting = {
   // Module title
   title: "Accounting",
 
+  // Navigation groups
+  configure: "Configure",
+
   // Main entities
   account: "Account",
   accounts: "Accounts",

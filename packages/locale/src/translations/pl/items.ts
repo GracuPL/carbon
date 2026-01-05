@@ -2,6 +2,17 @@ export const items = {
   // Module title - Tytuł modułu
   title: "Produkty",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  configureMaterials: "Konfiguracja materiałów",
+  configure: "Konfiguracja",
+
+  // Navigation items - Elementy nawigacji
+  itemGroups: "Grupy produktów",
+  units: "Jednostki",
+  substances: "Substancje",
+  types: "Typy",
+
   // Entity types - Typy encji
   part: "Wyrób",
   parts: "Wyroby",

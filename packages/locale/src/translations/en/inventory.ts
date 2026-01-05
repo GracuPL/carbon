@@ -2,6 +2,11 @@ export const inventory = {
   // Module title
   title: "Inventory",
 
+  // Navigation groups
+  manage: "Manage",
+  track: "Track",
+  configure: "Configure",
+
   // Main views
   quantities: "Quantities",
   kanbans: "Kanbans",
