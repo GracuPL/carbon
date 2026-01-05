@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DropdownMenu,
@@ -39,6 +40,7 @@ type JobOperationsTableProps = {
 };
 
 const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
+  const { t } = useTranslation("production");
   const { jobId } = useParams();
   if (!jobId) throw new Error("Job ID is required");
 
@@ -71,7 +73,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
     return [
       {
         accessorKey: "description",
-        header: "Description",
+        header: t("description"),
         cell: ({ row }) => (
           <HStack className="py-1">
             <DropdownMenu>
@@ -124,7 +126,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       },
       {
         id: "item",
-        header: "Item",
+        header: t("item"),
         cell: ({ row }) => {
           return row.original.jobMakeMethod?.item?.readableIdWithRevision;
         },
@@ -134,7 +136,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       },
       {
         accessorKey: "operationType",
-        header: "Operation Type",
+        header: t("operationType"),
         cell: (item) => <Enumerable value={item.getValue<string>() ?? null} />,
         meta: {
           filter: {
@@ -150,7 +152,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
 
       {
         accessorKey: "operationQuantity",
-        header: "Quantity",
+        header: t("quantity"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuHash />
@@ -158,7 +160,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       },
       {
         accessorKey: "quantityComplete",
-        header: "Qty. Complete",
+        header: t("qtyComplete"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuCircleCheckBig />
@@ -166,7 +168,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       },
       {
         accessorKey: "quantityScrapped",
-        header: "Qty. Scrapped",
+        header: t("qtyScrapped"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuTriangleAlert />
@@ -174,14 +176,14 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       },
       {
         accessorKey: "quantityReworked",
-        header: "Qty. Reworked",
+        header: t("qtyReworked"),
         cell: (item) => item.getValue(),
         meta: {
           icon: <LuRotateCcw />
         }
       }
     ];
-  }, [isPaused, jobId, onOperationStatusChange]);
+  }, [isPaused, jobId, onOperationStatusChange, t]);
 
   const { carbon } = useCarbon();
   const { id: userId } = useUser();
@@ -243,13 +245,13 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
               type="submit"
               variant="secondary"
             >
-              Recalculate
+              {t("recalculate")}
             </Button>
           </fetcher.Form>
         ) : undefined
       }
       editableComponents={editableComponents}
-      title="Operations"
+      title={t("operations")}
       withInlineEditing={permissions.can("update", "production")}
     />
   );

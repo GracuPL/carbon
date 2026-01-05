@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import { formatDateTime, formatDurationMilliseconds } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -28,6 +29,7 @@ type ProductionEventsTableProps = {
 
 const ProductionEventsTable = memo(
   ({ data, count, operations, workCenters }: ProductionEventsTableProps) => {
+    const { t } = useTranslation("production");
     const { jobId } = useParams();
     if (!jobId) throw new Error("Job ID is required");
     const [people] = usePeople();
@@ -36,7 +38,7 @@ const ProductionEventsTable = memo(
       return [
         {
           accessorKey: "jobOperationId",
-          header: "Operation",
+          header: t("operation"),
           cell: ({ row }) => (
             <Hyperlink to={row.original.id}>
               {row.original.jobOperation?.description ?? null}
@@ -54,7 +56,7 @@ const ProductionEventsTable = memo(
         },
         {
           id: "item",
-          header: "Item",
+          header: t("item"),
           cell: ({ row }) => {
             return row.original.jobOperation?.jobMakeMethod?.item
               ?.readableIdWithRevision;
@@ -62,7 +64,7 @@ const ProductionEventsTable = memo(
         },
         {
           accessorKey: "employeeId",
-          header: "Employee",
+          header: t("employee"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.employeeId} />
           ),
@@ -78,7 +80,7 @@ const ProductionEventsTable = memo(
         },
         {
           accessorKey: "type",
-          header: "Type",
+          header: t("type"),
           cell: ({ row }) => (
             <Badge
               variant={
@@ -118,7 +120,7 @@ const ProductionEventsTable = memo(
         },
         {
           accessorKey: "duration",
-          header: "Duration",
+          header: t("duration"),
           cell: ({ row }) =>
             row.original.duration
               ? formatDurationMilliseconds(row.original.duration * 1000)
@@ -126,7 +128,7 @@ const ProductionEventsTable = memo(
         },
         {
           accessorKey: "workCenterId",
-          header: "Work Center",
+          header: t("workCenter"),
           cell: ({ row }) => {
             const workCenter = workCenters.find(
               (wc) => wc.id === row.original.workCenterId
@@ -145,18 +147,18 @@ const ProductionEventsTable = memo(
         },
         {
           accessorKey: "startTime",
-          header: "Start Time",
+          header: t("startTime"),
           cell: ({ row }) => formatDateTime(row.original.startTime)
         },
         {
           accessorKey: "endTime",
-          header: "End Time",
+          header: t("endTime"),
           cell: ({ row }) =>
             row.original.endTime ? formatDateTime(row.original.endTime) : null
         },
         {
           accessorKey: "notes",
-          header: "Notes",
+          header: t("notes"),
           cell: ({ row }) => (
             <div
               className="max-w-[200px] truncate"
@@ -167,7 +169,7 @@ const ProductionEventsTable = memo(
           )
         }
       ];
-    }, [operations, people, workCenters]);
+    }, [operations, people, workCenters, t]);
 
     const permissions = usePermissions();
 
@@ -199,7 +201,7 @@ const ProductionEventsTable = memo(
             onClick={() => navigate(row.id)}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Event
+            {t("editEvent")}
           </MenuItem>
           <MenuItem
             destructive
@@ -207,12 +209,12 @@ const ProductionEventsTable = memo(
             onClick={() => onDelete(row)}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Event
+            {t("deleteEvent")}
           </MenuItem>
         </>
       ),
 
-      [permissions]
+      [permissions, t]
     );
     const [params] = useUrlParams();
 
@@ -225,23 +227,23 @@ const ProductionEventsTable = memo(
           data={data}
           primaryAction={
             permissions.can("update", "accounting") && (
-              <New label="Production Event" to={`new?${params.toString()}`} />
+              <New label={t("productionEvent")} to={`new?${params.toString()}`} />
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Production Events"
+          title={t("productionEvents")}
         />
         {deleteModal.isOpen && selectedEvent && (
           <ConfirmDelete
             action={path.to.deleteProductionEvent(selectedEvent.id)}
             isOpen
             name={`${
-              selectedEvent.jobOperation?.description ?? "Operation"
+              selectedEvent.jobOperation?.description ?? t("operation")
             } by ${
               people.find((p) => p.id === selectedEvent.employeeId)?.name ??
-              "Unknown Employee"
+              t("employee")
             }`}
-            text="Are you sure you want to delete this production event? This action cannot be undone."
+            text={t("confirmDeleteEvent")}
             onCancel={onDeleteCancel}
             onSubmit={onDeleteCancel}
           />

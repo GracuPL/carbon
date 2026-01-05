@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import { Badge, MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -25,6 +26,7 @@ const ProductionQuantitiesTable = memo(
     operations,
     scrapReasons
   }: ProductionQuantitiesTableProps) => {
+    const { t } = useTranslation("production");
     const { jobId } = useParams();
     if (!jobId) throw new Error("Job ID is required");
     const [people] = usePeople();
@@ -33,7 +35,7 @@ const ProductionQuantitiesTable = memo(
       return [
         {
           accessorKey: "jobOperationId",
-          header: "Operation",
+          header: t("operation"),
           cell: ({ row }) => (
             <Hyperlink to={row.original.id}>
               {row.original.jobOperation?.description ?? null}
@@ -51,7 +53,7 @@ const ProductionQuantitiesTable = memo(
         },
         {
           id: "item",
-          header: "Item",
+          header: t("item"),
           cell: ({ row }) => {
             return row.original.jobOperation?.jobMakeMethod?.item
               ?.readableIdWithRevision;
@@ -59,7 +61,7 @@ const ProductionQuantitiesTable = memo(
         },
         {
           accessorKey: "createdBy",
-          header: "Employee",
+          header: t("employee"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.createdBy} />
           ),
@@ -75,7 +77,7 @@ const ProductionQuantitiesTable = memo(
         },
         {
           accessorKey: "type",
-          header: "Type",
+          header: t("type"),
           cell: ({ row }) => (
             <Badge
               variant={
@@ -113,12 +115,12 @@ const ProductionQuantitiesTable = memo(
         },
         {
           accessorKey: "quantity",
-          header: "Quantity",
+          header: t("quantity"),
           cell: ({ row }) => row.original.quantity
         },
         {
           accessorKey: "scrapReasonId",
-          header: "Scrap Reason",
+          header: t("scrapReason"),
           cell: ({ row }) => {
             const scrapReason = scrapReasons.find(
               (reason) => reason.id === row.original.scrapReasonId
@@ -137,7 +139,7 @@ const ProductionQuantitiesTable = memo(
         },
         {
           accessorKey: "notes",
-          header: "Notes",
+          header: t("notes"),
           cell: ({ row }) => (
             <span className="max-w-[200px] truncate block">
               {row.original.notes}
@@ -145,7 +147,7 @@ const ProductionQuantitiesTable = memo(
           )
         }
       ];
-    }, [operations, people, scrapReasons]);
+    }, [operations, people, scrapReasons, t]);
 
     const permissions = usePermissions();
 
@@ -176,7 +178,7 @@ const ProductionQuantitiesTable = memo(
             onClick={() => navigate(row.id)}
           >
             <MenuIcon icon={<LuPencil />} />
-            Edit Quantity
+            {t("editQuantity")}
           </MenuItem>
           <MenuItem
             destructive
@@ -184,12 +186,12 @@ const ProductionQuantitiesTable = memo(
             onClick={() => onDelete(row)}
           >
             <MenuIcon icon={<LuTrash />} />
-            Delete Quantity
+            {t("deleteQuantity")}
           </MenuItem>
         </>
       ),
 
-      [permissions]
+      [permissions, t]
     );
 
     return (
@@ -200,19 +202,19 @@ const ProductionQuantitiesTable = memo(
           columns={columns}
           data={data}
           renderContextMenu={renderContextMenu}
-          title="Production Quantities"
+          title={t("productionQuantities")}
         />
         {deleteModal.isOpen && selectedEvent && (
           <ConfirmDelete
             action={path.to.deleteProductionQuantity(selectedEvent.id)}
             isOpen
             name={`${
-              selectedEvent.jobOperation?.description ?? "Operation"
+              selectedEvent.jobOperation?.description ?? t("operation")
             } by ${
               people.find((p) => p.id === selectedEvent.createdBy)?.name ??
-              "Unknown Employee"
+              t("employee")
             }`}
-            text="Are you sure you want to delete this production quantity? This action cannot be undone."
+            text={t("confirmDeleteQuantity")}
             onCancel={onDeleteCancel}
             onSubmit={onDeleteCancel}
           />

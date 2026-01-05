@@ -154,5 +154,32 @@ export const quality = {
   item: "Pozycja",
   likelihood: "Prawdopodobieństwo",
   confirmDeleteRisk: "Czy na pewno chcesz usunąć to ryzyko? Tej operacji nie można cofnąć.",
-  delete: "Usuń"
+  delete: "Usuń",
+
+  // Gauge Calibration Records Table - Tabela rekordów kalibracji przyrządów
+  dateCalibrated: "Data kalibracji",
+  inspectionStatus: "Status inspekcji",
+  requiresAction: "Wymaga działania",
+  requiresAdjustment: "Wymaga regulacji",
+  requiresRepair: "Wymaga naprawy",
+  calibrationSupplier: "Dostawca kalibracji",
+  temperature: "Temperatura",
+  humidity: "Wilgotność",
+  approvedBy: "Zatwierdzony przez",
+  editRecord: "Edytuj zapis",
+  deleteRecord: "Usuń zapis",
+  calibrationRecords: "Zapisy kalibracji",
+  yes: "Tak",
+  no: "Nie",
+  confirmDeleteCalibrationRecord: "Czy na pewno chcesz usunąć ten zapis?",
+
+  // Quality Documents Table - Tabela dokumentów jakości
+  tags: "Tagi",
+  versions: "Wersje",
+  version: "Wersja",
+  editDocument: "Edytuj dokument",
+  deleteDocument: "Usuń dokument",
+  loadTemplates: "Wczytaj szablony",
+  qualityDocuments: "Dokumenty jakości",
+  confirmDeleteDocument: "Czy na pewno chcesz usunąć ten dokument jakości?"
 } as const;

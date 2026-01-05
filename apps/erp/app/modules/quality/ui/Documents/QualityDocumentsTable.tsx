@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -40,6 +41,7 @@ type QualityDocumentsTableProps = {
 
 const QualityDocumentsTable = memo(
   ({ data, count, tags }: QualityDocumentsTableProps) => {
+    const { t } = useTranslation("quality");
     const navigate = useNavigate();
     const permissions = usePermissions();
     const seedFetcher = useFetcher<{ success: boolean; message: string }>();
@@ -61,14 +63,14 @@ const QualityDocumentsTable = memo(
       const defaultColumns: ColumnDef<QualityDocuments>[] = [
         {
           accessorKey: "name",
-          header: "Name",
+          header: t("name"),
           cell: ({ row }) => (
             <div className="flex flex-col gap-0">
               <Hyperlink to={path.to.qualityDocument(row.original.id!)}>
                 {row.original.name}
               </Hyperlink>
               <span className="text-sm text-muted-foreground">
-                Version {row.original.version}
+                {t("version")} {row.original.version}
               </span>
             </div>
           ),
@@ -79,7 +81,7 @@ const QualityDocumentsTable = memo(
 
         {
           accessorKey: "status",
-          header: "Status",
+          header: t("status"),
           cell: ({ row }) => (
             <QualityDocumentStatus status={row.original.status} />
           ),
@@ -89,7 +91,7 @@ const QualityDocumentsTable = memo(
         },
         {
           accessorKey: "assignee",
-          header: "Assignee",
+          header: t("assignee"),
           cell: ({ row }) => (
             <EmployeeAvatar employeeId={row.original.assignee} />
           ),
@@ -99,7 +101,7 @@ const QualityDocumentsTable = memo(
         },
         {
           accessorKey: "tags",
-          header: "Tags",
+          header: t("tags"),
           cell: ({ row }) => (
             <HStack spacing={0} className="gap-1">
               {row.original.tags?.map((tag) => (
@@ -123,7 +125,7 @@ const QualityDocumentsTable = memo(
         },
         {
           id: "versions",
-          header: "Versions",
+          header: t("versions"),
           cell: ({ row }) => {
             const versions = row.original?.versions as Array<{
               id: string;
@@ -135,7 +137,7 @@ const QualityDocumentsTable = memo(
               <HoverCard>
                 <HoverCardTrigger>
                   <Badge variant="secondary" className="cursor-pointer">
-                    {versions?.length ?? 0} Version
+                    {versions?.length ?? 0} {t("version")}
                     {versions?.length === 1 ? "" : "s"}
                     <LuEllipsisVertical className="w-3 h-3 ml-2" />
                   </Badge>
@@ -153,7 +155,7 @@ const QualityDocumentsTable = memo(
                             to={path.to.qualityDocument(version.id)}
                             className="flex items-center justify-start gap-1"
                           >
-                            Version {version.version}
+                            {t("version")} {version.version}
                           </Hyperlink>
                           <div className="flex items-center justify-end">
                             <QualityDocumentStatus status={version.status} />
@@ -171,7 +173,7 @@ const QualityDocumentsTable = memo(
         }
       ];
       return [...defaultColumns];
-    }, [tags]);
+    }, [tags, t]);
 
     const renderContextMenu = useCallback(
       (row: QualityDocuments) => {
@@ -184,7 +186,7 @@ const QualityDocumentsTable = memo(
               }}
             >
               <MenuIcon icon={<LuPencil />} />
-              Edit Document
+              {t("editDocument")}
             </MenuItem>
             <MenuItem
               destructive
@@ -197,12 +199,12 @@ const QualityDocumentsTable = memo(
               }}
             >
               <MenuIcon icon={<LuTrash />} />
-              Delete Document
+              {t("deleteDocument")}
             </MenuItem>
           </>
         );
       },
-      [navigate, permissions, deleteDisclosure]
+      [navigate, permissions, deleteDisclosure, t]
     );
 
     return (
@@ -226,12 +228,12 @@ const QualityDocumentsTable = memo(
                       variant="primary"
                       type="submit"
                     >
-                      Load Templates
+                      {t("loadTemplates")}
                     </Button>
                   </seedFetcher.Form>
                 )}
                 <New
-                  label="Document"
+                  label={t("document")}
                   variant={data.length === 0 ? "secondary" : "primary"}
                   to={path.to.newQualityDocument}
                 />
@@ -239,7 +241,7 @@ const QualityDocumentsTable = memo(
             )
           }
           renderContextMenu={renderContextMenu}
-          title="Quality Documents"
+          title={t("qualityDocuments")}
           table="qualityDocument"
           withSavedView
         />
@@ -255,8 +257,8 @@ const QualityDocumentsTable = memo(
               setSelectedQualityDocument(null);
               deleteDisclosure.onClose();
             }}
-            name={selectedQualityDocument.name ?? "quality document"}
-            text="Are you sure you want to delete this quality document?"
+            name={selectedQualityDocument.name ?? t("document")}
+            text={t("confirmDeleteDocument")}
           />
         )}
       </>
