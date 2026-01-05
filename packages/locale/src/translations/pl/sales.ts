@@ -2,6 +2,15 @@ export const sales = {
   // Module title - Tytuł modułu
   title: "Sprzedaż",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  configure: "Konfiguracja",
+
+  // Navigation items - Elementy nawigacji
+  portals: "Portale",
+  noQuotes: "Bez ofert",
+  types: "Typy",
+
   // Dashboard cards - Karty pulpitu
   openRFQs: "Otwarte zapytania",
   openQuotes: "Otwarte oferty",

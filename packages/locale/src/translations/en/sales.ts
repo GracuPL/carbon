@@ -2,6 +2,15 @@ export const sales = {
   // Module title
   title: "Sales",
 
+  // Navigation groups
+  manage: "Manage",
+  configure: "Configure",
+
+  // Navigation items
+  portals: "Portals",
+  noQuotes: "No Quotes",
+  types: "Types",
+
   // Dashboard cards
   openRFQs: "Open RFQs",
   openQuotes: "Open Quotes",

@@ -2,6 +2,17 @@ export const production = {
   // Module title
   title: "Production",
 
+  // Navigation groups
+  plan: "Plan",
+  configure: "Configure",
+
+  // Navigation items
+  procedures: "Procedures",
+  planning: "Planning",
+  projections: "Projections",
+  schedule: "Schedule",
+  scrapReasons: "Scrap Reasons",
+
   // Dashboard cards
   activeJobs: "Active Jobs",
   viewActiveJobs: "View Active Jobs",

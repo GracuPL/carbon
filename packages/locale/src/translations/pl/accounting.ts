@@ -99,5 +99,13 @@ export const accounting = {
   salesDiscount: "Rabat sprzedażowy",
   salesCredit: "Kredyt sprzedażowy",
   salesPrepayment: "Zaliczka na sprzedaż",
-  salesTaxPayable: "Podatek od sprzedaży do zapłaty"
+  salesTaxPayable: "Podatek od sprzedaży do zapłaty",
+
+  // Chart of Accounts Filters - Filtry planu kont
+  dateRange: "Zakres dat",
+  editDateRange: "Edytuj zakres dat",
+  dateRangeDescription: "Wybierz zakres dat aby filtrować zmianę netto i saldo na dzień",
+  startDate: "Data początkowa",
+  endDate: "Data końcowa",
+  reset: "Resetuj"
 } as const;

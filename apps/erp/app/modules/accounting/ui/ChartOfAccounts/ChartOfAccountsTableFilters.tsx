@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DatePicker,
@@ -14,6 +15,7 @@ import { usePermissions, useUrlParams } from "~/hooks";
 import { incomeBalanceTypes } from "../../accounting.models";
 
 const ChartOfAccountsTableFilters = () => {
+  const { t } = useTranslation("accounting");
   const [params, setParams] = useUrlParams();
   const permissions = usePermissions();
 
@@ -30,7 +32,7 @@ const ChartOfAccountsTableFilters = () => {
       <HStack>
         <Select
           value={params.get("incomeBalance") ?? ""}
-          placeholder="Income/Balance Sheet"
+          placeholder={t("incomeBalance")}
           options={incomeBalanceOptions}
           size="sm"
           isClearable
@@ -39,26 +41,26 @@ const ChartOfAccountsTableFilters = () => {
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="secondary" leftIcon={<LuCalendarDays />}>
-              Date Range
+              {t("dateRange")}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[390px]">
             <PopoverHeader>
-              <p className="text-sm">Edit date range</p>
+              <p className="text-sm">{t("editDateRange")}</p>
               <p className="text-xs text-muted-foreground">
-                Select date range to filter net change and balance at date
+                {t("dateRangeDescription")}
               </p>
             </PopoverHeader>
 
             <div className="grid grid-cols-[1fr_3fr] gap-y-2 items-center">
-              <p className="text-sm text-muted-foreground">Start Date</p>
+              <p className="text-sm text-muted-foreground">{t("startDate")}</p>
               <DatePicker
                 value={startDate ? parseDate(startDate) : null}
                 onChange={(value) =>
                   setParams({ startDate: value?.toString() })
                 }
               />
-              <p className="text-sm text-muted-foreground">End Date</p>
+              <p className="text-sm text-muted-foreground">{t("endDate")}</p>
               <DatePicker
                 value={endDate ? parseDate(endDate) : null}
                 onChange={(value) => setParams({ endDate: value?.toString() })}
@@ -78,13 +80,13 @@ const ChartOfAccountsTableFilters = () => {
               })
             }
           >
-            Reset
+            {t("reset")}
           </Button>
         )}
       </HStack>
       <HStack>
         {permissions.can("create", "accounting") && (
-          <New label="Account" to={`new?${params.toString()}`} />
+          <New label={t("account")} to={`new?${params.toString()}`} />
         )}
       </HStack>
     </div>

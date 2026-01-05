@@ -40,5 +40,10 @@ export const settings = {
   // Common fields
   name: "Name",
   createdBy: "Created By",
-  createdAt: "Created At"
+  createdAt: "Created At",
+
+  // Custom Fields Detail
+  editCustomField: "Edit Custom Field",
+  deleteCustomField: "Delete Custom Field",
+  confirmDeleteCustomField: "Are you sure you want to delete the {{name}} field?"
 } as const;

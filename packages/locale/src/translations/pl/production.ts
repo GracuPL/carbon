@@ -2,6 +2,17 @@ export const production = {
   // Module title - Tytuł modułu
   title: "Produkcja",
 
+  // Navigation groups - Grupy nawigacji
+  plan: "Plan",
+  configure: "Konfiguracja",
+
+  // Navigation items - Elementy nawigacji
+  procedures: "Procedury",
+  planning: "Planowanie",
+  projections: "Prognozy",
+  schedule: "Harmonogram",
+  scrapReasons: "Przyczyny odpadów",
+
   // Dashboard cards - Karty pulpitu
   activeJobs: "Aktywne zlecenia",
   viewActiveJobs: "Zobacz aktywne zlecenia",
