@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Card,
@@ -270,6 +271,7 @@ export const useOpportunityDocuments = ({
   opportunityId,
   type
 }: OpportunityDocumentFormProps) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
@@ -296,14 +298,14 @@ export const useOpportunityDocuments = ({
         .remove([getPath(attachment)]);
 
       if (!result || result.error) {
-        toast.error(result?.error?.message || "Error deleting file");
+        toast.error(result?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success(`${attachment.name} deleted successfully`);
+      toast.success(t("fileDeleted", { name: attachment.name }));
       revalidator.revalidate();
     },
-    [carbon?.storage, getPath, revalidator]
+    [carbon?.storage, getPath, revalidator, t]
   );
 
   const download = useCallback(
@@ -321,11 +323,11 @@ export const useOpportunityDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
-    [getPath]
+    [getPath, t]
   );
 
   const createDocumentRecord = useCallback(
@@ -358,13 +360,13 @@ export const useOpportunityDocuments = ({
   const upload = useCallback(
     async (files: File[]) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       for (const file of files) {
         const fileName = getPath(file);
-        toast.info(`Uploading ${file.name}`);
+        toast.info(t("uploadingFile", { name: file.name }));
 
         const fileUpload = await carbon.storage
           .from("private")
@@ -374,9 +376,9 @@ export const useOpportunityDocuments = ({
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
-          toast.success(`Uploaded: ${file.name}`);
+          toast.success(t("fileUploaded", { name: file.name }));
           createDocumentRecord({
             path: fileUpload.data.path,
             name: file.name,
@@ -386,7 +388,7 @@ export const useOpportunityDocuments = ({
       }
       revalidator.revalidate();
     },
-    [getPath, createDocumentRecord, carbon, revalidator]
+    [getPath, createDocumentRecord, carbon, revalidator, t]
   );
 
   return {

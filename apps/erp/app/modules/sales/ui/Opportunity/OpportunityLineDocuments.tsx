@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -54,6 +55,7 @@ const useOpportunityLineDocuments = ({
   itemId?: string | null;
   type: "Request for Quote" | "Sales Order" | "Quote" | "Sales Invoice";
 }) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const revalidator = useRevalidator();
   const { carbon } = useCarbon();
@@ -88,11 +90,11 @@ const useOpportunityLineDocuments = ({
         .remove([getPath(file, bucket as "opportunity-line" | "parts")]);
 
       if (!fileDelete || fileDelete.error) {
-        toast.error(fileDelete?.error?.message || "Error deleting file");
+        toast.error(fileDelete?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success(`${file.name} deleted successfully`);
+      toast.success(t("fileDeleted", { name: file.name }));
       revalidator.revalidate();
     },
     [getPath, carbon?.storage, revalidator]
@@ -127,26 +129,26 @@ const useOpportunityLineDocuments = ({
       ]);
 
       if (salesRfqLineResult.error) {
-        toast.error("Error removing model from RFQ line");
+        toast.error(t("errorRemovingModelFromRfqLine"));
         return;
       }
 
       if (quoteLineResult.error) {
-        toast.error("Error removing model from quote line");
+        toast.error(t("errorRemovingModelFromQuoteLine"));
         return;
       }
 
       if (salesOrderLineResult.error) {
-        toast.error("Error removing model from sales order line");
+        toast.error(t("errorRemovingModelFromSalesOrderLine"));
         return;
       }
 
       if (salesInvoiceLineResult.error) {
-        toast.error("Error removing model from sales invoice line");
+        toast.error(t("errorRemovingModelFromInvoiceLine"));
         return;
       }
 
-      toast.success("Model removed from line");
+      toast.success(t("modelRemovedFromLine"));
       revalidator.revalidate();
     },
     [carbon, revalidator]
@@ -155,7 +157,7 @@ const useOpportunityLineDocuments = ({
   const downloadModel = useCallback(
     async (model: ModelUpload) => {
       if (!model.modelPath || !model.modelName) {
-        toast.error("Model data is missing");
+        toast.error(t("modelDataMissing"));
         return;
       }
 
@@ -172,7 +174,7 @@ const useOpportunityLineDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
@@ -199,7 +201,7 @@ const useOpportunityLineDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
@@ -249,12 +251,12 @@ const useOpportunityLineDocuments = ({
       bucket: "opportunity-line" | "parts" = "opportunity-line"
     ) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       if (bucket === "parts" && !itemId) {
-        toast.error("Cannot upload to parts bucket without item ID");
+        toast.error(t("cannotUploadToPartsBucketWithoutItemId"));
         return;
       }
 
@@ -269,7 +271,7 @@ const useOpportunityLineDocuments = ({
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
           createDocumentRecord({
             path: fileUpload.data.path,
@@ -290,12 +292,12 @@ const useOpportunityLineDocuments = ({
       targetBucket: "opportunity-line" | "parts"
     ) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       if (targetBucket === "parts" && !itemId) {
-        toast.error("Cannot move to parts bucket without item ID");
+        toast.error(t("cannotMoveToPartsBucketWithoutItemId"));
         return;
       }
 
@@ -303,7 +305,7 @@ const useOpportunityLineDocuments = ({
         file.bucket === "parts" ? "parts" : "opportunity-line";
 
       if (currentBucket === targetBucket) {
-        toast.error("File is already in the selected bucket");
+        toast.error(t("fileAlreadyInSelectedBucket"));
         return;
       }
 
@@ -315,7 +317,7 @@ const useOpportunityLineDocuments = ({
           .download(sourcePath);
 
         if (!downloadData) {
-          toast.error("Failed to download file for moving");
+          toast.error(t("failedToDownloadFileForMoving"));
           return;
         }
 
@@ -329,7 +331,7 @@ const useOpportunityLineDocuments = ({
           });
 
         if (uploadError) {
-          toast.error("Failed to upload file to new location");
+          toast.error(t("failedToUploadFileToNewLocation"));
           return;
         }
 
@@ -339,18 +341,20 @@ const useOpportunityLineDocuments = ({
           .remove([sourcePath]);
 
         if (deleteError) {
-          toast.error("Failed to delete file from old location");
+          toast.error(t("failedToDeleteFileFromOldLocation"));
           return;
         }
 
         toast.success(
-          `Moved ${file.name} to ${
-            targetBucket === "parts" ? "Parts" : "Opportunity"
-          } bucket`
+          t("fileMovedToBucket", {
+            name: file.name,
+            bucket:
+              targetBucket === "parts" ? t("partsBucket") : t("opportunityBucket")
+          })
         );
         revalidator.revalidate();
       } catch (error) {
-        toast.error("Error moving file");
+        toast.error(t("errorMovingFile"));
         console.error(error);
       }
     },

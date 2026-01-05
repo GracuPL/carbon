@@ -1,5 +1,6 @@
 "use client";
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import { Array as ArrayInput, Input, ValidatedForm } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import {
@@ -273,6 +274,7 @@ const QuoteBillOfProcess = ({
   operations: initialOperations,
   tags
 }: QuoteBillOfProcessProps) => {
+  const { t } = useTranslation("sales");
   const { carbon } = useCarbon();
   const sortOrderFetcher = useFetcher<{}>();
   const deleteOperationFetcher = useFetcher<{ success: boolean }>();
@@ -403,7 +405,7 @@ const QuoteBillOfProcess = ({
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -873,6 +875,7 @@ function AttributesForm({
   temporaryItems: TemporaryItems;
   itemMentions: { id: string; label: string }[];
 }) {
+  const { t } = useTranslation("sales");
   const fetcher = useFetcher<typeof newQuoteOperationParameterAction>();
   const sortOrderFetcher = useFetcher<{ success: boolean }>();
   const [type, setType] = useState<OperationStep["type"]>("Task");
@@ -933,12 +936,12 @@ function AttributesForm({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -1147,6 +1150,7 @@ function AttributesListItem({
   itemMentions: { id: string; label: string }[];
   className?: string;
 }) {
+  const { t } = useTranslation("sales");
   const {
     name,
     unitOfMeasureCode,
@@ -1209,12 +1213,12 @@ function AttributesListItem({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
