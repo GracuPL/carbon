@@ -5,6 +5,7 @@ import {
   TextAreaControlled,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   BadgeCloseButton,
@@ -29,6 +30,7 @@ import { path } from "~/utils/path";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
 const Feedback = () => {
+  const { t } = useTranslation("navigation");
   const fetcher = useFetcher<typeof action>();
   const location = useLocation();
   const popoverTriggerRef = useRef<HTMLButtonElement>(null);
@@ -51,11 +53,11 @@ const Feedback = () => {
   const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && carbon) {
       const file = e.target.files[0];
-      toast.info(`Uploading ${file.name}`);
+      toast.info(t("uploadingFile", { filename: file.name }));
       const fileExtension = file.name.substring(file.name.lastIndexOf(".") + 1);
 
       if (file.size > MAX_FILE_SIZE) {
-        toast.error("File size exceeds 10MB limit");
+        toast.error(t("fileSizeExceeds"));
         return;
       }
 
@@ -68,7 +70,7 @@ const Feedback = () => {
 
       if (imageUpload.error) {
         console.error(imageUpload.error);
-        toast.error("Failed to upload image");
+        toast.error(t("failedToUploadImage"));
       }
 
       if (imageUpload.data?.path) {
@@ -83,7 +85,7 @@ const Feedback = () => {
   return (
     <Popover>
       <PopoverTrigger ref={popoverTriggerRef} asChild>
-        <Button variant="secondary">Feedback</Button>
+        <Button variant="secondary">{t("feedback")}</Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[380px] ">
         <ValidatedForm
@@ -105,7 +107,7 @@ const Feedback = () => {
                 label=""
                 value={feedback}
                 onChange={(value) => setFeedback(value)}
-                placeholder="Ideas, suggestions or problems with this page?"
+                placeholder={t("feedbackPlaceholder")}
               />
               {attachment && (
                 <Badge className="-mt-2 truncate" variant="secondary">
@@ -128,7 +130,7 @@ const Feedback = () => {
                   popoverTriggerRef.current?.click();
                 }}
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <HStack spacing={1}>
                 <Button
@@ -136,11 +138,11 @@ const Feedback = () => {
                   variant="secondary"
                   onClick={() => setFeedback("")}
                 >
-                  Clear
+                  {t("clear")}
                 </Button>
                 <File
                   accept="image/*"
-                  aria-label="Attach File"
+                  aria-label={t("attachFile")}
                   className="px-2"
                   isDisabled={!!attachment}
                   variant="secondary"
@@ -148,13 +150,13 @@ const Feedback = () => {
                 >
                   <LuImage />
                 </File>
-                <Submit isDisabled={feedback.length < 3}>Send</Submit>
+                <Submit isDisabled={feedback.length < 3}>{t("send")}</Submit>
               </HStack>
             </HStack>
             <p className="text-sm">
-              Have a technical issue? Contact{" "}
+              {t("technicalIssue")}{" "}
               <a className="text-primary" href={`mailto:${SUPPORT_EMAIL}`}>
-                Carbon Support.
+                {t("carbonSupport")}.
               </a>
             </p>
           </VStack>

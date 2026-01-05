@@ -146,7 +146,7 @@ export default function InventorySettingsRoute() {
               </div>
             </CardContent>
             <CardFooter>
-              <Submit>Save</Submit>
+              <Submit />
             </CardFooter>
           </ValidatedForm>
         </Card>

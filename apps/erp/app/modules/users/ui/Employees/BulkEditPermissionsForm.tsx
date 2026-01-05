@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -30,6 +31,7 @@ const BulkEditPermissions = ({
   isOpen,
   onClose
 }: BulkEditPermissionsProps) => {
+  const { t } = useTranslation("navigation");
   const [permissions, setPermissions] = useState<
     Record<string, CompanyPermission>
   >({});
@@ -131,9 +133,9 @@ const BulkEditPermissions = ({
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit>Save</Submit>
+              <Submit />
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

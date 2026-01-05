@@ -36,7 +36,7 @@ const CompanyForm = ({ company }: CompanyFormProps) => {
             <Input name="email" label="Email" />
             <Input name="website" label="Website" />
           </div>
-          <Submit>Save</Submit>
+          <Submit />
         </VStack>
       </ValidatedForm>
     </>

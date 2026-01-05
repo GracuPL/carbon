@@ -1,4 +1,5 @@
 import { useFormState } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import type { ButtonProps } from "@carbon/react";
 import {
   Button,
@@ -39,6 +40,7 @@ export function DefaultDisabledSubmit({
 
 export const Submit = forwardRef<HTMLButtonElement, SubmitProps>(
   ({ formId, children, isDisabled, withBlocker = true, ...props }, ref) => {
+    const { t } = useTranslation("navigation");
     const isSubmitting = useIsSubmitting(formId);
     const transition = useNavigation();
     const isIdle = transition.state === "idle";
@@ -63,23 +65,23 @@ export const Submit = forwardRef<HTMLButtonElement, SubmitProps>(
           isDisabled={isDisabled || isSubmitting || !isIdle}
           {...props}
         >
-          {children}
+          {children ?? t("save")}
         </Button>
         {blocker.state === "blocked" && (
           <Modal open onOpenChange={(open) => !open && blocker.reset()}>
             <ModalContent>
               <ModalHeader>
-                <ModalTitle>Unsaved changes</ModalTitle>
+                <ModalTitle>{t("unsavedChanges")}</ModalTitle>
               </ModalHeader>
               <ModalBody>
-                <p>Are you sure you want to leave this page?</p>
+                <p>{t("leavePageConfirm")}</p>
               </ModalBody>
               <ModalFooter>
                 <Button variant="secondary" onClick={() => blocker.reset()}>
-                  Stay on this page
+                  {t("stayOnPage")}
                 </Button>
                 <Button onClick={() => blocker.proceed()}>
-                  Leave this page
+                  {t("leavePage")}
                 </Button>
               </ModalFooter>
             </ModalContent>

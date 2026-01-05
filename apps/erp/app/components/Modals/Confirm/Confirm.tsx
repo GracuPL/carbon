@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Modal,
@@ -17,7 +18,7 @@ type ConfirmProps = {
   isOpen?: boolean;
   title: string;
   text: string;
-  confirmText: string;
+  confirmText?: string;
   onCancel: () => void;
   onSubmit?: () => void;
 };
@@ -27,10 +28,11 @@ const Confirm = ({
   isOpen = true,
   title,
   text,
-  confirmText = "Confirm",
+  confirmText,
   onCancel,
   onSubmit
 }: ConfirmProps) => {
+  const { t } = useTranslation("navigation");
   const fetcher = useFetcher<{ success: boolean; message: string }>();
   const submitted = useRef(false);
 
@@ -66,7 +68,7 @@ const Confirm = ({
         <ModalBody>{text}</ModalBody>
         <ModalFooter>
           <Button variant="secondary" onClick={onCancel}>
-            Cancel
+            {t("cancel")}
           </Button>
           <fetcher.Form
             method="post"
@@ -78,7 +80,7 @@ const Confirm = ({
               isDisabled={fetcher.state !== "idle"}
               type="submit"
             >
-              {confirmText}
+              {confirmText ?? t("confirm")}
             </Button>
           </fetcher.Form>
         </ModalFooter>
