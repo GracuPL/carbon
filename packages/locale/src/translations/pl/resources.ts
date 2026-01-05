@@ -2,6 +2,12 @@ export const resources = {
   // Module title - Tytuł modułu
   title: "Zasoby",
 
+  // Navigation groups - Grupy nawigacji
+  infrastructure: "Infrastruktura",
+  people: "Ludzie",
+  schedules: "Harmonogramy",
+  assignments: "Przypisania",
+
   // Dashboard cards - Karty pulpitu
   openDispatches: "Otwarte dyspozycje",
   openScheduled: "Otwarte planowane",

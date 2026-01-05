@@ -30,5 +30,27 @@ export const navigation = {
 
   // Search
   search: "Search",
-  suggestion: "Suggestion"
+  searchPlaceholder: "Type a command or search...",
+  recentSearches: "Recent Searches",
+  searchResults: "Search Results",
+  loading: "Loading...",
+  noResults: "No results found.",
+
+  // Suggestion
+  suggestion: "Suggestion",
+  suggestionPlaceholder: "Ideas, suggestions or problems?",
+  submitAnonymously: "Submit anonymously",
+  cancel: "Cancel",
+  clear: "Clear",
+  send: "Send",
+
+  // Dashboard / Charts
+  prettyEmptyAroundHere: "Pretty empty around here",
+  allCustomers: "All Customers",
+  lastInterval: "Last {{interval}}",
+  week: "Week",
+  month: "Month",
+  quarter: "Quarter",
+  year: "Year",
+  custom: "Custom"
 } as const;

@@ -2,6 +2,9 @@ export const accounting = {
   // Module title
   title: "Accounting",
 
+  // Navigation groups
+  configure: "Configure",
+
   // Main entities
   account: "Account",
   accounts: "Accounts",
@@ -99,5 +102,13 @@ export const accounting = {
   salesDiscount: "Sales Discount",
   salesCredit: "Sales Credit",
   salesPrepayment: "Sales Prepayment",
-  salesTaxPayable: "Sales Tax Payable"
+  salesTaxPayable: "Sales Tax Payable",
+
+  // Chart of Accounts Filters
+  dateRange: "Date Range",
+  editDateRange: "Edit date range",
+  dateRangeDescription: "Select date range to filter net change and balance at date",
+  startDate: "Start Date",
+  endDate: "End Date",
+  reset: "Reset"
 } as const;

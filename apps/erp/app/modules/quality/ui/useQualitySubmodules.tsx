@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   LuCircleGauge,
   LuDraftingCompass,
@@ -15,93 +16,95 @@ import { useSavedViews } from "~/hooks/useSavedViews";
 import type { AuthenticatedRouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const qualityRoutes: AuthenticatedRouteGroup[] = [
-  {
-    name: "Issues",
-    routes: [
-      {
-        name: "Actions",
-        to: path.to.qualityActions,
-        icon: <LuListChecks />,
-        table: "nonConformanceActionTask"
-      },
-
-      {
-        name: "Issues",
-        to: path.to.issues,
-        icon: <LuShieldX />,
-        table: "nonConformance"
-      },
-      {
-        name: "Risks",
-        to: path.to.risks,
-        icon: <LuShieldAlert />,
-        table: "riskRegister"
-      }
-      // {
-      //   name: "Inspections",
-      //   to: "#",
-      //   icon: <LuSearchCheck />,
-      //   table: "inspection",
-      // },
-    ]
-  },
-  {
-    name: "Calibrations",
-    routes: [
-      {
-        name: "Gauges",
-        to: path.to.gauges,
-        icon: <LuDraftingCompass />
-      },
-      {
-        name: "Records",
-        to: path.to.calibrations,
-        icon: <LuCircleGauge />
-      }
-    ]
-  },
-  {
-    name: "Documents",
-    routes: [
-      {
-        name: "Documents",
-        to: path.to.qualityDocuments,
-        icon: <LuFileText />,
-        table: "qualityDocument"
-      }
-    ]
-  },
-  {
-    name: "Configure",
-    routes: [
-      {
-        name: "Action Types",
-        to: path.to.requiredActions,
-        icon: <LuSquareCheck />
-      },
-
-      {
-        name: "Gauge Types",
-        to: path.to.gaugeTypes,
-        icon: <LuShapes />
-      },
-      {
-        name: "Issue Types",
-        to: path.to.issueTypes,
-        icon: <LuOctagonX />
-      },
-      {
-        name: "Issue Workflows",
-        to: path.to.issueWorkflows,
-        icon: <LuWorkflow />
-      }
-    ]
-  }
-];
 export default function useQualitySubmodules() {
+  const { t } = useTranslation("quality");
   const permissions = usePermissions();
   const { addSavedViewsToRoutes } = useSavedViews();
+
+  const qualityRoutes: AuthenticatedRouteGroup[] = [
+    {
+      name: t("issues"),
+      routes: [
+        {
+          name: t("actions"),
+          to: path.to.qualityActions,
+          icon: <LuListChecks />,
+          table: "nonConformanceActionTask"
+        },
+
+        {
+          name: t("issues"),
+          to: path.to.issues,
+          icon: <LuShieldX />,
+          table: "nonConformance"
+        },
+        {
+          name: t("risks"),
+          to: path.to.risks,
+          icon: <LuShieldAlert />,
+          table: "riskRegister"
+        }
+        // {
+        //   name: "Inspections",
+        //   to: "#",
+        //   icon: <LuSearchCheck />,
+        //   table: "inspection",
+        // },
+      ]
+    },
+    {
+      name: t("calibrations"),
+      routes: [
+        {
+          name: t("gauges"),
+          to: path.to.gauges,
+          icon: <LuDraftingCompass />
+        },
+        {
+          name: t("records"),
+          to: path.to.calibrations,
+          icon: <LuCircleGauge />
+        }
+      ]
+    },
+    {
+      name: t("documents"),
+      routes: [
+        {
+          name: t("documents"),
+          to: path.to.qualityDocuments,
+          icon: <LuFileText />,
+          table: "qualityDocument"
+        }
+      ]
+    },
+    {
+      name: t("configure"),
+      routes: [
+        {
+          name: t("actionTypes"),
+          to: path.to.requiredActions,
+          icon: <LuSquareCheck />
+        },
+
+        {
+          name: t("gaugeTypes"),
+          to: path.to.gaugeTypes,
+          icon: <LuShapes />
+        },
+        {
+          name: t("issueTypes"),
+          to: path.to.issueTypes,
+          icon: <LuOctagonX />
+        },
+        {
+          name: t("issueWorkflows"),
+          to: path.to.issueWorkflows,
+          icon: <LuWorkflow />
+        }
+      ]
+    }
+  ];
 
   return {
     groups: qualityRoutes

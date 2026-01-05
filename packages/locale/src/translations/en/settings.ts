@@ -2,6 +2,22 @@ export const settings = {
   // Module title
   title: "Settings",
 
+  // Navigation groups
+  company: "Company",
+  modules: "Modules",
+  system: "System",
+  billing: "Billing",
+  labels: "Labels",
+  logos: "Logos",
+  inventory: "Inventory",
+  items: "Items",
+  purchasing: "Purchasing",
+  production: "Production",
+  quality: "Quality",
+  sales: "Sales",
+  resources: "Resources",
+  integrations: "Integrations",
+
   // API Keys
   apiKey: "API Key",
   apiKeys: "API Keys",
@@ -40,5 +56,10 @@ export const settings = {
   // Common fields
   name: "Name",
   createdBy: "Created By",
-  createdAt: "Created At"
+  createdAt: "Created At",
+
+  // Custom Fields Detail
+  editCustomField: "Edit Custom Field",
+  deleteCustomField: "Delete Custom Field",
+  confirmDeleteCustomField: "Are you sure you want to delete the {{name}} field?"
 } as const;

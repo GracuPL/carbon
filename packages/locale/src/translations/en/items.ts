@@ -2,6 +2,17 @@ export const items = {
   // Module title
   title: "Items",
 
+  // Navigation groups
+  manage: "Manage",
+  configureMaterials: "Configure Materials",
+  configure: "Configure",
+
+  // Navigation items
+  itemGroups: "Item Groups",
+  units: "Units",
+  substances: "Substances",
+  types: "Types",
+
   // Entity types
   part: "Part",
   parts: "Parts",

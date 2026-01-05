@@ -2,6 +2,15 @@ export const purchasing = {
   // Module title
   title: "Purchasing",
 
+  // Navigation groups
+  manage: "Manage",
+  plan: "Plan",
+  configure: "Configure",
+
+  // Navigation items
+  planning: "Planning",
+  types: "Types",
+
   // Dashboard cards
   openPurchaseOrders: "Open Purchase Orders",
   openPurchaseInvoices: "Open Purchase Invoices",

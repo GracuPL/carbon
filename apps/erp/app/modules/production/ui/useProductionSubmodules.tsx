@@ -1,76 +1,75 @@
+import { useTranslation } from "@carbon/locale";
 import {
-  LuCalendarClock,
   LuChartLine,
-  LuCircleAlert,
   LuHardHat,
   LuListChecks,
   LuSquareChartGantt,
   LuSquareKanban,
-  LuTrash,
-  LuWrench
+  LuTrash
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
 import type { AuthenticatedRouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const productionRoutes: AuthenticatedRouteGroup[] = [
-  {
-    name: "Production",
-    routes: [
-      {
-        name: "Jobs",
-        to: path.to.jobs,
-        icon: <LuHardHat />,
-        table: "job"
-      },
-      {
-        name: "Procedures",
-        to: path.to.procedures,
-        icon: <LuListChecks />,
-        table: "procedure",
-        role: "employee"
-      }
-    ]
-  },
-  {
-    name: "Plan",
-    routes: [
-      {
-        name: "Planning",
-        to: path.to.productionPlanning,
-        icon: <LuSquareChartGantt />,
-        table: "production-planning"
-      },
-      {
-        name: "Projections",
-        to: path.to.demandProjections,
-        icon: <LuChartLine />,
-        table: "demand-projection"
-      },
-      {
-        name: "Schedule",
-        to: path.to.scheduleDates,
-        icon: <LuSquareKanban />
-      }
-    ]
-  },
-  {
-    name: "Configure",
-    routes: [
-      {
-        name: "Scrap Reasons",
-        to: path.to.scrapReasons,
-        role: "employee",
-        icon: <LuTrash />
-      }
-    ]
-  }
-];
-
 export default function useProductionSubmodules() {
+  const { t } = useTranslation("production");
   const permissions = usePermissions();
   const { addSavedViewsToRoutes } = useSavedViews();
+
+  const productionRoutes: AuthenticatedRouteGroup[] = [
+    {
+      name: t("title"),
+      routes: [
+        {
+          name: t("jobs"),
+          to: path.to.jobs,
+          icon: <LuHardHat />,
+          table: "job"
+        },
+        {
+          name: t("procedures"),
+          to: path.to.procedures,
+          icon: <LuListChecks />,
+          table: "procedure",
+          role: "employee"
+        }
+      ]
+    },
+    {
+      name: t("plan"),
+      routes: [
+        {
+          name: t("planning"),
+          to: path.to.productionPlanning,
+          icon: <LuSquareChartGantt />,
+          table: "production-planning"
+        },
+        {
+          name: t("projections"),
+          to: path.to.demandProjections,
+          icon: <LuChartLine />,
+          table: "demand-projection"
+        },
+        {
+          name: t("schedule"),
+          to: path.to.scheduleDates,
+          icon: <LuSquareKanban />
+        }
+      ]
+    },
+    {
+      name: t("configure"),
+      routes: [
+        {
+          name: t("scrapReasons"),
+          to: path.to.scrapReasons,
+          role: "employee",
+          icon: <LuTrash />
+        }
+      ]
+    }
+  ];
 
   return {
     groups: productionRoutes

@@ -2,6 +2,12 @@ export const resources = {
   // Module title
   title: "Resources",
 
+  // Navigation groups
+  infrastructure: "Infrastructure",
+  people: "People",
+  schedules: "Schedules",
+  assignments: "Assignments",
+
   // Dashboard cards
   openDispatches: "Open Dispatches",
   openScheduled: "Open Scheduled",

@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   LuArrowRightLeft,
   LuHandCoins,
@@ -13,89 +14,90 @@ import { useSavedViews } from "~/hooks/useSavedViews";
 import type { AuthenticatedRouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const inventoryRoutes: AuthenticatedRouteGroup[] = [
-  {
-    name: "Manage",
-    routes: [
-      {
-        name: "Receipts",
-        to: path.to.receipts,
-        icon: <LuHandCoins />,
-        table: "receipt"
-      },
-      {
-        name: "Shipments",
-        to: path.to.shipments,
-        icon: <LuTruck />,
-        table: "shipment"
-      },
-      {
-        name: "Stock Transfers",
-        to: path.to.stockTransfers,
-        icon: <LuListChecks />,
-        table: "stockTransfer"
-      },
-      {
-        name: "Warehouse Transfers",
-        to: path.to.warehouseTransfers,
-        icon: <LuArrowRightLeft />,
-        table: "warehouseTransfer"
-      }
-    ]
-  },
-  {
-    name: "Track",
-    routes: [
-      {
-        name: "Kanbans",
-        to: path.to.kanbans,
-        role: "employee",
-        icon: <LuQrCode />
-      },
-      {
-        name: "Quantities",
-        to: path.to.inventory,
-        role: "employee",
-        icon: <LuTally5 />,
-        table: "inventory"
-      },
-      {
-        name: "Tracked Entities",
-        to: path.to.trackedEntities,
-        role: "employee",
-        icon: <LuQrCode />
-      },
-      {
-        name: "Traceability",
-        to: path.to.traceability,
-        role: "employee",
-        icon: <LuNetwork />
-      }
-    ]
-  },
-  {
-    name: "Configure",
-    routes: [
-      {
-        name: "Shelves",
-        to: path.to.shelves,
-        role: "employee",
-        icon: <LuWarehouse />,
-        table: "shelf"
-      },
-      {
-        name: "Shipping Methods",
-        to: path.to.shippingMethods,
-        role: "employee",
-        icon: <LuTruck />
-      }
-    ]
-  }
-];
-
 export default function useInventorySubmodules() {
+  const { t } = useTranslation("inventory");
   const permissions = usePermissions();
   const { addSavedViewsToRoutes } = useSavedViews();
+
+  const inventoryRoutes: AuthenticatedRouteGroup[] = [
+    {
+      name: t("manage"),
+      routes: [
+        {
+          name: t("receipts"),
+          to: path.to.receipts,
+          icon: <LuHandCoins />,
+          table: "receipt"
+        },
+        {
+          name: t("shipments"),
+          to: path.to.shipments,
+          icon: <LuTruck />,
+          table: "shipment"
+        },
+        {
+          name: t("stockTransfers"),
+          to: path.to.stockTransfers,
+          icon: <LuListChecks />,
+          table: "stockTransfer"
+        },
+        {
+          name: t("warehouseTransfers"),
+          to: path.to.warehouseTransfers,
+          icon: <LuArrowRightLeft />,
+          table: "warehouseTransfer"
+        }
+      ]
+    },
+    {
+      name: t("track"),
+      routes: [
+        {
+          name: t("kanbans"),
+          to: path.to.kanbans,
+          role: "employee",
+          icon: <LuQrCode />
+        },
+        {
+          name: t("quantities"),
+          to: path.to.inventory,
+          role: "employee",
+          icon: <LuTally5 />,
+          table: "inventory"
+        },
+        {
+          name: t("trackedEntities"),
+          to: path.to.trackedEntities,
+          role: "employee",
+          icon: <LuQrCode />
+        },
+        {
+          name: t("traceability"),
+          to: path.to.traceability,
+          role: "employee",
+          icon: <LuNetwork />
+        }
+      ]
+    },
+    {
+      name: t("configure"),
+      routes: [
+        {
+          name: t("shelves"),
+          to: path.to.shelves,
+          role: "employee",
+          icon: <LuWarehouse />,
+          table: "shelf"
+        },
+        {
+          name: t("shippingMethods"),
+          to: path.to.shippingMethods,
+          role: "employee",
+          icon: <LuTruck />
+        }
+      ]
+    }
+  ];
 
   return {
     groups: inventoryRoutes

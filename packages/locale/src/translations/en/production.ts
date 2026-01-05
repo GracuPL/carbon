@@ -2,6 +2,17 @@ export const production = {
   // Module title
   title: "Production",
 
+  // Navigation groups
+  plan: "Plan",
+  configure: "Configure",
+
+  // Navigation items
+  procedures: "Procedures",
+  planning: "Planning",
+  projections: "Projections",
+  schedule: "Schedule",
+  scrapReasons: "Scrap Reasons",
+
   // Dashboard cards
   activeJobs: "Active Jobs",
   viewActiveJobs: "View Active Jobs",
@@ -18,8 +29,13 @@ export const production = {
   method: "Method",
   methods: "Methods",
 
-  // Charts
+  // Charts / KPIs
   utilizationPercent: "Utilization (%)",
+  workCenterUtilization: "Work Center Utilization",
+  noUtilizationData: "No work center utilization data within range",
+  estimatesVsActuals: "Estimates vs Actuals",
+  noCompletedJobs: "No completed jobs within range",
+  completionTime: "Completion Time",
 
   // Statuses
   pending: "Pending",

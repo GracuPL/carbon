@@ -2,6 +2,10 @@ export const invoicing = {
   // Module title
   title: "Invoicing",
 
+  // Navigation groups
+  manage: "Manage",
+  purchasing: "Purchasing",
+
   // Entities
   salesInvoice: "Sales Invoice",
   salesInvoices: "Sales Invoices",

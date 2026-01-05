@@ -2,6 +2,12 @@ export const users = {
   // Module title
   title: "Users",
 
+  // Navigation groups
+  manage: "Manage",
+  configure: "Configure",
+  accounts: "Accounts",
+  people: "People",
+
   // Main entities
   user: "User",
   users: "Users",

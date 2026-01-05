@@ -2,6 +2,12 @@ export const users = {
   // Module title - Tytuł modułu
   title: "Użytkownicy",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  configure: "Konfiguracja",
+  accounts: "Konta",
+  people: "Ludzie",
+
   // Main entities - Główne encje
   user: "Użytkownik",
   users: "Użytkownicy",

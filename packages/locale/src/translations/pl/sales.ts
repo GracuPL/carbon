@@ -2,6 +2,15 @@ export const sales = {
   // Module title - Tytuł modułu
   title: "Sprzedaż",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  configure: "Konfiguracja",
+
+  // Navigation items - Elementy nawigacji
+  portals: "Portale",
+  noQuotes: "Bez ofert",
+  types: "Typy",
+
   // Dashboard cards - Karty pulpitu
   openRFQs: "Otwarte zapytania",
   openQuotes: "Otwarte oferty",
@@ -16,8 +25,9 @@ export const sales = {
   assignedToMe: "Przypisane do mnie",
   assignedToMeDescription: "Dokumenty sprzedaży przypisane do mnie",
 
-  // Charts - Wykresy
+  // Charts / KPIs - Wykresy / KPI
   salesRevenue: "Przychody ze sprzedaży",
+  salesFunnel: "Lejek sprzedażowy",
   lastMonth: "Ostatni miesiąc",
   allCustomers: "Wszyscy klienci",
 

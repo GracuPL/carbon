@@ -2,6 +2,22 @@ export const settings = {
   // Module title - Tytuł modułu
   title: "Ustawienia",
 
+  // Navigation groups - Grupy nawigacji
+  company: "Firma",
+  modules: "Moduły",
+  system: "System",
+  billing: "Rozliczenia",
+  labels: "Etykiety",
+  logos: "Logotypy",
+  inventory: "Magazyn",
+  items: "Produkty",
+  purchasing: "Zakupy",
+  production: "Produkcja",
+  quality: "Jakość",
+  sales: "Sprzedaż",
+  resources: "Zasoby",
+  integrations: "Integracje",
+
   // API Keys - Klucze API
   apiKey: "Klucz API",
   apiKeys: "Klucze API",
@@ -40,5 +56,10 @@ export const settings = {
   // Common fields - Wspólne pola
   name: "Nazwa",
   createdBy: "Utworzony przez",
-  createdAt: "Utworzony"
+  createdAt: "Utworzony",
+
+  // Custom Fields Detail - Szczegóły pól niestandardowych
+  editCustomField: "Edytuj pole niestandardowe",
+  deleteCustomField: "Usuń pole niestandardowe",
+  confirmDeleteCustomField: "Czy na pewno chcesz usunąć pole {{name}}?"
 } as const;

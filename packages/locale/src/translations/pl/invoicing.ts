@@ -2,6 +2,10 @@ export const invoicing = {
   // Module title - Tytuł modułu
   title: "Fakturowanie",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  purchasing: "Zakupy",
+
   // Entities - Encje
   salesInvoice: "Faktura sprzedaży",
   salesInvoices: "Faktury sprzedaży",

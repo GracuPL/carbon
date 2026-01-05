@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   LuBan,
   LuCreditCard,
@@ -16,78 +17,79 @@ import { useSavedViews } from "~/hooks/useSavedViews";
 import type { AuthenticatedRouteGroup } from "~/types";
 import { path } from "~/utils/path";
 
-const salesRoutes: AuthenticatedRouteGroup[] = [
-  {
-    name: "Manage",
-    routes: [
-      {
-        name: "Customers",
-        to: path.to.customers,
-        icon: <LuSquareUser />,
-        table: "customer"
-      },
-      {
-        name: "RFQs",
-        to: path.to.salesRfqs,
-        icon: <RiProgress2Line />,
-        table: "salesRfq"
-      },
-      {
-        name: "Quotes",
-        to: path.to.quotes,
-        icon: <RiProgress4Line />,
-        table: "quote"
-      },
-      {
-        name: "Orders",
-        to: path.to.salesOrders,
-        icon: <RiProgress8Line />,
-        table: "salesOrder"
-      },
-      {
-        name: "Invoices",
-        to: path.to.salesInvoices,
-        icon: <LuCreditCard />,
-        permission: "invoicing",
-        table: "salesInvoice"
-      },
-      {
-        name: "Portals",
-        to: path.to.customerPortals,
-        role: "employee",
-        icon: <LuGlobe />
-      }
-    ]
-  },
-  {
-    name: "Configure",
-    routes: [
-      {
-        name: "No Quotes",
-        to: path.to.noQuoteReasons,
-        role: "employee",
-        icon: <LuBan />
-      },
-
-      {
-        name: "Statuses",
-        to: path.to.customerStatuses,
-        role: "employee",
-        icon: <LuStar />
-      },
-      {
-        name: "Types",
-        to: path.to.customerTypes,
-        role: "employee",
-        icon: <LuShapes />
-      }
-    ]
-  }
-];
-
 export default function useSalesSubmodules() {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const { addSavedViewsToRoutes } = useSavedViews();
+
+  const salesRoutes: AuthenticatedRouteGroup[] = [
+    {
+      name: t("manage"),
+      routes: [
+        {
+          name: t("customers"),
+          to: path.to.customers,
+          icon: <LuSquareUser />,
+          table: "customer"
+        },
+        {
+          name: t("rfqs"),
+          to: path.to.salesRfqs,
+          icon: <RiProgress2Line />,
+          table: "salesRfq"
+        },
+        {
+          name: t("quotes"),
+          to: path.to.quotes,
+          icon: <RiProgress4Line />,
+          table: "quote"
+        },
+        {
+          name: t("orders"),
+          to: path.to.salesOrders,
+          icon: <RiProgress8Line />,
+          table: "salesOrder"
+        },
+        {
+          name: t("invoices"),
+          to: path.to.salesInvoices,
+          icon: <LuCreditCard />,
+          permission: "invoicing",
+          table: "salesInvoice"
+        },
+        {
+          name: t("portals"),
+          to: path.to.customerPortals,
+          role: "employee",
+          icon: <LuGlobe />
+        }
+      ]
+    },
+    {
+      name: t("configure"),
+      routes: [
+        {
+          name: t("noQuotes"),
+          to: path.to.noQuoteReasons,
+          role: "employee",
+          icon: <LuBan />
+        },
+
+        {
+          name: t("statuses"),
+          to: path.to.customerStatuses,
+          role: "employee",
+          icon: <LuStar />
+        },
+        {
+          name: t("types"),
+          to: path.to.customerTypes,
+          role: "employee",
+          icon: <LuShapes />
+        }
+      ]
+    }
+  ];
 
   return {
     groups: salesRoutes

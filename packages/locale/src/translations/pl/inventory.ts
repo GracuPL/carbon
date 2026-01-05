@@ -2,6 +2,11 @@ export const inventory = {
   // Module title - Tytuł modułu
   title: "Magazyn",
 
+  // Navigation groups - Grupy nawigacji
+  manage: "Zarządzaj",
+  track: "Śledź",
+  configure: "Konfiguracja",
+
   // Main views - Główne widoki
   quantities: "Stany magazynowe",
   kanbans: "Kanbany",

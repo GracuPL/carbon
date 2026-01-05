@@ -30,5 +30,27 @@ export const navigation = {
 
   // Search - Wyszukiwanie
   search: "Szukaj",
-  suggestion: "Sugestia"
+  searchPlaceholder: "Wpisz polecenie lub szukaj...",
+  recentSearches: "Ostatnie wyszukiwania",
+  searchResults: "Wyniki wyszukiwania",
+  loading: "Ładowanie...",
+  noResults: "Nie znaleziono wyników.",
+
+  // Suggestion - Sugestia
+  suggestion: "Sugestia",
+  suggestionPlaceholder: "Pomysły, sugestie lub problemy?",
+  submitAnonymously: "Wyślij anonimowo",
+  cancel: "Anuluj",
+  clear: "Wyczyść",
+  send: "Wyślij",
+
+  // Dashboard / Charts - Pulpit / Wykresy
+  prettyEmptyAroundHere: "Tu jest dość pusto",
+  allCustomers: "Wszyscy klienci",
+  lastInterval: "Ostatni {{interval}}",
+  week: "Tydzień",
+  month: "Miesiąc",
+  quarter: "Kwartał",
+  year: "Rok",
+  custom: "Własny"
 } as const;

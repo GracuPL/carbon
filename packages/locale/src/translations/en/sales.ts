@@ -2,6 +2,15 @@ export const sales = {
   // Module title
   title: "Sales",
 
+  // Navigation groups
+  manage: "Manage",
+  configure: "Configure",
+
+  // Navigation items
+  portals: "Portals",
+  noQuotes: "No Quotes",
+  types: "Types",
+
   // Dashboard cards
   openRFQs: "Open RFQs",
   openQuotes: "Open Quotes",
@@ -16,8 +25,9 @@ export const sales = {
   assignedToMe: "Assigned to Me",
   assignedToMeDescription: "Sales documents currently assigned to me",
 
-  // Charts
+  // Charts / KPIs
   salesRevenue: "Sales Revenue",
+  salesFunnel: "Sales Funnel",
   lastMonth: "Last Month",
   allCustomers: "All Customers",
 

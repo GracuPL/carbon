@@ -2,6 +2,9 @@ export const quality = {
   // Module title - Tytuł modułu
   title: "Jakość",
 
+  // Navigation groups - Grupy nawigacji
+  configure: "Konfiguracja",
+
   // Main entities - Główne encje
   issue: "Problem",
   issues: "Problemy",

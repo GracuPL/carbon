@@ -2,6 +2,13 @@ export const documents = {
   // Module title - Tytuł modułu
   title: "Dokumenty",
 
+  // Navigation items - Elementy nawigacji
+  allDocuments: "Wszystkie dokumenty",
+  myDocuments: "Moje dokumenty",
+  recent: "Ostatnie",
+  pinned: "Przypięte",
+  trash: "Kosz",
+
   // Entities - Encje
   document: "Dokument",
 

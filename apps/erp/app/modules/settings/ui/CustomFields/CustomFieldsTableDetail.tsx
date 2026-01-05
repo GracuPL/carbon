@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   ActionMenu,
   Button,
@@ -51,6 +52,7 @@ const CustomFieldCategoryDetail = ({
   dataTypes,
   onClose
 }: CustomFieldCategoryDetailProps) => {
+  const { t } = useTranslation("settings");
   const sortOrderFetcher = useFetcher<{}>();
   const { table } = useParams();
   if (!table) throw new Error("table is not found");
@@ -149,12 +151,12 @@ const CustomFieldCategoryDetail = ({
         <MenuItem asChild>
           <Link to={`${fieldId}?${params.toString()}`}>
             <MenuIcon icon={<LuPencil />} />
-            Edit Custom Field
+            {t("editCustomField")}
           </Link>
         </MenuItem>
         <MenuItem destructive onClick={() => onDelete(fieldMap[fieldId])}>
           <MenuIcon icon={<LuTrash />} />
-          Delete Custom Field
+          {t("deleteCustomField")}
         </MenuItem>
       </>
     );
@@ -216,7 +218,7 @@ const CustomFieldCategoryDetail = ({
           </DrawerBody>
           <DrawerFooter>
             <Button asChild size="md">
-              <New label="Custom Field" to={`new?${params?.toString()}`} />
+              <New label={t("customField")} to={`new?${params?.toString()}`} />
             </Button>
           </DrawerFooter>
         </DrawerContent>
@@ -226,7 +228,7 @@ const CustomFieldCategoryDetail = ({
           isOpen={deleteModal.isOpen}
           action={path.to.deleteCustomField(table, selectedCustomField.id)}
           name={selectedCustomField?.name ?? ""}
-          text={`Are you sure you want to delete the ${selectedCustomField?.name} field?`}
+          text={t("confirmDeleteCustomField", { name: selectedCustomField?.name })}
           onSubmit={onDeleteCancel}
           onCancel={onDeleteCancel}
         />
