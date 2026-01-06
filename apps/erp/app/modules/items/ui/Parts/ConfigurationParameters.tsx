@@ -6,6 +6,7 @@ import {
   Submit,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -93,6 +94,7 @@ export default function ConfigurationParametersForm({
   parameters: ConfigurationParameter[];
   groups: ConfigurationParameterGroup[];
 }) {
+  const { t } = useTranslation("items");
   const {
     isList,
     itemId,
@@ -108,9 +110,9 @@ export default function ConfigurationParametersForm({
 
   useEffect(() => {
     if (fetcher.data?.success === false) {
-      toast.error("Failed to update configuration parameter");
+      toast.error(t("failedToUpdateConfigParameter"));
     }
-  }, [fetcher.data]);
+  }, [fetcher.data, t]);
 
   const groupDisclosure = useDisclosure();
   const deleteGroupDisclosure = useDisclosure();

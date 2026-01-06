@@ -186,5 +186,51 @@ export const items = {
   // Method Operations Table - Tabela operacji metod
   laborTime: "Czas pracy",
   machineTime: "Czas maszynowy",
-  methodOperations: "Operacje metod"
+  methodOperations: "Operacje metod",
+
+  // Toast messages - Success - Komunikaty sukcesu
+  createdMaterialFinish: "Utworzono wykończenie materiału",
+  createdMaterialGrade: "Utworzono gatunek materiału",
+  createdMaterialDimension: "Utworzono wymiar materiału",
+  createdUnitOfMeasure: "Utworzono jednostkę miary",
+  createdMaterialType: "Utworzono typ materiału",
+  createdMaterialForm: "Utworzono formę materiału",
+  createdItemGroup: "Utworzono grupę produktów",
+  createdPart: "Utworzono wyrób",
+  createdMaterial: "Utworzono materiał",
+  createdConsumable: "Utworzono materiał eksploatacyjny",
+  createdTool: "Utworzono narzędzie",
+  uploadedModel: "Przesłano model",
+  fileDeletedSuccessfully: "Plik został usunięty",
+  modelRemovedSuccessfully: "Model został usunięty z produktu",
+  uploadedFile: "Przesłano: {{name}}",
+
+  // Toast messages - Errors - Komunikaty błędów
+  failedToCreateMaterialFinish: "Nie udało się utworzyć wykończenia materiału: {{message}}",
+  failedToCreateMaterialGrade: "Nie udało się utworzyć gatunku materiału: {{message}}",
+  failedToCreateMaterialDimension: "Nie udało się utworzyć wymiaru materiału: {{message}}",
+  failedToCreateUnitOfMeasure: "Nie udało się utworzyć jednostki miary: {{message}}",
+  failedToCreateMaterialType: "Nie udało się utworzyć typu materiału: {{message}}",
+  failedToCreateMaterialForm: "Nie udało się utworzyć formy materiału: {{message}}",
+  failedToCreateItemGroup: "Nie udało się utworzyć grupy produktów: {{message}}",
+  failedToCreatePart: "Nie udało się utworzyć wyrobu: {{message}}",
+  failedToCreateMaterial: "Nie udało się utworzyć materiału: {{message}}",
+  failedToCreateConsumable: "Nie udało się utworzyć materiału eksploatacyjnego: {{message}}",
+  failedToCreateTool: "Nie udało się utworzyć narzędzia: {{message}}",
+  failedToUploadModel: "Nie udało się przesłać modelu",
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  failedToUploadFile: "Nie udało się przesłać pliku: {{name}}",
+  failedToLoadItemDetails: "Nie udało się załadować szczegółów produktu",
+  failedToUpdateConfigParameter: "Nie udało się zaktualizować parametru konfiguracji",
+  fileTypeNotSupported: "Typ pliku nie jest obsługiwany",
+  fileSizeTooBig: "Plik jest za duży (maks. {{maxSize}} MB)",
+  errorDeletingFile: "Błąd usuwania pliku",
+  errorRemovingModel: "Błąd usuwania modelu z produktu",
+  modelDataMissing: "Brak danych modelu",
+  errorDownloadingFile: "Błąd pobierania pliku",
+  carbonClientNotAvailable: "Klient Carbon niedostępny",
+  itemCannotAddToSelf: "Produkt nie może być dodany do samego siebie.",
+
+  // Toast messages - Info - Komunikaty informacyjne
+  uploadingFile: "Przesyłanie {{name}}"
 } as const;

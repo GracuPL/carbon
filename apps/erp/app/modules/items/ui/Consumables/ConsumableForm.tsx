@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   cn,
   ModalCard,
@@ -49,6 +50,7 @@ const ConsumableForm = ({
   type = "card",
   onClose
 }: ConsumableFormProps) => {
+  const { t } = useTranslation("items");
   const { company } = useUser();
   const baseCurrency = company?.baseCurrencyCode ?? "USD";
 
@@ -59,9 +61,9 @@ const ConsumableForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created consumable`);
+      toast.success(t("createdConsumable"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create consumable: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateConsumable", { message: fetcher.data.error.message }));
     }
   }, [fetcher.data, fetcher.state, onClose, type]);
 

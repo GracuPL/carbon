@@ -1,6 +1,7 @@
 "use client";
 import { useCarbon } from "@carbon/auth";
 import type { Database } from "@carbon/database";
+import { useTranslation } from "@carbon/locale";
 import { ValidatedForm } from "@carbon/form";
 import {
   Badge,
@@ -617,6 +618,7 @@ function MaterialForm({
   setOrderState: Dispatch<SetStateAction<OrderState>>;
   onSubmit: () => void;
 }) {
+  const { t } = useTranslation("sales");
   const { quoteId, lineId } = useParams();
 
   if (!quoteId) throw new Error("quoteId not found");
@@ -690,7 +692,7 @@ function MaterialForm({
   const onItemChange = async (itemId: string) => {
     if (!carbon) return;
     if (itemId === params.itemId) {
-      toast.error("An item cannot be added to itself.");
+      toast.error(t("itemCannotBeAddedToItself"));
       return;
     }
 
@@ -707,7 +709,7 @@ function MaterialForm({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

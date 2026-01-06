@@ -106,20 +106,20 @@ export const production = {
 
   // Planning - Planowanie
   planning: "Planowanie",
-  partId: "ID części",
+  partId: "ID wyrobu",
   reorderPolicy: "Polityka zamówień",
   onHand: "Na stanie",
   type: "Typ",
   blocked: "Zablokowane",
   order: "Zamów",
-  orderParts: "Zamów części",
+  orderParts: "Zamów wyroby",
   recalculate: "Przelicz ponownie",
   presentWeek: "Bieżący tydzień",
   week: "Tydzień",
 
   // Demand Projections - Projekcje popytu
   demandProjections: "Projekcje popytu",
-  part: "Część",
+  part: "Wyrób",
   edit: "Edytuj",
   delete: "Usuń",
   confirmDeleteProjection: "Czy na pewno chcesz usunąć wszystkie projekcje dla {{partId}}? Tej operacji nie można cofnąć.",
@@ -162,5 +162,36 @@ export const production = {
   productionQuantities: "Ilości produkcyjne",
   editQuantity: "Edytuj ilość",
   deleteQuantity: "Usuń ilość",
-  confirmDeleteQuantity: "Czy na pewno chcesz usunąć tę ilość produkcyjną? Tej operacji nie można cofnąć."
+  confirmDeleteQuantity: "Czy na pewno chcesz usunąć tę ilość produkcyjną? Tej operacji nie można cofnąć.",
+
+  // Toast messages - Success - Komunikaty sukcesu
+  ordersSubmitted: "Zamówienia zostały wysłane",
+  createdScrapReason: "Utworzono przyczynę braku",
+  fileDeletedSuccessfully: "{{name}} został usunięty",
+  modelRemovedFromJob: "Model został usunięty ze zlecenia",
+  fileMovedToBucket: "Przeniesiono {{name}} do folderu {{bucket}}",
+
+  // Toast messages - Errors - Komunikaty błędów
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  trackedEntityIdRequired: "Wymagany jest ID śledzonej jednostki, ale nie został znaleziony",
+  failedToFetchItemCosts: "Nie udało się pobrać kosztów pozycji",
+  unableToGetCompanyId: "Nie można uzyskać ID firmy",
+  failedToLoadItemDetails: "Nie udało się załadować szczegółów pozycji",
+  failedToLoadConfigurationParameters: "Nie udało się załadować parametrów konfiguracji",
+  errorDeletingFile: "Błąd usuwania pliku",
+  errorRemovingModelFromJob: "Błąd usuwania modelu ze zlecenia",
+  modelDataMissing: "Brak danych modelu",
+  errorDownloadingFile: "Błąd pobierania pliku",
+  carbonClientNotAvailable: "Klient Carbon niedostępny",
+  cannotUploadToPartsBucketWithoutItemId: "Nie można przesłać do folderu wyrobów bez ID pozycji",
+  failedToUploadFile: "Nie udało się przesłać pliku: {{name}}",
+  cannotMoveToPartsBucketWithoutItemId: "Nie można przenieść do folderu wyrobów bez ID pozycji",
+  fileAlreadyInSelectedBucket: "Plik jest już w wybranym folderze",
+  failedToDownloadFileForMoving: "Nie udało się pobrać pliku do przeniesienia",
+  failedToUploadFileToNewLocation: "Nie udało się przesłać pliku do nowej lokalizacji",
+  failedToDeleteFileFromOldLocation: "Nie udało się usunąć pliku ze starej lokalizacji",
+  errorMovingFile: "Błąd przenoszenia pliku",
+  itemCannotBeAddedToItself: "Pozycja nie może być dodana do samej siebie.",
+  partsBucket: "Wyroby",
+  jobsBucket: "Zlecenia"
 } as const;

@@ -162,5 +162,36 @@ export const production = {
   productionQuantities: "Production Quantities",
   editQuantity: "Edit Quantity",
   deleteQuantity: "Delete Quantity",
-  confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone."
+  confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone.",
+
+  // Toast messages - Success
+  ordersSubmitted: "Orders submitted",
+  createdScrapReason: "Created scrap reason",
+  fileDeletedSuccessfully: "{{name}} deleted successfully",
+  modelRemovedFromJob: "Model removed from job",
+  fileMovedToBucket: "Moved {{name}} to {{bucket}} bucket",
+
+  // Toast messages - Errors
+  failedToUploadImage: "Failed to upload image",
+  trackedEntityIdRequired: "Tracked entity ID is required but none was found",
+  failedToFetchItemCosts: "Failed to fetch item costs",
+  unableToGetCompanyId: "Unable to get company ID",
+  failedToLoadItemDetails: "Failed to load item details",
+  failedToLoadConfigurationParameters: "Failed to load configuration parameters",
+  errorDeletingFile: "Error deleting file",
+  errorRemovingModelFromJob: "Error removing model from job",
+  modelDataMissing: "Model data is missing",
+  errorDownloadingFile: "Error downloading file",
+  carbonClientNotAvailable: "Carbon client not available",
+  cannotUploadToPartsBucketWithoutItemId: "Cannot upload to parts bucket without item ID",
+  failedToUploadFile: "Failed to upload file: {{name}}",
+  cannotMoveToPartsBucketWithoutItemId: "Cannot move to parts bucket without item ID",
+  fileAlreadyInSelectedBucket: "File is already in the selected bucket",
+  failedToDownloadFileForMoving: "Failed to download file for moving",
+  failedToUploadFileToNewLocation: "Failed to upload file to new location",
+  failedToDeleteFileFromOldLocation: "Failed to delete file from old location",
+  errorMovingFile: "Error moving file",
+  itemCannotBeAddedToItself: "An item cannot be added to itself.",
+  partsBucket: "Parts",
+  jobsBucket: "Jobs"
 } as const;

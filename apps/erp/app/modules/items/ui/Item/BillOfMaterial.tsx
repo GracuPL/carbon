@@ -2,6 +2,7 @@
 import { useCarbon } from "@carbon/auth";
 import type { Database } from "@carbon/database";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -583,6 +584,7 @@ function MaterialForm({
   onConfigure: (configuration: Configuration) => void;
   onSubmit: () => void;
 }) {
+  const { t } = useTranslation("items");
   const { carbon } = useCarbon();
   const methodMaterialFetcher = useFetcher<{
     id: string;
@@ -666,7 +668,7 @@ function MaterialForm({
   const onItemChange = async (itemId: string) => {
     if (!carbon) return;
     if (itemId === params.itemId) {
-      toast.error("An item cannot be added to itself.");
+      toast.error(t("itemCannotAddToSelf"));
       return;
     }
 
@@ -680,7 +682,7 @@ function MaterialForm({
       .single();
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

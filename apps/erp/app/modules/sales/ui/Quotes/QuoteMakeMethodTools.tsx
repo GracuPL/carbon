@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { SelectControlled, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertTitle,
@@ -54,6 +55,7 @@ import type { Quotation, QuotationLine, QuoteMethod } from "../../types";
 import { QuoteLineMethodForm } from "./QuoteLineMethodForm";
 
 const QuoteMakeMethodTools = () => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const { quoteId, lineId, methodId } = useParams();
   if (!quoteId) throw new Error("quoteId not found");
@@ -308,7 +310,7 @@ const QuoteMakeMethodTools = () => {
                     // Get configuration parameters for the source item
                     const companyId = replenishmentData?.companyId;
                     if (!companyId) {
-                      toast.error("Unable to get company ID");
+                      toast.error(t("unableToGetCompanyId"));
                       return;
                     }
                     const configParams = await getConfigurationParameters(

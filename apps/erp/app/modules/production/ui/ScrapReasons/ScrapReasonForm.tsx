@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -34,6 +35,7 @@ const ScrapReasonForm = ({
   type = "drawer",
   onClose
 }: ScrapReasonFormProps) => {
+  const { t } = useTranslation("production");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -42,7 +44,7 @@ const ScrapReasonForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created scrap reason`);
+      toast.success(t("createdScrapReason"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
         `Failed to create scrap reason: ${fetcher.data.error.message}`

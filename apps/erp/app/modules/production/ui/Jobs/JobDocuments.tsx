@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -50,6 +51,7 @@ const useJobDocuments = ({
   jobId: string;
   itemId?: string | null;
 }) => {
+  const { t } = useTranslation("production");
   const permissions = usePermissions();
   const revalidator = useRevalidator();
   const { carbon } = useCarbon();
@@ -79,14 +81,14 @@ const useJobDocuments = ({
         .remove([getPath(file, bucket as "job" | "parts")]);
 
       if (!fileDelete || fileDelete.error) {
-        toast.error(fileDelete?.error?.message || "Error deleting file");
+        toast.error(fileDelete?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success(`${file.name} deleted successfully`);
+      toast.success(t("fileDeletedSuccessfully", { name: file.name }));
       revalidator.revalidate();
     },
-    [getPath, carbon?.storage, revalidator]
+    [getPath, carbon?.storage, revalidator, t]
   );
 
   const deleteModel = useCallback(async () => {
@@ -97,17 +99,17 @@ const useJobDocuments = ({
       .update({ modelUploadId: null })
       .eq("id", jobId);
     if (error) {
-      toast.error("Error removing model from job");
+      toast.error(t("errorRemovingModelFromJob"));
       return;
     }
-    toast.success("Model removed from job");
+    toast.success(t("modelRemovedFromJob"));
     revalidator.revalidate();
-  }, [carbon, jobId, revalidator]);
+  }, [carbon, jobId, revalidator, t]);
 
   const downloadModel = useCallback(
     async (model: ModelUpload) => {
       if (!model.modelPath || !model.modelName) {
-        toast.error("Model data is missing");
+        toast.error(t("modelDataMissing"));
         return;
       }
 
@@ -124,12 +126,12 @@ const useJobDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
 
-    []
+    [t]
   );
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: suppressed due to migration
@@ -151,12 +153,12 @@ const useJobDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
 
-    []
+    [t]
   );
 
   const getModelPath = useCallback((model: ModelUpload) => {
@@ -198,12 +200,12 @@ const useJobDocuments = ({
   const upload = useCallback(
     async (files: File[], bucket: "job" | "parts" = "job") => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       if (bucket === "parts" && !itemId) {
-        toast.error("Cannot upload to parts bucket without item ID");
+        toast.error(t("cannotUploadToPartsBucketWithoutItemId"));
         return;
       }
 
@@ -218,7 +220,7 @@ const useJobDocuments = ({
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
           createDocumentRecord({
             path: fileUpload.data.path,
@@ -230,7 +232,7 @@ const useJobDocuments = ({
       }
       revalidator.revalidate();
     },
-    [getPath, createDocumentRecord, carbon, revalidator, itemId]
+    [getPath, createDocumentRecord, carbon, revalidator, itemId, t]
   );
 
   const moveFile = useCallback(
@@ -239,19 +241,19 @@ const useJobDocuments = ({
       targetBucket: "job" | "parts"
     ) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       if (targetBucket === "parts" && !itemId) {
-        toast.error("Cannot move to parts bucket without item ID");
+        toast.error(t("cannotMoveToPartsBucketWithoutItemId"));
         return;
       }
 
       const currentBucket = file.bucket === "parts" ? "parts" : "job";
 
       if (currentBucket === targetBucket) {
-        toast.error("File is already in the selected bucket");
+        toast.error(t("fileAlreadyInSelectedBucket"));
         return;
       }
 
@@ -263,7 +265,7 @@ const useJobDocuments = ({
           .download(sourcePath);
 
         if (!downloadData) {
-          toast.error("Failed to download file for moving");
+          toast.error(t("failedToDownloadFileForMoving"));
           return;
         }
 
@@ -277,7 +279,7 @@ const useJobDocuments = ({
           });
 
         if (uploadError) {
-          toast.error("Failed to upload file to new location");
+          toast.error(t("failedToUploadFileToNewLocation"));
           return;
         }
 
@@ -287,22 +289,23 @@ const useJobDocuments = ({
           .remove([sourcePath]);
 
         if (deleteError) {
-          toast.error("Failed to delete file from old location");
+          toast.error(t("failedToDeleteFileFromOldLocation"));
           return;
         }
 
         toast.success(
-          `Moved ${file.name} to ${
-            targetBucket === "parts" ? "Item Master" : "Job"
-          } bucket`
+          t("fileMovedToBucket", {
+            name: file.name,
+            bucket: targetBucket === "parts" ? t("partsBucket") : t("jobsBucket")
+          })
         );
         revalidator.revalidate();
       } catch (error) {
-        toast.error("Error moving file");
+        toast.error(t("errorMovingFile"));
         console.error(error);
       }
     },
-    [carbon, itemId, getPath, revalidator]
+    [carbon, itemId, getPath, revalidator, t]
   );
 
   return {

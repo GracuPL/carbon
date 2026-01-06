@@ -186,5 +186,51 @@ export const items = {
   // Method Operations Table
   laborTime: "Labor Time",
   machineTime: "Machine Time",
-  methodOperations: "Method Operations"
+  methodOperations: "Method Operations",
+
+  // Toast messages - Success
+  createdMaterialFinish: "Created material finish",
+  createdMaterialGrade: "Created material grade",
+  createdMaterialDimension: "Created material dimension",
+  createdUnitOfMeasure: "Created unit of measure",
+  createdMaterialType: "Created material type",
+  createdMaterialForm: "Created material form",
+  createdItemGroup: "Created item group",
+  createdPart: "Created part",
+  createdMaterial: "Created material",
+  createdConsumable: "Created consumable",
+  createdTool: "Created tool",
+  uploadedModel: "Uploaded model",
+  fileDeletedSuccessfully: "File deleted successfully",
+  modelRemovedSuccessfully: "Model removed from item",
+  uploadedFile: "Uploaded: {{name}}",
+
+  // Toast messages - Errors
+  failedToCreateMaterialFinish: "Failed to create material finish: {{message}}",
+  failedToCreateMaterialGrade: "Failed to create material grade: {{message}}",
+  failedToCreateMaterialDimension: "Failed to create material dimension: {{message}}",
+  failedToCreateUnitOfMeasure: "Failed to create unit of measure: {{message}}",
+  failedToCreateMaterialType: "Failed to create material type: {{message}}",
+  failedToCreateMaterialForm: "Failed to create material form: {{message}}",
+  failedToCreateItemGroup: "Failed to create item group: {{message}}",
+  failedToCreatePart: "Failed to create part: {{message}}",
+  failedToCreateMaterial: "Failed to create material: {{message}}",
+  failedToCreateConsumable: "Failed to create consumable: {{message}}",
+  failedToCreateTool: "Failed to create tool: {{message}}",
+  failedToUploadModel: "Failed to upload model",
+  failedToUploadImage: "Failed to upload image",
+  failedToUploadFile: "Failed to upload file: {{name}}",
+  failedToLoadItemDetails: "Failed to load item details",
+  failedToUpdateConfigParameter: "Failed to update configuration parameter",
+  fileTypeNotSupported: "File type not supported",
+  fileSizeTooBig: "File size too big (max. {{maxSize}} MB)",
+  errorDeletingFile: "Error deleting file",
+  errorRemovingModel: "Error removing model from item",
+  modelDataMissing: "Model data is missing",
+  errorDownloadingFile: "Error downloading file",
+  carbonClientNotAvailable: "Carbon client not available",
+  itemCannotAddToSelf: "An item cannot be added to itself.",
+
+  // Toast messages - Info
+  uploadingFile: "Uploading {{name}}"
 } as const;

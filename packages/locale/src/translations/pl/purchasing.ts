@@ -116,14 +116,14 @@ export const purchasing = {
 
   // Planning - Planowanie
   planning: "Planowanie",
-  partId: "ID części",
+  partId: "ID wyrobu",
   noSupplier: "Brak dostawcy",
   reorderPolicy: "Polityka zamówień",
   onHand: "Na stanie",
   order: "Zamów",
   blocked: "Zablokowane",
   recalculate: "Przelicz ponownie",
-  orderParts: "Zamów części",
+  orderParts: "Zamów wyroby",
   presentWeek: "Bieżący tydzień",
   week: "Tydzień"
 } as const;

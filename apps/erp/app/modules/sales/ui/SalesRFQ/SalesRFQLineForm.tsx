@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   CardAction,
@@ -53,6 +54,7 @@ const SalesRFQLineForm = ({
   type,
   onClose
 }: SalesRFQLineFormProps) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
@@ -99,7 +101,7 @@ const SalesRFQLineForm = ({
       .maybeSingle();
 
     if (customerPart.error) {
-      toast.error("Failed to load customer part details");
+      toast.error(t("failedToLoadCustomerPartDetails"));
       return;
     }
 
@@ -125,7 +127,7 @@ const SalesRFQLineForm = ({
       .maybeSingle();
 
     if (customerPart.error) {
-      toast.error("Failed to load customer part details");
+      toast.error(t("failedToLoadCustomerPartDetails"));
       return;
     }
 
@@ -153,7 +155,7 @@ const SalesRFQLineForm = ({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

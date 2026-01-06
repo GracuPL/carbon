@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -65,6 +66,7 @@ const QuoteLinePricing = ({
   exchangeRate: number;
   getLineCosts: (quantity: number) => Costs;
 }) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
 
   const isMade = line.methodType === "Make";
@@ -172,7 +174,7 @@ const QuoteLinePricing = ({
 
       if (costUpdate?.error) {
         console.error(costUpdate.error);
-        toast.error("Failed to update quote line");
+        toast.error(t("failedToUpdateQuoteLine"));
       }
     },
     [additionalCharges, lineId, carbon]
@@ -205,7 +207,7 @@ const QuoteLinePricing = ({
 
       if (costUpdate?.error) {
         console.error(costUpdate.error);
-        toast.error("Failed to update quote line");
+        toast.error(t("failedToUpdateQuoteLine"));
       }
     },
     [additionalCharges, carbon, lineId]
@@ -275,7 +277,7 @@ const QuoteLinePricing = ({
 
       if (costUpdate?.error) {
         console.error(costUpdate.error);
-        toast.error("Failed to update item cost");
+        toast.error(t("failedToUpdateItemCost"));
       }
     },
     [carbon, line.itemId]
@@ -340,7 +342,7 @@ const QuoteLinePricing = ({
 
         if (insert?.error) {
           console.error(insert.error);
-          toast.error("Failed to insert quote line");
+          toast.error(t("failedToInsertQuoteLine"));
         }
       }
     },

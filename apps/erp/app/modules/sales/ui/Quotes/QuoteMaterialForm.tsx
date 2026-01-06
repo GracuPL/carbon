@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -45,6 +46,7 @@ const QuoteMaterialForm = ({
   initialValues,
   operations
 }: QuoteMaterialFormProps) => {
+  const { t } = useTranslation("sales");
   const fetcher = useFetcher<{ id: string; methodType: MethodType }>();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -103,7 +105,7 @@ const QuoteMaterialForm = ({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

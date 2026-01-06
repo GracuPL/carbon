@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import { TextArea, ValidatedForm } from "@carbon/form";
 import {
   Badge,
@@ -74,6 +75,7 @@ const QuoteLineForm = ({
   type,
   onClose
 }: QuoteLineFormProps) => {
+  const { t } = useTranslation("sales");
   const fetcher = useFetcher<typeof action>();
   const permissions = usePermissions();
   const { company } = useUser();
@@ -137,7 +139,7 @@ const QuoteLineForm = ({
       .maybeSingle();
 
     if (customerPart.error) {
-      toast.error("Failed to load customer part details");
+      toast.error(t("failedToLoadCustomerPartDetails"));
       return;
     }
 
@@ -159,7 +161,7 @@ const QuoteLineForm = ({
       .maybeSingle();
 
     if (customerPart.error) {
-      toast.error("Failed to load customer part details");
+      toast.error(t("failedToLoadCustomerPartDetails"));
       return;
     }
 
@@ -194,7 +196,7 @@ const QuoteLineForm = ({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

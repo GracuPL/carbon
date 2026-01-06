@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -365,6 +366,7 @@ export function SalesOrderJobItem({ job }: { job: SalesOrderJob }) {
 }
 
 function JobDetails({ job }: { job: Job }) {
+  const { t } = useTranslation("sales");
   const { carbon } = useCarbon();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -372,7 +374,7 @@ function JobDetails({ job }: { job: Job }) {
 
   const getJobOperations = async () => {
     if (!carbon) {
-      toast.error("Failed to load job operations");
+      toast.error(t("failedToLoadJobOperations"));
       return;
     }
 
@@ -386,7 +388,7 @@ function JobDetails({ job }: { job: Job }) {
     ]);
 
     if (operations.error) {
-      toast.error("Failed to load job operations");
+      toast.error(t("failedToLoadJobOperations"));
       return;
     }
 

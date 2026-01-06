@@ -14,6 +14,7 @@ import {
 } from "@carbon/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useFetcher } from "react-router";
 import type { z } from "zod/v3";
 import { Hidden, Input, InputControlled, Submit } from "~/components/Form";
@@ -36,6 +37,7 @@ const MaterialTypeForm = ({
   type = "drawer",
   onClose
 }: MaterialTypeFormProps) => {
+  const { t } = useTranslation("items");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string; name: string }>>();
   const [code, setCode] = useState<string>(initialValues.code);
@@ -50,10 +52,10 @@ const MaterialTypeForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created material type`);
+      toast.success(t("createdMaterialType"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create material type: ${fetcher.data.error.message}`
+        t("failedToCreateMaterialType", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type]);

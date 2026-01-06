@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -278,6 +279,7 @@ type Props = {
 };
 
 export const useItemDocuments = ({ itemId, type }: Props) => {
+  const { t } = useTranslation("items");
   const permissions = usePermissions();
   const revalidator = useRevalidator();
   const { carbon } = useCarbon();
@@ -301,14 +303,14 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
         .remove([getPath(file)]);
 
       if (!fileDelete || fileDelete.error) {
-        toast.error(fileDelete?.error?.message || "Error deleting file");
+        toast.error(fileDelete?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success("File deleted successfully");
+      toast.success(t("fileDeletedSuccessfully"));
       revalidator.revalidate();
     },
-    [getPath, carbon?.storage, revalidator]
+    [getPath, carbon?.storage, revalidator, t]
   );
 
   const deleteModel = useCallback(async () => {
@@ -319,22 +321,22 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
       .update({ modelUploadId: null })
       .eq("id", itemId);
     if (error) {
-      toast.error("Error removing model from item");
+      toast.error(t("errorRemovingModel"));
       return;
     }
-    toast.success("Model removed from item");
+    toast.success(t("modelRemovedSuccessfully"));
     revalidator.revalidate();
-  }, [carbon, itemId, revalidator]);
+  }, [carbon, itemId, revalidator, t]);
 
   const downloadModel = useCallback(
     async (model: ModelUpload) => {
       if (!model.modelPath || !model.modelName) {
-        toast.error("Model data is missing");
+        toast.error(t("modelDataMissing"));
         return;
       }
 
       if (!model.modelPath || !model.modelName) {
-        toast.error("Model data is missing");
+        toast.error(t("modelDataMissing"));
         return;
       }
 
@@ -351,12 +353,12 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
 
-    []
+    [t]
   );
 
   const download = useCallback(
@@ -374,12 +376,12 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
 
-    [getPath]
+    [getPath, t]
   );
 
   const getModelPath = useCallback((model: ModelUpload) => {
@@ -392,12 +394,12 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
   const upload = useCallback(
     async (files: File[]) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       for (const file of files) {
-        toast.info(`Uploading ${file.name}`);
+        toast.info(t("uploadingFile", { name: file.name }));
         const fileName = getPath(file);
 
         const fileUpload = await carbon.storage
@@ -408,9 +410,9 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
-          toast.success(`Uploaded: ${file.name}`);
+          toast.success(t("uploadedFile", { name: file.name }));
           const formData = new FormData();
           formData.append("path", fileUpload.data.path);
           formData.append("name", file.name);
@@ -428,7 +430,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
       }
       revalidator.revalidate();
     },
-    [getPath, carbon, revalidator, submit, type, itemId]
+    [getPath, carbon, revalidator, submit, type, itemId, t]
   );
 
   return {

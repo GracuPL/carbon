@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -34,6 +35,8 @@ const CustomerPortalForm = ({
   type = "drawer",
   onClose
 }: CustomerPortalFormProps) => {
+  const { t } = useTranslation("sales");
+  const { t: tNav } = useTranslation("navigation");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -42,13 +45,13 @@ const CustomerPortalForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created customer portal`);
+      toast.success(t("createdCustomerPortal"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create customer portal: ${fetcher.data.error.message}`
+        t("failedToCreateCustomerPortal", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
@@ -78,7 +81,7 @@ const CustomerPortalForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Customer Portal
+                {isEditing ? t("editPortal") : t("customerPortal")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -91,9 +94,9 @@ const CustomerPortalForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled} />
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {tNav("cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

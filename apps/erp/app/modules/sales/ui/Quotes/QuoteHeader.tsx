@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Copy,
@@ -407,6 +408,7 @@ function CreateRevisionModal({
   asRevision: boolean;
   onClose: () => void;
 }) {
+  const { t } = useTranslation("sales");
   const [newQuoteId, setNewQuoteId] = useState<string | null>(null);
   const fetcher = useFetcher<
     | { success: false; message: string }
@@ -422,12 +424,12 @@ function CreateRevisionModal({
     if (fetcher.data?.success === true) {
       toast.success(
         asRevision
-          ? "Successfully created a new revision"
-          : "Successfully copied quote"
+          ? t("successfullyCreatedRevision")
+          : t("successfullyCopiedQuote")
       );
       setNewQuoteId(fetcher.data?.data.newQuoteId ?? null);
     }
-  }, [fetcher.data?.success]);
+  }, [fetcher.data?.success, asRevision, t]);
 
   if (!quote) return null;
   return (

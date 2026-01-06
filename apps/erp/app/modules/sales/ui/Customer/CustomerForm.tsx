@@ -1,4 +1,5 @@
 import { PhoneInput, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   cn,
   HStack,
@@ -45,6 +46,7 @@ const CustomerForm = ({
   type = "card",
   onClose
 }: CustomerFormProps) => {
+  const { t } = useTranslation("sales");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<Customer>>();
 
@@ -54,11 +56,11 @@ const CustomerForm = ({
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
       // @ts-ignore
-      toast.success(`Created customer: ${fetcher.data.data.name}`);
+      toast.success(t("createdCustomer", { name: fetcher.data.data.name }));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create customer: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateCustomer", { message: fetcher.data.error.message }));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
@@ -152,7 +154,7 @@ const CustomerForm = ({
               </ModalCardBody>
               <ModalCardFooter>
                 <HStack>
-                  <Submit isDisabled={isDisabled}>Save</Submit>
+                  <Submit isDisabled={isDisabled} />
                 </HStack>
               </ModalCardFooter>
             </ValidatedForm>
