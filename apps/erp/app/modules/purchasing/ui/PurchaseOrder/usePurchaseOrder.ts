@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import { toast } from "@carbon/react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -52,6 +53,7 @@ export const usePurchaseOrderRelatedDocuments = (
   supplierInteractionId: string,
   isOutsideProcessing: boolean
 ) => {
+  const { t } = useTranslation("purchasing");
   const [receipts, setReceipts] = useState<
     Pick<Receipt, "id" | "receiptId" | "status">[]
   >([]);
@@ -85,13 +87,13 @@ export const usePurchaseOrderRelatedDocuments = (
       ]);
 
       if (receipts.error) {
-        toast.error("Failed to load receipts");
+        toast.error(t("failedToLoadReceipts"));
       } else {
         setReceipts(receipts.data);
       }
 
       if (invoices.error) {
-        toast.error("Failed to load invoices");
+        toast.error(t("failedToLoadInvoices"));
       } else {
         setInvoices(
           invoices.data?.map((invoice) => ({
@@ -105,7 +107,7 @@ export const usePurchaseOrderRelatedDocuments = (
         );
       }
       if (shipments.error) {
-        toast.error("Failed to load shipments");
+        toast.error(t("failedToLoadShipments"));
       } else {
         setShipments(shipments.data);
       }

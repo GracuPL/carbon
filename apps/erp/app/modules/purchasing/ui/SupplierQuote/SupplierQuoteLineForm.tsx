@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   CardAction,
@@ -58,6 +59,7 @@ const SupplierQuoteLineForm = ({
   type,
   onClose
 }: SupplierQuoteLineFormProps) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
@@ -102,7 +104,7 @@ const SupplierQuoteLineForm = ({
       .maybeSingle();
 
     if (supplierPart.error) {
-      toast.error("Failed to load supplier part details");
+      toast.error(t("failedToLoadSupplierPartDetails"));
       return;
     }
 
@@ -130,7 +132,7 @@ const SupplierQuoteLineForm = ({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 

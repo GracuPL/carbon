@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DatePicker,
@@ -89,6 +90,7 @@ export const PurchasingPlanningOrderDrawer = memo(
     onClose,
     onSupplierChange
   }: PurchasingPlanningOrderDrawerProps) => {
+    const { t } = useTranslation("purchasing");
     const fetcher = useFetcher<typeof bulkUpdateAction>();
     const { carbon } = useCarbon();
 
@@ -290,7 +292,7 @@ export const PurchasingPlanningOrderDrawer = memo(
       }
 
       if (fetcher.data?.success === true) {
-        toast.success("Orders submitted");
+        toast.success(t("ordersSubmitted"));
         setOrders(selectedItem, []);
         onClose();
       }
@@ -374,7 +376,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                     );
                                     setOrders(selectedItem, updatedOrders);
 
-                                    toast.success("Supplier updated");
+                                    toast.success(t("supplierUpdated"));
                                     setActiveTab("ordering");
                                   }
                                 }}
@@ -442,7 +444,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                     setOrders(selectedItem, updatedOrders);
 
                                     toast.success(
-                                      "Supplier added and selected"
+                                      t("supplierAddedAndSelected")
                                     );
                                     setActiveTab("ordering");
                                   }

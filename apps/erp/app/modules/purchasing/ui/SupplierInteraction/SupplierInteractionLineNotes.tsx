@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Card,
@@ -38,6 +39,7 @@ const SupplierInteractionLineNotes = ({
   internalNotes?: JSONContent;
   externalNotes?: JSONContent;
 }) => {
+  const { t } = useTranslation("purchasing");
   const {
     id: userId,
     company: { id: companyId }
@@ -60,12 +62,12 @@ const SupplierInteractionLineNotes = ({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
