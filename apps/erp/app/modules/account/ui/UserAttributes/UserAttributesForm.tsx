@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -741,6 +742,7 @@ function FileAttributeForm({
   onSubmit: (value: string | boolean | number) => void;
   onClose: () => void;
 }) {
+  const { t } = useTranslation("account");
   const { carbon } = useCarbon();
   const { company } = useUser();
   const [file, setFile] = useState<File | null>(null);
@@ -753,7 +755,7 @@ function FileAttributeForm({
     const fileUpload = acceptedFiles[0];
 
     setFile(fileUpload);
-    toast.info(`Uploading ${fileUpload.name}`);
+    toast.info(t("uploadingFile", { name: fileUpload.name }));
 
     const fileName = `${company.id}/person/${userId}/${fileUpload.name}`;
 
@@ -765,9 +767,9 @@ function FileAttributeForm({
       });
 
     if (upload.error) {
-      toast.error(`Failed to upload file: ${fileUpload.name}`);
+      toast.error(t("failedToUploadFile", { name: fileUpload.name }));
     } else if (upload.data?.path) {
-      toast.success(`Uploaded: ${fileUpload.name}`);
+      toast.success(t("uploadedFile", { name: fileUpload.name }));
       setFilePath(upload.data.path);
     }
   };

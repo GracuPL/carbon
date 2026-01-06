@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertDescription,
@@ -29,6 +30,7 @@ import type { ShipmentLine } from "../..";
 import { getShipmentTracking } from "../..";
 
 const ShipmentPostModal = ({ onClose }: { onClose: () => void }) => {
+  const { t } = useTranslation("inventory");
   const { shipmentId } = useParams();
   if (!shipmentId) throw new Error("shipmentId not found");
 
@@ -61,7 +63,7 @@ const ShipmentPostModal = ({ onClose }: { onClose: () => void }) => {
     }[] = [];
 
     if (!carbon) {
-      toast.error("Carbon client is not available");
+      toast.error(t("carbonClientIsNotAvailable"));
       return;
     }
 

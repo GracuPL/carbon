@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DropdownMenu,
@@ -264,6 +265,7 @@ export default WarehouseTransferHeader;
 export const useWarehouseTransferRelatedDocuments = (
   warehouseTransferId: string
 ) => {
+  const { t } = useTranslation("inventory");
   const [receipts, setReceipts] = useState<
     Pick<Receipt, "id" | "receiptId" | "status">[]
   >([]);
@@ -309,13 +311,13 @@ export const useWarehouseTransferRelatedDocuments = (
       ]);
 
       if (receipts.error) {
-        toast.error("Failed to load receipts");
+        toast.error(t("failedToLoadReceipts"));
       } else {
         setReceipts(receipts.data);
       }
 
       if (shipments.error) {
-        toast.error("Failed to load shipments");
+        toast.error(t("failedToLoadShipments"));
       } else {
         setShipments(shipments.data);
       }

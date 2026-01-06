@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -42,6 +43,7 @@ const ShippingMethodForm = ({
   type = "drawer",
   onClose
 }: ShippingMethodFormProps) => {
+  const { t } = useTranslation("inventory");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -50,13 +52,13 @@ const ShippingMethodForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created shipping method`);
+      toast.success(t("createdShippingMethod"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create shipping method: ${fetcher.data.error.message}`
+        t("failedToCreateShippingMethod", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

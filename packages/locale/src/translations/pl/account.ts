@@ -49,5 +49,13 @@ export const account = {
   themeUpdated: "Motyw został zaktualizowany",
   passwordUpdated: "Hasło zostało zaktualizowane",
   languageUpdated: "Język został zaktualizowany",
-  updateFailed: "Nie udało się zaktualizować"
+  updateFailed: "Nie udało się zaktualizować",
+
+  // Toast messages - Komunikaty toast
+  uploadingFile: "Przesyłanie {{name}}",
+  failedToUploadFile: "Nie udało się przesłać pliku: {{name}}",
+  uploadedFile: "Przesłano: {{name}}",
+  failedToResizeImage: "Nie udało się zmniejszyć obrazu",
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  failedToRemoveImage: "Nie udało się usunąć obrazu"
 } as const;

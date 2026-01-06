@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -38,6 +39,7 @@ const StockTransferLineForm = ({
   type = "drawer",
   onClose
 }: StockTransferLineFormProps) => {
+  const { t } = useTranslation("inventory");
   const { id } = useParams();
   if (!id) throw new Error("id not found");
 
@@ -89,13 +91,13 @@ const StockTransferLineForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created stock transfer line`);
+      toast.success(t("createdStockTransferLine"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create stock transfer line: ${fetcher.data.error.message}`
+        t("failedToCreateStockTransferLine", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

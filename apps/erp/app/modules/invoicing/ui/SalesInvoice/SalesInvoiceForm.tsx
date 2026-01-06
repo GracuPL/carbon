@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -38,6 +39,7 @@ type SalesInvoiceFormProps = {
 };
 
 const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
+  const { t } = useTranslation("invoicing");
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const isEditing = initialValues.id !== undefined;
@@ -81,7 +83,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
     } | null
   ) => {
     if (!carbon) {
-      toast.error("Carbon client not found");
+      toast.error(t("carbonClientNotFound"));
       return;
     }
 
@@ -111,7 +113,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
       ]);
 
       if (customerData.error || paymentTermData.error) {
-        toast.error("Error fetching customer data");
+        toast.error(t("errorFetchingCustomerData"));
       } else {
         setInvoiceCustomer((prev) => ({
           ...prev,

@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertDescription,
@@ -27,6 +28,7 @@ import { path } from "~/utils/path";
 import type { StockTransferLine } from "../../types";
 
 const StockTransferPostModal = ({ onClose }: { onClose: () => void }) => {
+  const { t } = useTranslation("inventory");
   const { id } = useParams();
   if (!id) throw new Error("id not found");
 
@@ -60,7 +62,7 @@ const StockTransferPostModal = ({ onClose }: { onClose: () => void }) => {
     }[] = [];
 
     if (!carbon) {
-      toast.error("Carbon client is not available");
+      toast.error(t("carbonClientIsNotAvailable"));
       return;
     }
 

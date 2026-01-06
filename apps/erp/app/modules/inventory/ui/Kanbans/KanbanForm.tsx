@@ -1,6 +1,7 @@
 import { useCarbon } from "@carbon/auth";
 // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, Hidden, SelectControlled, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -45,6 +46,7 @@ type KanbanFormProps = {
 };
 
 const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
+  const { t } = useTranslation("inventory");
   const [selectedReplenishmentSystem, setSelectedReplenishmentSystem] =
     useState<string>(initialValues.replenishmentSystem || "Buy");
 
@@ -90,7 +92,7 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
         .maybeSingle()
     ]);
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
     setSelectedReplenishmentSystem(item.data?.replenishmentSystem || "Buy");
