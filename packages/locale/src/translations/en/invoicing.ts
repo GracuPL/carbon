@@ -39,5 +39,10 @@ export const invoicing = {
   edit: "Edit",
   delete: "Delete",
   confirmDeleteSalesInvoice: "Are you sure you want to permanently delete {{name}}?",
-  confirmDeletePurchaseInvoice: "Are you sure you want to permanently delete {{name}}?"
+  confirmDeletePurchaseInvoice: "Are you sure you want to permanently delete {{name}}?",
+
+  // Toast messages
+  carbonClientNotFound: "Carbon client not found",
+  errorFetchingSupplierData: "Error fetching supplier data",
+  errorFetchingCustomerData: "Error fetching customer data"
 } as const;

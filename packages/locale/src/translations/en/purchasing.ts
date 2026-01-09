@@ -125,5 +125,27 @@ export const purchasing = {
   recalculate: "Recalculate",
   orderParts: "Order Parts",
   presentWeek: "Present Week",
-  week: "Week"
+  week: "Week",
+
+  // Toast messages
+  failedToLoadSupplierPartDetails: "Failed to load supplier part details",
+  failedToLoadItemDetails: "Failed to load item details",
+  errorDownloadingFile: "Error downloading file",
+  carbonClientNotAvailable: "Carbon client not available",
+  ordersSubmitted: "Orders submitted",
+  supplierUpdated: "Supplier updated",
+  supplierAddedAndSelected: "Supplier added and selected",
+  errorDeletingFile: "Error deleting file",
+  fileDeletedSuccessfully: "{{name}} deleted successfully",
+  uploadingFile: "Uploading {{name}}",
+  failedToUploadFile: "Failed to upload file: {{name}}",
+  uploadedFile: "Uploaded: {{name}}",
+  failedToUploadImage: "Failed to upload image",
+  carbonClientNotFound: "Carbon client not found",
+  errorFetchingSupplierData: "Error fetching supplier data",
+  failedToLoadReceipts: "Failed to load receipts",
+  failedToLoadInvoices: "Failed to load invoices",
+  failedToLoadShipments: "Failed to load shipments",
+  failedToUpdateSupplierQuoteLine: "Failed to update supplier quote line",
+  failedToInsertSupplierQuoteLine: "Failed to insert supplier quote line"
 } as const;

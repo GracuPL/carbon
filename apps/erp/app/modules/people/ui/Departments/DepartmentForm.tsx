@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -40,6 +41,7 @@ const DepartmentForm = ({
   type = "drawer",
   onClose
 }: DepartmentFormProps) => {
+  const { t } = useTranslation("users");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -48,11 +50,11 @@ const DepartmentForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created department`);
+      toast.success(t("createdDepartment"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create department: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateDepartment", { message: fetcher.data.error.message }));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

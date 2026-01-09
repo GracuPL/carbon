@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -42,6 +43,7 @@ const SupplierQuoteLinePricing = ({
   pricesByQuantity: Record<number, SupplierQuoteLinePrice>;
   exchangeRate?: number;
 }) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
 
   const quantities = line.quantity ?? [1];
@@ -125,7 +127,7 @@ const SupplierQuoteLinePricing = ({
 
         if (update?.error) {
           console.error(update.error);
-          toast.error("Failed to update supplier quote line");
+          toast.error(t("failedToUpdateSupplierQuoteLine"));
         }
       } else {
         const insert = await carbon?.from("supplierQuoteLinePrice").insert({
@@ -136,7 +138,7 @@ const SupplierQuoteLinePricing = ({
 
         if (insert?.error) {
           console.error(insert.error);
-          toast.error("Failed to insert supplier quote line");
+          toast.error(t("failedToInsertSupplierQuoteLine"));
         }
       }
     },

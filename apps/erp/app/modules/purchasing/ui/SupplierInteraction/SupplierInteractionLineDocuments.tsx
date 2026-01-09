@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -50,6 +51,7 @@ const useSupplierInteractionLineDocuments = ({
   lineId: string;
   type: SupportedDocument;
 }) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const revalidator = useRevalidator();
   const { carbon } = useCarbon();
@@ -77,11 +79,11 @@ const useSupplierInteractionLineDocuments = ({
         .remove([getPath(file)]);
 
       if (!fileDelete || fileDelete.error) {
-        toast.error(fileDelete?.error?.message || "Error deleting file");
+        toast.error(fileDelete?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success(`${file.name} deleted successfully`);
+      toast.success(t("fileDeletedSuccessfully", { name: file.name }));
       revalidator.revalidate();
     },
     [getPath, carbon?.storage, revalidator]
@@ -102,7 +104,7 @@ const useSupplierInteractionLineDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
@@ -139,7 +141,7 @@ const useSupplierInteractionLineDocuments = ({
   const upload = useCallback(
     async (files: File[]) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
@@ -154,7 +156,7 @@ const useSupplierInteractionLineDocuments = ({
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
           createDocumentRecord({
             path: fileUpload.data.path,

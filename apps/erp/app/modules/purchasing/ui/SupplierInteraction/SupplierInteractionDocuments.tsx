@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -180,6 +181,7 @@ export const useSupplierInteractionDocuments = ({
   interactionId,
   type
 }: SupplierInteractionDocumentFormProps) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
@@ -206,11 +208,11 @@ export const useSupplierInteractionDocuments = ({
         .remove([getPath(attachment)]);
 
       if (!result || result.error) {
-        toast.error(result?.error?.message || "Error deleting file");
+        toast.error(result?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success(`${attachment.name} deleted successfully`);
+      toast.success(t("fileDeletedSuccessfully", { name: attachment.name }));
       revalidator.revalidate();
     },
     [carbon?.storage, getPath, revalidator]
@@ -231,7 +233,7 @@ export const useSupplierInteractionDocuments = ({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
@@ -268,13 +270,13 @@ export const useSupplierInteractionDocuments = ({
   const upload = useCallback(
     async (files: File[]) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       for (const file of files) {
         const fileName = getPath(file);
-        toast.info(`Uploading ${file.name}`);
+        toast.info(t("uploadingFile", { name: file.name }));
 
         const fileUpload = await carbon.storage
           .from("private")
@@ -284,9 +286,9 @@ export const useSupplierInteractionDocuments = ({
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
-          toast.success(`Uploaded: ${file.name}`);
+          toast.success(t("uploadedFile", { name: file.name }));
           createDocumentRecord({
             path: fileUpload.data.path,
             name: file.name,

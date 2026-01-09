@@ -139,5 +139,9 @@ export const users = {
   days: "Days",
   editShift: "Edit Shift",
   deleteShift: "Delete Shift",
-  edit: "Edit"
+  edit: "Edit",
+
+  // Toast messages
+  createdDepartment: "Created department",
+  failedToCreateDepartment: "Failed to create department: {{message}}"
 } as const;

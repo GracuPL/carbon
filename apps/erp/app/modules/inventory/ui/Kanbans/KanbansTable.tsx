@@ -671,10 +671,12 @@ function CopyBadge({
 }) {
   const [isCopied, setIsCopied] = useState(false);
 
+  const { t } = useTranslation("inventory");
+
   const handleCopy = () => {
     copyToClipboard(window.location.origin + url);
     setIsCopied(true);
-    toast.success("Copied link to clipboard");
+    toast.success(t("copiedLinkToClipboard"));
     setTimeout(() => setIsCopied(false), 1500);
   };
 

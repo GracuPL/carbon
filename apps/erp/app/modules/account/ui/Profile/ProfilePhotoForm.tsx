@@ -1,4 +1,5 @@
 import { SUPABASE_URL, useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import { Button, File as FileUpload, toast, VStack } from "@carbon/react";
 import type { ChangeEvent } from "react";
 import { useSubmit } from "react-router";
@@ -11,13 +12,14 @@ type ProfilePhotoFormProps = {
 };
 
 const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
+  const { t } = useTranslation("account");
   const { carbon } = useCarbon();
   const submit = useSubmit();
 
   const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && carbon) {
       let avatarFile = e.target.files[0];
-      toast.info(`Uploading ${avatarFile.name}`);
+      toast.info(t("uploadingFile", { name: avatarFile.name }));
       const fileExtension = avatarFile.name.substring(
         avatarFile.name.lastIndexOf(".") + 1
       );
@@ -50,7 +52,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
         avatarFile = resizedFile;
       } catch (error) {
         console.error(error);
-        toast.error("Failed to resize image");
+        toast.error(t("failedToResizeImage"));
         return;
       }
 
@@ -63,7 +65,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
 
       if (imageUpload.error) {
         console.error(imageUpload.error);
-        toast.error("Failed to upload image");
+        toast.error(t("failedToUploadImage"));
       }
 
       if (imageUpload.data?.path) {
@@ -79,7 +81,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
         .remove([user.avatarUrl]);
 
       if (imageDelete.error) {
-        toast.error("Failed to remove image");
+        toast.error(t("failedToRemoveImage"));
       }
 
       submitAvatarUrl(null);

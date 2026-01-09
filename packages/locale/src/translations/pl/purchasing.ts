@@ -125,5 +125,27 @@ export const purchasing = {
   recalculate: "Przelicz ponownie",
   orderParts: "Zamów wyroby",
   presentWeek: "Bieżący tydzień",
-  week: "Tydzień"
+  week: "Tydzień",
+
+  // Toast messages - Komunikaty toast
+  failedToLoadSupplierPartDetails: "Nie udało się załadować szczegółów wyrobu dostawcy",
+  failedToLoadItemDetails: "Nie udało się załadować szczegółów pozycji",
+  errorDownloadingFile: "Błąd pobierania pliku",
+  carbonClientNotAvailable: "Klient Carbon niedostępny",
+  ordersSubmitted: "Zamówienia wysłane",
+  supplierUpdated: "Dostawca zaktualizowany",
+  supplierAddedAndSelected: "Dostawca dodany i wybrany",
+  errorDeletingFile: "Błąd usuwania pliku",
+  fileDeletedSuccessfully: "{{name}} usunięto pomyślnie",
+  uploadingFile: "Przesyłanie {{name}}",
+  failedToUploadFile: "Nie udało się przesłać pliku: {{name}}",
+  uploadedFile: "Przesłano: {{name}}",
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  carbonClientNotFound: "Nie znaleziono klienta Carbon",
+  errorFetchingSupplierData: "Błąd pobierania danych dostawcy",
+  failedToLoadReceipts: "Nie udało się załadować przyjęć",
+  failedToLoadInvoices: "Nie udało się załadować faktur",
+  failedToLoadShipments: "Nie udało się załadować wysyłek",
+  failedToUpdateSupplierQuoteLine: "Nie udało się zaktualizować pozycji oferty dostawcy",
+  failedToInsertSupplierQuoteLine: "Nie udało się dodać pozycji oferty dostawcy"
 } as const;

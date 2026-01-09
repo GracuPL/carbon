@@ -1,6 +1,7 @@
 import { useCarbon } from "@carbon/auth";
 // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Number, Submit, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -1109,6 +1110,7 @@ const usePendingReceiptLines = () => {
 export default ReceiptLines;
 
 function useReceiptFiles(receiptId: string) {
+  const { t } = useTranslation("inventory");
   const { company } = useUser();
   const { carbon } = useCarbon();
 
@@ -1126,13 +1128,13 @@ function useReceiptFiles(receiptId: string) {
   const upload = useCallback(
     async (files: File[], lineId: string) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
       for (const file of files) {
         const fileName = getPath({ name: file.name }, lineId);
-        toast.info(`Uploading ${file.name}`);
+        toast.info(t("uploadingFile", { name: file.name }));
         const fileUpload = await carbon.storage
           .from("private")
           .upload(fileName, file, {
@@ -1141,9 +1143,9 @@ function useReceiptFiles(receiptId: string) {
           });
 
         if (fileUpload.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else if (fileUpload.data?.path) {
-          toast.success(`Uploaded: ${file.name}`);
+          toast.success(t("uploadedFile", { name: file.name }));
           const formData = new FormData();
           formData.append("path", fileUpload.data.path);
           formData.append("name", file.name);
@@ -1171,11 +1173,11 @@ function useReceiptFiles(receiptId: string) {
         .remove([getPath(file, lineId)]);
 
       if (!fileDelete || fileDelete.error) {
-        toast.error(fileDelete?.error?.message || "Error deleting file");
+        toast.error(fileDelete?.error?.message || t("errorDeletingFile"));
         return;
       }
 
-      toast.success(`${file.name} deleted successfully`);
+      toast.success(t("fileDeletedSuccessfully", { name: file.name }));
       revalidator.revalidate();
     },
     [getPath, carbon?.storage, revalidator]

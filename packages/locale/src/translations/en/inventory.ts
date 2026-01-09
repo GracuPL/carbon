@@ -184,5 +184,24 @@ export const inventory = {
   expectedReceipt: "Expected Receipt",
   viewTransfer: "View Transfer",
   editTransfer: "Edit Transfer",
-  deleteTransfer: "Delete Transfer"
+  deleteTransfer: "Delete Transfer",
+
+  // Toast messages
+  failedToUploadImage: "Failed to upload image",
+  carbonClientNotAvailable: "Carbon client not available",
+  uploadingFile: "Uploading {{name}}",
+  failedToUploadFile: "Failed to upload file: {{name}}",
+  uploadedFile: "Uploaded: {{name}}",
+  errorDeletingFile: "Error deleting file",
+  fileDeletedSuccessfully: "{{name}} deleted successfully",
+  failedToLoadItemDetails: "Failed to load item details",
+  carbonClientIsNotAvailable: "Carbon client is not available",
+  failedToUpdateBatchProperty: "Failed to update batch property",
+  createdShippingMethod: "Created shipping method",
+  failedToCreateShippingMethod: "Failed to create shipping method: {{message}}",
+  failedToLoadReceipts: "Failed to load receipts",
+  failedToLoadShipments: "Failed to load shipments",
+  createdStockTransferLine: "Created stock transfer line",
+  failedToCreateStockTransferLine: "Failed to create stock transfer line: {{message}}",
+  copiedLinkToClipboard: "Copied link to clipboard"
 } as const;

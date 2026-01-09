@@ -184,5 +184,24 @@ export const inventory = {
   expectedReceipt: "Oczekiwane przyjęcie",
   viewTransfer: "Pokaż transfer",
   editTransfer: "Edytuj transfer",
-  deleteTransfer: "Usuń transfer"
+  deleteTransfer: "Usuń transfer",
+
+  // Toast messages - Komunikaty toast
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  carbonClientNotAvailable: "Klient Carbon niedostępny",
+  uploadingFile: "Przesyłanie {{name}}",
+  failedToUploadFile: "Nie udało się przesłać pliku: {{name}}",
+  uploadedFile: "Przesłano: {{name}}",
+  errorDeletingFile: "Błąd usuwania pliku",
+  fileDeletedSuccessfully: "{{name}} usunięto pomyślnie",
+  failedToLoadItemDetails: "Nie udało się załadować szczegółów pozycji",
+  carbonClientIsNotAvailable: "Klient Carbon jest niedostępny",
+  failedToUpdateBatchProperty: "Nie udało się zaktualizować właściwości partii",
+  createdShippingMethod: "Utworzono metodę wysyłki",
+  failedToCreateShippingMethod: "Nie udało się utworzyć metody wysyłki: {{message}}",
+  failedToLoadReceipts: "Nie udało się załadować przyjęć",
+  failedToLoadShipments: "Nie udało się załadować wysyłek",
+  createdStockTransferLine: "Utworzono pozycję transferu magazynowego",
+  failedToCreateStockTransferLine: "Nie udało się utworzyć pozycji transferu: {{message}}",
+  copiedLinkToClipboard: "Skopiowano link do schowka"
 } as const;

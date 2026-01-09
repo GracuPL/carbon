@@ -39,5 +39,10 @@ export const invoicing = {
   edit: "Edytuj",
   delete: "Usuń",
   confirmDeleteSalesInvoice: "Czy na pewno chcesz trwale usunąć {{name}}?",
-  confirmDeletePurchaseInvoice: "Czy na pewno chcesz trwale usunąć {{name}}?"
+  confirmDeletePurchaseInvoice: "Czy na pewno chcesz trwale usunąć {{name}}?",
+
+  // Toast messages - Komunikaty toast
+  carbonClientNotFound: "Nie znaleziono klienta Carbon",
+  errorFetchingSupplierData: "Błąd pobierania danych dostawcy",
+  errorFetchingCustomerData: "Błąd pobierania danych klienta"
 } as const;

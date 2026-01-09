@@ -49,5 +49,13 @@ export const account = {
   themeUpdated: "Theme updated successfully",
   passwordUpdated: "Password updated successfully",
   languageUpdated: "Language updated successfully",
-  updateFailed: "Failed to update"
+  updateFailed: "Failed to update",
+
+  // Toast messages
+  uploadingFile: "Uploading {{name}}",
+  failedToUploadFile: "Failed to upload file: {{name}}",
+  uploadedFile: "Uploaded: {{name}}",
+  failedToResizeImage: "Failed to resize image",
+  failedToUploadImage: "Failed to upload image",
+  failedToRemoveImage: "Failed to remove image"
 } as const;

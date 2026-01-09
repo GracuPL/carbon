@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertDescription,
@@ -29,6 +30,7 @@ import { getReceiptTracking } from "../../inventory.service";
 import type { ReceiptLine } from "../../types";
 
 const ReceiptPostModal = ({ onClose }: { onClose: () => void }) => {
+  const { t } = useTranslation("inventory");
   const { receiptId } = useParams();
   if (!receiptId) throw new Error("receiptId not found");
 
@@ -61,7 +63,7 @@ const ReceiptPostModal = ({ onClose }: { onClose: () => void }) => {
     }[] = [];
 
     if (!carbon) {
-      toast.error("Carbon client is not available");
+      toast.error(t("carbonClientIsNotAvailable"));
       return;
     }
 
