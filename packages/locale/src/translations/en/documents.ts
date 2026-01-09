@@ -42,5 +42,11 @@ export const documents = {
   // Toast messages
   uploadingFile: "Uploading {{name}}",
   failedToUploadFile: "Failed to upload file",
-  errorDownloadingFile: "Error downloading file"
+  errorDownloadingFile: "Error downloading file",
+
+  // Document Form
+  description: "Description",
+  viewPermissions: "View Permissions",
+  editPermissions: "Edit Permissions",
+  upload: "Upload"
 } as const;

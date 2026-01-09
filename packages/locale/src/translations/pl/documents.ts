@@ -42,5 +42,11 @@ export const documents = {
   // Toast messages - Komunikaty toast
   uploadingFile: "Przesyłanie {{name}}",
   failedToUploadFile: "Nie udało się przesłać pliku",
-  errorDownloadingFile: "Błąd pobierania pliku"
+  errorDownloadingFile: "Błąd pobierania pliku",
+
+  // Document Form - Formularz dokumentu
+  description: "Opis",
+  viewPermissions: "Uprawnienia do przeglądania",
+  editPermissions: "Uprawnienia do edycji",
+  upload: "Prześlij"
 } as const;
