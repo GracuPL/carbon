@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -45,6 +46,7 @@ type ChartOfAccountFormProps = {
 };
 
 const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
+  const { t } = useTranslation(["accounting", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -93,7 +95,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? `${initialValues.number}` : "New Account"}
+              {isEditing ? `${initialValues.number}` : t("accounting:newAccount")}
             </DrawerTitle>
             {isEditing && (
               <DrawerDescription>{initialValues.name}</DrawerDescription>
@@ -103,11 +105,11 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
             <Hidden name="id" />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
-              <Input name="number" label="Account Number" />
-              <Input name="name" label="Name" />
+              <Input name="number" label={t("accounting:accountNumber")} />
+              <Input name="name" label={t("common:name")} />
               <Select
                 name="type"
-                label="Type"
+                label={t("common:type")}
                 options={accountTypes.map((accountType) => ({
                   label: accountType,
                   value: accountType
@@ -124,7 +126,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
               />
               <Combobox
                 name="incomeBalance"
-                label="Income/Balance"
+                label={t("accounting:incomeBalance")}
                 options={incomeBalanceTypes.map((incomeBalance) => ({
                   label: incomeBalance,
                   value: incomeBalance
@@ -137,7 +139,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
               />
               <Combobox
                 name="class"
-                label="Class"
+                label={t("accounting:class")}
                 options={accountClassTypes.map((accountClass) => ({
                   label: accountClass,
                   value: accountClass
@@ -149,21 +151,21 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
               />
               <Select
                 name="consolidatedRate"
-                label="Consolidated Rate"
+                label={t("accounting:consolidatedRate")}
                 options={consolidatedRateTypes.map((consolidatedRateType) => ({
                   label: consolidatedRateType,
                   value: consolidatedRateType
                 }))}
               />
-              <Boolean name="directPosting" label="Direct Posting" />
+              <Boolean name="directPosting" label={t("accounting:directPosting")} />
               <CustomFormFields table="account" />
             </div>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

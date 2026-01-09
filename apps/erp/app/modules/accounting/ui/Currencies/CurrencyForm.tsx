@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -30,6 +31,7 @@ type CurrencyFormProps = {
 };
 
 const CurrencyForm = ({ initialValues }: CurrencyFormProps) => {
+  const { t } = useTranslation(["accounting", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -41,8 +43,8 @@ const CurrencyForm = ({ initialValues }: CurrencyFormProps) => {
 
   const isBaseCurrency = company?.baseCurrencyCode === initialValues.code;
   const exchangeRateHelperText = isBaseCurrency
-    ? "This is the base currency. Exchange rate is always 1."
-    : `One ${company?.baseCurrencyCode} is equal to how many ${initialValues.code}?`;
+    ? t("accounting:baseCurrencyHelper")
+    : t("accounting:exchangeRateHelper", { baseCurrency: company?.baseCurrencyCode, currency: initialValues.code });
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
@@ -68,23 +70,23 @@ const CurrencyForm = ({ initialValues }: CurrencyFormProps) => {
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Currency</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("accounting:editCurrencyTitle") : t("accounting:newCurrency")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack spacing={4}>
-              <Input name="name" label="Name" isReadOnly />
-              <Input name="code" label="Code" isReadOnly />
+              <Input name="name" label={t("common:name")} isReadOnly />
+              <Input name="code" label={t("common:code")} isReadOnly />
               <Number
                 name="decimalPlaces"
-                label="Decimal Places"
+                label={t("accounting:decimalPlaces")}
                 minValue={0}
                 maxValue={4}
                 onChange={setDecimalPlaces}
               />
               <Number
                 name="exchangeRate"
-                label="Exchange Rate"
+                label={t("accounting:exchangeRate")}
                 minValue={isBaseCurrency ? 1 : 0}
                 maxValue={isBaseCurrency ? 1 : undefined}
                 formatOptions={{
@@ -98,9 +100,9 @@ const CurrencyForm = ({ initialValues }: CurrencyFormProps) => {
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

@@ -161,5 +161,17 @@ export const accounting = {
   salesTaxPayableAccount: "VAT od sprzedaży do zapłaty",
   purchaseTaxPayableAccount: "VAT od zakupu do zapłaty",
   reverseChargeSalesTax: "Odwrotne obciążenie VAT",
-  retainedEarnings: "Zysk zatrzymany"
+  retainedEarnings: "Zysk zatrzymany",
+
+  // Chart of Account Form - Formularz konta
+  newAccount: "Nowe konto",
+  accountNumber: "Numer konta",
+  consolidatedRate: "Kurs skonsolidowany",
+
+  // Currency Form - Formularz waluty
+  newCurrency: "Nowa waluta",
+  editCurrencyTitle: "Edytuj walutę",
+  decimalPlaces: "Miejsca dziesiętne",
+  baseCurrencyHelper: "To jest waluta bazowa. Kurs wymiany zawsze wynosi 1.",
+  exchangeRateHelper: "Jeden {{baseCurrency}} równa się ile {{currency}}?"
 } as const;

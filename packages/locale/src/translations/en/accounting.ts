@@ -161,5 +161,17 @@ export const accounting = {
   salesTaxPayableAccount: "Sales Tax Payable",
   purchaseTaxPayableAccount: "Purchase Tax Payable",
   reverseChargeSalesTax: "Reverse Charge Sales Tax",
-  retainedEarnings: "Retained Earnings"
+  retainedEarnings: "Retained Earnings",
+
+  // Chart of Account Form
+  newAccount: "New Account",
+  accountNumber: "Account Number",
+  consolidatedRate: "Consolidated Rate",
+
+  // Currency Form
+  newCurrency: "New Currency",
+  editCurrencyTitle: "Edit Currency",
+  decimalPlaces: "Decimal Places",
+  baseCurrencyHelper: "This is the base currency. Exchange rate is always 1.",
+  exchangeRateHelper: "One {{baseCurrency}} is equal to how many {{currency}}?"
 } as const;
