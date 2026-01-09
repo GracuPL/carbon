@@ -179,5 +179,39 @@ export const common = {
   errorDeletingFile: "Błąd usuwania pliku",
   uploadingFile: "Przesyłanie {{name}}",
   fileUploaded: "Przesłano: {{name}}",
-  fileDeleted: "{{name}} został usunięty"
+  fileDeleted: "{{name}} został usunięty",
+
+  // Chart intervals - Interwały wykresów
+  week: "Tydzień",
+  month: "Miesiąc",
+  quarter: "Kwartał",
+  year: "Rok",
+  custom: "Własny",
+  lastInterval: "Ostatni {{interval}}",
+
+  // Address fields - Pola adresu
+  addressLine1: "Adres linia 1",
+  addressLine2: "Adres linia 2",
+  city: "Miasto",
+  stateProvince: "Województwo / Stan",
+  postalCode: "Kod pocztowy",
+  country: "Kraj",
+  noAddressesFound: "Nie znaleziono adresów",
+
+  // Company fields - Pola firmy
+  companyName: "Nazwa firmy",
+  taxId: "NIP",
+  baseCurrency: "Waluta bazowa",
+  phoneNumber: "Numer telefonu",
+  faxNumber: "Numer faksu",
+  email: "E-mail",
+  website: "Strona www",
+
+  // Company page - Strona firmy
+  basicInformation: "Podstawowe informacje",
+  basicInformationDescription: "Te informacje będą używane w nagłówkach dokumentów",
+
+  // Empty states - Puste stany
+  emptyStateTitle: "Tu jest dość pusto",
+  noDataWithinRange: "Brak danych w wybranym zakresie"
 } as const;

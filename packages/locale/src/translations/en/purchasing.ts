@@ -159,5 +159,13 @@ export const purchasing = {
   createdSupplier: "Created supplier: {{name}}",
   failedToCreateSupplier: "Failed to create supplier: {{message}}",
   createdSupplierLocation: "Created supplier location",
-  failedToCreateSupplierLocation: "Failed to create supplier location: {{message}}"
+  failedToCreateSupplierLocation: "Failed to create supplier location: {{message}}",
+
+  // Charts / KPIs
+  supplierQuoteCount: "Supplier Quotes",
+  purchaseOrderCount: "Purchase Orders",
+  purchaseInvoiceCount: "Purchase Invoices",
+  purchaseOrderAmount: "Purchase Order Amount",
+  purchaseInvoiceAmount: "Purchase Invoice Amount",
+  noDataWithinRange: "No data within range"
 } as const;

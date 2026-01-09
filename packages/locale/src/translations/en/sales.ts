@@ -26,10 +26,15 @@ export const sales = {
   assignedToMeDescription: "Sales documents currently assigned to me",
 
   // Charts / KPIs
-  salesRevenue: "Sales Revenue",
+  quoteCount: "Quotes",
+  rfqCount: "RFQs",
   salesFunnel: "Sales Funnel",
+  salesOrderCount: "Sales Orders",
+  salesOrderRevenue: "Sales Revenue",
+  salesRevenue: "Sales Revenue",
   lastMonth: "Last Month",
   allCustomers: "All Customers",
+  exportCsv: "Export CSV",
 
   // Entities
   customer: "Customer",

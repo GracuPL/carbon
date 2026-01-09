@@ -128,10 +128,28 @@ export async function loader({ request }: LoaderFunctionArgs) {
   };
 }
 
+// KPI translation key mappings
+const kpiLabelKeys: Record<string, string> = {
+  quoteCount: "quoteCount",
+  rfqCount: "rfqCount",
+  salesFunnel: "salesFunnel",
+  salesOrderCount: "salesOrderCount",
+  salesOrderRevenue: "salesOrderRevenue"
+};
+
+// Interval translation key mappings
+const intervalLabelKeys: Record<string, string> = {
+  week: "week",
+  month: "month",
+  quarter: "quarter",
+  year: "year",
+  custom: "custom"
+};
+
 export default function SalesDashboard() {
   const { openSalesOrders, openQuotes, openRFQs, assignedToMe } =
     useLoaderData<typeof loader>();
-  const { t } = useTranslation("sales");
+  const { t } = useTranslation(["sales", "common"]);
 
   const mergedOpenDocs = useMemo(() => {
     const merged = [
@@ -218,13 +236,21 @@ export default function SalesDashboard() {
   const [customers] = useCustomers();
   const customerOptions = useMemo(() => {
     return [
-      { label: "All Customers", value: "all" },
+      { label: t("sales:allCustomers"), value: "all" },
       ...customers.map((customer) => ({
         label: customer.name,
         value: customer.id
       }))
     ];
-  }, [customers]);
+  }, [customers, t]);
+
+  // Helper functions for translated labels
+  const getKpiLabel = (key: string) => t(`sales:${kpiLabelKeys[key]}`);
+  const getIntervalLabel = (key: string, withLast = false) => {
+    const label = t(`common:${intervalLabelKeys[key]}`);
+    if (key === "custom" || !withLast) return label;
+    return t("common:lastInterval", { interval: label });
+  };
 
   const [interval, setInterval] = useState("month");
   const [selectedKpi, setSelectedKpi] = useState("salesOrderRevenue");
@@ -463,7 +489,7 @@ export default function SalesDashboard() {
                     rightIcon={<LuChevronDown />}
                     className="hover:bg-background/80"
                   >
-                    <span>{selectedKpiData.label}</span>
+                    <span>{getKpiLabel(selectedKpiData.key)}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="bottom" align="start">
@@ -473,7 +499,7 @@ export default function SalesDashboard() {
                   >
                     {KPIs.map((kpi) => (
                       <DropdownMenuRadioItem key={kpi.key} value={kpi.key}>
-                        {kpi.label}
+                        {getKpiLabel(kpi.key)}
                       </DropdownMenuRadioItem>
                     ))}
                   </DropdownMenuRadioGroup>
@@ -488,9 +514,7 @@ export default function SalesDashboard() {
                     className="hover:bg-background/80"
                   >
                     <span>
-                      {selectedInterval.key === "custom"
-                        ? selectedInterval.label
-                        : `Last ${selectedInterval.label}`}
+                      {getIntervalLabel(selectedInterval.key, true)}
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
@@ -501,7 +525,7 @@ export default function SalesDashboard() {
                   >
                     {chartIntervals.map((i) => (
                       <DropdownMenuRadioItem key={i.key} value={i.key}>
-                        {i.key === "custom" ? i.label : `Last ${i.label}`}
+                        {getIntervalLabel(i.key, true)}
                       </DropdownMenuRadioItem>
                     ))}
                   </DropdownMenuRadioGroup>
@@ -563,7 +587,7 @@ export default function SalesDashboard() {
                     className="flex flex-row items-center gap-2"
                   >
                     <DropdownMenuIcon icon={<LuFile />} />
-                    Export CSV
+                    {t("sales:exportCsv")}
                   </CSVLink>
                 </DropdownMenuItem>
               </DropdownMenuContent>

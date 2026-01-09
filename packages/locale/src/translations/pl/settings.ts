@@ -69,5 +69,8 @@ export const settings = {
   failedToRemoveImage: "Nie udało się usunąć obrazu",
   createdWebhook: "Utworzono webhook",
   failedToCreateWebhook: "Nie udało się utworzyć webhooka: {{message}}",
-  integrationNotFound: "Nie znaleziono integracji"
+  integrationNotFound: "Nie znaleziono integracji",
+
+  // Company page - Strona firmy
+  companyHeading: "Firma"
 } as const;
