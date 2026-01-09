@@ -205,5 +205,30 @@ export const sales = {
   unableToGetCompanyId: "Nie można uzyskać ID firmy",
 
   // Toast messages - Info - Komunikaty informacyjne
-  uploadingFile: "Przesyłanie {{name}}"
+  uploadingFile: "Przesyłanie {{name}}",
+
+  // Customer Form - Formularz klienta
+  customerOverview: "Przegląd klienta",
+  newCustomer: "Nowy klient",
+  customerDescription: "Klient to firma lub osoba, która kupuje twoje wyroby lub usługi.",
+  selectCustomerStatus: "Wybierz status klienta",
+  selectCustomerType: "Wybierz typ klienta",
+  taxPercent: "Procent podatku",
+  salesContact: "Kontakt ds. sprzedaży",
+  invoicingContact: "Kontakt ds. fakturowania",
+
+  // Sales Order Form - Formularz zamówienia sprzedaży
+  newSalesOrder: "Nowe zamówienie sprzedaży",
+  salesOrderDescription: "Zamówienie sprzedaży zawiera informacje o umowie między firmą a konkretnym klientem na wyroby i usługi.",
+  salesOrderId: "ID zamówienia sprzedaży",
+  customerPoNumber: "Numer zamówienia klienta",
+  purchasingContact: "Kontakt ds. zakupów",
+  engineeringContact: "Kontakt techniczny",
+  customerLocation: "Lokalizacja klienta",
+  quoteAcceptedBy: "Oferta zaakceptowana przez",
+  quoteAcceptedByEmail: "E-mail akceptującego ofertę",
+  requestedDate: "Data żądana",
+  requestedDateHelper: "Data, w której klient oczekuje otrzymania towarów",
+  promisedDateHelper: "Data, w której klient oczekuje otrzymania towarów",
+  salesLocation: "Lokalizacja sprzedaży"
 } as const;

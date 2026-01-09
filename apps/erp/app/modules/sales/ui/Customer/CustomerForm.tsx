@@ -46,7 +46,7 @@ const CustomerForm = ({
   type = "card",
   onClose
 }: CustomerFormProps) => {
-  const { t } = useTranslation("sales");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<Customer>>();
 
@@ -81,12 +81,11 @@ const CustomerForm = ({
             >
               <ModalCardHeader>
                 <ModalCardTitle>
-                  {isEditing ? "Customer Overview" : "New Customer"}
+                  {isEditing ? t("sales:customerOverview") : t("sales:newCustomer")}
                 </ModalCardTitle>
                 {!isEditing && (
                   <ModalCardDescription>
-                    A customer is a business or person who buys your parts or
-                    services.
+                    {t("sales:customerDescription")}
                   </ModalCardDescription>
                 )}
               </ModalCardHeader>
@@ -103,25 +102,25 @@ const CustomerForm = ({
                         : "grid-cols-1 md:grid-cols-2"
                   )}
                 >
-                  <Input name="name" label="Name" autoFocus={!isEditing} />
+                  <Input name="name" label={t("common:name")} autoFocus={!isEditing} />
 
                   <CustomerStatus
                     name="customerStatusId"
-                    label="Customer Status"
-                    placeholder="Select Customer Status"
+                    label={t("sales:customerStatus")}
+                    placeholder={t("sales:selectCustomerStatus")}
                   />
                   <CustomerType
                     name="customerTypeId"
-                    label="Customer Type"
-                    placeholder="Select Customer Type"
+                    label={t("sales:customerType")}
+                    placeholder={t("sales:selectCustomerType")}
                   />
-                  <Employee name="accountManagerId" label="Account Manager" />
+                  <Employee name="accountManagerId" label={t("sales:accountManager")} />
 
-                  <Currency name="currencyCode" label="Currency" />
+                  <Currency name="currencyCode" label={t("common:currency")} />
 
                   <Number
                     name="taxPercent"
-                    label="Tax Percent"
+                    label={t("sales:taxPercent")}
                     minValue={0}
                     maxValue={1}
                     step={0.0001}
@@ -132,19 +131,19 @@ const CustomerForm = ({
                     }}
                   />
 
-                  <Input name="website" label="Website" />
+                  <Input name="website" label={t("common:website")} />
 
                   {isEditing && (
                     <>
                       <CustomerContact
                         customer={initialValues.id}
                         name="salesContactId"
-                        label="Sales Contact"
+                        label={t("sales:salesContact")}
                       />
                       <CustomerContact
                         customer={initialValues.id}
                         name="invoicingContactId"
-                        label="Invoicing Contact"
+                        label={t("sales:invoicingContact")}
                       />
                     </>
                   )}

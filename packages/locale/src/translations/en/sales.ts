@@ -205,5 +205,30 @@ export const sales = {
   unableToGetCompanyId: "Unable to get company ID",
 
   // Toast messages - Info
-  uploadingFile: "Uploading {{name}}"
+  uploadingFile: "Uploading {{name}}",
+
+  // Customer Form
+  customerOverview: "Customer Overview",
+  newCustomer: "New Customer",
+  customerDescription: "A customer is a business or person who buys your parts or services.",
+  selectCustomerStatus: "Select Customer Status",
+  selectCustomerType: "Select Customer Type",
+  taxPercent: "Tax Percent",
+  salesContact: "Sales Contact",
+  invoicingContact: "Invoicing Contact",
+
+  // Sales Order Form
+  newSalesOrder: "New Sales Order",
+  salesOrderDescription: "A sales order contains information about the agreement between the company and a specific customer for parts and services.",
+  salesOrderId: "Sales Order ID",
+  customerPoNumber: "Customer PO Number",
+  purchasingContact: "Purchasing Contact",
+  engineeringContact: "Engineering Contact",
+  customerLocation: "Customer Location",
+  quoteAcceptedBy: "Quote Accepted By",
+  quoteAcceptedByEmail: "Quote Accepted By Email",
+  requestedDate: "Requested Date",
+  requestedDateHelper: "The date the customer expects to receive the goods",
+  promisedDateHelper: "The date the customer expects to receive the goods",
+  salesLocation: "Sales Location"
 } as const;

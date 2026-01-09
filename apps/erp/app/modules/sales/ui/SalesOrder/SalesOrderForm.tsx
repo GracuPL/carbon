@@ -46,7 +46,7 @@ type SalesOrderFormProps = {
 };
 
 const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
-  const { t } = useTranslation("sales");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const { company } = useUser();
@@ -111,11 +111,10 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
         defaultValues={initialValues}
       >
         <CardHeader>
-          <CardTitle>{isEditing ? "Sales Order" : "New Sales Order"}</CardTitle>
+          <CardTitle>{isEditing ? t("sales:salesOrder") : t("sales:newSalesOrder")}</CardTitle>
           {!isEditing && (
             <CardDescription>
-              A sales order contains information about the agreement between the
-              company and a specific customer for parts and services.
+              {t("sales:salesOrderDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -134,31 +133,31 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="salesOrderId"
-                  label="Sales Order ID"
+                  label={t("sales:salesOrderId")}
                   table="salesOrder"
                 />
               )}
               <Customer
                 autoFocus={!isEditing}
                 name="customerId"
-                label="Customer"
+                label={t("common:customer")}
                 onChange={onCustomerChange}
               />
-              <Input name="customerReference" label="Customer PO Number" />
+              <Input name="customerReference" label={t("sales:customerPoNumber")} />
 
               <CustomerContact
                 name="customerContactId"
-                label="Purchasing Contact"
+                label={t("sales:purchasingContact")}
                 customer={customer.id}
               />
               <CustomerContact
                 name="customerEngineeringContactId"
-                label="Engineering Contact"
+                label={t("sales:engineeringContact")}
                 customer={customer.id}
               />
               <CustomerLocation
                 name="customerLocationId"
-                label="Customer Location"
+                label={t("sales:customerLocation")}
                 customer={customer.id}
               />
 
@@ -168,12 +167,12 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
                   <>
                     <Input
                       name="digitalQuoteAcceptedBy"
-                      label="Quote Accepted By"
+                      label={t("sales:quoteAcceptedBy")}
                       isDisabled
                     />
                     <Input
                       name="digitalQuoteAcceptedByEmail"
-                      label="Quote Accepted By Email"
+                      label={t("sales:quoteAcceptedByEmail")}
                       isDisabled
                     />
                   </>
@@ -181,25 +180,25 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
 
               <DatePicker
                 name="requestedDate"
-                label="Requested Date"
-                helperText="The date the customer expects to receive the goods"
+                label={t("sales:requestedDate")}
+                helperText={t("sales:requestedDateHelper")}
                 isDisabled={isCustomer}
               />
 
               <DatePicker
                 name="promisedDate"
-                label="Promised Date"
-                helperText="The date the customer expects to receive the goods"
+                label={t("sales:promisedDate")}
+                helperText={t("sales:promisedDateHelper")}
                 isDisabled={isCustomer}
               />
 
-              <Location name="locationId" label="Sales Location" />
+              <Location name="locationId" label={t("sales:salesLocation")} />
 
-              <Employee name="salesPersonId" label="Sales Person" />
+              <Employee name="salesPersonId" label={t("sales:salesPerson")} />
 
               <Currency
                 name="currencyCode"
-                label="Currency"
+                label={t("common:currency")}
                 value={customer.currencyCode}
                 onChange={(newValue) => {
                   if (newValue?.value) {
@@ -252,7 +251,7 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
                 : !permissions.can("create", "sales")
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>
