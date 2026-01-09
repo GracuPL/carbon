@@ -178,5 +178,39 @@ export const common = {
   errorDeletingFile: "Error deleting file",
   uploadingFile: "Uploading {{name}}",
   fileUploaded: "Uploaded: {{name}}",
-  fileDeleted: "{{name}} deleted successfully"
+  fileDeleted: "{{name}} deleted successfully",
+
+  // Chart intervals
+  week: "Week",
+  month: "Month",
+  quarter: "Quarter",
+  year: "Year",
+  custom: "Custom",
+  lastInterval: "Last {{interval}}",
+
+  // Address fields
+  addressLine1: "Address Line 1",
+  addressLine2: "Address Line 2",
+  city: "City",
+  stateProvince: "State / Province",
+  postalCode: "Postal Code",
+  country: "Country",
+  noAddressesFound: "No addresses found",
+
+  // Company fields
+  companyName: "Company Name",
+  taxId: "Tax ID",
+  baseCurrency: "Base Currency",
+  phoneNumber: "Phone Number",
+  faxNumber: "Fax Number",
+  email: "Email",
+  website: "Website",
+
+  // Company page
+  basicInformation: "Basic Information",
+  basicInformationDescription: "This information will be used on document headers",
+
+  // Empty states
+  emptyStateTitle: "It's rather empty here",
+  noDataWithinRange: "No data within range"
 } as const;

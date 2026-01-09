@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import { VStack } from "@carbon/react";
 import type { z } from "zod/v3";
 import { Currency, Hidden, Input, Submit } from "~/components/Form";
@@ -11,6 +12,8 @@ type CompanyFormProps = {
 };
 
 const CompanyForm = ({ company }: CompanyFormProps) => {
+  const { t } = useTranslation("common");
+
   return (
     <>
       <ValidatedForm
@@ -23,18 +26,18 @@ const CompanyForm = ({ company }: CompanyFormProps) => {
 
         <VStack spacing={4}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            <Input name="name" label="Company Name" />
-            <Input name="taxId" label="Tax ID" />
+            <Input name="name" label={t("companyName")} />
+            <Input name="taxId" label={t("taxId")} />
             <AddressAutocomplete variant="grid" />
             <Currency
               name="baseCurrencyCode"
-              label="Base Currency"
+              label={t("baseCurrency")}
               disabled={true}
             />
-            <Input name="phone" label="Phone Number" />
-            <Input name="fax" label="Fax Number" />
-            <Input name="email" label="Email" />
-            <Input name="website" label="Website" />
+            <Input name="phone" label={t("phoneNumber")} />
+            <Input name="fax" label={t("faxNumber")} />
+            <Input name="email" label={t("email")} />
+            <Input name="website" label={t("website")} />
           </div>
           <Submit />
         </VStack>

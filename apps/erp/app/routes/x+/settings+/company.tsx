@@ -2,6 +2,7 @@ import { assertIsPost, error, success } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -56,6 +57,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Company() {
+  const { t } = useTranslation(["settings", "common"]);
   const routeData = useRouteData<{ company: CompanyType }>(
     path.to.authenticatedRoot
   );
@@ -84,12 +86,12 @@ export default function Company() {
         spacing={4}
         className="py-12 px-4 max-w-[60rem] h-full mx-auto gap-4"
       >
-        <Heading size="h3">Company</Heading>
+        <Heading size="h3">{t("settings:companyHeading")}</Heading>
         <Card>
           <CardHeader>
-            <CardTitle>Basic Information</CardTitle>
+            <CardTitle>{t("common:basicInformation")}</CardTitle>
             <CardDescription>
-              This information will be used on document headers
+              {t("common:basicInformationDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent>

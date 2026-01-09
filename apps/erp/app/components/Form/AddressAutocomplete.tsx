@@ -1,4 +1,5 @@
 import { Input, useControlField, useField, useFormContext } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Command,
   CommandEmpty,
@@ -23,6 +24,7 @@ type AddressAutocompleteProps = {
 const AddressAutocomplete = ({
   variant = "vertical"
 }: AddressAutocompleteProps) => {
+  const { t } = useTranslation("common");
   const address1Field = "addressLine1";
 
   const [value, setValue] = useControlField<string>(address1Field);
@@ -146,7 +148,7 @@ const AddressAutocomplete = ({
 
   const addressAutocompleteField = (
     <FormControl isInvalid={!!error}>
-      <FormLabel htmlFor={address1Field}>Address Line 1</FormLabel>
+      <FormLabel htmlFor={address1Field}>{t("addressLine1")}</FormLabel>
       <div className="relative w-full" ref={containerRef}>
         <Command shouldFilter={false}>
           <CommandInputTextField
@@ -161,7 +163,7 @@ const AddressAutocomplete = ({
           {open && suggestions.length > 0 && (
             <CommandList className="absolute w-full top-10 z-[9999] rounded-md border bg-popover text-popover-foreground shadow-md p-0">
               <CommandEmpty>
-                {loading ? "Loading..." : "No addresses found"}
+                {loading ? t("loading") : t("noAddressesFound")}
               </CommandEmpty>
               <CommandGroup>
                 {suggestions.map((suggestion) => (
@@ -188,21 +190,21 @@ const AddressAutocomplete = ({
   );
 
   const addressLine2Field = (
-    <Input ref={addressLine2Ref} name="addressLine2" label="Address Line 2" />
+    <Input ref={addressLine2Ref} name="addressLine2" label={t("addressLine2")} />
   );
 
-  const cityField = <Input ref={cityRef} name="city" label="City" />;
+  const cityField = <Input ref={cityRef} name="city" label={t("city")} />;
 
   const stateProvinceField = (
     <Input
       ref={stateProvinceRef}
       name="stateProvince"
-      label="State / Province"
+      label={t("stateProvince")}
     />
   );
 
   const postalCodeField = (
-    <Input ref={postalCodeRef} name="postalCode" label="Postal Code" />
+    <Input ref={postalCodeRef} name="postalCode" label={t("postalCode")} />
   );
 
   const countryField = <Country name="countryCode" />;
