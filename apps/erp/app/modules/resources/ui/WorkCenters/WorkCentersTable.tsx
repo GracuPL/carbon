@@ -399,7 +399,7 @@ function DeleteWorkCenterModal({
       );
       setHasNoActiveOperations(data.length === 0);
     } else {
-      toast.error("Failed to check active operations");
+      toast.error(t("failedToCheckActiveOperations"));
     }
   };
 

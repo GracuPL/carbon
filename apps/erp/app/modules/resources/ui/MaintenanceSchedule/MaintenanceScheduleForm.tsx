@@ -5,6 +5,7 @@ import {
   useControlField,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   FormControl,
@@ -96,6 +97,7 @@ const MaintenanceScheduleForm = ({
   type = "drawer",
   onClose
 }: MaintenanceScheduleFormProps) => {
+  const { t } = useTranslation("resources");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -104,13 +106,13 @@ const MaintenanceScheduleForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created maintenance schedule`);
+      toast.success(t("createdMaintenanceSchedule"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create maintenance schedule: ${fetcher.data.error.message}`
+        t("failedToCreateProcess", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

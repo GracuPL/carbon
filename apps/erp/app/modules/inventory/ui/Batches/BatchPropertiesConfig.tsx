@@ -6,6 +6,7 @@ import {
   Submit,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   ClientOnly,
@@ -70,6 +71,7 @@ export default function BatchPropertiesConfig({
   isReadOnly?: boolean;
   onClose?: () => void;
 }) {
+  const { t } = useTranslation("inventory");
   const { isList, onChangeCheckForListType, setIsList } = useBatchProperties();
 
   const submit = useSubmit();
@@ -77,9 +79,9 @@ export default function BatchPropertiesConfig({
 
   useEffect(() => {
     if (fetcher.data?.success === false) {
-      toast.error("Failed to update batch property");
+      toast.error(t("failedToUpdateBatchProperty"));
     }
-  }, [fetcher.data]);
+  }, [fetcher.data, t]);
 
   const propertiesById = new Map<string, BatchProperty>(
     initialProperties.map((property) => [property.id, property])

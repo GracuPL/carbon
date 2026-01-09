@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import { File, toast } from "@carbon/react";
 import { nanoid } from "nanoid";
 import type { ChangeEvent } from "react";
@@ -8,6 +9,7 @@ import { useUser } from "~/hooks";
 import { path } from "~/utils/path";
 
 const DocumentCreateForm = () => {
+  const { t } = useTranslation("documents");
   const submit = useSubmit();
   const { carbon } = useCarbon();
   const {
@@ -17,7 +19,7 @@ const DocumentCreateForm = () => {
   const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && carbon) {
       const file = e.target.files[0];
-      toast.info(`Uploading ${file.name}`);
+      toast.info(t("uploadingFile", { name: file.name }));
       const fileExtension = file.name.substring(file.name.lastIndexOf(".") + 1);
       const fileName = `${companyId}/${nanoid()}.${fileExtension}`;
 
@@ -30,7 +32,7 @@ const DocumentCreateForm = () => {
 
       if (fileUpload.error) {
         console.error(fileUpload.error);
-        toast.error("Failed to upload file");
+        toast.error(t("failedToUploadFile"));
       }
 
       if (fileUpload.data?.path) {

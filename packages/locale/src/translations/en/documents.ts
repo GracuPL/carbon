@@ -37,5 +37,10 @@ export const documents = {
   // Confirmation dialogs
   confirmMoveToTrash: "Are you sure you want to move {{name}} to the trash?",
   confirmRestore: "Are you sure you want to restore {{name}} from the trash?",
-  confirmPermanentDelete: "Are you sure you want to delete {{name}} permanently? This cannot be undone."
+  confirmPermanentDelete: "Are you sure you want to delete {{name}} permanently? This cannot be undone.",
+
+  // Toast messages
+  uploadingFile: "Uploading {{name}}",
+  failedToUploadFile: "Failed to upload file",
+  errorDownloadingFile: "Error downloading file"
 } as const;

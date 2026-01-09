@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   DropdownMenu,
@@ -62,6 +63,7 @@ const ProcessForm = ({
   type = "drawer",
   onClose
 }: ProcessFormProps) => {
+  const { t } = useTranslation("resources");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -70,11 +72,11 @@ const ProcessForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created process`);
+      toast.success(t("createdProcess"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create process: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateProcess", { message: fetcher.data.error.message }));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
