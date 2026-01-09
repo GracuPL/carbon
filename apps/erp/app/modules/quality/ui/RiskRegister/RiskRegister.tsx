@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Card,
@@ -30,6 +31,7 @@ export default function RiskRegister({
   documentId,
   documentType
 }: RiskRegisterProps) {
+  const { t } = useTranslation("quality");
   const { carbon } = useCarbon();
   const { company } = useUser();
   const [risks, setRisks] = useState<Risk[]>([]);
@@ -49,7 +51,7 @@ export default function RiskRegister({
       .order("createdAt", { ascending: false });
 
     if (error) {
-      toast.error(`Failed to fetch risks`);
+      toast.error(t("failedToFetchRisks"));
       return;
     }
 

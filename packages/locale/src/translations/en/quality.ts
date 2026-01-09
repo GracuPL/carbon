@@ -200,5 +200,14 @@ export const quality = {
   failedToLoadShipmentLines: "Failed to load shipment lines",
   failedToLoadReceipts: "Failed to load receipts",
   failedToLoadReceiptLines: "Failed to load receipt lines",
-  failedToLoadTrackedEntities: "Failed to load tracked entities"
+  failedToLoadTrackedEntities: "Failed to load tracked entities",
+
+  // Toast messages - Success
+  createdGaugeType: "Created gauge type",
+  failedToCreateGaugeType: "Failed to create gauge type: {{message}}",
+  createdRequiredAction: "Created required action",
+  failedToFetchRisks: "Failed to fetch risks",
+  savedRisk: "Saved risk",
+  failedToSaveRisk: "Failed to save risk: {{message}}",
+  createdIssueType: "Created non conformance type"
 } as const;

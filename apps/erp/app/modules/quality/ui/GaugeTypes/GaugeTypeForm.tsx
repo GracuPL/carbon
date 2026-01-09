@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -34,6 +35,7 @@ const GaugeTypeForm = ({
   type = "drawer",
   onClose
 }: GaugeTypeFormProps) => {
+  const { t } = useTranslation("quality");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -42,11 +44,11 @@ const GaugeTypeForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created gauge type`);
+      toast.success(t("createdGaugeType"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create gauge type: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateGaugeType", { message: fetcher.data.error.message }));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

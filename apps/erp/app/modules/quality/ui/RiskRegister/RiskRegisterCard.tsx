@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -44,6 +45,7 @@ export default function RiskRegisterCard({
   source,
   itemId
 }: RiskRegisterCardProps) {
+  const { t } = useTranslation("quality");
   const { carbon } = useCarbon();
   const { company } = useUser();
 
@@ -64,7 +66,7 @@ export default function RiskRegisterCard({
       .order("createdAt", { ascending: false });
 
     if (error) {
-      toast.error(`Failed to fetch risks`);
+      toast.error(t("failedToFetchRisks"));
       return;
     }
 
@@ -72,7 +74,7 @@ export default function RiskRegisterCard({
       setRisks(data as unknown as Risk[]);
     }
     setLoading(false);
-  }, [carbon, company?.id, sourceId, source, itemId]);
+  }, [carbon, company?.id, sourceId, source, itemId, t]);
 
   useEffect(() => {
     fetchRisks();

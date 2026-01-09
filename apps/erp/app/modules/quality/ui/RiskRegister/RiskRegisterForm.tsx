@@ -105,12 +105,12 @@ const RiskRegisterForm = ({
   useEffect(() => {
     // Only process the response when fetcher is idle (request complete)
     if (fetcher.data?.success === true) {
-      toast.success(`Saved risk`);
+      toast.success(t("savedRisk"));
       onClose();
     } else if (fetcher.state === "idle" && fetcher.data?.success === false) {
-      toast.error(`Failed to save risk: ${fetcher.data?.error?.message}`);
+      toast.error(t("failedToSaveRisk", { message: fetcher.data?.error?.message }));
     }
-  }, [fetcher.data?.success, fetcher.data?.error]);
+  }, [fetcher.data?.success, fetcher.data?.error, t, onClose]);
 
   const isEditing = !!initialValues.id;
   const isDisabled = isEditing

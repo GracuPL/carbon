@@ -200,5 +200,14 @@ export const quality = {
   failedToLoadShipmentLines: "Nie udało się załadować linii wysyłek",
   failedToLoadReceipts: "Nie udało się załadować przyjęć",
   failedToLoadReceiptLines: "Nie udało się załadować linii przyjęć",
-  failedToLoadTrackedEntities: "Nie udało się załadować śledzonych jednostek"
+  failedToLoadTrackedEntities: "Nie udało się załadować śledzonych jednostek",
+
+  // Toast messages - Success - Komunikaty sukcesu
+  createdGaugeType: "Utworzono typ przyrządu",
+  failedToCreateGaugeType: "Nie udało się utworzyć typu przyrządu: {{message}}",
+  createdRequiredAction: "Utworzono wymaganą akcję",
+  failedToFetchRisks: "Nie udało się pobrać ryzyk",
+  savedRisk: "Zapisano ryzyko",
+  failedToSaveRisk: "Nie udało się zapisać ryzyka: {{message}}",
+  createdIssueType: "Utworzono typ niezgodności"
 } as const;
