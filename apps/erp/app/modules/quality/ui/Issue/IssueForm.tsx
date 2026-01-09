@@ -6,6 +6,7 @@ import {
   TextArea,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -51,6 +52,7 @@ const IssueForm = ({
   nonConformanceTypes,
   requiredActions
 }: IssueFormProps) => {
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const isEditing = initialValues.id !== undefined;
 
@@ -94,10 +96,10 @@ const IssueForm = ({
         className="w-full"
       >
         <CardHeader>
-          <CardTitle>{isEditing ? "Issue" : "New Issue"}</CardTitle>
+          <CardTitle>{isEditing ? t("quality:issue") : t("quality:newIssue")}</CardTitle>
           {!isEditing && (
             <CardDescription>
-              A issue record tracks quality issues and their resolution process.
+              {t("quality:issueDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -118,21 +120,21 @@ const IssueForm = ({
 
           <VStack spacing={4}>
             <div className="grid w-full gap-4 grid-cols-1 md:grid-cols-2">
-              <Input name="name" label="Name" />
+              <Input name="name" label={t("common:name")} />
               <Select
                 name="nonConformanceTypeId"
-                label="Issue Type"
+                label={t("quality:issueType")}
                 options={nonConformanceTypes.map((type) => ({
                   label: type.name,
                   value: type.id
                 }))}
               />
             </div>
-            <TextArea name="description" label="Description" />
+            <TextArea name="description" label={t("common:description")} />
             <div className="grid w-full gap-4 grid-cols-1 md:grid-cols-2">
               <Select
                 name="nonConformanceWorkflowId"
-                label="Workflow"
+                label={t("quality:workflow")}
                 options={nonConformanceWorkflows.map((workflow) => ({
                   label: workflow.name,
                   value: workflow.id
@@ -142,7 +144,7 @@ const IssueForm = ({
 
               <MultiSelect
                 name="items"
-                label="Items"
+                label={t("quality:items")}
                 options={items.map((item) => ({
                   label: item.readableIdWithRevision,
                   value: item.id,
@@ -154,7 +156,7 @@ const IssueForm = ({
             <VStack spacing={4}>
               <MultiSelect
                 name="requiredActionIds"
-                label="Required Actions"
+                label={t("quality:requiredActions")}
                 options={requiredActions.map((action) => ({
                   label: action.name,
                   value: action.id
@@ -169,7 +171,7 @@ const IssueForm = ({
               />
               <MultiSelect
                 name="approvalRequirements"
-                label="Approval Requirements"
+                label={t("quality:approvalRequirements")}
                 options={nonConformanceApprovalRequirement.map(
                   (requirement) => ({
                     label: requirement,
@@ -188,7 +190,7 @@ const IssueForm = ({
             <div className="grid w-full gap-4 grid-cols-1 md:grid-cols-2">
               <SelectControlled
                 name="priority"
-                label="Priority"
+                label={t("quality:priority")}
                 options={nonConformancePriority.map((priority) => ({
                   label: (
                     <div className="flex gap-2 items-center">
@@ -208,7 +210,7 @@ const IssueForm = ({
               />
               <SelectControlled
                 name="source"
-                label="Source"
+                label={t("quality:source")}
                 options={nonConformanceSource.map((source) => ({
                   label: (
                     <div className="flex gap-2 items-center">
@@ -227,8 +229,8 @@ const IssueForm = ({
                 }}
               />
 
-              <DatePicker name="openDate" label="Open Date" />
-              <Location name="locationId" label="Location" />
+              <DatePicker name="openDate" label={t("quality:openDate")} />
+              <Location name="locationId" label={t("common:location")} />
               <CustomFormFields table="nonConformance" />
             </div>
           </VStack>
@@ -241,7 +243,7 @@ const IssueForm = ({
                 : !permissions.can("create", "quality")
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

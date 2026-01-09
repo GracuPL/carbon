@@ -209,5 +209,11 @@ export const quality = {
   failedToFetchRisks: "Nie udało się pobrać ryzyk",
   savedRisk: "Zapisano ryzyko",
   failedToSaveRisk: "Nie udało się zapisać ryzyka: {{message}}",
-  createdIssueType: "Utworzono typ niezgodności"
+  createdIssueType: "Utworzono typ niezgodności",
+
+  // Issue Form - Formularz problemu
+  newIssue: "Nowy problem",
+  issueDescription: "Zapis problemu śledzi problemy jakościowe i proces ich rozwiązywania.",
+  workflow: "Przepływ pracy",
+  approvalRequirements: "Wymagania zatwierdzenia"
 } as const;

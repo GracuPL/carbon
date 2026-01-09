@@ -209,5 +209,11 @@ export const quality = {
   failedToFetchRisks: "Failed to fetch risks",
   savedRisk: "Saved risk",
   failedToSaveRisk: "Failed to save risk: {{message}}",
-  createdIssueType: "Created non conformance type"
+  createdIssueType: "Created non conformance type",
+
+  // Issue Form
+  newIssue: "New Issue",
+  issueDescription: "An issue record tracks quality issues and their resolution process.",
+  workflow: "Workflow",
+  approvalRequirements: "Approval Requirements"
 } as const;
