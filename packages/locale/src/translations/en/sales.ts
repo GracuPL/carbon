@@ -249,5 +249,24 @@ export const sales = {
   shipping: "Shipping",
   shippingCustomer: "Shipping Customer",
   shippingLocation: "Shipping Location",
-  shippingContact: "Shipping Contact"
+  shippingContact: "Shipping Contact",
+
+  // Customer Contact Form
+  newContact: "New Contact",
+  editContact: "Edit Contact",
+  email: "Email",
+  firstName: "First Name",
+  lastName: "Last Name",
+  title: "Title",
+  mobilePhone: "Mobile Phone",
+  homePhone: "Home Phone",
+  workPhone: "Work Phone",
+  notes: "Notes",
+
+  // Customer Location Form
+  newLocation: "New Location",
+  editLocation: "Edit Location",
+
+  // Quote Payment Form
+  payment: "Payment"
 } as const;

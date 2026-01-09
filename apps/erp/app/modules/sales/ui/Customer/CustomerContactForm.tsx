@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -42,6 +43,7 @@ const CustomerContactForm = ({
   type = "drawer",
   onClose
 }: CustomerContactFormProps) => {
+  const { t } = useTranslation(["sales", "common"]);
   const fetcher = useAsyncFetcher<{ success?: boolean; message: string }>({
     onStateChange(state) {
       if (state === "idle" && fetcher.data && !fetcher.data.success) {
@@ -83,35 +85,35 @@ const CustomerContactForm = ({
           }}
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Contact</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("sales:editContact") : t("sales:newContact")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <Hidden name="type" value={type} />
             <Hidden name="contactId" />
             <VStack spacing={4}>
-              <Input name="email" label="Email" />
-              <Input name="firstName" label="First Name" />
-              <Input name="lastName" label="Last Name" />
-              <Input name="title" label="Title" />
-              <PhoneInput name="mobilePhone" label="Mobile Phone" />
-              <PhoneInput name="homePhone" label="Home Phone" />
-              <PhoneInput name="workPhone" label="Work Phone" />
-              <PhoneInput name="fax" label="Fax" />
+              <Input name="email" label={t("sales:email")} />
+              <Input name="firstName" label={t("sales:firstName")} />
+              <Input name="lastName" label={t("sales:lastName")} />
+              <Input name="title" label={t("sales:title")} />
+              <PhoneInput name="mobilePhone" label={t("sales:mobilePhone")} />
+              <PhoneInput name="homePhone" label={t("sales:homePhone")} />
+              <PhoneInput name="workPhone" label={t("sales:workPhone")} />
+              <PhoneInput name="fax" label={t("sales:fax")} />
               <CustomerLocation
                 name="customerLocationId"
-                label="Location"
+                label={t("sales:location")}
                 customer={customerId}
               />
-              <TextArea name="notes" label="Notes" />
+              <TextArea name="notes" label={t("sales:notes")} />
               <CustomFormFields table="customerContact" />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

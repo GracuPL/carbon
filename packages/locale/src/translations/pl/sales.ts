@@ -249,5 +249,24 @@ export const sales = {
   shipping: "Wysyłka",
   shippingCustomer: "Klient do wysyłki",
   shippingLocation: "Lokalizacja do wysyłki",
-  shippingContact: "Kontakt do wysyłki"
+  shippingContact: "Kontakt do wysyłki",
+
+  // Customer Contact Form - Formularz kontaktu klienta
+  newContact: "Nowy kontakt",
+  editContact: "Edytuj kontakt",
+  email: "E-mail",
+  firstName: "Imię",
+  lastName: "Nazwisko",
+  title: "Stanowisko",
+  mobilePhone: "Telefon komórkowy",
+  homePhone: "Telefon domowy",
+  workPhone: "Telefon służbowy",
+  notes: "Notatki",
+
+  // Customer Location Form - Formularz lokalizacji klienta
+  newLocation: "Nowa lokalizacja",
+  editLocation: "Edytuj lokalizację",
+
+  // Quote Payment Form - Formularz płatności oferty
+  payment: "Płatność"
 } as const;
