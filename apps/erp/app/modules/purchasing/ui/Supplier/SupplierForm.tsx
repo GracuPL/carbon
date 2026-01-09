@@ -44,7 +44,7 @@ const SupplierForm = ({
   type = "card",
   onClose
 }: SupplierFormProps) => {
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<Supplier>>();
 
@@ -79,12 +79,11 @@ const SupplierForm = ({
             >
               <ModalCardHeader>
                 <ModalCardTitle>
-                  {isEditing ? "Supplier Overview" : "New Supplier"}
+                  {isEditing ? t("purchasing:supplierOverview") : t("purchasing:newSupplier")}
                 </ModalCardTitle>
                 {!isEditing && (
                   <ModalCardDescription>
-                    A supplier is a business or person who sells you parts or
-                    services.
+                    {t("purchasing:supplierDescription")}
                   </ModalCardDescription>
                 )}
               </ModalCardHeader>
@@ -101,37 +100,37 @@ const SupplierForm = ({
                         : "grid-cols-1 md:grid-cols-2"
                   )}
                 >
-                  <Input autoFocus={!isEditing} name="name" label="Name" />
+                  <Input autoFocus={!isEditing} name="name" label={t("common:name")} />
 
                   <SupplierStatus
                     name="supplierStatusId"
-                    label="Supplier Status"
-                    placeholder="Select Supplier Status"
+                    label={t("purchasing:supplierStatus")}
+                    placeholder={t("purchasing:selectSupplierStatus")}
                   />
 
                   <SupplierType
                     name="supplierTypeId"
-                    label="Supplier Type"
-                    placeholder="Select Supplier Type"
+                    label={t("purchasing:supplierType")}
+                    placeholder={t("purchasing:selectSupplierType")}
                   />
 
-                  <Employee name="accountManagerId" label="Account Manager" />
+                  <Employee name="accountManagerId" label={t("purchasing:accountManager")} />
 
-                  <Currency name="currencyCode" label="Currency" />
+                  <Currency name="currencyCode" label={t("common:currency")} />
 
-                  <Input name="website" label="Website" />
+                  <Input name="website" label={t("common:website")} />
 
                   {isEditing && (
                     <>
                       <SupplierContact
                         supplier={initialValues.id}
                         name="purchasingContactId"
-                        label="Purchasing Contact"
+                        label={t("purchasing:purchasingContact")}
                       />
                       <SupplierContact
                         supplier={initialValues.id}
                         name="invoicingContactId"
-                        label="Invoicing Contact"
+                        label={t("purchasing:invoicingContact")}
                       />
                     </>
                   )}
@@ -141,7 +140,7 @@ const SupplierForm = ({
               </ModalCardBody>
               <ModalCardFooter>
                 <HStack>
-                  <Submit isDisabled={isDisabled}>Save</Submit>
+                  <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 </HStack>
               </ModalCardFooter>
             </ValidatedForm>

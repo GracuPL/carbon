@@ -167,5 +167,26 @@ export const purchasing = {
   purchaseInvoiceCount: "Faktury zakupu",
   purchaseOrderAmount: "Wartość zamówień zakupu",
   purchaseInvoiceAmount: "Wartość faktur zakupu",
-  noDataWithinRange: "Brak danych w wybranym zakresie"
+  noDataWithinRange: "Brak danych w wybranym zakresie",
+
+  // Supplier Form - Formularz dostawcy
+  supplierOverview: "Przegląd dostawcy",
+  supplierDescription: "Dostawca to firma lub osoba, która sprzedaje ci wyroby lub usługi.",
+  selectSupplierStatus: "Wybierz status dostawcy",
+  selectSupplierType: "Wybierz typ dostawcy",
+  purchasingContact: "Kontakt ds. zakupów",
+  invoicingContact: "Kontakt ds. fakturowania",
+
+  // Purchase Order Form - Formularz zamówienia zakupu
+  purchaseOrderDescription: "Zamówienie zakupu zawiera informacje o umowie między firmą a konkretnym dostawcą na wyroby i usługi.",
+  purchaseOrderId: "ID zamówienia zakupu",
+  supplierLocation: "Lokalizacja dostawcy",
+  supplierContact: "Kontakt dostawcy",
+  supplierOrderNumber: "Numer zamówienia dostawcy",
+
+  // Supplier Quote Form - Formularz oferty dostawcy
+  supplierQuoteDescription: "Oferta dostawcy to zestaw cen dla konkretnych wyrobów i ilości.",
+  supplierQuoteId: "ID oferty dostawcy",
+  supplierRefNumber: "Nr ref. dostawcy",
+  newSupplierQuote: "Nowa oferta dostawcy"
 } as const;

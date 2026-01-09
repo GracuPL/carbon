@@ -39,7 +39,7 @@ type SalesInvoiceFormProps = {
 };
 
 const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
-  const { t } = useTranslation("invoicing");
+  const { t } = useTranslation(["invoicing", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const isEditing = initialValues.id !== undefined;
@@ -146,12 +146,11 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
       <Card>
         <CardHeader>
           <CardTitle>
-            {isEditing ? "Sales Invoice" : "New Sales Invoice"}
+            {isEditing ? t("invoicing:salesInvoice") : t("invoicing:newSalesInvoice")}
           </CardTitle>
           {!isEditing && (
             <CardDescription>
-              A sales invoice is a document that specifies the products or
-              services sold to a customer and the corresponding cost.
+              {t("invoicing:salesInvoiceDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -170,26 +169,26 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="invoiceId"
-                  label="Invoice ID"
+                  label={t("invoicing:invoiceId")}
                   table="salesInvoice"
                 />
               )}
               <Customer
                 name="customerId"
-                label="Customer"
+                label={t("common:customer")}
                 onChange={onCustomerChange}
               />
-              <Input name="customerReference" label="Customer Invoice Number" />
+              <Input name="customerReference" label={t("invoicing:customerInvoiceNumber")} />
 
               <Customer
                 name="invoiceCustomerId"
-                label="Invoice Customer"
+                label={t("invoicing:invoiceCustomer")}
                 value={invoiceCustomer.id}
                 onChange={onInvoiceCustomerChange}
               />
               <CustomerLocation
                 name="invoiceCustomerLocationId"
-                label="Invoice Customer Location"
+                label={t("invoicing:invoiceCustomerLocation")}
                 customer={customer.id}
                 value={invoiceCustomer.invoiceCustomerLocationId}
                 onChange={(newValue) => {
@@ -203,7 +202,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
               />
               <CustomerContact
                 name="invoiceCustomerContactId"
-                label="Invoice Customer Contact"
+                label={t("invoicing:invoiceCustomerContact")}
                 customer={customer.id}
                 value={invoiceCustomer.invoiceCustomerContactId}
                 onChange={(newValue) => {
@@ -216,12 +215,12 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                 }}
               />
 
-              <DatePicker name="dateDue" label="Due Date" />
-              <DatePicker name="dateIssued" label="Date Issued" />
+              <DatePicker name="dateDue" label={t("invoicing:dueDate")} />
+              <DatePicker name="dateIssued" label={t("invoicing:dateIssued")} />
 
               <PaymentTerm
                 name="paymentTermId"
-                label="Payment Terms"
+                label={t("invoicing:paymentTerms")}
                 value={invoiceCustomer?.paymentTermId}
                 onChange={(newValue) => {
                   if (newValue?.value) {
@@ -234,7 +233,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
               />
               <Currency
                 name="currencyCode"
-                label="Currency"
+                label={t("common:currency")}
                 value={invoiceCustomer?.currencyCode}
                 onChange={(newValue) => {
                   if (newValue?.value) {
@@ -245,7 +244,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                   }
                 }}
               />
-              <Location name="locationId" label="Location" />
+              <Location name="locationId" label={t("common:location")} />
               <CustomFormFields table="salesInvoice" />
             </div>
           </VStack>
@@ -258,7 +257,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                 : !permissions.can("create", "invoicing")
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </Card>

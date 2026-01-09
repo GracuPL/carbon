@@ -45,7 +45,7 @@ type SupplierQuoteFormProps = {
 };
 
 const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const { company } = useUser();
@@ -112,12 +112,11 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
       >
         <CardHeader>
           <CardTitle>
-            {isEditing ? "Supplier Quote" : "New Supplier Quote"}
+            {isEditing ? t("purchasing:supplierQuote") : t("purchasing:newSupplierQuote")}
           </CardTitle>
           {!isEditing && (
             <CardDescription>
-              A supplier quote is a set of prices for specific parts and
-              quantities.
+              {t("purchasing:supplierQuoteDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -135,40 +134,40 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="supplierQuoteId"
-                  label="Supplier Quote ID"
+                  label={t("purchasing:supplierQuoteId")}
                   table="supplierQuote"
                 />
               )}
               <Supplier
                 autoFocus={!isEditing}
                 name="supplierId"
-                label="Supplier"
+                label={t("common:supplier")}
                 onChange={onSupplierChange}
               />
-              <Input name="supplierReference" label="Supplier Ref. Number" />
+              <Input name="supplierReference" label={t("purchasing:supplierRefNumber")} />
 
               <SupplierLocation
                 name="supplierLocationId"
-                label="Supplier Location"
+                label={t("purchasing:supplierLocation")}
                 isOptional
                 supplier={supplier.id}
               />
               <SupplierContact
                 name="supplierContactId"
-                label="Supplier Contact"
+                label={t("purchasing:supplierContact")}
                 isOptional
                 supplier={supplier.id}
               />
-              <DatePicker name="quotedDate" label="Quoted Date" />
+              <DatePicker name="quotedDate" label={t("purchasing:quotedDate")} />
               <DatePicker
                 name="expirationDate"
-                label="Expiration Date"
+                label={t("purchasing:expirationDate")}
                 minValue={today(getLocalTimeZone())}
               />
 
               <Currency
                 name="currencyCode"
-                label="Currency"
+                label={t("common:currency")}
                 value={supplier.currencyCode}
                 onChange={(
                   newValue: {
@@ -210,7 +209,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
                 )}
               <Select
                 name="supplierQuoteType"
-                label="Type"
+                label={t("common:type")}
                 options={purchaseOrderTypeType.map((type) => ({
                   label: type,
                   value: type
@@ -229,7 +228,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
                 : !permissions.can("create", "purchasing"))
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

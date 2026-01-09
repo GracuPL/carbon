@@ -143,5 +143,10 @@ export const users = {
 
   // Toast messages
   createdDepartment: "Created department",
-  failedToCreateDepartment: "Failed to create department: {{message}}"
+  failedToCreateDepartment: "Failed to create department: {{message}}",
+
+  // Department Form
+  newDepartment: "New Department",
+  departmentName: "Department Name",
+  parentDepartment: "Parent Department"
 } as const;

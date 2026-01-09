@@ -49,7 +49,7 @@ const WorkCenterForm = ({
   showProcesses = true,
   onClose
 }: WorkCenterFormProps) => {
-  const { t } = useTranslation("resources");
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -97,23 +97,23 @@ const WorkCenterForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Work Center
+                {isEditing ? t("resources:editWorkCenter") : t("resources:newWorkCenter")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("common:name")} />
                 {showProcesses && (
-                  <Processes name="processes" label="Processes" />
+                  <Processes name="processes" label={t("resources:processes")} />
                 )}
-                <TextArea name="description" label="Description" />
-                <Location name="locationId" label="Location" />
+                <TextArea name="description" label={t("common:description")} />
+                <Location name="locationId" label={t("common:location")} />
 
                 <Number
                   name="laborRate"
-                  label="Labor Rate (Hourly)"
+                  label={t("resources:laborRateHourly")}
                   formatOptions={{
                     style: "currency",
                     currency: baseCurrency
@@ -121,7 +121,7 @@ const WorkCenterForm = ({
                 />
                 <Number
                   name="machineRate"
-                  label="Machine Rate (Hourly)"
+                  label={t("resources:machineRateHourly")}
                   formatOptions={{
                     style: "currency",
                     currency: baseCurrency
@@ -129,7 +129,7 @@ const WorkCenterForm = ({
                 />
                 <Number
                   name="overheadRate"
-                  label="Overhead Rate (Hourly)"
+                  label={t("resources:overheadRateHourly")}
                   formatOptions={{
                     style: "currency",
                     currency: baseCurrency
@@ -138,7 +138,7 @@ const WorkCenterForm = ({
 
                 <StandardFactor
                   name="defaultStandardFactor"
-                  label="Default Unit"
+                  label={t("resources:defaultUnit")}
                   value={initialValues.defaultStandardFactor}
                 />
                 {/* <Ability
@@ -151,9 +151,9 @@ const WorkCenterForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose?.()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

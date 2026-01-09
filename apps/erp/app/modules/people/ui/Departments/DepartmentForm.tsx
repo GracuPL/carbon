@@ -41,7 +41,7 @@ const DepartmentForm = ({
   type = "drawer",
   onClose
 }: DepartmentFormProps) => {
-  const { t } = useTranslation("users");
+  const { t } = useTranslation(["users", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -84,26 +84,26 @@ const DepartmentForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Department
+                {isEditing ? t("users:editDepartment") : t("users:newDepartment")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Department Name" />
+                <Input name="name" label={t("users:departmentName")} />
                 <Department
                   name="parentDepartmentId"
-                  label="Parent Department"
+                  label={t("users:parentDepartment")}
                 />
                 <CustomFormFields table="department" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose?.()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

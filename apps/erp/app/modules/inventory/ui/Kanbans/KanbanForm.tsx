@@ -46,7 +46,7 @@ type KanbanFormProps = {
 };
 
 const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
-  const { t } = useTranslation("inventory");
+  const { t } = useTranslation(["inventory", "common"]);
   const [selectedReplenishmentSystem, setSelectedReplenishmentSystem] =
     useState<string>(initialValues.replenishmentSystem || "Buy");
 
@@ -184,12 +184,12 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit Kanban" : "New Kanban"}
+              {isEditing ? t("inventory:editKanban") : t("inventory:newKanban")}
             </DrawerTitle>
             <DrawerDescription>
               {isEditing
-                ? "Update the kanban information for scan-based replenishment."
-                : "Create a new kanban card for scan-based replenishment."}
+                ? t("inventory:kanbanEditDescription")
+                : t("inventory:kanbanNewDescription")}
             </DrawerDescription>
           </DrawerHeader>
           <DrawerBody>
@@ -204,24 +204,24 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
               <div className="grid grid-cols-1 gap-4 w-full">
                 <Item
                   name="itemId"
-                  label="Item"
+                  label={t("inventory:item")}
                   type={itemType}
-                  onTypeChange={(t) => setItemType(t as MethodItemType)}
+                  onTypeChange={(itemTypeValue) => setItemType(itemTypeValue as MethodItemType)}
                   onChange={onItemChange}
                   isReadOnly={isEditing}
                 />
 
                 <Number
                   name="quantity"
-                  label="Quantity"
+                  label={t("inventory:quantity")}
                   minValue={1}
-                  helperText="The quantity of the item to be reordered on scan-based replenishment."
+                  helperText={t("inventory:quantityHelper")}
                 />
 
                 <SelectControlled
                   value={selectedReplenishmentSystem}
                   name="replenishmentSystem"
-                  label="Replenishment System"
+                  label={t("inventory:replenishmentSystem")}
                   onChange={(value) => {
                     if (value) {
                       setSelectedReplenishmentSystem(value.value);
@@ -239,14 +239,14 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
                   <>
                     <Supplier
                       name="supplierId"
-                      label="Supplier"
+                      label={t("common:supplier")}
                       value={supplierId}
                       onChange={onSupplierChange}
                     />
 
                     <UnitOfMeasure
                       name="purchaseUnitOfMeasureCode"
-                      label="Purchase Unit of Measure"
+                      label={t("inventory:purchaseUnitOfMeasure")}
                       value={purchaseUnitOfMeasureCode}
                       onChange={(value) => {
                         if (
@@ -263,26 +263,26 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
 
                     <ConversionFactor
                       name="conversionFactor"
-                      label="Conversion Factor"
+                      label={t("inventory:conversionFactor")}
                       inventoryCode={inventoryUnitOfMeasureCode}
                       purchasingCode={purchaseUnitOfMeasureCode}
                       value={conversionFactor}
                       onChange={setConversionFactor}
-                      helperText="Number of inventory units per purchase unit"
+                      helperText={t("inventory:conversionFactorHelper")}
                     />
                   </>
                 )}
 
                 <Location
                   name="locationId"
-                  label="Location"
+                  label={t("common:location")}
                   onChange={onLocationChange}
                   isReadOnly={isEditing}
                 />
 
                 <Shelf
                   name="shelfId"
-                  label="Shelf"
+                  label={t("inventory:shelf")}
                   locationId={locationId}
                   value={shelfId ?? undefined}
                   onChange={(value) => {
@@ -294,7 +294,7 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
                   <>
                     <Boolean
                       name="autoRelease"
-                      label="Auto Release"
+                      label={t("inventory:autoRelease")}
                       value={autoRelease}
                       onChange={(value) => {
                         setAutoRelease(value);
@@ -302,25 +302,25 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
                           setAutoStartJob(false);
                         }
                       }}
-                      description="Automatically release the job when the kanban is scanned"
+                      description={t("inventory:autoReleaseDescription")}
                     />
                     <Boolean
                       name="autoStartJob"
-                      label="Auto Start Job"
+                      label={t("inventory:autoStartJob")}
                       value={autoStartJob}
                       onChange={setAutoStartJob}
                       isDisabled={!autoRelease}
                       description={
                         autoRelease
-                          ? "Automatically start the job when the kanban is scanned"
-                          : "Auto release must be enabled to start a job automatically"
+                          ? t("inventory:autoStartJobEnabled")
+                          : t("inventory:autoStartJobDisabled")
                       }
                     />
                     <SequenceOrCustomId
                       name="completedBarcodeOverride"
-                      label="Completion Barcode"
+                      label={t("inventory:completionBarcode")}
                       table="kanban"
-                      placeholder="Auto-generated QR Code"
+                      placeholder={t("inventory:autoGeneratedQrCode")}
                     />
                   </>
                 )}
@@ -330,10 +330,10 @@ const KanbanForm = ({ initialValues, onClose }: KanbanFormProps) => {
           <DrawerFooter>
             <HStack>
               <Button type="button" variant="ghost" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
               <Submit withBlocker={false}>
-                {isEditing ? "Update" : "Create"} Kanban
+                {isEditing ? t("inventory:updateKanban") : t("inventory:createKanban")}
               </Submit>
             </HStack>
           </DrawerFooter>
