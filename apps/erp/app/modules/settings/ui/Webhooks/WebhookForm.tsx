@@ -1,5 +1,6 @@
 // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
 import { Boolean, Input, Select, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -39,6 +40,7 @@ const WebhookForm = ({
   open = true,
   onClose
 }: WebhookFormProps) => {
+  const { t } = useTranslation("settings");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -47,13 +49,13 @@ const WebhookForm = ({
   useEffect(() => {
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created unit of measure`);
+      toast.success(t("createdWebhook"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create unit of measure: ${fetcher.data.error.message}`
+        t("failedToCreateWebhook", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose]);
+  }, [fetcher.data, fetcher.state, onClose, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

@@ -61,5 +61,13 @@ export const settings = {
   // Custom Fields Detail - Szczegóły pól niestandardowych
   editCustomField: "Edytuj pole niestandardowe",
   deleteCustomField: "Usuń pole niestandardowe",
-  confirmDeleteCustomField: "Czy na pewno chcesz usunąć pole {{name}}?"
+  confirmDeleteCustomField: "Czy na pewno chcesz usunąć pole {{name}}?",
+
+  // Toast messages - Komunikaty toast
+  failedToResizeImage: "Nie udało się zmienić rozmiaru obrazu",
+  failedToUploadLogo: "Nie udało się przesłać logo",
+  failedToRemoveImage: "Nie udało się usunąć obrazu",
+  createdWebhook: "Utworzono webhook",
+  failedToCreateWebhook: "Nie udało się utworzyć webhooka: {{message}}",
+  integrationNotFound: "Nie znaleziono integracji"
 } as const;
