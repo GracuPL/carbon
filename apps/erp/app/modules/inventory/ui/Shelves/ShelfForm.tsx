@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -33,6 +34,7 @@ const ShelfForm = ({
   type = "drawer",
   onClose
 }: ShelfFormProps) => {
+  const { t } = useTranslation(["inventory", "common"]);
   const fetcher = useFetcher<{}>();
 
   const permissions = usePermissions();
@@ -67,7 +69,7 @@ const ShelfForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Shelf
+                {isEditing ? t("inventory:editShelf") : t("inventory:newShelf")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -75,19 +77,19 @@ const ShelfForm = ({
               <Hidden name="type" value={type} />
 
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("inventory:name")} />
                 <Location
                   isReadOnly={isEditing}
                   name="locationId"
-                  label="Location"
+                  label={t("inventory:location")}
                 />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={onClose}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

@@ -1,4 +1,5 @@
 import { InputControlled, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -27,6 +28,7 @@ type WarehouseTransferFormProps = {
 const WarehouseTransferForm = ({
   initialValues
 }: WarehouseTransferFormProps) => {
+  const { t } = useTranslation(["inventory", "common"]);
   const permissions = usePermissions();
   const isEditing = !!initialValues.id;
   const canEdit =
@@ -42,11 +44,10 @@ const WarehouseTransferForm = ({
     >
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>{isEditing ? "Warehouse" : "New"} Transfer</CardTitle>
+          <CardTitle>{isEditing ? t("inventory:warehouseTransfer") : t("inventory:newWarehouseTransfer")}</CardTitle>
           {!isEditing && (
             <CardDescription>
-              A warehouse transfer is an inter-company movement of inventory
-              between two locations
+              {t("inventory:warehouseTransferDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -57,34 +58,34 @@ const WarehouseTransferForm = ({
               {isEditing ? (
                 <InputControlled
                   name="transferId"
-                  label="Transfer ID"
+                  label={t("inventory:transferId")}
                   isDisabled
                   value={initialValues.transferId!}
                 />
               ) : (
                 <SequenceOrCustomId
                   name="transferId"
-                  label="Transfer ID"
+                  label={t("inventory:transferId")}
                   table="warehouseTransfer"
                 />
               )}
-              <Input name="reference" label="Reference" />
-              <Location name="fromLocationId" label="From Location" />
-              <Location name="toLocationId" label="To Location" />
+              <Input name="reference" label={t("inventory:reference")} />
+              <Location name="fromLocationId" label={t("inventory:fromLocation")} />
+              <Location name="toLocationId" label={t("inventory:toLocation")} />
               {isEditing && (
                 <>
-                  <DatePicker name="transferDate" label="Transfer Date" />
+                  <DatePicker name="transferDate" label={t("inventory:transferDate")} />
                   <DatePicker
                     name="expectedReceiptDate"
-                    label="Expected Receipt Date"
+                    label={t("inventory:expectedReceipt")}
                   />
                 </>
               )}
             </div>
 
-            <TextArea name="notes" label="Notes" />
+            <TextArea name="notes" label={t("inventory:notes")} />
 
-            <Submit disabled={!canEdit}>Save</Submit>
+            <Submit disabled={!canEdit}>{t("common:save")}</Submit>
           </VStack>
         </CardContent>
       </Card>

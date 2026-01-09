@@ -43,7 +43,7 @@ const ShippingMethodForm = ({
   type = "drawer",
   onClose
 }: ShippingMethodFormProps) => {
-  const { t } = useTranslation("inventory");
+  const { t } = useTranslation(["inventory", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -52,10 +52,10 @@ const ShippingMethodForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdShippingMethod"));
+      toast.success(t("inventory:createdShippingMethod"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        t("failedToCreateShippingMethod", { message: fetcher.data.error.message })
+        t("inventory:failedToCreateShippingMethod", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
@@ -93,17 +93,17 @@ const ShippingMethodForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Shipping Method
+                {isEditing ? t("inventory:editShippingMethod") : t("inventory:newShippingMethod")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("inventory:name")} />
                 <Select
                   name="carrier"
-                  label="Carrier"
+                  label={t("inventory:carrier")}
                   options={shippingCarrierOptions}
                 />
                 {/* <Account
@@ -121,7 +121,7 @@ const ShippingMethodForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               </HStack>
             </ModalDrawerFooter>
           </ValidatedForm>
