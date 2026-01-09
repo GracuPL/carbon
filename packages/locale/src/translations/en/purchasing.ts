@@ -167,5 +167,26 @@ export const purchasing = {
   purchaseInvoiceCount: "Purchase Invoices",
   purchaseOrderAmount: "Purchase Order Amount",
   purchaseInvoiceAmount: "Purchase Invoice Amount",
-  noDataWithinRange: "No data within range"
+  noDataWithinRange: "No data within range",
+
+  // Supplier Form
+  supplierOverview: "Supplier Overview",
+  supplierDescription: "A supplier is a business or person who sells you parts or services.",
+  selectSupplierStatus: "Select Supplier Status",
+  selectSupplierType: "Select Supplier Type",
+  purchasingContact: "Purchasing Contact",
+  invoicingContact: "Invoicing Contact",
+
+  // Purchase Order Form
+  purchaseOrderDescription: "A purchase order contains information about the agreement between the company and a specific supplier for parts and services.",
+  purchaseOrderId: "Purchase Order ID",
+  supplierLocation: "Supplier Location",
+  supplierContact: "Supplier Contact",
+  supplierOrderNumber: "Supplier Order Number",
+
+  // Supplier Quote Form
+  supplierQuoteDescription: "A supplier quote is a set of prices for specific parts and quantities.",
+  supplierQuoteId: "Supplier Quote ID",
+  supplierRefNumber: "Supplier Ref. Number",
+  newSupplierQuote: "New Supplier Quote"
 } as const;

@@ -39,7 +39,7 @@ type PurchaseOrderFormProps = {
 };
 
 const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const [supplier, setSupplier] = useState<{
@@ -102,12 +102,11 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
       >
         <CardHeader>
           <CardTitle>
-            {isEditing ? "Purchase Order" : "New Purchase Order"}
+            {isEditing ? t("purchasing:purchaseOrder") : t("purchasing:newPurchaseOrder")}
           </CardTitle>
           {!isEditing && (
             <CardDescription>
-              A purchase order contains information about the agreement between
-              the company and a specific supplier for parts and services.
+              {t("purchasing:purchaseOrderDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -125,31 +124,31 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="purchaseOrderId"
-                  label="Purchase Order ID"
+                  label={t("purchasing:purchaseOrderId")}
                   table="purchaseOrder"
                 />
               )}
               <Supplier
                 autoFocus={!isEditing}
                 name="supplierId"
-                label="Supplier"
+                label={t("common:supplier")}
                 onChange={onSupplierChange}
               />
-              <Input name="supplierReference" label="Supplier Order Number" />
+              <Input name="supplierReference" label={t("purchasing:supplierOrderNumber")} />
               <SupplierLocation
                 name="supplierLocationId"
-                label="Supplier Location"
+                label={t("purchasing:supplierLocation")}
                 supplier={supplier.id}
               />
               <SupplierContact
                 name="supplierContactId"
-                label="Supplier Contact"
+                label={t("purchasing:supplierContact")}
                 supplier={supplier.id}
               />
 
               <Currency
                 name="currencyCode"
-                label="Currency"
+                label={t("common:currency")}
                 value={supplier.currencyCode}
                 onChange={(newValue) => {
                   if (newValue?.value) {
@@ -162,7 +161,7 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
               />
               <Select
                 name="purchaseOrderType"
-                label="Type"
+                label={t("common:type")}
                 options={purchaseOrderTypeType.map((type) => ({
                   label: type,
                   value: type
@@ -180,7 +179,7 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
                 : !permissions.can("create", "purchasing")
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>
