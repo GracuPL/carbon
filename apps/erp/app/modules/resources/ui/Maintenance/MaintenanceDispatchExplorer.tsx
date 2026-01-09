@@ -6,6 +6,7 @@ import {
   Submit,
   ValidatedForm
 } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Count,
@@ -405,6 +406,7 @@ function NewItemModal({
   onClose: () => void;
   dispatchId: string;
 }) {
+  const { t } = useTranslation("resources");
   const fetcher = useFetcher();
   const { carbon } = useCarbon();
 
@@ -423,8 +425,8 @@ function NewItemModal({
     unitCost: 0
   });
 
-  const onTypeChange = (t: MethodItemType | "Item") => {
-    setItemType(t as MethodItemType);
+  const onTypeChange = (typeValue: MethodItemType | "Item") => {
+    setItemType(typeValue as MethodItemType);
     setItemData({
       unitOfMeasureCode: "EA",
       unitCost: 0
@@ -440,7 +442,7 @@ function NewItemModal({
     ]);
 
     if (item.error) {
-      toast.error("Failed to load item details");
+      toast.error(t("failedToLoadItemDetails"));
       return;
     }
 
