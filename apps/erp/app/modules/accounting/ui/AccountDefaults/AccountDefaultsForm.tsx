@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -39,6 +40,7 @@ const AccountDefaultsForm = ({
   incomeStatementAccounts,
   initialValues
 }: AccountDefaultsFormProps) => {
+  const { t } = useTranslation(["accounting", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -63,17 +65,16 @@ const AccountDefaultsForm = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Default Accounts</CardTitle>
+        <CardTitle>{t("accounting:defaultAccounts")}</CardTitle>
         <CardDescription>
-          These accounts are used in the absence of a more specific account from
-          a posting group
+          {t("accounting:defaultAccountsDescription")}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="income">
           <TabsList>
-            <TabsTrigger value="income">Income Statement</TabsTrigger>
-            <TabsTrigger value="balance">Balance Sheet</TabsTrigger>
+            <TabsTrigger value="income">{t("accounting:incomeStatement")}</TabsTrigger>
+            <TabsTrigger value="balance">{t("accounting:balanceSheet")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="income" className="py-6">
@@ -88,107 +89,107 @@ const AccountDefaultsForm = ({
               <div className="grid gap-y-4 gap-x-8 grid-cols-1 md:grid-cols-2">
                 <Select
                   name="salesAccount"
-                  label="Sales"
+                  label={t("accounting:salesAccount")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="salesDiscountAccount"
-                  label="Sales Discounts"
+                  label={t("accounting:salesDiscounts")}
                   options={incomeStatementAccountOptions}
                 />
 
                 <Select
                   name="costOfGoodsSoldAccount"
-                  label="Cost of Goods Sold"
+                  label={t("accounting:costOfGoodsSold")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="purchaseAccount"
-                  label="Purchases"
+                  label={t("accounting:purchases")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="directCostAppliedAccount"
-                  label="Direct Cost Applied"
+                  label={t("accounting:directCostApplied")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="overheadCostAppliedAccount"
-                  label="Overhead Cost Applied"
+                  label={t("accounting:overheadCostApplied")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="purchaseVarianceAccount"
-                  label="Purchase Variance"
+                  label={t("accounting:purchaseVarianceAccount")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="inventoryAdjustmentVarianceAccount"
-                  label="Inventory Adjustment"
+                  label={t("accounting:inventoryAdjustment")}
                   options={incomeStatementAccountOptions}
                 />
 
                 <Select
                   name="materialVarianceAccount"
-                  label="Material Variance"
+                  label={t("accounting:materialVarianceAccount")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="capacityVarianceAccount"
-                  label="Capacity Variance"
+                  label={t("accounting:capacityVarianceAccount")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="overheadAccount"
-                  label="Overhead"
+                  label={t("accounting:overheadAccount")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="maintenanceAccount"
-                  label="Maintenance Expense"
+                  label={t("accounting:maintenanceExpense")}
                   options={incomeStatementAccountOptions}
                 />
 
                 <Select
                   name="assetDepreciationExpenseAccount"
-                  label="Depreciation Expense"
+                  label={t("accounting:depreciationExpense")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="assetGainsAndLossesAccount"
-                  label="Gains and Losses"
+                  label={t("accounting:gainsAndLosses")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="serviceChargeAccount"
-                  label="Service Charges"
+                  label={t("accounting:serviceCharges")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="interestAccount"
-                  label="Interest"
+                  label={t("accounting:interest")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="supplierPaymentDiscountAccount"
-                  label="Supplier Payment Discounts"
+                  label={t("accounting:supplierPaymentDiscounts")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="customerPaymentDiscountAccount"
-                  label="Customer Payment Discounts"
+                  label={t("accounting:customerPaymentDiscounts")}
                   options={incomeStatementAccountOptions}
                 />
                 <Select
                   name="roundingAccount"
-                  label="Rounding Account"
+                  label={t("accounting:roundingAccount")}
                   options={incomeStatementAccountOptions}
                 />
               </div>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={onClose}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ValidatedForm>
@@ -205,113 +206,113 @@ const AccountDefaultsForm = ({
               <div className="grid gap-y-4 gap-x-8 grid-cols-1 md:grid-cols-2">
                 <Select
                   name="inventoryAccount"
-                  label="Inventory"
+                  label={t("accounting:inventoryAccount")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="inventoryInterimAccrualAccount"
-                  label="Inventory Interim Accrual"
+                  label={t("accounting:inventoryInterimAccrual")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="workInProgressAccount"
-                  label="Work in Progress (WIP)"
+                  label={t("accounting:workInProgress")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="receivablesAccount"
-                  label="Receivables"
+                  label={t("accounting:receivablesAccount")}
                   options={balanceSheetAccountOptions}
                 />
 
                 <Select
                   name="inventoryInvoicedNotReceivedAccount"
-                  label="Inventory Invoiced Not Received"
+                  label={t("accounting:inventoryInvoicedNotReceived")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="bankCashAccount"
-                  label="Bank - Cash"
+                  label={t("accounting:bankCash")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="bankLocalCurrencyAccount"
-                  label="Bank - Local Currency"
+                  label={t("accounting:bankLocalCurrency")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="bankForeignCurrencyAccount"
-                  label="Bank - Foreign Currency"
+                  label={t("accounting:bankForeignCurrency")}
                   options={balanceSheetAccountOptions}
                 />
 
                 <Select
                   name="assetAquisitionCostAccount"
-                  label="Asset Aquisition Cost"
+                  label={t("accounting:assetAquisitionCost")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="assetAquisitionCostOnDisposalAccount"
-                  label="Asset Cost on Disposal"
+                  label={t("accounting:assetCostOnDisposal")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="accumulatedDepreciationAccount"
-                  label="Accumulated Depreciation"
+                  label={t("accounting:accumulatedDepreciation")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="accumulatedDepreciationOnDisposalAccount"
-                  label="Accumulated Depreciation on Disposal"
+                  label={t("accounting:accumulatedDepreciationOnDisposal")}
                   options={balanceSheetAccountOptions}
                 />
 
                 <Select
                   name="prepaymentAccount"
-                  label="Prepayments"
+                  label={t("accounting:prepayments")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="payablesAccount"
-                  label="Payables"
+                  label={t("accounting:payablesAccount")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="inventoryReceivedNotInvoicedAccount"
-                  label="Inventory Received Not Invoiced"
+                  label={t("accounting:inventoryReceivedNotInvoiced")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="inventoryShippedNotInvoicedAccount"
-                  label="Inventory Shipped Not Invoiced"
+                  label={t("accounting:inventoryShippedNotInvoiced")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="salesTaxPayableAccount"
-                  label="Sales Tax Payable"
+                  label={t("accounting:salesTaxPayableAccount")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="purchaseTaxPayableAccount"
-                  label="Purchase Tax Payable"
+                  label={t("accounting:purchaseTaxPayableAccount")}
                   options={balanceSheetAccountOptions}
                 />
                 <Select
                   name="reverseChargeSalesTaxPayableAccount"
-                  label="Reverse Charge Sales Tax"
+                  label={t("accounting:reverseChargeSalesTax")}
                   options={balanceSheetAccountOptions}
                 />
 
                 <Select
                   name="retainedEarningsAccount"
-                  label="Retained Earnings"
+                  label={t("accounting:retainedEarnings")}
                   options={balanceSheetAccountOptions}
                 />
               </div>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={onClose}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ValidatedForm>

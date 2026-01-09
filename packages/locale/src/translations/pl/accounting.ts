@@ -114,5 +114,52 @@ export const accounting = {
 
   // Toast messages - Komunikaty toast
   createdPaymentTerm: "Utworzono warunki płatności",
-  failedToCreatePaymentTerm: "Nie udało się utworzyć warunków płatności: {{message}}"
+  failedToCreatePaymentTerm: "Nie udało się utworzyć warunków płatności: {{message}}",
+
+  // Default Accounts Form - Formularz domyślnych kont
+  defaultAccounts: "Domyślne konta",
+  defaultAccountsDescription: "Te konta są używane w przypadku braku bardziej szczegółowego konta z grupy księgowania",
+  incomeStatement: "Rachunek zysków i strat",
+  balanceSheet: "Bilans",
+
+  // Income Statement Accounts - Konta rachunku zysków i strat
+  salesAccount: "Sprzedaż",
+  salesDiscounts: "Rabaty sprzedażowe",
+  costOfGoodsSold: "Koszt własny sprzedaży",
+  purchases: "Zakupy",
+  purchaseVarianceAccount: "Odchylenie zakupu",
+  inventoryAdjustment: "Korekta magazynu",
+  materialVarianceAccount: "Odchylenie materiałowe",
+  capacityVarianceAccount: "Odchylenie zdolności",
+  overheadAccount: "Koszty ogólne",
+  maintenanceExpense: "Koszty utrzymania",
+  depreciationExpense: "Amortyzacja",
+  gainsAndLosses: "Zyski i straty",
+  serviceCharges: "Opłaty za usługi",
+  interest: "Odsetki",
+  supplierPaymentDiscounts: "Rabaty płatnicze dostawców",
+  customerPaymentDiscounts: "Rabaty płatnicze klientów",
+  roundingAccount: "Konto zaokrągleń",
+
+  // Balance Sheet Accounts - Konta bilansowe
+  inventoryAccount: "Magazyn",
+  inventoryInterimAccrual: "Rozliczenie międzyokresowe magazynu",
+  workInProgress: "Produkcja w toku (WIP)",
+  receivablesAccount: "Należności",
+  inventoryInvoicedNotReceived: "Magazyn zafakturowany nieotrzymany",
+  bankCash: "Bank - gotówka",
+  bankLocalCurrency: "Bank - waluta lokalna",
+  bankForeignCurrency: "Bank - waluta obca",
+  assetAquisitionCost: "Koszt nabycia środka trwałego",
+  assetCostOnDisposal: "Koszt środka trwałego przy zbyciu",
+  accumulatedDepreciation: "Umorzenie",
+  accumulatedDepreciationOnDisposal: "Umorzenie przy zbyciu",
+  prepayments: "Zaliczki",
+  payablesAccount: "Zobowiązania",
+  inventoryReceivedNotInvoiced: "Magazyn otrzymany bez faktury",
+  inventoryShippedNotInvoiced: "Magazyn wysłany bez faktury",
+  salesTaxPayableAccount: "VAT od sprzedaży do zapłaty",
+  purchaseTaxPayableAccount: "VAT od zakupu do zapłaty",
+  reverseChargeSalesTax: "Odwrotne obciążenie VAT",
+  retainedEarnings: "Zysk zatrzymany"
 } as const;
