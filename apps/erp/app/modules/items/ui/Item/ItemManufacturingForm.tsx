@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -31,6 +32,7 @@ const ItemManufacturingForm = ({
   initialValues,
   withConfiguration = true
 }: ItemManufacturingFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const fetcher = useFetcher<typeof action>();
   const permissions = usePermissions();
   const { itemId } = useParams();
@@ -46,20 +48,20 @@ const ItemManufacturingForm = ({
         fetcher={fetcher}
       >
         <CardHeader>
-          <CardTitle>Manufacturing</CardTitle>
+          <CardTitle>{t("items:manufacturing")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="itemId" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
-            <Number name="lotSize" label="Batch Size" />
+            <Number name="lotSize" label={t("items:batchSize")} />
             <Number
               name="scrapPercentage"
-              label="Scrap Percent"
+              label={t("items:scrapPercent")}
               formatOptions={{
                 style: "percent"
               }}
             />
-            <Number name="leadTime" label="Lead Time (Days)" />
+            <Number name="leadTime" label={t("items:leadTimeDays")} />
             {/* <Boolean
               name="manufacturingBlocked"
               label="Manufacturing Blocked"
@@ -70,7 +72,7 @@ const ItemManufacturingForm = ({
               <Boolean
                 name="requiresConfiguration"
                 label=""
-                description="Configured"
+                description={t("items:configured")}
               />
             )}
             <CustomFormFields table="partReplenishment" />
@@ -81,7 +83,7 @@ const ItemManufacturingForm = ({
             withBlocker={false}
             isDisabled={!permissions.can("update", "parts")}
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

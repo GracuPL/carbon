@@ -265,5 +265,20 @@ export const items = {
 
   // New/Edit pattern - Wzorzec Nowy/Edytuj
   newEntity: "Nowy {{entity}}",
-  editEntity: "Edytuj {{entity}}"
+  editEntity: "Edytuj {{entity}}",
+
+  // Item Form - Formularz produktu
+  openMenu: "Otwórz menu",
+  viewItemMaster: "Zobacz kartę produktu",
+
+  // Item Costing Form - Formularz kosztów produktu
+  costingAndPosting: "Koszty i księgowanie",
+  itemGroupHelperText: "Grupa używana razem z typem dostawcy, typem klienta i lokalizacją do określenia konta",
+  unitCostHelperText: "Średni ważony koszt z ostatniego roku obliczany przy księgowaniu faktury",
+
+  // Item Manufacturing Form - Formularz produkcji produktu
+  manufacturing: "Produkcja",
+  scrapPercent: "Procent odpadów",
+  leadTimeDays: "Czas realizacji (dni)",
+  configured: "Konfigurowany"
 } as const;

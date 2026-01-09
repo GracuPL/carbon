@@ -265,5 +265,20 @@ export const items = {
 
   // New/Edit pattern
   newEntity: "New {{entity}}",
-  editEntity: "Edit {{entity}}"
+  editEntity: "Edit {{entity}}",
+
+  // Item Form
+  openMenu: "Open menu",
+  viewItemMaster: "View Item Master",
+
+  // Item Costing Form
+  costingAndPosting: "Costing & Posting",
+  itemGroupHelperText: "Group used together with the supplier type, customer type, and location to determine the account",
+  unitCostHelperText: "Weighted average cost over last year calculated when the invoice is posted",
+
+  // Item Manufacturing Form
+  manufacturing: "Manufacturing",
+  scrapPercent: "Scrap Percent",
+  leadTimeDays: "Lead Time (Days)",
+  configured: "Configured"
 } as const;
