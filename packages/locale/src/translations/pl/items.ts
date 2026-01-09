@@ -232,5 +232,38 @@ export const items = {
   itemCannotAddToSelf: "Produkt nie może być dodany do samego siebie.",
 
   // Toast messages - Info - Komunikaty informacyjne
-  uploadingFile: "Przesyłanie {{name}}"
+  uploadingFile: "Przesyłanie {{name}}",
+
+  // Form titles and descriptions - Tytuły i opisy formularzy
+  partDetails: "Szczegóły wyrobu",
+  newPart: "Nowy wyrób",
+  partDescription: "Wyrób zawiera informacje o konkretnym produkcie, który może być zakupiony lub wyprodukowany.",
+  materialDetails: "Szczegóły materiału",
+  newMaterial: "Nowy materiał",
+  materialDescription: "Materiał to surowiec wykorzystywany w procesach produkcyjnych.",
+  toolDetails: "Szczegóły narzędzia",
+  newTool: "Nowe narzędzie",
+  toolDescription: "Narzędzie to sprzęt wykorzystywany w operacjach produkcyjnych.",
+  consumableDetails: "Szczegóły materiału eksploatacyjnego",
+  newConsumable: "Nowy materiał eksploatacyjny",
+  consumableDescription: "Materiał eksploatacyjny to artykuł zużywany podczas produkcji.",
+
+  // Form labels - Etykiety formularzy
+  shortDescription: "Krótki opis",
+  longDescription: "Szczegółowy opis",
+  replenishmentSystem: "System uzupełniania",
+  unitCost: "Koszt jednostkowy",
+  batchSize: "Wielkość partii",
+  cadModel: "Model CAD",
+  supportsFileTypes: "Obsługiwane formaty: {{types}}",
+  useEllipsisForNextId: "Użyj ... aby uzyskać kolejne ID {{type}}",
+
+  // Form buttons - Przyciski formularzy
+  save: "Zapisz",
+  cancel: "Anuluj",
+  remove: "Usuń",
+
+  // New/Edit pattern - Wzorzec Nowy/Edytuj
+  newEntity: "Nowy {{entity}}",
+  editEntity: "Edytuj {{entity}}"
 } as const;

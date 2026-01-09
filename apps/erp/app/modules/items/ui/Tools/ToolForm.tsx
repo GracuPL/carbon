@@ -202,12 +202,11 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
           >
             <ModalCardHeader>
               <ModalCardTitle>
-                {isEditing ? "Tool Details" : "New Tool"}
+                {isEditing ? t("toolDetails") : t("newTool")}
               </ModalCardTitle>
               {!isEditing && (
                 <ModalCardDescription>
-                  A tool is a physical item used to make a part that can be used
-                  across multiple jobs
+                  {t("toolDescription")}
                 </ModalCardDescription>
               )}
             </ModalCardHeader>
@@ -223,14 +222,14 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                 )}
               >
                 {isEditing ? (
-                  <Input name="id" label="Tool ID" isReadOnly />
+                  <Input name="id" label={t("toolId")} isReadOnly />
                 ) : (
                   <InputControlled
                     name="id"
-                    label="Tool ID"
+                    label={t("toolId")}
                     helperText={
                       startsWithLetter(id)
-                        ? "Use ... to get the next tool ID"
+                        ? t("useEllipsisForNextId", { type: t("tool").toLowerCase() })
                         : undefined
                     }
                     value={id}
@@ -242,22 +241,22 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                 )}
                 <Input
                   name="revision"
-                  label="Revision"
+                  label={t("revision")}
                   isReadOnly={isEditing}
                 />
 
-                <Input name="name" label="Short Description" />
+                <Input name="name" label={t("shortDescription")} />
                 <Select
                   name="itemTrackingType"
-                  label="Tracking Type"
+                  label={t("trackingType")}
                   options={itemTrackingTypeOptions}
                 />
                 {isEditing && (
-                  <TextArea name="description" label="Long Description" />
+                  <TextArea name="description" label={t("longDescription")} />
                 )}
                 <Select
                   name="replenishmentSystem"
-                  label="Replenishment System"
+                  label={t("replenishmentSystem")}
                   options={itemReplenishmentSystemOptions}
                   onChange={(newValue) => {
                     setReplenishmentSystem(newValue?.value ?? "Buy");
@@ -270,7 +269,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                 />
                 <DefaultMethodType
                   name="defaultMethodType"
-                  label="Default Method Type"
+                  label={t("defaultMethodType")}
                   replenishmentSystem={replenishmentSystem}
                   value={defaultMethodType}
                   onChange={(newValue) =>
@@ -280,15 +279,15 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
 
                 <UnitOfMeasure
                   name="unitOfMeasureCode"
-                  label="Unit of Measure"
+                  label={t("unitOfMeasure")}
                 />
                 {!isEditing && (
-                  <ItemPostingGroup name="postingGroupId" label="Item Group" />
+                  <ItemPostingGroup name="postingGroupId" label={t("itemGroup")} />
                 )}
                 {!isEditing && (
                   <Number
                     name="unitCost"
-                    label="Unit Cost"
+                    label={t("unitCost")}
                     formatOptions={{
                       style: "currency",
                       currency: baseCurrency
@@ -305,7 +304,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                   htmlFor="model-upload"
                   className="text-xs font-medium text-muted-foreground"
                 >
-                  CAD Model
+                  {t("cadModel")}
                 </label>
                 <div
                   {...getRootProps()}
@@ -330,14 +329,14 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                         className="mt-2"
                         onClick={removeModel}
                       >
-                        Remove
+                        {t("remove")}
                       </Button>
                     </>
                   ) : (
                     <Loading isLoading={modelIsUploading}>
                       <LuCloudUpload className="mx-auto h-12 w-12 text-muted-foreground group-hover:text-primary-foreground" />
                       <p className="text-xs text-muted-foreground group-hover:text-foreground">
-                        Supports {supportedModelTypes.join(", ")} files
+                        {t("supportsFileTypes", { types: supportedModelTypes.join(", ") })}
                       </p>
                     </Loading>
                   )}
@@ -353,7 +352,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                     : !permissions.can("create", "parts")
                 }
               >
-                Save
+                {t("save")}
               </Submit>
             </ModalCardFooter>
           </ValidatedForm>
