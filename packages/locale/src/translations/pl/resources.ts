@@ -198,5 +198,17 @@ export const resources = {
   createdFailureMode: "Utworzono tryb awarii",
   createdLocation: "Utworzono lokalizację",
   failedToCreateLocation: "Nie udało się utworzyć lokalizacji: {{message}}",
-  createdMaintenanceSchedule: "Utworzono harmonogram konserwacji"
+  createdMaintenanceSchedule: "Utworzono harmonogram konserwacji",
+
+  // Work Center Form - Formularz stanowiska pracy
+  newWorkCenter: "Nowe stanowisko pracy",
+  laborRateHourly: "Stawka robocizny (godzinowa)",
+  machineRateHourly: "Stawka maszynowa (godzinowa)",
+  overheadRateHourly: "Stawka ogólna (godzinowa)",
+
+  // Process Form - Formularz procesu
+  newProcess: "Nowy proces",
+  processName: "Nazwa procesu",
+  completeAllDescription: "Zakończ wszystkie ilości przy skanowaniu kodu kreskowego",
+  addSupplier: "Dodaj dostawcę"
 } as const;

@@ -198,5 +198,17 @@ export const resources = {
   createdFailureMode: "Created failure mode",
   createdLocation: "Created location",
   failedToCreateLocation: "Failed to create location: {{message}}",
-  createdMaintenanceSchedule: "Created maintenance schedule"
+  createdMaintenanceSchedule: "Created maintenance schedule",
+
+  // Work Center Form
+  newWorkCenter: "New Work Center",
+  laborRateHourly: "Labor Rate (Hourly)",
+  machineRateHourly: "Machine Rate (Hourly)",
+  overheadRateHourly: "Overhead Rate (Hourly)",
+
+  // Process Form
+  newProcess: "New Process",
+  processName: "Process Name",
+  completeAllDescription: "Complete all quantities on barcode scan",
+  addSupplier: "Add Supplier"
 } as const;
