@@ -188,5 +188,48 @@ export const purchasing = {
   supplierQuoteDescription: "A supplier quote is a set of prices for specific parts and quantities.",
   supplierQuoteId: "Supplier Quote ID",
   supplierRefNumber: "Supplier Ref. Number",
-  newSupplierQuote: "New Supplier Quote"
+  newSupplierQuote: "New Supplier Quote",
+
+  // Supplier Accounting Form
+  supplierAccounting: "Supplier Accounting",
+  taxId: "Tax ID",
+  postingGroup: "Posting Group",
+  selectPostingGroup: "Select Posting Group",
+
+  // Supplier Payment Form
+  invoiceSupplier: "Invoice Supplier",
+  invoiceLocation: "Invoice Location",
+  invoiceContact: "Invoice Contact",
+  paymentTerm: "Payment Term",
+
+  // Supplier Shipping Form
+  shipping: "Shipping",
+  shippingSupplier: "Shipping Supplier",
+  shippingLocation: "Shipping Location",
+  shippingContact: "Shipping Contact",
+
+  // Supplier Contact Form
+  newContact: "New Contact",
+  editContact: "Edit Contact",
+  email: "Email",
+  firstName: "First Name",
+  lastName: "Last Name",
+  title: "Title",
+  mobilePhone: "Mobile Phone",
+  homePhone: "Home Phone",
+  workPhone: "Work Phone",
+  notes: "Notes",
+
+  // Supplier Location Form
+  newLocation: "New Location",
+  editLocation: "Edit Location",
+
+  // Purchase Order Payment Form
+  payment: "Payment",
+  paymentComplete: "Payment Complete",
+
+  // Purchase Order Delivery Form
+  shippingCost: "Shipping Cost",
+  deliveryLocation: "Delivery Location",
+  trackingNumber: "Tracking Number"
 } as const;

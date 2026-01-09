@@ -188,5 +188,48 @@ export const purchasing = {
   supplierQuoteDescription: "Oferta dostawcy to zestaw cen dla konkretnych wyrobów i ilości.",
   supplierQuoteId: "ID oferty dostawcy",
   supplierRefNumber: "Nr ref. dostawcy",
-  newSupplierQuote: "Nowa oferta dostawcy"
+  newSupplierQuote: "Nowa oferta dostawcy",
+
+  // Supplier Accounting Form - Formularz księgowości dostawcy
+  supplierAccounting: "Księgowość dostawcy",
+  taxId: "NIP",
+  postingGroup: "Grupa księgowania",
+  selectPostingGroup: "Wybierz grupę księgowania",
+
+  // Supplier Payment Form - Formularz płatności dostawcy
+  invoiceSupplier: "Dostawca do fakturowania",
+  invoiceLocation: "Lokalizacja do fakturowania",
+  invoiceContact: "Kontakt do fakturowania",
+  paymentTerm: "Termin płatności",
+
+  // Supplier Shipping Form - Formularz wysyłki dostawcy
+  shipping: "Wysyłka",
+  shippingSupplier: "Dostawca do wysyłki",
+  shippingLocation: "Lokalizacja do wysyłki",
+  shippingContact: "Kontakt do wysyłki",
+
+  // Supplier Contact Form - Formularz kontaktu dostawcy
+  newContact: "Nowy kontakt",
+  editContact: "Edytuj kontakt",
+  email: "E-mail",
+  firstName: "Imię",
+  lastName: "Nazwisko",
+  title: "Stanowisko",
+  mobilePhone: "Telefon komórkowy",
+  homePhone: "Telefon domowy",
+  workPhone: "Telefon służbowy",
+  notes: "Notatki",
+
+  // Supplier Location Form - Formularz lokalizacji dostawcy
+  newLocation: "Nowa lokalizacja",
+  editLocation: "Edytuj lokalizację",
+
+  // Purchase Order Payment Form - Formularz płatności zamówienia zakupu
+  payment: "Płatność",
+  paymentComplete: "Płatność zakończona",
+
+  // Purchase Order Delivery Form - Formularz dostawy zamówienia zakupu
+  shippingCost: "Koszt wysyłki",
+  deliveryLocation: "Miejsce dostawy",
+  trackingNumber: "Numer śledzenia"
 } as const;

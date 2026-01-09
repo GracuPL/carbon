@@ -38,7 +38,7 @@ const SupplierLocationForm = ({
   type = "drawer",
   onClose
 }: SupplierLocationFormProps) => {
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
   useEffect(() => {
@@ -46,10 +46,10 @@ const SupplierLocationForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdSupplierLocation"));
+      toast.success(t("purchasing:createdSupplierLocation"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        t("failedToCreateSupplierLocation", { message: fetcher.data.error.message })
+        t("purchasing:failedToCreateSupplierLocation", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
@@ -83,7 +83,7 @@ const SupplierLocationForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Location
+                {isEditing ? t("purchasing:editLocation") : t("purchasing:newLocation")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -91,16 +91,16 @@ const SupplierLocationForm = ({
               <Hidden name="type" value={type} />
               <Hidden name="addressId" />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("purchasing:name")} />
                 <AddressAutocomplete />
                 <CustomFormFields table="supplierLocation" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={onClose}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>
