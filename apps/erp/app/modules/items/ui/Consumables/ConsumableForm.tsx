@@ -98,12 +98,11 @@ const ConsumableForm = ({
           >
             <ModalCardHeader>
               <ModalCardTitle>
-                {isEditing ? "Consumable Details" : "New Consumable"}
+                {isEditing ? t("consumableDetails") : t("newConsumable")}
               </ModalCardTitle>
               {!isEditing && (
                 <ModalCardDescription>
-                  A consumable is a physical item used to make a part that can
-                  be used across multiple jobs
+                  {t("consumableDescription")}
                 </ModalCardDescription>
               )}
             </ModalCardHeader>
@@ -119,14 +118,14 @@ const ConsumableForm = ({
                 )}
               >
                 {isEditing ? (
-                  <Input name="id" label="Consumable ID" isReadOnly />
+                  <Input name="id" label={t("consumableId")} isReadOnly />
                 ) : (
                   <InputControlled
                     name="id"
-                    label="Consumable ID"
+                    label={t("consumableId")}
                     helperText={
                       startsWithLetter(id)
-                        ? "Use ... to get the next consumable ID"
+                        ? t("useEllipsisForNextId", { type: t("consumable").toLowerCase() })
                         : undefined
                     }
                     value={id}
@@ -137,19 +136,19 @@ const ConsumableForm = ({
                   />
                 )}
 
-                <Input name="name" label="Short Description" />
+                <Input name="name" label={t("shortDescription")} />
                 <Select
                   name="itemTrackingType"
-                  label="Tracking Type"
+                  label={t("trackingType")}
                   options={itemTrackingTypeOptions}
                 />
                 {isEditing && (
-                  <TextArea name="description" label="Long Description" />
+                  <TextArea name="description" label={t("longDescription")} />
                 )}
 
                 <DefaultMethodType
                   name="defaultMethodType"
-                  label="Default Method Type"
+                  label={t("defaultMethodType")}
                   replenishmentSystem="Buy"
                   value={defaultMethodType}
                   onChange={(newValue) =>
@@ -158,15 +157,15 @@ const ConsumableForm = ({
                 />
                 <UnitOfMeasure
                   name="unitOfMeasureCode"
-                  label="Unit of Measure"
+                  label={t("unitOfMeasure")}
                 />
                 {!isEditing && (
-                  <ItemPostingGroup name="postingGroupId" label="Item Group" />
+                  <ItemPostingGroup name="postingGroupId" label={t("itemGroup")} />
                 )}
                 {!isEditing && (
                   <Number
                     name="unitCost"
-                    label="Unit Cost"
+                    label={t("unitCost")}
                     formatOptions={{
                       style: "currency",
                       currency: baseCurrency
@@ -190,7 +189,7 @@ const ConsumableForm = ({
                     : !permissions.can("create", "parts")
                 }
               >
-                Save
+                {t("save")}
               </Submit>
             </ModalCardFooter>
           </ValidatedForm>

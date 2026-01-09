@@ -114,5 +114,52 @@ export const accounting = {
 
   // Toast messages
   createdPaymentTerm: "Created payment term",
-  failedToCreatePaymentTerm: "Failed to create payment term: {{message}}"
+  failedToCreatePaymentTerm: "Failed to create payment term: {{message}}",
+
+  // Default Accounts Form
+  defaultAccounts: "Default Accounts",
+  defaultAccountsDescription: "These accounts are used in the absence of a more specific account from a posting group",
+  incomeStatement: "Income Statement",
+  balanceSheet: "Balance Sheet",
+
+  // Income Statement Accounts
+  salesAccount: "Sales",
+  salesDiscounts: "Sales Discounts",
+  costOfGoodsSold: "Cost of Goods Sold",
+  purchases: "Purchases",
+  purchaseVarianceAccount: "Purchase Variance",
+  inventoryAdjustment: "Inventory Adjustment",
+  materialVarianceAccount: "Material Variance",
+  capacityVarianceAccount: "Capacity Variance",
+  overheadAccount: "Overhead",
+  maintenanceExpense: "Maintenance Expense",
+  depreciationExpense: "Depreciation Expense",
+  gainsAndLosses: "Gains and Losses",
+  serviceCharges: "Service Charges",
+  interest: "Interest",
+  supplierPaymentDiscounts: "Supplier Payment Discounts",
+  customerPaymentDiscounts: "Customer Payment Discounts",
+  roundingAccount: "Rounding Account",
+
+  // Balance Sheet Accounts
+  inventoryAccount: "Inventory",
+  inventoryInterimAccrual: "Inventory Interim Accrual",
+  workInProgress: "Work in Progress (WIP)",
+  receivablesAccount: "Receivables",
+  inventoryInvoicedNotReceived: "Inventory Invoiced Not Received",
+  bankCash: "Bank - Cash",
+  bankLocalCurrency: "Bank - Local Currency",
+  bankForeignCurrency: "Bank - Foreign Currency",
+  assetAquisitionCost: "Asset Acquisition Cost",
+  assetCostOnDisposal: "Asset Cost on Disposal",
+  accumulatedDepreciation: "Accumulated Depreciation",
+  accumulatedDepreciationOnDisposal: "Accumulated Depreciation on Disposal",
+  prepayments: "Prepayments",
+  payablesAccount: "Payables",
+  inventoryReceivedNotInvoiced: "Inventory Received Not Invoiced",
+  inventoryShippedNotInvoiced: "Inventory Shipped Not Invoiced",
+  salesTaxPayableAccount: "Sales Tax Payable",
+  purchaseTaxPayableAccount: "Purchase Tax Payable",
+  reverseChargeSalesTax: "Reverse Charge Sales Tax",
+  retainedEarnings: "Retained Earnings"
 } as const;

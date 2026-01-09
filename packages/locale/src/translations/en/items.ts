@@ -232,5 +232,38 @@ export const items = {
   itemCannotAddToSelf: "An item cannot be added to itself.",
 
   // Toast messages - Info
-  uploadingFile: "Uploading {{name}}"
+  uploadingFile: "Uploading {{name}}",
+
+  // Form titles and descriptions
+  partDetails: "Part Details",
+  newPart: "New Part",
+  partDescription: "A part contains the information about a specific item that can be purchased or manufactured.",
+  materialDetails: "Material Details",
+  newMaterial: "New Material",
+  materialDescription: "A material is a raw input used in manufacturing processes.",
+  toolDetails: "Tool Details",
+  newTool: "New Tool",
+  toolDescription: "A tool is equipment used in manufacturing operations.",
+  consumableDetails: "Consumable Details",
+  newConsumable: "New Consumable",
+  consumableDescription: "A consumable is a supply item used during manufacturing.",
+
+  // Form labels
+  shortDescription: "Short Description",
+  longDescription: "Long Description",
+  replenishmentSystem: "Replenishment System",
+  unitCost: "Unit Cost",
+  batchSize: "Batch Size",
+  cadModel: "CAD Model",
+  supportsFileTypes: "Supports {{types}} files",
+  useEllipsisForNextId: "Use ... to get the next {{type}} ID",
+
+  // Form buttons
+  save: "Save",
+  cancel: "Cancel",
+  remove: "Remove",
+
+  // New/Edit pattern
+  newEntity: "New {{entity}}",
+  editEntity: "Edit {{entity}}"
 } as const;

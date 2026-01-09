@@ -203,12 +203,11 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
           >
             <ModalCardHeader>
               <ModalCardTitle>
-                {isEditing ? "Part Details" : "New Part"}
+                {isEditing ? t("partDetails") : t("newPart")}
               </ModalCardTitle>
               {!isEditing && (
                 <ModalCardDescription>
-                  A part contains the information about a specific item that can
-                  be purchased or manufactured.
+                  {t("partDescription")}
                 </ModalCardDescription>
               )}
             </ModalCardHeader>
@@ -230,14 +229,14 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                 )}
               >
                 {isEditing ? (
-                  <Input name="id" label="Part ID" isReadOnly />
+                  <Input name="id" label={t("partId")} isReadOnly />
                 ) : (
                   <InputControlled
                     name="id"
-                    label="Part ID"
+                    label={t("partId")}
                     helperText={
                       startsWithLetter(id)
-                        ? "Use ... to get the next part ID"
+                        ? t("useEllipsisForNextId", { type: t("part").toLowerCase() })
                         : undefined
                     }
                     value={id}
@@ -248,21 +247,21 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                 )}
                 <Input
                   name="revision"
-                  label="Revision"
+                  label={t("revision")}
                   isReadOnly={isEditing}
                 />
 
-                <Input name="name" label="Short Description" />
+                <Input name="name" label={t("shortDescription")} />
 
                 <Select
                   name="itemTrackingType"
-                  label="Tracking Type"
+                  label={t("trackingType")}
                   options={itemTrackingTypeOptions}
                 />
 
                 <Select
                   name="replenishmentSystem"
-                  label="Replenishment System"
+                  label={t("replenishmentSystem")}
                   options={itemReplenishmentSystemOptions}
                   onChange={(newValue) => {
                     setReplenishmentSystem(newValue?.value ?? "Buy");
@@ -275,7 +274,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                 />
                 <DefaultMethodType
                   name="defaultMethodType"
-                  label="Default Method Type"
+                  label={t("defaultMethodType")}
                   replenishmentSystem={replenishmentSystem}
                   value={defaultMethodType}
                   onChange={(newValue) =>
@@ -284,15 +283,15 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                 />
                 <UnitOfMeasure
                   name="unitOfMeasureCode"
-                  label="Unit of Measure"
+                  label={t("unitOfMeasure")}
                 />
                 {!isEditing && (
-                  <ItemPostingGroup name="postingGroupId" label="Item Group" />
+                  <ItemPostingGroup name="postingGroupId" label={t("itemGroup")} />
                 )}
                 {!isEditing && replenishmentSystem !== "Make" && (
                   <Number
                     name="unitCost"
-                    label="Unit Cost"
+                    label={t("unitCost")}
                     formatOptions={{
                       style: "currency",
                       currency: baseCurrency
@@ -301,7 +300,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                   />
                 )}
                 {!isEditing && replenishmentSystem !== "Buy" && (
-                  <Number name="lotSize" label="Batch Size" minValue={0} />
+                  <Number name="lotSize" label={t("batchSize")} minValue={0} />
                 )}
 
                 <CustomFormFields table="part" tags={initialValues.tags} />
@@ -311,7 +310,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                   htmlFor="model-upload"
                   className="text-xs font-medium text-muted-foreground"
                 >
-                  CAD Model
+                  {t("cadModel")}
                 </label>
                 <div
                   {...getRootProps()}
@@ -336,14 +335,14 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                         className="mt-2"
                         onClick={removeModel}
                       >
-                        Remove
+                        {t("remove")}
                       </Button>
                     </>
                   ) : (
                     <Loading isLoading={modelIsUploading}>
                       <LuCloudUpload className="mx-auto h-12 w-12 text-muted-foreground group-hover:text-primary-foreground" />
                       <p className="text-xs text-muted-foreground group-hover:text-foreground">
-                        Supports {supportedModelTypes.join(", ")} files
+                        {t("supportsFileTypes", { types: supportedModelTypes.join(", ") })}
                       </p>
                     </Loading>
                   )}
@@ -359,7 +358,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                     : !permissions.can("create", "parts")
                 }
               >
-                Save
+                {t("save")}
               </Submit>
             </ModalCardFooter>
           </ValidatedForm>
