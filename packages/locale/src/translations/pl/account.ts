@@ -57,5 +57,8 @@ export const account = {
   uploadedFile: "Przesłano: {{name}}",
   failedToResizeImage: "Nie udało się zmniejszyć obrazu",
   failedToUploadImage: "Nie udało się przesłać obrazu",
-  failedToRemoveImage: "Nie udało się usunąć obrazu"
+  failedToRemoveImage: "Nie udało się usunąć obrazu",
+
+  // Password Form - Formularz hasła
+  updatePassword: "Zaktualizuj hasło"
 } as const;

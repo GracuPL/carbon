@@ -265,5 +265,37 @@ export const items = {
 
   // New/Edit pattern
   newEntity: "New {{entity}}",
-  editEntity: "Edit {{entity}}"
+  editEntity: "Edit {{entity}}",
+
+  // Item Form
+  openMenu: "Open menu",
+  viewItemMaster: "View Item Master",
+
+  // Item Costing Form
+  costingAndPosting: "Costing & Posting",
+  itemGroupHelperText: "Group used together with the supplier type, customer type, and location to determine the account",
+  unitCostHelperText: "Weighted average cost over last year calculated when the invoice is posted",
+
+  // Item Manufacturing Form
+  manufacturing: "Manufacturing",
+  scrapPercent: "Scrap Percent",
+  leadTimeDays: "Lead Time (Days)",
+  configured: "Configured",
+
+  // Item Planning Form
+  planning: "Planning",
+  reorderingPolicy: "Reordering Policy",
+  reorderPoint: "Reorder Point",
+  maximumInventoryQuantity: "Maximum Inventory Quantity",
+  accumulationPeriodWeeks: "Accumulation Period (Weeks)",
+  safetyStock: "Safety Stock",
+  reorderQuantity: "Reorder Quantity",
+  orderMultiple: "Order Multiple",
+  minimumOrderQuantity: "Minimum Order Quantity",
+  maximumOrderQuantity: "Maximum Order Quantity",
+
+  // Item Purchasing Form
+  purchasing: "Purchasing",
+  preferredSupplier: "Preferred Supplier",
+  purchasingUnitOfMeasure: "Purchasing Unit of Measure"
 } as const;

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -28,6 +29,7 @@ type QuotePaymentFormProps = {
 };
 
 const QuotePaymentForm = ({ initialValues }: QuotePaymentFormProps) => {
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<{}>();
   const [customer, setCustomer] = useState<string | undefined>(
@@ -55,33 +57,33 @@ const QuotePaymentForm = ({ initialValues }: QuotePaymentFormProps) => {
         fetcher={fetcher}
       >
         <CardHeader>
-          <CardTitle>Payment</CardTitle>
+          <CardTitle>{t("sales:payment")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="id" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Customer
               name="invoiceCustomerId"
-              label="Invoice Customer"
+              label={t("sales:invoiceCustomer")}
               onChange={(value) => setCustomer(value?.value as string)}
             />
             <CustomerLocation
               name="invoiceCustomerLocationId"
-              label="Invoice Location"
+              label={t("sales:invoiceLocation")}
               customer={customer}
             />
             <CustomerContact
               name="invoiceCustomerContactId"
-              label="Invoice Contact"
+              label={t("sales:invoiceContact")}
               customer={customer}
             />
 
-            <PaymentTerm name="paymentTermId" label="Payment Term" />
+            <PaymentTerm name="paymentTermId" label={t("sales:paymentTerm")} />
           </div>
         </CardContent>
         <CardFooter>
           <HStack>
-            <Submit isDisabled={isDisabled}>Save</Submit>
+            <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
           </HStack>
         </CardFooter>
       </ValidatedForm>

@@ -210,5 +210,20 @@ export const resources = {
   newProcess: "New Process",
   processName: "Process Name",
   completeAllDescription: "Complete all quantities on barcode scan",
-  addSupplier: "Add Supplier"
+  addSupplier: "Add Supplier",
+
+  // Maintenance Schedule Form
+  newScheduledMaintenance: "New Scheduled Maintenance",
+  editScheduledMaintenance: "Edit Scheduled Maintenance",
+  estimatedDurationMinutes: "Estimated Duration (minutes)",
+  days: "Days",
+  monday: "Monday",
+  tuesday: "Tuesday",
+  wednesday: "Wednesday",
+  thursday: "Thursday",
+  friday: "Friday",
+  saturday: "Saturday",
+  sunday: "Sunday",
+  skipHolidays: "Skip Holidays",
+  skipHolidaysDescription: "Skip scheduled maintenance on company holidays"
 } as const;

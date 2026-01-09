@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -13,6 +14,7 @@ import { path } from "~/utils/path";
 import { accountPasswordValidator } from "../../account.models";
 
 const PasswordForm = () => {
+  const { t } = useTranslation(["account"]);
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
@@ -35,28 +37,28 @@ const PasswordForm = () => {
         validator={accountPasswordValidator}
       >
         <CardHeader>
-          <CardTitle>Update Password</CardTitle>
+          <CardTitle>{t("account:updatePassword")}</CardTitle>
         </CardHeader>
         <CardContent>
           <VStack spacing={4} className="my-4 max-w-[440px]">
-            <Password name="currentPassword" label="Current Password" />
+            <Password name="currentPassword" label={t("account:currentPassword")} />
             <Password
               ref={passwordRef}
               onChange={onPasswordChange}
               name="password"
-              label="New Password"
+              label={t("account:newPassword")}
             />
             <Password
               ref={confirmPasswordRef}
               onChange={onPasswordChange}
               name="confirmPassword"
-              label="Confirm Password"
+              label={t("account:confirmPassword")}
             />
           </VStack>
         </CardContent>
         <CardFooter>
           <Submit isDisabled={!passwordsMatch} withBlocker={false}>
-            Update Password
+            {t("account:updatePassword")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

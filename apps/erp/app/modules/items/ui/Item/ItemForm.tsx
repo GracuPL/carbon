@@ -1,5 +1,6 @@
 import type { Database } from "@carbon/database";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -53,6 +54,7 @@ function getLabel(type: Database["public"]["Enums"]["itemType"]) {
 }
 
 const ItemForm = ({ initialValues, type }: ItemFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<{}>();
 
@@ -106,14 +108,14 @@ const ItemForm = ({ initialValues, type }: ItemFormProps) => {
                 <IconButton
                   variant="secondary"
                   icon={<LuEllipsisVertical />}
-                  aria-label="Open menu"
+                  aria-label={t("items:openMenu")}
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
                   {/* @ts-ignore */}
                   <Link to={getLinkToItemDetails(type, initialValues.id)}>
-                    View Item Master
+                    {t("items:viewItemMaster")}
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -130,18 +132,18 @@ const ItemForm = ({ initialValues, type }: ItemFormProps) => {
               label={`${getLabel(type)} ID`}
             />
 
-            <Input name="name" label="Short Description" />
+            <Input name="name" label={t("items:shortDescription")} />
             <Select
               name="itemTrackingType"
-              label="Tracking Type"
+              label={t("items:trackingType")}
               options={itemTrackingTypeOptions}
             />
 
-            <TextArea name="description" label="Description" />
+            <TextArea name="description" label={t("items:description")} />
 
             <Select
               name="replenishmentSystem"
-              label="Replenishment System"
+              label={t("items:replenishmentSystem")}
               options={itemReplenishmentSystemOptions}
               onChange={(newValue) => {
                 setReplenishmentSystem(newValue?.value ?? "Buy");
@@ -154,20 +156,20 @@ const ItemForm = ({ initialValues, type }: ItemFormProps) => {
             />
             <DefaultMethodType
               name="defaultMethodType"
-              label="Default Method Type"
+              label={t("items:defaultMethodType")}
               replenishmentSystem={replenishmentSystem}
               value={defaultMethodType}
               onChange={(newValue) =>
                 setDefaultMethodType(newValue?.value ?? "Buy")
               }
             />
-            <UnitOfMeasure name="unitOfMeasureCode" label="Unit of Measure" />
+            <UnitOfMeasure name="unitOfMeasureCode" label={t("items:unitOfMeasure")} />
 
-            <Boolean name="active" label="Active" />
+            <Boolean name="active" label={t("items:active")} />
           </div>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={!permissions.can("update", "parts")}>Save</Submit>
+          <Submit isDisabled={!permissions.can("update", "parts")}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>

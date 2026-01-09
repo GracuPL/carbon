@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -23,6 +24,7 @@ type DocumentFormProps = {
 };
 
 const DocumentForm = ({ initialValues, ownerId }: DocumentFormProps) => {
+  const { t } = useTranslation(["documents", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -55,27 +57,27 @@ const DocumentForm = ({ initialValues, ownerId }: DocumentFormProps) => {
             <VStack spacing={4}>
               <Input
                 name="name"
-                label="Name"
+                label={t("documents:name")}
                 suffix={`.${initialValues.extension}`}
               />
-              <TextArea name="description" label="Description" />
+              <TextArea name="description" label={t("documents:description")} />
               <Users
                 alwaysSelected={[ownerId]}
                 name="readGroups"
-                label="View Permissions"
+                label={t("documents:viewPermissions")}
               />
               <Users
                 alwaysSelected={[ownerId]}
                 name="writeGroups"
-                label="Edit Permissions"
+                label={t("documents:editPermissions")}
               />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

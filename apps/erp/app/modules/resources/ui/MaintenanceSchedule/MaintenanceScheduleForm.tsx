@@ -56,6 +56,7 @@ function getPriorityIcon(
 
 // Component to show day selector and skip holidays when Daily frequency is selected
 function DailyScheduleOptions() {
+  const { t } = useTranslation("resources");
   const [frequency] = useControlField<string>("frequency");
   const isDaily = frequency === "Daily";
 
@@ -64,21 +65,21 @@ function DailyScheduleOptions() {
   return (
     <>
       <FormControl>
-        <FormLabel>Days</FormLabel>
+        <FormLabel>{t("days")}</FormLabel>
         <VStack>
-          <Boolean name="monday" description="Monday" />
-          <Boolean name="tuesday" description="Tuesday" />
-          <Boolean name="wednesday" description="Wednesday" />
-          <Boolean name="thursday" description="Thursday" />
-          <Boolean name="friday" description="Friday" />
-          <Boolean name="saturday" description="Saturday" />
-          <Boolean name="sunday" description="Sunday" />
+          <Boolean name="monday" description={t("monday")} />
+          <Boolean name="tuesday" description={t("tuesday")} />
+          <Boolean name="wednesday" description={t("wednesday")} />
+          <Boolean name="thursday" description={t("thursday")} />
+          <Boolean name="friday" description={t("friday")} />
+          <Boolean name="saturday" description={t("saturday")} />
+          <Boolean name="sunday" description={t("sunday")} />
         </VStack>
       </FormControl>
       <Boolean
         name="skipHolidays"
-        label="Skip Holidays"
-        description="Skip scheduled maintenance on company holidays"
+        label={t("skipHolidays")}
+        description={t("skipHolidaysDescription")}
       />
     </>
   );
@@ -97,7 +98,7 @@ const MaintenanceScheduleForm = ({
   type = "drawer",
   onClose
 }: MaintenanceScheduleFormProps) => {
-  const { t } = useTranslation("resources");
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -142,18 +143,18 @@ const MaintenanceScheduleForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Scheduled Maintenance
+                {isEditing ? t("resources:editScheduledMaintenance") : t("resources:newScheduledMaintenance")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Schedule Name" />
-                <WorkCenter name="workCenterId" label="Work Center" />
+                <Input name="name" label={t("resources:scheduleName")} />
+                <WorkCenter name="workCenterId" label={t("resources:workCenter")} />
                 <Select
                   name="frequency"
-                  label="Frequency"
+                  label={t("resources:frequency")}
                   options={maintenanceFrequency.map((freq) => ({
                     value: freq,
                     label: <Enumerable value={freq} />
@@ -161,7 +162,7 @@ const MaintenanceScheduleForm = ({
                 />
                 <Select
                   name="priority"
-                  label="Priority"
+                  label={t("resources:priority")}
                   options={maintenanceDispatchPriority.map((priority) => ({
                     value: priority,
                     label: (
@@ -174,18 +175,18 @@ const MaintenanceScheduleForm = ({
                 />
                 <Number
                   name="estimatedDuration"
-                  label="Estimated Duration (minutes)"
+                  label={t("resources:estimatedDurationMinutes")}
                   minValue={0}
                 />
-                <Boolean name="active" label="Active" />
+                <Boolean name="active" label={t("resources:active")} />
                 <DailyScheduleOptions />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

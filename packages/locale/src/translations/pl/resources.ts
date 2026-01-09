@@ -210,5 +210,20 @@ export const resources = {
   newProcess: "Nowy proces",
   processName: "Nazwa procesu",
   completeAllDescription: "Zakończ wszystkie ilości przy skanowaniu kodu kreskowego",
-  addSupplier: "Dodaj dostawcę"
+  addSupplier: "Dodaj dostawcę",
+
+  // Maintenance Schedule Form - Formularz harmonogramu konserwacji
+  newScheduledMaintenance: "Nowa planowana konserwacja",
+  editScheduledMaintenance: "Edytuj planowaną konserwację",
+  estimatedDurationMinutes: "Szacowany czas trwania (minuty)",
+  days: "Dni",
+  monday: "Poniedziałek",
+  tuesday: "Wtorek",
+  wednesday: "Środa",
+  thursday: "Czwartek",
+  friday: "Piątek",
+  saturday: "Sobota",
+  sunday: "Niedziela",
+  skipHolidays: "Pomiń dni wolne",
+  skipHolidaysDescription: "Pomiń planowaną konserwację w dni wolne firmy"
 } as const;

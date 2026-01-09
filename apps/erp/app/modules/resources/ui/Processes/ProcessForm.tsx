@@ -63,7 +63,7 @@ const ProcessForm = ({
   type = "drawer",
   onClose
 }: ProcessFormProps) => {
-  const { t } = useTranslation("resources");
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -108,17 +108,17 @@ const ProcessForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Process
+                {isEditing ? t("resources:editProcess") : t("resources:newProcess")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Process Name" />
+                <Input name="name" label={t("resources:processName")} />
                 <Select
                   name="processType"
-                  label="Process Type"
+                  label={t("resources:processType")}
                   options={processTypes.map((pt) => ({
                     value: pt,
                     label: pt
@@ -133,10 +133,10 @@ const ProcessForm = ({
                   <>
                     <StandardFactor
                       name="defaultStandardFactor"
-                      label="Default Unit"
+                      label={t("resources:defaultUnit")}
                       value={initialValues.defaultStandardFactor}
                     />
-                    <WorkCenters name="workCenters" label="Work Centers" />
+                    <WorkCenters name="workCenters" label={t("resources:workCenters")} />
                   </>
                 )}
                 {processType !== "Inside" && (
@@ -145,16 +145,16 @@ const ProcessForm = ({
                 <Boolean
                   name="completeAllOnScan"
                   label=""
-                  description="Complete all quantities on barcode scan"
+                  description={t("resources:completeAllDescription")}
                 />
                 <CustomFormFields table="process" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose?.()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>
@@ -168,6 +168,7 @@ const ProcessForm = ({
 export default ProcessForm;
 
 function SupplierProcesses({ processId }: { processId?: string }) {
+  const { t } = useTranslation("resources");
   const permissions = usePermissions();
   const processes = useSupplierProcesses({ processId });
   const navigate = useNavigate();
@@ -179,7 +180,7 @@ function SupplierProcesses({ processId }: { processId?: string }) {
       <div className="flex flex-col gap-2 w-full">
         {processes.length > 0 && (
           <>
-            <label className="text-muted-foreground text-xs">Suppliers</label>
+            <label className="text-muted-foreground text-xs">{t("suppliers")}</label>
             {processes.map((sp) => (
               <HStack
                 key={sp.id}
@@ -189,7 +190,7 @@ function SupplierProcesses({ processId }: { processId?: string }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <IconButton
-                      aria-label="Edit supplier process"
+                      aria-label={t("editProcess")}
                       icon={<LuEllipsisVertical />}
                       size="md"
                       variant="ghost"
@@ -206,7 +207,7 @@ function SupplierProcesses({ processId }: { processId?: string }) {
                       disabled={!permissions.can("update", "purchasing")}
                     >
                       <DropdownMenuIcon icon={<LuPencil />} />
-                      Edit Process
+                      {t("editProcess")}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() =>
@@ -217,7 +218,7 @@ function SupplierProcesses({ processId }: { processId?: string }) {
                       disabled={!permissions.can("delete", "purchasing")}
                     >
                       <DropdownMenuIcon icon={<LuTrash />} />
-                      Delete Process
+                      {t("deleteProcess")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -231,7 +232,7 @@ function SupplierProcesses({ processId }: { processId?: string }) {
           variant="secondary"
           onClick={newSupplierProcessModal.onOpen}
         >
-          Add Supplier
+          {t("addSupplier")}
         </Button>
       </div>
       {newSupplierProcessModal.isOpen && processId && (

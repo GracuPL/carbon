@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -23,6 +24,7 @@ type ItemCostingFormProps = {
 };
 
 const ItemCostingForm = ({ initialValues }: ItemCostingFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const { company } = useUser();
   const baseCurrency = company?.baseCurrencyCode ?? "USD";
@@ -46,15 +48,15 @@ const ItemCostingForm = ({ initialValues }: ItemCostingFormProps) => {
         defaultValues={initialValues}
       >
         <CardHeader>
-          <CardTitle>Costing & Posting</CardTitle>
+          <CardTitle>{t("items:costingAndPosting")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="itemId" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full items-start">
             <ItemPostingGroup
               name="itemPostingGroupId"
-              label="Item Group"
-              helperText="Group used together with the supplier type, customer type, and location to determine the account"
+              label={t("items:itemGroup")}
+              helperText={t("items:itemGroupHelperText")}
             />
             {/* <Select
               name="costingMethod"
@@ -77,12 +79,12 @@ const ItemCostingForm = ({ initialValues }: ItemCostingFormProps) => {
 
             <Number
               name="unitCost"
-              label="Unit Cost"
+              label={t("items:unitCost")}
               formatOptions={{
                 style: "currency",
                 currency: baseCurrency
               }}
-              helperText="Weighted average cost over last year calculated when the invoice is posted"
+              helperText={t("items:unitCostHelperText")}
             />
 
             {/* <Boolean name="costIsAdjusted" label="Cost Is Adjusted" /> */}
@@ -90,7 +92,7 @@ const ItemCostingForm = ({ initialValues }: ItemCostingFormProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={!permissions.can("update", "parts")}>Save</Submit>
+          <Submit isDisabled={!permissions.can("update", "parts")}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>

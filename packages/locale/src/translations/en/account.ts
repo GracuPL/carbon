@@ -57,5 +57,8 @@ export const account = {
   uploadedFile: "Uploaded: {{name}}",
   failedToResizeImage: "Failed to resize image",
   failedToUploadImage: "Failed to upload image",
-  failedToRemoveImage: "Failed to remove image"
+  failedToRemoveImage: "Failed to remove image",
+
+  // Password Form
+  updatePassword: "Update Password"
 } as const;
