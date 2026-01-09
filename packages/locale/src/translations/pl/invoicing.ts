@@ -44,5 +44,22 @@ export const invoicing = {
   // Toast messages - Komunikaty toast
   carbonClientNotFound: "Nie znaleziono klienta Carbon",
   errorFetchingSupplierData: "Błąd pobierania danych dostawcy",
-  errorFetchingCustomerData: "Błąd pobierania danych klienta"
+  errorFetchingCustomerData: "Błąd pobierania danych klienta",
+
+  // Form titles and descriptions - Tytuły i opisy formularzy
+  newPurchaseInvoice: "Nowa faktura zakupu",
+  purchaseInvoiceDescription: "Faktura zakupu to dokument określający produkty lub usługi zakupione przez klienta oraz odpowiadający im koszt.",
+  newSalesInvoice: "Nowa faktura sprzedaży",
+  salesInvoiceDescription: "Faktura sprzedaży to dokument określający produkty lub usługi sprzedane klientowi oraz odpowiadający im koszt.",
+
+  // Form labels - Etykiety formularza
+  invoiceId: "ID faktury",
+  supplierInvoiceNumber: "Numer faktury dostawcy",
+  invoiceSupplierLocation: "Lokalizacja dostawcy na fakturze",
+  invoiceSupplierContact: "Kontakt dostawcy na fakturze",
+  customerInvoiceNumber: "Numer faktury klienta",
+  invoiceCustomerLocation: "Lokalizacja klienta na fakturze",
+  invoiceCustomerContact: "Kontakt klienta na fakturze",
+  dateIssued: "Data wystawienia",
+  paymentTerms: "Warunki płatności"
 } as const;

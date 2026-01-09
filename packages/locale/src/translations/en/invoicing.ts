@@ -44,5 +44,22 @@ export const invoicing = {
   // Toast messages
   carbonClientNotFound: "Carbon client not found",
   errorFetchingSupplierData: "Error fetching supplier data",
-  errorFetchingCustomerData: "Error fetching customer data"
+  errorFetchingCustomerData: "Error fetching customer data",
+
+  // Form titles and descriptions
+  newPurchaseInvoice: "New Purchase Invoice",
+  purchaseInvoiceDescription: "A purchase invoice is a document that specifies the products or services purchased by a customer and the corresponding cost.",
+  newSalesInvoice: "New Sales Invoice",
+  salesInvoiceDescription: "A sales invoice is a document that specifies the products or services sold to a customer and the corresponding cost.",
+
+  // Form labels
+  invoiceId: "Invoice ID",
+  supplierInvoiceNumber: "Supplier Invoice Number",
+  invoiceSupplierLocation: "Invoice Supplier Location",
+  invoiceSupplierContact: "Invoice Supplier Contact",
+  customerInvoiceNumber: "Customer Invoice Number",
+  invoiceCustomerLocation: "Invoice Customer Location",
+  invoiceCustomerContact: "Invoice Customer Contact",
+  dateIssued: "Date Issued",
+  paymentTerms: "Payment Terms"
 } as const;

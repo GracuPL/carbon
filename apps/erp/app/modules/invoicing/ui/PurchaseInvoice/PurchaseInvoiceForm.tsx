@@ -39,7 +39,7 @@ type PurchaseInvoiceFormProps = {
 };
 
 const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
-  const { t } = useTranslation("invoicing");
+  const { t } = useTranslation(["invoicing", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const isEditing = initialValues.id !== undefined;
@@ -146,12 +146,11 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
       <Card>
         <CardHeader>
           <CardTitle>
-            {isEditing ? "Purchase Invoice" : "New Purchase Invoice"}
+            {isEditing ? t("invoicing:purchaseInvoice") : t("invoicing:newPurchaseInvoice")}
           </CardTitle>
           {!isEditing && (
             <CardDescription>
-              A purchase invoice is a document that specifies the products or
-              services purchased by a customer and the corresponding cost.
+              {t("invoicing:purchaseInvoiceDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -170,26 +169,26 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="invoiceId"
-                  label="Invoice ID"
+                  label={t("invoicing:invoiceId")}
                   table="purchaseInvoice"
                 />
               )}
               <Supplier
                 name="supplierId"
-                label="Supplier"
+                label={t("common:supplier")}
                 onChange={onSupplierChange}
               />
-              <Input name="supplierReference" label="Supplier Invoice Number" />
+              <Input name="supplierReference" label={t("invoicing:supplierInvoiceNumber")} />
 
               <Supplier
                 name="invoiceSupplierId"
-                label="Invoice Supplier"
+                label={t("invoicing:invoiceSupplier")}
                 value={invoiceSupplier.id}
                 onChange={onInvoiceSupplierChange}
               />
               <SupplierLocation
                 name="invoiceSupplierLocationId"
-                label="Invoice Supplier Location"
+                label={t("invoicing:invoiceSupplierLocation")}
                 supplier={supplier.id}
                 value={invoiceSupplier.invoiceSupplierLocationId}
                 onChange={(newValue) => {
@@ -203,7 +202,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
               />
               <SupplierContact
                 name="invoiceSupplierContactId"
-                label="Invoice Supplier Contact"
+                label={t("invoicing:invoiceSupplierContact")}
                 supplier={supplier.id}
                 value={invoiceSupplier.invoiceSupplierContactId}
                 onChange={(newValue) => {
@@ -216,12 +215,12 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                 }}
               />
 
-              <DatePicker name="dateDue" label="Due Date" />
-              <DatePicker name="dateIssued" label="Date Issued" />
+              <DatePicker name="dateDue" label={t("invoicing:dueDate")} />
+              <DatePicker name="dateIssued" label={t("invoicing:dateIssued")} />
 
               <PaymentTerm
                 name="paymentTermId"
-                label="Payment Terms"
+                label={t("invoicing:paymentTerms")}
                 value={invoiceSupplier?.paymentTermId}
                 onChange={(newValue) => {
                   if (newValue?.value) {
@@ -234,7 +233,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
               />
               <Currency
                 name="currencyCode"
-                label="Currency"
+                label={t("common:currency")}
                 value={invoiceSupplier?.currencyCode}
                 onChange={(newValue) => {
                   if (newValue?.value) {
@@ -245,7 +244,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                   }
                 }}
               />
-              <Location name="locationId" label="Location" />
+              <Location name="locationId" label={t("common:location")} />
               <CustomFormFields table="purchaseInvoice" />
             </div>
           </VStack>
@@ -258,7 +257,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                 : !permissions.can("create", "invoicing")
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </Card>
