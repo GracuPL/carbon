@@ -230,5 +230,24 @@ export const sales = {
   requestedDate: "Requested Date",
   requestedDateHelper: "The date the customer expects to receive the goods",
   promisedDateHelper: "The date the customer expects to receive the goods",
-  salesLocation: "Sales Location"
+  salesLocation: "Sales Location",
+
+  // Customer Accounting Form
+  customerAccounting: "Customer Accounting",
+  taxId: "Tax ID",
+  postingGroup: "Posting Group",
+  selectPostingGroup: "Select Posting Group",
+
+  // Customer Payment Form
+  paymentTerms: "Payment Terms",
+  invoiceCustomer: "Invoice Customer",
+  invoiceLocation: "Invoice Location",
+  invoiceContact: "Invoice Contact",
+  paymentTerm: "Payment Term",
+
+  // Customer Shipping Form
+  shipping: "Shipping",
+  shippingCustomer: "Shipping Customer",
+  shippingLocation: "Shipping Location",
+  shippingContact: "Shipping Contact"
 } as const;

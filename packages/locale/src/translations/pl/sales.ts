@@ -230,5 +230,24 @@ export const sales = {
   requestedDate: "Data żądana",
   requestedDateHelper: "Data, w której klient oczekuje otrzymania towarów",
   promisedDateHelper: "Data, w której klient oczekuje otrzymania towarów",
-  salesLocation: "Lokalizacja sprzedaży"
+  salesLocation: "Lokalizacja sprzedaży",
+
+  // Customer Accounting Form - Formularz księgowości klienta
+  customerAccounting: "Księgowość klienta",
+  taxId: "NIP",
+  postingGroup: "Grupa księgowania",
+  selectPostingGroup: "Wybierz grupę księgowania",
+
+  // Customer Payment Form - Formularz płatności klienta
+  paymentTerms: "Warunki płatności",
+  invoiceCustomer: "Klient do fakturowania",
+  invoiceLocation: "Lokalizacja do fakturowania",
+  invoiceContact: "Kontakt do fakturowania",
+  paymentTerm: "Termin płatności",
+
+  // Customer Shipping Form - Formularz wysyłki klienta
+  shipping: "Wysyłka",
+  shippingCustomer: "Klient do wysyłki",
+  shippingLocation: "Lokalizacja do wysyłki",
+  shippingContact: "Kontakt do wysyłki"
 } as const;
