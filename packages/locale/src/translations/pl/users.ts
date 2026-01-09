@@ -143,5 +143,10 @@ export const users = {
 
   // Toast messages - Komunikaty toast
   createdDepartment: "Utworzono dział",
-  failedToCreateDepartment: "Nie udało się utworzyć działu: {{message}}"
+  failedToCreateDepartment: "Nie udało się utworzyć działu: {{message}}",
+
+  // Department Form - Formularz działu
+  newDepartment: "Nowy dział",
+  departmentName: "Nazwa działu",
+  parentDepartment: "Dział nadrzędny"
 } as const;
