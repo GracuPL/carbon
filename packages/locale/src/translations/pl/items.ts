@@ -280,5 +280,22 @@ export const items = {
   manufacturing: "Produkcja",
   scrapPercent: "Procent odpadów",
   leadTimeDays: "Czas realizacji (dni)",
-  configured: "Konfigurowany"
+  configured: "Konfigurowany",
+
+  // Item Planning Form - Formularz planowania produktu
+  planning: "Planowanie",
+  reorderingPolicy: "Polityka zamawiania",
+  reorderPoint: "Punkt ponownego zamówienia",
+  maximumInventoryQuantity: "Maksymalna ilość zapasów",
+  accumulationPeriodWeeks: "Okres akumulacji (tygodnie)",
+  safetyStock: "Zapas bezpieczeństwa",
+  reorderQuantity: "Ilość zamówienia",
+  orderMultiple: "Wielokrotność zamówienia",
+  minimumOrderQuantity: "Minimalna ilość zamówienia",
+  maximumOrderQuantity: "Maksymalna ilość zamówienia",
+
+  // Item Purchasing Form - Formularz zakupów produktu
+  purchasing: "Zakupy",
+  preferredSupplier: "Preferowany dostawca",
+  purchasingUnitOfMeasure: "Jednostka miary zakupu"
 } as const;

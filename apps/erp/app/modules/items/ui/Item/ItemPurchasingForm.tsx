@@ -1,4 +1,5 @@
 import { Select, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -32,6 +33,7 @@ const ItemPurchasingForm = ({
   initialValues,
   allowedSuppliers
 }: ItemPurchasingFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const { itemId } = useParams();
   if (!itemId) throw new Error("itemId not found");
@@ -67,20 +69,20 @@ const ItemPurchasingForm = ({
         defaultValues={initialValues}
       >
         <CardHeader>
-          <CardTitle>Purchasing</CardTitle>
+          <CardTitle>{t("items:purchasing")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="itemId" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Select
               name="preferredSupplierId"
-              label="Preferred Supplier"
+              label={t("items:preferredSupplier")}
               options={allowedSuppliersOptions}
             />
-            <Number name="leadTime" label="Lead Time (Days)" />
+            <Number name="leadTime" label={t("items:leadTimeDays")} />
             <UnitOfMeasure
               name="purchasingUnitOfMeasureCode"
-              label="Purchasing Unit of Measure"
+              label={t("items:purchasingUnitOfMeasure")}
               onChange={(newValue) => {
                 if (newValue) setPurchasingCode(newValue.value);
               }}
@@ -95,7 +97,7 @@ const ItemPurchasingForm = ({
           </div>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={!permissions.can("update", "parts")}>Save</Submit>
+          <Submit isDisabled={!permissions.can("update", "parts")}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>

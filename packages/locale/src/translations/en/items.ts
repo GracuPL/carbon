@@ -280,5 +280,22 @@ export const items = {
   manufacturing: "Manufacturing",
   scrapPercent: "Scrap Percent",
   leadTimeDays: "Lead Time (Days)",
-  configured: "Configured"
+  configured: "Configured",
+
+  // Item Planning Form
+  planning: "Planning",
+  reorderingPolicy: "Reordering Policy",
+  reorderPoint: "Reorder Point",
+  maximumInventoryQuantity: "Maximum Inventory Quantity",
+  accumulationPeriodWeeks: "Accumulation Period (Weeks)",
+  safetyStock: "Safety Stock",
+  reorderQuantity: "Reorder Quantity",
+  orderMultiple: "Order Multiple",
+  minimumOrderQuantity: "Minimum Order Quantity",
+  maximumOrderQuantity: "Maximum Order Quantity",
+
+  // Item Purchasing Form
+  purchasing: "Purchasing",
+  preferredSupplier: "Preferred Supplier",
+  purchasingUnitOfMeasure: "Purchasing Unit of Measure"
 } as const;

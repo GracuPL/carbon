@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -39,6 +40,7 @@ const ItemPlanningForm = ({
   locations,
   type
 }: ItemPlanningFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
 
   const locationOptions = locations.map((location) => ({
@@ -57,7 +59,7 @@ const ItemPlanningForm = ({
       >
         <HStack className="w-full justify-between items-start">
           <CardHeader>
-            <CardTitle>Planning</CardTitle>
+            <CardTitle>{t("items:planning")}</CardTitle>
           </CardHeader>
           <CardAction>
             <Combobox
@@ -81,7 +83,7 @@ const ItemPlanningForm = ({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <SelectForm
               name="reorderingPolicy"
-              label="Reordering Policy"
+              label={t("items:reorderingPolicy")}
               options={itemReorderingPolicies.map((policy) => ({
                 label: policy,
                 value: policy
@@ -95,12 +97,12 @@ const ItemPlanningForm = ({
               <>
                 <Number
                   name="reorderPoint"
-                  label="Reorder Point"
+                  label={t("items:reorderPoint")}
                   minValue={0}
                 />
                 <Number
                   name="maximumInventoryQuantity"
-                  label="Maximum Inventory Quantity"
+                  label={t("items:maximumInventoryQuantity")}
                   minValue={0}
                 />
               </>
@@ -110,12 +112,12 @@ const ItemPlanningForm = ({
               <>
                 <Number
                   name="demandAccumulationPeriod"
-                  label="Accumulation Period (Weeks)"
+                  label={t("items:accumulationPeriodWeeks")}
                   minValue={0}
                 />
                 <Number
                   name="demandAccumulationSafetyStock"
-                  label="Safety Stock"
+                  label={t("items:safetyStock")}
                   minValue={0}
                 />
               </>
@@ -124,12 +126,12 @@ const ItemPlanningForm = ({
               <>
                 <Number
                   name="reorderPoint"
-                  label="Reorder Point"
+                  label={t("items:reorderPoint")}
                   minValue={0}
                 />
                 <Number
                   name="reorderQuantity"
-                  label="Reorder Quantity"
+                  label={t("items:reorderQuantity")}
                   minValue={0}
                 />
               </>
@@ -138,17 +140,17 @@ const ItemPlanningForm = ({
               <>
                 <Number
                   name="orderMultiple"
-                  label="Order Multiple"
+                  label={t("items:orderMultiple")}
                   minValue={0}
                 />
                 <Number
                   name="minimumOrderQuantity"
-                  label="Minimum Order Quantity"
+                  label={t("items:minimumOrderQuantity")}
                   minValue={0}
                 />
                 <Number
                   name="maximumOrderQuantity"
-                  label="Maximum Order Quantity"
+                  label={t("items:maximumOrderQuantity")}
                   minValue={0}
                 />
               </>
@@ -159,7 +161,7 @@ const ItemPlanningForm = ({
           </div>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={!permissions.can("update", "parts")}>Save</Submit>
+          <Submit isDisabled={!permissions.can("update", "parts")}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>
