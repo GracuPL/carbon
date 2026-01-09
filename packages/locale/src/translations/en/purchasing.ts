@@ -147,5 +147,17 @@ export const purchasing = {
   failedToLoadInvoices: "Failed to load invoices",
   failedToLoadShipments: "Failed to load shipments",
   failedToUpdateSupplierQuoteLine: "Failed to update supplier quote line",
-  failedToInsertSupplierQuoteLine: "Failed to insert supplier quote line"
+  failedToInsertSupplierQuoteLine: "Failed to insert supplier quote line",
+  createdSupplierStatus: "Created supplier status",
+  failedToCreateSupplierStatus: "Failed to create supplier status: {{message}}",
+  createdSupplierType: "Created supplier type",
+  failedToCreateSupplierType: "Failed to create supplier type: {{message}}",
+  createdSupplierContact: "Created supplier contact",
+  failedToCreateSupplierContact: "Failed to create supplier contact: {{message}}",
+  createdSupplierProcess: "Created supplier process",
+  failedToCreateSupplierProcess: "Failed to create supplier process",
+  createdSupplier: "Created supplier: {{name}}",
+  failedToCreateSupplier: "Failed to create supplier: {{message}}",
+  createdSupplierLocation: "Created supplier location",
+  failedToCreateSupplierLocation: "Failed to create supplier location: {{message}}"
 } as const;

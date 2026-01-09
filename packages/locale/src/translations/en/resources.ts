@@ -175,5 +175,22 @@ export const resources = {
   scheduledMaintenances: "Scheduled Maintenances",
   editSchedule: "Edit Schedule",
   deleteSchedule: "Delete Schedule",
-  inactive: "Inactive"
+  inactive: "Inactive",
+
+  // Toast messages
+  createdProcess: "Created process",
+  failedToCreateProcess: "Failed to create process: {{message}}",
+  createdWorkCenter: "Created work center",
+  failedToCheckActiveOperations: "Failed to check active operations",
+  failedToUploadImage: "Failed to upload image",
+  carbonClientNotAvailable: "Carbon client not available",
+  failedToUploadFile: "Failed to upload file: {{name}}",
+  fileUploadedSuccessfully: "{{name}} uploaded successfully",
+  errorDownloadingFile: "Error downloading file",
+  fileDeletedSuccessfully: "{{name}} deleted successfully",
+  failedToLoadItemDetails: "Failed to load item details",
+  createdFailureMode: "Created failure mode",
+  createdLocation: "Created location",
+  failedToCreateLocation: "Failed to create location: {{message}}",
+  createdMaintenanceSchedule: "Created maintenance schedule"
 } as const;

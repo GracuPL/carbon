@@ -1,4 +1,5 @@
 import { SUPABASE_URL, useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Avatar,
   Button,
@@ -24,6 +25,7 @@ const CompanyLogoForm = ({
   mode,
   icon = false
 }: CompanyLogoFormProps) => {
+  const { t } = useTranslation("settings");
   const { carbon } = useCarbon();
   const submit = useSubmit();
 
@@ -80,7 +82,7 @@ const CompanyLogoForm = ({
         logo = resizedFile;
       } catch (error) {
         console.error(error);
-        toast.error("Failed to resize image");
+        toast.error(t("failedToResizeImage"));
         return;
       }
 
@@ -94,7 +96,7 @@ const CompanyLogoForm = ({
         });
 
       if (imageUpload.error) {
-        toast.error("Failed to upload logo");
+        toast.error(t("failedToUploadLogo"));
       }
 
       if (imageUpload.data?.path) {
@@ -110,7 +112,7 @@ const CompanyLogoForm = ({
         .remove([currentLogoPath]);
 
       if (imageDelete.error) {
-        toast.error("Failed to remove image");
+        toast.error(t("failedToRemoveImage"));
       }
 
       submitLogoUrl(null);

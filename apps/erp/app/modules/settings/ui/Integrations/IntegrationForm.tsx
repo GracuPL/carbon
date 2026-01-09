@@ -1,4 +1,5 @@
 import { integrations as availableIntegrations } from "@carbon/ee";
+import { useTranslation } from "@carbon/locale";
 import {
   // biome-ignore lint/suspicious/noShadowRestrictedNames: suppressed due to migration
   Array,
@@ -41,6 +42,7 @@ export function IntegrationForm({
   metadata,
   onClose
 }: IntegrationFormProps) {
+  const { t } = useTranslation("settings");
   const permissions = usePermissions();
   const isDisabled = !permissions.can("update", "settings");
   const {
@@ -55,7 +57,7 @@ export function IntegrationForm({
   const integration = availableIntegrations.find((i) => i.id === integrationId);
 
   if (!integration) {
-    toast.error("Integration not found");
+    toast.error(t("integrationNotFound"));
     return null;
   }
 

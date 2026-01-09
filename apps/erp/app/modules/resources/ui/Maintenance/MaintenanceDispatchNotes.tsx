@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardAction,
@@ -49,6 +50,7 @@ export function MaintenanceDispatchNotes({
   content: JSONContent;
   isDisabled: boolean;
 }) {
+  const { t } = useTranslation("resources");
   const {
     id: userId,
     company: { id: companyId }
@@ -65,7 +67,7 @@ export function MaintenanceDispatchNotes({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
@@ -192,6 +194,7 @@ function MaintenanceFilesContent({
   files: StorageItem[];
   isReadOnly: boolean;
 }) {
+  const { t } = useTranslation("resources");
   const { carbon } = useCarbon();
   const { company } = useUser();
   const revalidator = useRevalidator();
@@ -206,7 +209,7 @@ function MaintenanceFilesContent({
   const upload = useCallback(
     async (filesToUpload: File[]) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
@@ -221,14 +224,14 @@ function MaintenanceFilesContent({
           });
 
         if (result.error) {
-          toast.error(`Failed to upload file: ${file.name}`);
+          toast.error(t("failedToUploadFile", { name: file.name }));
         } else {
-          toast.success(`${file.name} uploaded successfully`);
+          toast.success(t("fileUploadedSuccessfully", { name: file.name }));
         }
       }
       revalidator.revalidate();
     },
-    [carbon, getFilePath, revalidator]
+    [carbon, getFilePath, revalidator, t]
   );
 
   const download = useCallback(
@@ -247,17 +250,17 @@ function MaintenanceFilesContent({
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
     },
-    [getFilePath]
+    [getFilePath, t]
   );
 
   const deleteFile = useCallback(
     async (file: FileObject) => {
       if (!carbon) {
-        toast.error("Carbon client not available");
+        toast.error(t("carbonClientNotAvailable"));
         return;
       }
 
@@ -265,14 +268,14 @@ function MaintenanceFilesContent({
       const result = await carbon.storage.from("private").remove([filePath]);
 
       if (result.error) {
-        toast.error(result.error.message || "Error deleting file");
+        toast.error(result.error.message || t("errorDownloadingFile"));
         return;
       }
 
-      toast.success(`${file.name} deleted successfully`);
+      toast.success(t("fileDeletedSuccessfully", { name: file.name }));
       revalidator.revalidate();
     },
-    [carbon, getFilePath, revalidator]
+    [carbon, getFilePath, revalidator, t]
   );
 
   const onDrop = useCallback(

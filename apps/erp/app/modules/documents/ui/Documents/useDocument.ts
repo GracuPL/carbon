@@ -1,4 +1,5 @@
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import { toast } from "@carbon/react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
@@ -10,6 +11,7 @@ import type {
 import { path } from "~/utils/path";
 
 export const useDocument = () => {
+  const { t } = useTranslation("documents");
   const navigate = useNavigate();
   const permissions = usePermissions();
   const { carbon } = useCarbon();
@@ -84,7 +86,7 @@ export const useDocument = () => {
         window.URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
       } catch (error) {
-        toast.error("Error downloading file");
+        toast.error(t("errorDownloadingFile"));
         console.error(error);
       }
 

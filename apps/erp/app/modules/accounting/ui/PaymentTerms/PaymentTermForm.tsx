@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -45,6 +46,7 @@ const PaymentTermForm = ({
   type = "drawer",
   onClose
 }: PaymentTermFormProps) => {
+  const { t } = useTranslation("accounting");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
   const [selectedCalculationMethod, setSelectedCalculationMethod] =
@@ -55,10 +57,10 @@ const PaymentTermForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created payment term`);
+      toast.success(t("createdPaymentTerm"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create payment term: ${fetcher.data.error.message}`
+        t("failedToCreatePaymentTerm", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type]);

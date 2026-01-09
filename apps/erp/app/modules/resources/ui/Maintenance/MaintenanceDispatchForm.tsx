@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { DateTimePicker, Select, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import type { JSONContent } from "@carbon/react";
 import {
   Card,
@@ -58,6 +59,7 @@ const MaintenanceDispatchForm = ({
   initialValues,
   failureModes = []
 }: MaintenanceDispatchFormProps) => {
+  const { t } = useTranslation("resources");
   const permissions = usePermissions();
   const {
     company: { id: companyId }
@@ -89,7 +91,7 @@ const MaintenanceDispatchForm = ({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 

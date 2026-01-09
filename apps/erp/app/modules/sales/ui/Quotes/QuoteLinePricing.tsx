@@ -331,7 +331,7 @@ const QuoteLinePricing = ({
           .eq("quantity", quantity);
         if (update?.error) {
           console.error(update.error);
-          toast.error("Failed to update quote line");
+          toast.error(t("failedToUpdateQuoteLine"));
         }
       } else {
         const insert = await carbon?.from("quoteLinePrice").insert({

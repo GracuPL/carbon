@@ -147,5 +147,17 @@ export const purchasing = {
   failedToLoadInvoices: "Nie udało się załadować faktur",
   failedToLoadShipments: "Nie udało się załadować wysyłek",
   failedToUpdateSupplierQuoteLine: "Nie udało się zaktualizować pozycji oferty dostawcy",
-  failedToInsertSupplierQuoteLine: "Nie udało się dodać pozycji oferty dostawcy"
+  failedToInsertSupplierQuoteLine: "Nie udało się dodać pozycji oferty dostawcy",
+  createdSupplierStatus: "Utworzono status dostawcy",
+  failedToCreateSupplierStatus: "Nie udało się utworzyć statusu dostawcy: {{message}}",
+  createdSupplierType: "Utworzono typ dostawcy",
+  failedToCreateSupplierType: "Nie udało się utworzyć typu dostawcy: {{message}}",
+  createdSupplierContact: "Utworzono kontakt dostawcy",
+  failedToCreateSupplierContact: "Nie udało się utworzyć kontaktu dostawcy: {{message}}",
+  createdSupplierProcess: "Utworzono proces dostawcy",
+  failedToCreateSupplierProcess: "Nie udało się utworzyć procesu dostawcy",
+  createdSupplier: "Utworzono dostawcę: {{name}}",
+  failedToCreateSupplier: "Nie udało się utworzyć dostawcy: {{message}}",
+  createdSupplierLocation: "Utworzono lokalizację dostawcy",
+  failedToCreateSupplierLocation: "Nie udało się utworzyć lokalizacji dostawcy: {{message}}"
 } as const;

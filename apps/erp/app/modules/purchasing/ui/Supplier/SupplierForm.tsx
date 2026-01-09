@@ -1,4 +1,5 @@
 import { PhoneInput, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   cn,
   HStack,
@@ -43,6 +44,7 @@ const SupplierForm = ({
   type = "card",
   onClose
 }: SupplierFormProps) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<Supplier>>();
 
@@ -52,11 +54,11 @@ const SupplierForm = ({
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
       // @ts-ignore
-      toast.success(`Created supplier: ${fetcher.data.data.name}`);
+      toast.success(t("createdSupplier", { name: fetcher.data.data.name }));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create supplier: ${fetcher.data.error.message}`);
+      toast.error(t("failedToCreateSupplier", { message: fetcher.data.error.message }));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

@@ -232,7 +232,7 @@ const QuoteLineForm = ({
       ]);
 
       if (parameters.error || groups.error) {
-        toast.error("Failed to load configuration parameters");
+        toast.error(t("failedToLoadConfigurationParameters"));
         return;
       }
 

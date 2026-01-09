@@ -110,5 +110,9 @@ export const accounting = {
   dateRangeDescription: "Wybierz zakres dat aby filtrować zmianę netto i saldo na dzień",
   startDate: "Data początkowa",
   endDate: "Data końcowa",
-  reset: "Resetuj"
+  reset: "Resetuj",
+
+  // Toast messages - Komunikaty toast
+  createdPaymentTerm: "Utworzono warunki płatności",
+  failedToCreatePaymentTerm: "Nie udało się utworzyć warunków płatności: {{message}}"
 } as const;

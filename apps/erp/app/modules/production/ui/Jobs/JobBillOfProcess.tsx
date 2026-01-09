@@ -1,5 +1,6 @@
 "use client";
 import { useCarbon } from "@carbon/auth";
+import { useTranslation } from "@carbon/locale";
 import type { Database } from "@carbon/database";
 import { Array as ArrayInput, Input, ValidatedForm } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
@@ -1035,6 +1036,7 @@ function StepsForm({
   temporaryItems: TemporaryItems;
   materials: JobMaterial[];
 }) {
+  const { t } = useTranslation("production");
   const fetcher = useFetcher<typeof newJobOperationParameterAction>();
   const sortOrderFetcher = useFetcher<{ success: boolean }>();
   const [type, setType] = useState<OperationStep["type"]>("Task");
@@ -1128,12 +1130,12 @@ function StepsForm({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -1348,6 +1350,7 @@ function StepsListItem({
     createdAt
   } = attribute;
 
+  const { t } = useTranslation("production");
   const disclosure = useDisclosure();
   const deleteModalDisclosure = useDisclosure();
   const submitted = useRef(false);
@@ -1405,12 +1408,12 @@ function StepsListItem({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error("Failed to upload image");
+      toast.error(t("failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error("Failed to upload image");
+      throw new Error(t("failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);

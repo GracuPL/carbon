@@ -37,5 +37,10 @@ export const documents = {
   // Confirmation dialogs - Dialogi potwierdzenia
   confirmMoveToTrash: "Czy na pewno chcesz przenieść {{name}} do kosza?",
   confirmRestore: "Czy na pewno chcesz przywrócić {{name}} z kosza?",
-  confirmPermanentDelete: "Czy na pewno chcesz trwale usunąć {{name}}? Tej operacji nie można cofnąć."
+  confirmPermanentDelete: "Czy na pewno chcesz trwale usunąć {{name}}? Tej operacji nie można cofnąć.",
+
+  // Toast messages - Komunikaty toast
+  uploadingFile: "Przesyłanie {{name}}",
+  failedToUploadFile: "Nie udało się przesłać pliku",
+  errorDownloadingFile: "Błąd pobierania pliku"
 } as const;

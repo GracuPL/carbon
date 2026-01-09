@@ -175,5 +175,22 @@ export const resources = {
   scheduledMaintenances: "Planowane konserwacje",
   editSchedule: "Edytuj harmonogram",
   deleteSchedule: "Usuń harmonogram",
-  inactive: "Nieaktywny"
+  inactive: "Nieaktywny",
+
+  // Toast messages - Komunikaty toast
+  createdProcess: "Utworzono proces",
+  failedToCreateProcess: "Nie udało się utworzyć procesu: {{message}}",
+  createdWorkCenter: "Utworzono stanowisko pracy",
+  failedToCheckActiveOperations: "Nie udało się sprawdzić aktywnych operacji",
+  failedToUploadImage: "Nie udało się przesłać obrazu",
+  carbonClientNotAvailable: "Klient Carbon niedostępny",
+  failedToUploadFile: "Nie udało się przesłać pliku: {{name}}",
+  fileUploadedSuccessfully: "{{name}} przesłano pomyślnie",
+  errorDownloadingFile: "Błąd pobierania pliku",
+  fileDeletedSuccessfully: "{{name}} usunięto pomyślnie",
+  failedToLoadItemDetails: "Nie udało się załadować szczegółów elementu",
+  createdFailureMode: "Utworzono tryb awarii",
+  createdLocation: "Utworzono lokalizację",
+  failedToCreateLocation: "Nie udało się utworzyć lokalizacji: {{message}}",
+  createdMaintenanceSchedule: "Utworzono harmonogram konserwacji"
 } as const;

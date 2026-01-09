@@ -61,5 +61,13 @@ export const settings = {
   // Custom Fields Detail
   editCustomField: "Edit Custom Field",
   deleteCustomField: "Delete Custom Field",
-  confirmDeleteCustomField: "Are you sure you want to delete the {{name}} field?"
+  confirmDeleteCustomField: "Are you sure you want to delete the {{name}} field?",
+
+  // Toast messages
+  failedToResizeImage: "Failed to resize image",
+  failedToUploadLogo: "Failed to upload logo",
+  failedToRemoveImage: "Failed to remove image",
+  createdWebhook: "Created webhook",
+  failedToCreateWebhook: "Failed to create webhook: {{message}}",
+  integrationNotFound: "Integration not found"
 } as const;

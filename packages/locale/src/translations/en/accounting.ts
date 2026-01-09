@@ -110,5 +110,9 @@ export const accounting = {
   dateRangeDescription: "Select date range to filter net change and balance at date",
   startDate: "Start Date",
   endDate: "End Date",
-  reset: "Reset"
+  reset: "Reset",
+
+  // Toast messages
+  createdPaymentTerm: "Created payment term",
+  failedToCreatePaymentTerm: "Failed to create payment term: {{message}}"
 } as const;
