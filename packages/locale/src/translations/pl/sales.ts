@@ -26,10 +26,15 @@ export const sales = {
   assignedToMeDescription: "Dokumenty sprzedaży przypisane do mnie",
 
   // Charts / KPIs - Wykresy / KPI
-  salesRevenue: "Przychody ze sprzedaży",
+  quoteCount: "Oferty",
+  rfqCount: "Zapytania ofertowe",
   salesFunnel: "Lejek sprzedażowy",
+  salesOrderCount: "Zamówienia sprzedaży",
+  salesOrderRevenue: "Przychody ze sprzedaży",
+  salesRevenue: "Przychody ze sprzedaży",
   lastMonth: "Ostatni miesiąc",
   allCustomers: "Wszyscy klienci",
+  exportCsv: "Eksportuj CSV",
 
   // Entities - Encje
   customer: "Klient",

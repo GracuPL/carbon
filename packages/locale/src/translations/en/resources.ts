@@ -46,6 +46,12 @@ export const resources = {
 
   // KPIs
   failures: "failures",
+  mttr: "Mean Time To Repair",
+  mtbf: "Mean Time Between Failures",
+  sparePartCost: "Spare Part Cost",
+  worstPerformingMachines: "Worst Performing Machines",
+  sparePartConsumption: "Spare Part Consumption",
+  noDataWithinRange: "No data within range",
 
   // Actions
   exportCsv: "Export CSV",

@@ -141,6 +141,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
   };
 }
 
+// KPI translation key mappings
+const kpiLabelKeys: Record<string, string> = {
+  supplierQuoteCount: "supplierQuoteCount",
+  purchaseOrderCount: "purchaseOrderCount",
+  purchaseInvoiceCount: "purchaseInvoiceCount",
+  purchaseOrderAmount: "purchaseOrderAmount",
+  purchaseInvoiceAmount: "purchaseInvoiceAmount"
+};
+
+// Interval translation key mappings
+const intervalLabelKeys: Record<string, string> = {
+  week: "week",
+  month: "month",
+  quarter: "quarter",
+  year: "year",
+  custom: "custom"
+};
+
 export default function PurchaseDashboard() {
   const {
     openPurchaseOrders,
@@ -148,7 +166,7 @@ export default function PurchaseDashboard() {
     openPurchaseInvoices,
     assignedToMe
   } = useLoaderData<typeof loader>();
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
 
   const mergedOpenDocs = useMemo(() => {
     const merged = [
@@ -196,13 +214,21 @@ export default function PurchaseDashboard() {
   const [suppliers] = useSuppliers();
   const supplierOptions = useMemo(() => {
     return [
-      { label: t("allSuppliers"), value: "all" },
+      { label: t("purchasing:allSuppliers"), value: "all" },
       ...suppliers.map((supplier) => ({
         label: supplier.name,
         value: supplier.id
       }))
     ];
   }, [suppliers, t]);
+
+  // Helper functions for translated labels
+  const getKpiLabel = (key: string) => t(`purchasing:${kpiLabelKeys[key]}`);
+  const getIntervalLabel = (key: string, withLast = false) => {
+    const label = t(`common:${intervalLabelKeys[key]}`);
+    if (key === "custom" || !withLast) return label;
+    return t("common:lastInterval", { interval: label });
+  };
 
   const [interval, setInterval] = useState("month");
   const [selectedKpi, setSelectedKpi] = useState("purchaseOrderAmount");
@@ -381,7 +407,7 @@ export default function PurchaseDashboard() {
                     rightIcon={<LuChevronDown />}
                     className="hover:bg-background/80"
                   >
-                    <span>{selectedKpiData.label}</span>
+                    <span>{getKpiLabel(selectedKpiData.key)}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="bottom" align="start">
@@ -391,7 +417,7 @@ export default function PurchaseDashboard() {
                   >
                     {KPIs.map((kpi) => (
                       <DropdownMenuRadioItem key={kpi.key} value={kpi.key}>
-                        {kpi.label}
+                        {getKpiLabel(kpi.key)}
                       </DropdownMenuRadioItem>
                     ))}
                   </DropdownMenuRadioGroup>
@@ -406,9 +432,7 @@ export default function PurchaseDashboard() {
                     className="hover:bg-background/80"
                   >
                     <span>
-                      {selectedInterval.key === "custom"
-                        ? selectedInterval.label
-                        : `Last ${selectedInterval.label}`}
+                      {getIntervalLabel(selectedInterval.key, true)}
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
@@ -419,7 +443,7 @@ export default function PurchaseDashboard() {
                   >
                     {chartIntervals.map((i) => (
                       <DropdownMenuRadioItem key={i.key} value={i.key}>
-                        {i.key === "custom" ? i.label : `Last ${i.label}`}
+                        {getIntervalLabel(i.key, true)}
                       </DropdownMenuRadioItem>
                     ))}
                   </DropdownMenuRadioGroup>

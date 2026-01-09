@@ -46,6 +46,12 @@ export const resources = {
 
   // KPIs - Wskaźniki
   failures: "awarii",
+  mttr: "Średni czas naprawy",
+  mtbf: "Średni czas między awariami",
+  sparePartCost: "Koszt części zamiennych",
+  worstPerformingMachines: "Najgorzej działające maszyny",
+  sparePartConsumption: "Zużycie części zamiennych",
+  noDataWithinRange: "Brak danych w wybranym zakresie",
 
   // Actions - Akcje
   exportCsv: "Eksportuj CSV",

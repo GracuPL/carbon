@@ -159,5 +159,13 @@ export const purchasing = {
   createdSupplier: "Utworzono dostawcę: {{name}}",
   failedToCreateSupplier: "Nie udało się utworzyć dostawcy: {{message}}",
   createdSupplierLocation: "Utworzono lokalizację dostawcy",
-  failedToCreateSupplierLocation: "Nie udało się utworzyć lokalizacji dostawcy: {{message}}"
+  failedToCreateSupplierLocation: "Nie udało się utworzyć lokalizacji dostawcy: {{message}}",
+
+  // Charts / KPIs - Wykresy / KPI
+  supplierQuoteCount: "Oferty dostawców",
+  purchaseOrderCount: "Zamówienia zakupu",
+  purchaseInvoiceCount: "Faktury zakupu",
+  purchaseOrderAmount: "Wartość zamówień zakupu",
+  purchaseInvoiceAmount: "Wartość faktur zakupu",
+  noDataWithinRange: "Brak danych w wybranym zakresie"
 } as const;
