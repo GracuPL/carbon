@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -43,6 +44,7 @@ const SupplierProcessForm = ({
   open = true,
   onClose
 }: SupplierProcessFormProps) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<SupplierProcess>>();
   const { supplierId } = useParams();
@@ -57,12 +59,11 @@ const SupplierProcessForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      // @ts-ignore
-      toast.success(`Created supplier process`);
+      toast.success(t("createdSupplierProcess"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(`Failed to create supplier process`);
+      toast.error(t("failedToCreateSupplierProcess"));
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing

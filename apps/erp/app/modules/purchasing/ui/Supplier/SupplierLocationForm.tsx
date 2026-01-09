@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -37,6 +38,7 @@ const SupplierLocationForm = ({
   type = "drawer",
   onClose
 }: SupplierLocationFormProps) => {
+  const { t } = useTranslation("purchasing");
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
   useEffect(() => {
@@ -44,13 +46,13 @@ const SupplierLocationForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created supplier location`);
+      toast.success(t("createdSupplierLocation"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create supplier location: ${fetcher.data.error.message}`
+        t("failedToCreateSupplierLocation", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const permissions = usePermissions();
   const isEditing = !!initialValues?.id;

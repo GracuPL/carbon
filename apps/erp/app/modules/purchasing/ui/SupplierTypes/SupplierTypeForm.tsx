@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   HStack,
@@ -34,6 +35,7 @@ const SupplierTypeForm = ({
   type = "drawer",
   onClose
 }: SupplierTypeFormProps) => {
+  const { t } = useTranslation("purchasing");
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -42,10 +44,10 @@ const SupplierTypeForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(`Created supplier type`);
+      toast.success(t("createdSupplierType"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create supplier type: ${fetcher.data.error.message}`
+        t("failedToCreateSupplierType", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type]);
