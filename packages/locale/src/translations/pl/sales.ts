@@ -125,6 +125,7 @@ export const sales = {
   customerStatus: "Status klienta",
   customerStatuses: "Statusy klientów",
   viewCustomers: "Zobacz klientów",
+  newCustomerStatus: "Nowy status klienta",
   editCustomerStatus: "Edytuj status klienta",
   deleteCustomerStatus: "Usuń status klienta",
 

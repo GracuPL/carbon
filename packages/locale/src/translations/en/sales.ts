@@ -125,6 +125,7 @@ export const sales = {
   customerStatus: "Customer Status",
   customerStatuses: "Customer Statuses",
   viewCustomers: "View Customers",
+  newCustomerStatus: "New Customer Status",
   editCustomerStatus: "Edit Customer Status",
   deleteCustomerStatus: "Delete Customer Status",
 

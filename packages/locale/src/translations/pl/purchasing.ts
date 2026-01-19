@@ -106,6 +106,7 @@ export const purchasing = {
 
   // Supplier Status - Status dostawcy
   viewSuppliers: "Zobacz dostawców",
+  newSupplierStatus: "Nowy status dostawcy",
   editSupplierStatus: "Edytuj status dostawcy",
   deleteSupplierStatus: "Usuń status dostawcy",
 
