@@ -52,7 +52,7 @@ const JobMaterialForm = ({
   const permissions = usePermissions();
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation("production");
+  const { t } = useTranslation(["production", "common"]);
 
   const { jobId, materialId } = useParams();
   if (!jobId) throw new Error("jobId not found");
@@ -107,7 +107,7 @@ const JobMaterialForm = ({
     ]);
 
     if (item.error) {
-      toast.error(t("failedToLoadItemDetails"));
+      toast.error(t("production:failedToLoadItemDetails"));
       return;
     }
 
@@ -190,7 +190,7 @@ const JobMaterialForm = ({
               />
               <InputControlled
                 name="description"
-                label="Description"
+                label={t("production:description")}
                 value={itemData.description}
                 onChange={(newValue) => {
                   setItemData((d) => ({ ...d, description: newValue }));
@@ -199,7 +199,7 @@ const JobMaterialForm = ({
 
               <Select
                 name="jobOperationId"
-                label="Operation"
+                label={t("production:operation")}
                 isClearable
                 options={operations.map((o) => ({
                   value: o.id!,
@@ -209,11 +209,11 @@ const JobMaterialForm = ({
 
               <DefaultMethodType
                 name="methodType"
-                label="Method Type"
+                label={t("production:methodType")}
                 value={itemData.methodType}
                 replenishmentSystem="Buy and Make"
               />
-              <Number name="quantity" label="Quantity per Parent" />
+              <Number name="quantity" label={t("production:quantityPerParent")} />
               <UnitOfMeasure
                 name="unitOfMeasureCode"
                 value={itemData.unitOfMeasureCode}
@@ -227,7 +227,7 @@ const JobMaterialForm = ({
               {itemData.methodType !== "Make" && (
                 <NumberControlled
                   name="unitCost"
-                  label="Unit Cost"
+                  label={t("production:unitCost")}
                   value={itemData.unitCost}
                   minValue={0}
                 />
@@ -239,7 +239,7 @@ const JobMaterialForm = ({
           <Submit
             isDisabled={isDisabled || !permissions.can("update", "production")}
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

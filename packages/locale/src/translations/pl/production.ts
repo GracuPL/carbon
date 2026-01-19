@@ -132,6 +132,9 @@ export const production = {
   materials: "Materiały",
   removeTransfer: "Usuń przesunięcie",
   removeOrder: "Usuń zamówienie",
+  methodType: "Typ metody",
+  quantityPerParent: "Ilość na jednostkę nadrzędną",
+  unitCost: "Koszt jednostkowy",
 
   // Job Operations Table - Tabela operacji zlecenia
   description: "Opis",
@@ -154,9 +157,15 @@ export const production = {
   notes: "Notatki",
   productionEvent: "Zdarzenie produkcyjne",
   productionEvents: "Zdarzenia produkcyjne",
+  newProductionEvent: "Utwórz zdarzenie produkcyjne",
+  editProductionEvent: "Edytuj zdarzenie produkcyjne",
   editEvent: "Edytuj zdarzenie",
   deleteEvent: "Usuń zdarzenie",
   confirmDeleteEvent: "Czy na pewno chcesz usunąć to zdarzenie produkcyjne? Tej operacji nie można cofnąć.",
+  eventType: "Typ zdarzenia",
+  labor: "Robocizna",
+  machine: "Maszyna",
+  setup: "Przygotowanie",
 
   // Production Quantities Table - Tabela ilości produkcyjnych
   productionQuantities: "Ilości produkcyjne",

@@ -132,6 +132,9 @@ export const production = {
   materials: "Materials",
   removeTransfer: "Remove Transfer",
   removeOrder: "Remove Order",
+  methodType: "Method Type",
+  quantityPerParent: "Quantity per Parent",
+  unitCost: "Unit Cost",
 
   // Job Operations Table
   description: "Description",
@@ -154,9 +157,15 @@ export const production = {
   notes: "Notes",
   productionEvent: "Production Event",
   productionEvents: "Production Events",
+  newProductionEvent: "Create Production Event",
+  editProductionEvent: "Edit Production Event",
   editEvent: "Edit Event",
   deleteEvent: "Delete Event",
   confirmDeleteEvent: "Are you sure you want to delete this production event? This action cannot be undone.",
+  eventType: "Event Type",
+  labor: "Labor",
+  machine: "Machine",
+  setup: "Setup",
 
   // Production Quantities Table
   productionQuantities: "Production Quantities",
