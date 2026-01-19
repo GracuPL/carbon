@@ -268,5 +268,38 @@ export const sales = {
   editLocation: "Edytuj lokalizację",
 
   // Quote Payment Form - Formularz płatności oferty
-  payment: "Płatność"
+  payment: "Płatność",
+
+  // Quote Line Form - Formularz pozycji oferty
+  quoteLine: "Pozycja oferty",
+  newQuoteLine: "Nowa pozycja oferty",
+  quoteLineDescription: "Pozycja oferty zawiera ceny i czasy realizacji dla konkretnego wyrobu",
+  deleteLine: "Usuń pozycję",
+  viewItemMaster: "Zobacz kartotekę wyrobu",
+  part: "Wyrób",
+  shortDescription: "Krótki opis",
+  method: "Metoda",
+  lineStatus: "Status pozycji",
+  customerPartNumber: "Numer wyrobu klienta",
+  customerPartRevision: "Rewizja wyrobu klienta",
+  noQuoteReason: "Powód braku oferty",
+  quantity: "Ilość",
+  tax: "Podatek",
+  configureItem: "Konfiguruj",
+
+  // Sales Order Line Form - Formularz pozycji zamówienia
+  salesOrderLine: "Pozycja zamówienia",
+  newSalesOrderLine: "Nowa pozycja zamówienia",
+  salesOrderLineDescription: "Pozycja zamówienia zawiera szczegóły zamówienia dla konkretnego wyrobu",
+  unitOfMeasure: "Jednostka miary",
+  unitPrice: "Cena jednostkowa",
+  shippingCost: "Koszt wysyłki",
+  addOnCost: "Koszt dodatkowy",
+  shelf: "Półka",
+
+  // Sales RFQ Line Form - Formularz pozycji zapytania
+  rfqLine: "Pozycja zapytania",
+  newRfqLine: "Nowa pozycja zapytania",
+  rfqLineDescription: "Pozycja zapytania zawiera informacje o wyrobie i ilości żądanego wyrobu",
+  description: "Opis"
 } as const;

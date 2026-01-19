@@ -54,7 +54,7 @@ const SalesRFQLineForm = ({
   type,
   onClose
 }: SalesRFQLineFormProps) => {
-  const { t } = useTranslation("sales");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
@@ -210,7 +210,7 @@ const SalesRFQLineForm = ({
                             ? `.${itemData?.customerPartRevision}`
                             : ""
                         }`
-                      : "New RFQ Line"}
+                      : t("sales:newRfqLine")}
                   </ModalCardTitle>
                   <ModalCardDescription>
                     {isEditing ? (
@@ -223,7 +223,7 @@ const SalesRFQLineForm = ({
                         </div>
                       </div>
                     ) : (
-                      "An RFQ line contains part and quantity information about the requested item"
+                      t("sales:rfqLineDescription")
                     )}
                   </ModalCardDescription>
                 </ModalCardHeader>
@@ -243,7 +243,7 @@ const SalesRFQLineForm = ({
                           onClick={deleteDisclosure.onOpen}
                         >
                           <DropdownMenuIcon icon={<LuTrash />} />
-                          Delete Line
+                          {t("sales:deleteLine")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -263,7 +263,7 @@ const SalesRFQLineForm = ({
                     <div className="col-span-2 grid w-full gap-x-8 gap-y-4 grid-cols-1 lg:grid-cols-2 auto-rows-min">
                       <InputControlled
                         name="customerPartId"
-                        label="Customer Part Number"
+                        label={t("sales:customerPartNumber")}
                         value={itemData.customerPartId}
                         onChange={(newValue) => {
                           setItemData((d) => ({
@@ -276,7 +276,7 @@ const SalesRFQLineForm = ({
                       />
                       <InputControlled
                         name="customerPartRevision"
-                        label="Customer Part Revision"
+                        label={t("sales:customerPartRevision")}
                         value={itemData.customerPartRevision}
                         onChange={(newValue) => {
                           setItemData((d) => ({
@@ -290,7 +290,7 @@ const SalesRFQLineForm = ({
                       />
                       <Item
                         name="itemId"
-                        label="Part"
+                        label={t("sales:part")}
                         type="Part"
                         value={itemData.itemId}
                         includeInactive
@@ -300,7 +300,7 @@ const SalesRFQLineForm = ({
                       />
                       <InputControlled
                         name="description"
-                        label="Description"
+                        label={t("sales:description")}
                         value={itemData.description}
                         isReadOnly={!!itemData.itemId}
                       />
@@ -320,7 +320,7 @@ const SalesRFQLineForm = ({
                     <div className="flex gap-y-4">
                       <ArrayNumeric
                         name="quantity"
-                        label="Quantity"
+                        label={t("sales:quantity")}
                         defaults={[1, 25, 50, 100]}
                       />
                     </div>
@@ -336,7 +336,7 @@ const SalesRFQLineForm = ({
                       : !permissions.can("create", "sales"))
                   }
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </ModalCardFooter>
             </ValidatedForm>

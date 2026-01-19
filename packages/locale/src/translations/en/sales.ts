@@ -268,5 +268,38 @@ export const sales = {
   editLocation: "Edit Location",
 
   // Quote Payment Form
-  payment: "Payment"
+  payment: "Payment",
+
+  // Quote Line Form
+  quoteLine: "Quote Line",
+  newQuoteLine: "New Quote Line",
+  quoteLineDescription: "A quote line contains pricing and lead times for a particular part",
+  deleteLine: "Delete Line",
+  viewItemMaster: "View Item Master",
+  part: "Part",
+  shortDescription: "Short Description",
+  method: "Method",
+  lineStatus: "Line Status",
+  customerPartNumber: "Customer Part Number",
+  customerPartRevision: "Customer Part Revision",
+  noQuoteReason: "No Quote Reason",
+  quantity: "Quantity",
+  tax: "Tax",
+  configureItem: "Configure",
+
+  // Sales Order Line Form
+  salesOrderLine: "Sales Order Line",
+  newSalesOrderLine: "New Sales Order Line",
+  salesOrderLineDescription: "A sales order line contains order details for a particular item",
+  unitOfMeasure: "Unit of Measure",
+  unitPrice: "Unit Price",
+  shippingCost: "Shipping Cost",
+  addOnCost: "Add-On Cost",
+  shelf: "Shelf",
+
+  // Sales RFQ Line Form
+  rfqLine: "RFQ Line",
+  newRfqLine: "New RFQ Line",
+  rfqLineDescription: "An RFQ line contains part and quantity information about the requested item",
+  description: "Description"
 } as const;

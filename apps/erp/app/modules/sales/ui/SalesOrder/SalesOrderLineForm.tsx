@@ -1,5 +1,5 @@
 import { useCarbon } from "@carbon/auth";
-
+import { useTranslation } from "@carbon/locale";
 import { ValidatedForm } from "@carbon/form";
 import {
   Badge,
@@ -75,6 +75,7 @@ const SalesOrderLineForm = ({
   type,
   onClose
 }: SalesOrderLineFormProps) => {
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const { company } = useUser();
@@ -224,7 +225,7 @@ const SalesOrderLineForm = ({
                   >
                     {isEditing
                       ? getItemReadableId(items, itemData?.itemId) || "..."
-                      : "New Sales Order Line"}
+                      : t("sales:newSalesOrderLine")}
                   </ModalCardTitle>
                   <ModalCardDescription>
                     {isEditing ? (
@@ -251,13 +252,13 @@ const SalesOrderLineForm = ({
                               {percentFormatter.format(
                                 initialValues?.taxPercent
                               )}{" "}
-                              Tax
+                              {t("sales:tax")}
                             </Badge>
                           ) : null}
                         </div>
                       </div>
                     ) : (
-                      "A sales order line contains order details for a particular item"
+                      t("sales:salesOrderLineDescription")
                     )}
                   </ModalCardDescription>
                 </ModalCardHeader>
@@ -277,7 +278,7 @@ const SalesOrderLineForm = ({
                           onClick={deleteDisclosure.onOpen}
                         >
                           <DropdownMenuIcon icon={<LuTrash />} />
-                          Delete Line
+                          {t("sales:deleteLine")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -315,7 +316,7 @@ const SalesOrderLineForm = ({
                     {isEditing && (
                       <InputControlled
                         name="description"
-                        label="Short Description"
+                        label={t("sales:shortDescription")}
                         onChange={(value) => {
                           setItemData((d) => ({
                             ...d,
@@ -330,7 +331,7 @@ const SalesOrderLineForm = ({
                       <>
                         <SelectControlled
                           name="methodType"
-                          label="Method"
+                          label={t("sales:method")}
                           options={
                             methodType.map((m) => ({
                               label: (
@@ -351,15 +352,15 @@ const SalesOrderLineForm = ({
                               }));
                           }}
                         />
-                        <Number name="saleQuantity" label="Quantity" />
+                        <Number name="saleQuantity" label={t("sales:quantity")} />
                         <UnitOfMeasure
                           name="unitOfMeasureCode"
-                          label="Unit of Measure"
+                          label={t("sales:unitOfMeasure")}
                           value={itemData.uom}
                         />
                         <NumberControlled
                           name="unitPrice"
-                          label="Unit Price"
+                          label={t("sales:unitPrice")}
                           value={itemData.unitPrice}
                           formatOptions={{
                             style: "currency",
@@ -374,7 +375,7 @@ const SalesOrderLineForm = ({
                         />
                         <Number
                           name="shippingCost"
-                          label="Shipping Cost"
+                          label={t("sales:shippingCost")}
                           minValue={0}
                           formatOptions={{
                             style: "currency",
@@ -383,7 +384,7 @@ const SalesOrderLineForm = ({
                         />
                         <Number
                           name="addOnCost"
-                          label="Add-On Cost"
+                          label={t("sales:addOnCost")}
                           formatOptions={{
                             style: "currency",
                             currency: baseCurrency
@@ -392,7 +393,7 @@ const SalesOrderLineForm = ({
 
                         <Number
                           name="taxPercent"
-                          label="Tax Percent"
+                          label={t("sales:taxPercent")}
                           minValue={0}
                           maxValue={1}
                           step={0.0001}
@@ -403,7 +404,7 @@ const SalesOrderLineForm = ({
                           }}
                         />
 
-                        <DatePicker name="promisedDate" label="Promised Date" />
+                        <DatePicker name="promisedDate" label={t("sales:promisedDate")} />
                         {[
                           "Part",
                           "Material",
@@ -413,7 +414,7 @@ const SalesOrderLineForm = ({
                         ].includes(lineType) && (
                           <Location
                             name="locationId"
-                            label="Location"
+                            label={t("sales:location")}
                             onChange={onLocationChange}
                           />
                         )}
@@ -426,7 +427,7 @@ const SalesOrderLineForm = ({
                         ].includes(lineType) && (
                           <Shelf
                             name="shelfId"
-                            label="Shelf"
+                            label={t("sales:shelf")}
                             locationId={locationId}
                             itemId={itemData.itemId}
                             value={itemData.shelfId ?? undefined}
@@ -455,7 +456,7 @@ const SalesOrderLineForm = ({
                       : !permissions.can("create", "sales"))
                   }
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </ModalCardFooter>
             </ValidatedForm>
