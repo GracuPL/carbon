@@ -45,7 +45,7 @@ const FailureModeForm = ({
   type = "drawer",
   onClose
 }: FailureModeFormProps) => {
-  const { t } = useTranslation("resources");
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -54,10 +54,10 @@ const FailureModeForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdFailureMode"));
+      toast.success(t("resources:createdFailureMode"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        t("failedToCreateProcess", { message: fetcher.data.error.message })
+        t("resources:failedToCreateProcess", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
@@ -90,20 +90,20 @@ const FailureModeForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Failure Mode
+                {isEditing ? t("resources:editFailureMode") : t("resources:newFailureMode")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="formType" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Failure Mode" />
+                <Input name="name" label={t("resources:failureModeName")} />
                 <Select
                   name="type"
-                  label="Type"
-                  options={maintenanceFailureModeType.map((t) => ({
-                    value: t,
-                    label: <Enumerable value={t} />
+                  label={t("resources:type")}
+                  options={maintenanceFailureModeType.map((failureModeType) => ({
+                    value: failureModeType,
+                    label: <Enumerable value={failureModeType} />
                   }))}
                 />
                 <CustomFormFields table="maintenanceFailureMode" />
@@ -111,9 +111,9 @@ const FailureModeForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

@@ -225,5 +225,28 @@ export const resources = {
   saturday: "Saturday",
   sunday: "Sunday",
   skipHolidays: "Skip Holidays",
-  skipHolidaysDescription: "Skip scheduled maintenance on company holidays"
+  skipHolidaysDescription: "Skip scheduled maintenance on company holidays",
+
+  // Location Form
+  newLocation: "New Location",
+  locationName: "Location Name",
+  timezone: "Timezone",
+
+  // Contractor Form
+  newContractor: "New Contractor",
+  abilityId: "Ability",
+  contractorDescription: "A contractor is a supplier contact with particular abilities and available hours",
+  hoursPerWeekHelper: "The number of hours per week the contractor is available to work.",
+
+  // Training Form
+  newTraining: "New Training",
+  trainingType: "Training Type",
+  durationHours: "Duration (Hours)",
+
+  // Partner Form
+  newPartner: "New Partner",
+
+  // Failure Mode Form
+  newFailureMode: "New Failure Mode",
+  failureModeName: "Failure Mode Name"
 } as const;

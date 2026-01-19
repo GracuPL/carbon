@@ -225,5 +225,28 @@ export const resources = {
   saturday: "Sobota",
   sunday: "Niedziela",
   skipHolidays: "Pomiń dni wolne",
-  skipHolidaysDescription: "Pomiń planowaną konserwację w dni wolne firmy"
+  skipHolidaysDescription: "Pomiń planowaną konserwację w dni wolne firmy",
+
+  // Location Form - Formularz lokalizacji
+  newLocation: "Nowa lokalizacja",
+  locationName: "Nazwa lokalizacji",
+  timezone: "Strefa czasowa",
+
+  // Contractor Form - Formularz wykonawcy
+  newContractor: "Nowy wykonawca",
+  abilityId: "Umiejętność",
+  contractorDescription: "Wykonawca to kontakt dostawcy z określonymi umiejętnościami i dostępnymi godzinami",
+  hoursPerWeekHelper: "Liczba godzin tygodniowo, w których wykonawca jest dostępny do pracy.",
+
+  // Training Form - Formularz szkolenia
+  newTraining: "Nowe szkolenie",
+  trainingType: "Typ szkolenia",
+  durationHours: "Czas trwania (godziny)",
+
+  // Partner Form - Formularz partnera
+  newPartner: "Nowy partner",
+
+  // Failure Mode Form - Formularz trybu awarii
+  newFailureMode: "Nowy tryb awarii",
+  failureModeName: "Nazwa trybu awarii"
 } as const;
