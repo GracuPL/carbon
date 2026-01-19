@@ -130,6 +130,7 @@ export const sales = {
 
   // Customer Type
   customerType: "Customer Type",
+  newCustomerType: "New Customer Type",
   editCustomerType: "Edit Customer Type",
   deleteCustomerType: "Delete Customer Type",
 

@@ -111,6 +111,7 @@ export const purchasing = {
 
   // Supplier Type - Typ dostawcy
   supplierType: "Typ dostawcy",
+  newSupplierType: "Nowy typ dostawcy",
   editSupplierType: "Edytuj typ dostawcy",
   deleteSupplierType: "Usuń typ dostawcy",
 

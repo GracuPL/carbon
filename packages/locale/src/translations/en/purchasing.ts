@@ -111,6 +111,7 @@ export const purchasing = {
 
   // Supplier Type
   supplierType: "Supplier Type",
+  newSupplierType: "New Supplier Type",
   editSupplierType: "Edit Supplier Type",
   deleteSupplierType: "Delete Supplier Type",
 
