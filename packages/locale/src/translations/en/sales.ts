@@ -138,6 +138,7 @@ export const sales = {
   // No Quote Reasons
   reason: "Reason",
   reasons: "Reasons",
+  newNoQuoteReason: "New No Quote Reason",
   editReason: "Edit Reason",
   deleteReason: "Delete Reason",
 
@@ -145,6 +146,7 @@ export const sales = {
   customerPortal: "Customer Portal",
   customerPortals: "Customer Portals",
   portalLink: "Portal Link",
+  newCustomerPortal: "New Customer Portal",
   editPortal: "Edit Portal",
   deletePortal: "Delete Portal",
 

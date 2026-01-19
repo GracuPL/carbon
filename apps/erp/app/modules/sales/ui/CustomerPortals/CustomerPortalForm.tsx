@@ -35,8 +35,7 @@ const CustomerPortalForm = ({
   type = "drawer",
   onClose
 }: CustomerPortalFormProps) => {
-  const { t } = useTranslation("sales");
-  const { t: tNav } = useTranslation("navigation");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -81,22 +80,22 @@ const CustomerPortalForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? t("editPortal") : t("customerPortal")}
+                {isEditing ? t("sales:editPortal") : t("sales:newCustomerPortal")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Customer name="customerId" label="Customer" />
+                <Customer name="customerId" label={t("sales:customer")} />
                 <CustomFormFields table="externalLink" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled} />
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  {tNav("cancel")}
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

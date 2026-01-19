@@ -138,6 +138,7 @@ export const sales = {
   // No Quote Reasons - Powody braku oferty
   reason: "Powód",
   reasons: "Powody",
+  newNoQuoteReason: "Nowy powód braku oferty",
   editReason: "Edytuj powód",
   deleteReason: "Usuń powód",
 
@@ -145,6 +146,7 @@ export const sales = {
   customerPortal: "Portal klienta",
   customerPortals: "Portale klientów",
   portalLink: "Link do portalu",
+  newCustomerPortal: "Nowy portal klienta",
   editPortal: "Edytuj portal",
   deletePortal: "Usuń portal",
 
