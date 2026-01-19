@@ -43,7 +43,7 @@ type QuoteFormProps = {
 };
 
 const QuoteForm = ({ initialValues }: QuoteFormProps) => {
-  const { t } = useTranslation("sales");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const { company } = useUser();
@@ -109,10 +109,10 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
         defaultValues={initialValues}
       >
         <CardHeader>
-          <CardTitle>{isEditing ? "Quote" : "New Quote"}</CardTitle>
+          <CardTitle>{isEditing ? t("sales:quote") : t("sales:newQuote")}</CardTitle>
           {!isEditing && (
             <CardDescription>
-              A quote is a set of prices for specific parts and quantities.
+              {t("sales:quoteDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -130,53 +130,53 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="quoteId"
-                  label="Quote ID"
+                  label={t("sales:quoteId")}
                   table="quote"
                 />
               )}
               <Customer
                 autoFocus={!isEditing}
                 name="customerId"
-                label="Customer"
+                label={t("sales:customer")}
                 onChange={onCustomerChange}
               />
-              <Input name="customerReference" label="Customer RFQ" />
+              <Input name="customerReference" label={t("sales:customerRfq")} />
               <CustomerContact
                 name="customerContactId"
-                label="Purchasing Contact"
+                label={t("sales:purchasingContact")}
                 isOptional
                 customer={customer.id}
               />
               <CustomerContact
                 name="customerEngineeringContactId"
-                label="Engineering Contact"
+                label={t("sales:engineeringContact")}
                 isOptional
                 customer={customer.id}
               />
               <CustomerLocation
                 name="customerLocationId"
-                label="Customer Location"
+                label={t("sales:customerLocation")}
                 isOptional
                 customer={customer.id}
               />
-              <Employee name="salesPersonId" label="Sales Person" isOptional />
-              <Employee name="estimatorId" label="Estimator" isOptional />
-              <Location name="locationId" label="Quote Location" />
+              <Employee name="salesPersonId" label={t("sales:salesPerson")} isOptional />
+              <Employee name="estimatorId" label={t("sales:estimator")} isOptional />
+              <Location name="locationId" label={t("sales:quoteLocation")} />
 
               <DatePicker
                 name="dueDate"
-                label="Due Date"
+                label={t("sales:dueDate")}
                 isDisabled={isCustomer}
               />
               <DatePicker
                 name="expirationDate"
-                label="Expiration Date"
+                label={t("sales:expirationDate")}
                 isDisabled={isCustomer}
               />
 
               <Currency
                 name="currencyCode"
-                label="Currency"
+                label={t("sales:currency")}
                 value={customer.currencyCode}
                 onChange={(
                   newValue: {
@@ -230,7 +230,7 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
                 : !permissions.can("create", "sales"))
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

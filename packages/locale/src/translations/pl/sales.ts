@@ -90,7 +90,10 @@ export const sales = {
   location: "Lokalizacja",
 
   // Quote fields - Pola oferty
+  quoteId: "ID oferty",
   quoteNumber: "Numer oferty",
+  quoteLocation: "Lokalizacja oferty",
+  quoteDescription: "Oferta to zestaw cen dla określonych wyrobów i ilości.",
   customerRfq: "Zapytanie klienta",
   salesPerson: "Handlowiec",
   estimator: "Kosztorysant",
@@ -112,8 +115,11 @@ export const sales = {
   salesOrders: "Zamówienia sprzedaży",
 
   // RFQ fields - Pola zapytania
+  rfqId: "ID zapytania",
   rfqNumber: "Numer zapytania",
+  rfqLocation: "Lokalizacja zapytania",
   rfqDate: "Data zapytania",
+  rfqFormDescription: "Zapytanie ofertowe (RFQ) to zapytanie klienta o wycenę zestawu wyrobów i ilości. Może skutkować ofertą.",
 
   // Customer Status - Status klienta
   customerStatus: "Status klienta",

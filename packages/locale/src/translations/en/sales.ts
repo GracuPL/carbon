@@ -90,7 +90,10 @@ export const sales = {
   location: "Location",
 
   // Quote fields
+  quoteId: "Quote ID",
   quoteNumber: "Quote Number",
+  quoteLocation: "Quote Location",
+  quoteDescription: "A quote is a set of prices for specific parts and quantities.",
   customerRfq: "Customer RFQ",
   salesPerson: "Sales Person",
   estimator: "Estimator",
@@ -112,8 +115,11 @@ export const sales = {
   salesOrders: "Sales Orders",
 
   // RFQ fields
+  rfqId: "RFQ ID",
   rfqNumber: "RFQ Number",
+  rfqLocation: "RFQ Location",
   rfqDate: "RFQ Date",
+  rfqFormDescription: "A sales request for quote (RFQ) is a customer inquiry for pricing on a set of parts and quantities. It may result in a quote.",
 
   // Customer Status
   customerStatus: "Customer Status",

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -34,6 +35,7 @@ type SalesRFQFormProps = {
 };
 
 const SalesRFQForm = ({ initialValues }: SalesRFQFormProps) => {
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const [customer, setCustomer] = useState<string | undefined>(
     initialValues.customerId
@@ -52,11 +54,10 @@ const SalesRFQForm = ({ initialValues }: SalesRFQFormProps) => {
         defaultValues={initialValues}
       >
         <CardHeader>
-          <CardTitle>{isEditing ? "RFQ" : "New RFQ"}</CardTitle>
+          <CardTitle>{isEditing ? t("sales:rfq") : t("sales:newRFQ")}</CardTitle>
           {!isEditing && (
             <CardDescription>
-              A sales request for quote (RFQ) is a customer inquiry for pricing
-              on a set of parts and quantities. It may result in a quote.
+              {t("sales:rfqFormDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -74,46 +75,46 @@ const SalesRFQForm = ({ initialValues }: SalesRFQFormProps) => {
               {!isEditing && (
                 <SequenceOrCustomId
                   name="rfqId"
-                  label="RFQ ID"
+                  label={t("sales:rfqId")}
                   table="salesRfq"
                 />
               )}
               <Customer
                 autoFocus={!isEditing}
                 name="customerId"
-                label="Customer"
+                label={t("sales:customer")}
                 onChange={(newValue) =>
                   setCustomer(newValue?.value as string | undefined)
                 }
               />
-              <Input name="customerReference" label="Customer RFQ" />
+              <Input name="customerReference" label={t("sales:customerRfq")} />
               <CustomerContact
                 name="customerContactId"
-                label="Purchasing Contact"
+                label={t("sales:purchasingContact")}
                 customer={customer}
               />
               <CustomerContact
                 name="customerEngineeringContactId"
-                label="Engineering Contact"
+                label={t("sales:engineeringContact")}
                 customer={customer}
               />
               <CustomerLocation
                 name="customerLocationId"
-                label="Customer Location"
+                label={t("sales:customerLocation")}
                 customer={customer}
               />
               <DatePicker
                 name="rfqDate"
-                label="RFQ Date"
+                label={t("sales:rfqDate")}
                 isDisabled={isCustomer}
               />
               <DatePicker
                 name="expirationDate"
-                label="Due Date"
+                label={t("sales:dueDate")}
                 isDisabled={isCustomer}
               />
-              <Location name="locationId" label="RFQ Location" />
-              <Employee name="salesPersonId" label="Sales Person" isOptional />
+              <Location name="locationId" label={t("sales:rfqLocation")} />
+              <Employee name="salesPersonId" label={t("sales:salesPerson")} isOptional />
               <CustomFormFields table="salesRfq" />
             </div>
           </VStack>
@@ -127,7 +128,7 @@ const SalesRFQForm = ({ initialValues }: SalesRFQFormProps) => {
                 : !permissions.can("create", "sales"))
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>
