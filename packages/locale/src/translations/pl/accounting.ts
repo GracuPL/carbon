@@ -190,6 +190,8 @@ export const accounting = {
   categoryName: "Nazwa kategorii",
 
   // Account Subcategory Form - Formularz podkategorii konta
+  newAccountSubcategory: "Nowa podkategoria konta",
+  editAccountSubcategory: "Edytuj podkategorię konta",
   subcategoryName: "Nazwa podkategorii",
 
   // Fiscal Year Form - Formularz roku obrotowego

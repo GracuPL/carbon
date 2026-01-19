@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -35,6 +36,7 @@ const AccountCategoryForm = ({
   initialValues,
   onClose
 }: AccountCategoryFormProps) => {
+  const { t } = useTranslation(["accounting", "common"]);
   const permissions = usePermissions();
 
   const isEditing = initialValues.id !== undefined;
@@ -63,16 +65,16 @@ const AccountCategoryForm = ({
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit" : "New"} Account Category
+              {isEditing ? t("accounting:editAccountCategory") : t("accounting:newAccountCategory")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack>
-              <Input name="category" label="Category" />
+              <Input name="category" label={t("accounting:category")} />
               <Select
                 name="incomeBalance"
-                label="Income Balance"
+                label={t("accounting:incomeBalance")}
                 options={incomeBalanceTypes.map((incomeBalance) => ({
                   value: incomeBalance,
                   label: incomeBalance
@@ -80,7 +82,7 @@ const AccountCategoryForm = ({
               />
               <Select
                 name="class"
-                label="Class"
+                label={t("accounting:class")}
                 options={accountClassTypes.map((accountClass) => ({
                   value: accountClass,
                   label: accountClass
@@ -91,9 +93,9 @@ const AccountCategoryForm = ({
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

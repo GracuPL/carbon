@@ -190,6 +190,8 @@ export const accounting = {
   categoryName: "Category Name",
 
   // Account Subcategory Form
+  newAccountSubcategory: "New Account Subcategory",
+  editAccountSubcategory: "Edit Account Subcategory",
   subcategoryName: "Subcategory Name",
 
   // Fiscal Year Form
