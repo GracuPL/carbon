@@ -231,5 +231,19 @@ export const inventory = {
   // Warehouse Transfer Form - Formularz transferu międzymagazynowego
   newWarehouseTransfer: "Nowy transfer międzymagazynowy",
   notes: "Notatki",
-  warehouseTransferDescription: "Transfer międzymagazynowy to wewnątrzfirmowe przemieszczenie zapasów między dwiema lokalizacjami"
+  warehouseTransferDescription: "Transfer międzymagazynowy to wewnątrzfirmowe przemieszczenie zapasów między dwiema lokalizacjami",
+
+  // Warehouse Transfer Line Form - Formularz pozycji transferu międzymagazynowego
+  transferLine: "Pozycja transferu",
+  newTransferLine: "Nowa pozycja transferu",
+  editTransferLine: "Edytuj pozycję transferu",
+  fromShelf: "Z półki",
+  toShelf: "Na półkę",
+
+  // Stock Transfer Line Form - Formularz pozycji transferu magazynowego
+  stockTransferLine: "Pozycja transferu magazynowego",
+  newStockTransferLine: "Nowa pozycja transferu magazynowego",
+  editStockTransferLine: "Edytuj pozycję transferu magazynowego",
+  newLine: "Nowa pozycja",
+  editLine: "Edytuj pozycję"
 } as const;

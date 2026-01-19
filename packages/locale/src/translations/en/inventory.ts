@@ -231,5 +231,19 @@ export const inventory = {
   // Warehouse Transfer Form
   newWarehouseTransfer: "New Warehouse Transfer",
   notes: "Notes",
-  warehouseTransferDescription: "A warehouse transfer is an inter-company movement of inventory between two locations"
+  warehouseTransferDescription: "A warehouse transfer is an inter-company movement of inventory between two locations",
+
+  // Warehouse Transfer Line Form
+  transferLine: "Transfer Line",
+  newTransferLine: "New Transfer Line",
+  editTransferLine: "Edit Transfer Line",
+  fromShelf: "From Shelf",
+  toShelf: "To Shelf",
+
+  // Stock Transfer Line Form
+  stockTransferLine: "Stock Transfer Line",
+  newStockTransferLine: "New Stock Transfer Line",
+  editStockTransferLine: "Edit Stock Transfer Line",
+  newLine: "New Line",
+  editLine: "Edit Line"
 } as const;
