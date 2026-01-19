@@ -326,5 +326,9 @@ export const items = {
   finishLabel: "Wykończenie",
   dimensionsLabel: "Wymiary",
   inventoryUnitOfMeasure: "Magazynowa jednostka miary",
-  sizes: "Rozmiary"
+  sizes: "Rozmiary",
+
+  // Sale Price Form - Formularz ceny sprzedaży
+  salePrice: "Cena sprzedaży",
+  unitSalePrice: "Jednostkowa cena sprzedaży"
 } as const;

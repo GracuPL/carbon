@@ -256,6 +256,9 @@ export const sales = {
   shippingCustomer: "Klient do wysyłki",
   shippingLocation: "Lokalizacja do wysyłki",
   shippingContact: "Kontakt do wysyłki",
+  shipmentLocation: "Lokalizacja wysyłki",
+  shipmentDate: "Data wysyłki",
+  trackingNumber: "Numer przesyłki",
 
   // Customer Contact Form - Formularz kontaktu klienta
   newContact: "Nowy kontakt",

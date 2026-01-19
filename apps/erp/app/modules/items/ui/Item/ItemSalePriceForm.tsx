@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -17,6 +18,7 @@ type ItemSalePriceFormProps = {
 };
 
 const ItemSalePriceForm = ({ initialValues }: ItemSalePriceFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const { company } = useUser();
 
@@ -28,14 +30,14 @@ const ItemSalePriceForm = ({ initialValues }: ItemSalePriceFormProps) => {
         defaultValues={initialValues}
       >
         <CardHeader>
-          <CardTitle>Sale Price</CardTitle>
+          <CardTitle>{t("items:salePrice")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="itemId" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Number
               name="unitSalePrice"
-              label="Unit Sale Price"
+              label={t("items:unitSalePrice")}
               minValue={0}
               formatOptions={{
                 style: "currency",
@@ -44,7 +46,7 @@ const ItemSalePriceForm = ({ initialValues }: ItemSalePriceFormProps) => {
             />
             {/* <Currency
               name="currencyCode"
-              label="Currency"
+              label={t("common:currency")}
               onChange={(newValue) => {
                 if (newValue) setCurrency(newValue?.value);
               }}
@@ -52,20 +54,20 @@ const ItemSalePriceForm = ({ initialValues }: ItemSalePriceFormProps) => {
 
             <UnitOfMeasure
               name="salesUnitOfMeasureCode"
-              label="Sales Unit of Measure"
+              label={t("items:salesUnitOfMeasure")}
             />
 
-            <Boolean name="salesBlocked" label="Sales Blocked" />
-            <Boolean name="priceIncludesTax" label="Price Includes Tax" />
+            <Boolean name="salesBlocked" label={t("items:salesBlocked")} />
+            <Boolean name="priceIncludesTax" label={t("items:priceIncludesTax")} />
             <Boolean
               name="allowInvoiceDiscount"
-              label="Allow Invoice Discount"
+              label={t("items:allowInvoiceDiscount")}
             /> */}
             <CustomFormFields table="partUnitSalePrice" />
           </div>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={!permissions.can("update", "parts")}>Save</Submit>
+          <Submit isDisabled={!permissions.can("update", "parts")}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>

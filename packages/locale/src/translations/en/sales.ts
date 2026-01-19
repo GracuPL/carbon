@@ -256,6 +256,9 @@ export const sales = {
   shippingCustomer: "Shipping Customer",
   shippingLocation: "Shipping Location",
   shippingContact: "Shipping Contact",
+  shipmentLocation: "Shipment Location",
+  shipmentDate: "Shipment Date",
+  trackingNumber: "Tracking Number",
 
   // Customer Contact Form
   newContact: "New Contact",

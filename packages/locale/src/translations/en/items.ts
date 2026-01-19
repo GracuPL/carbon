@@ -326,5 +326,9 @@ export const items = {
   finishLabel: "Finish",
   dimensionsLabel: "Dimensions",
   inventoryUnitOfMeasure: "Inventory Unit of Measure",
-  sizes: "Sizes"
+  sizes: "Sizes",
+
+  // Sale Price Form
+  salePrice: "Sale Price",
+  unitSalePrice: "Unit Sale Price"
 } as const;
