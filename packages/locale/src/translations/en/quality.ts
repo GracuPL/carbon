@@ -253,10 +253,29 @@ export const quality = {
 
   // Gauge Calibration Record Form
   newCalibrationRecord: "New Calibration Record",
+  editCalibrationRecord: "Edit Gauge Calibration Record",
+  newGaugeCalibrationRecord: "New Gauge Calibration Record",
+  noGaugeSelected: "No Gauge Selected",
+  selectGauge: "Select Gauge",
+  calibrationAttempts: "Calibration Attempts",
+  measurementStandard: "Measurement Standard",
+  reference: "Reference",
+  actual: "Actual",
+  add: "Add",
+  remove: "Remove",
+  notes: "Notes",
+  confirm: "Confirm",
 
   // Quality Document Form
   newDocument: "New Document",
+  copyDocument: "Copy Quality Document",
+  newQualityDocument: "New Quality Document",
+  newVersionDoc: "New Version",
+  versionDoc: "Version",
+  newVersionDocHelper: "The new version number of the document",
+  versionDocHelper: "The version of the new document",
 
   // Risk Register Form
-  newRisk: "New Risk"
+  newRisk: "New Risk",
+  editRiskTitle: "Edit {{type}}"
 } as const;

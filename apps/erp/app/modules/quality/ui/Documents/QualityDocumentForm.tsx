@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -32,6 +33,7 @@ const QualityDocumentForm = ({
   open = true,
   onClose
 }: QualityDocumentFormProps) => {
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -63,7 +65,7 @@ const QualityDocumentForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {type === "copy" ? "Copy" : "New"} Quality Document
+                {type === "copy" ? t("quality:copyDocument") : t("quality:newQualityDocument")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -76,15 +78,15 @@ const QualityDocumentForm = ({
                 </>
               )}
               <VStack spacing={4}>
-                {type === "new" && <Input name="name" label="Name" />}
+                {type === "new" && <Input name="name" label={t("quality:name")} />}
                 <Number
                   name="version"
-                  label={type === "copy" ? "New Version" : "Version"}
+                  label={type === "copy" ? t("quality:newVersionDoc") : t("quality:versionDoc")}
                   minValue={0}
                   helperText={
                     type === "copy"
-                      ? "The new version number of the document"
-                      : "The version of the new document"
+                      ? t("quality:newVersionDocHelper")
+                      : t("quality:versionDocHelper")
                   }
                 />
               </VStack>
@@ -95,7 +97,7 @@ const QualityDocumentForm = ({
                   isLoading={fetcher.state !== "idle"}
                   isDisabled={fetcher.state !== "idle" || isDisabled}
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </HStack>
             </ModalDrawerFooter>

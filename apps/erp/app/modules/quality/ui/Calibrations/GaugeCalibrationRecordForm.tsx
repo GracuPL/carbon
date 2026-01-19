@@ -83,7 +83,7 @@ const GaugeCalibrationRecordForm = ({
   type = "drawer",
   onClose
 }: GaugeCalibrationRecordFormProps) => {
-  const { t } = useTranslation("quality");
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const {
     company: { id: companyId }
@@ -194,8 +194,8 @@ const GaugeCalibrationRecordForm = ({
             <ModalDrawerHeader>
               <ModalDrawerTitle>
                 {isEditing
-                  ? "Edit Gauge Calibration Record"
-                  : "New Gauge Calibration Record"}
+                  ? t("quality:editCalibrationRecord")
+                  : t("quality:newGaugeCalibrationRecord")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -209,7 +209,7 @@ const GaugeCalibrationRecordForm = ({
                     <HStack className="w-full justify-between">
                       <CardHeader>
                         <CardTitle>
-                          {selectedGauge?.gaugeId ?? "No Gauge Selected"}
+                          {selectedGauge?.gaugeId ?? t("quality:noGaugeSelected")}
                         </CardTitle>
                         {selectedGauge?.description && (
                           <CardDescription>
@@ -229,7 +229,7 @@ const GaugeCalibrationRecordForm = ({
                           variant="secondary"
                           onClick={gaugeSelectionModal.onOpen}
                         >
-                          Select Gauge
+                          {t("quality:selectGauge")}
                         </Button>
                       </CardAction>
                     </HStack>
@@ -242,7 +242,7 @@ const GaugeCalibrationRecordForm = ({
                                 <div className="flex items-center gap-2">
                                   <LuHash className="text-muted-foreground" />
                                   <span className="font-medium">
-                                    Model Number:
+                                    {t("quality:modelNumber")}:
                                   </span>
                                   <span>
                                     {selectedGauge.modelNumber || "N/A"}
@@ -253,7 +253,7 @@ const GaugeCalibrationRecordForm = ({
                                 <div className="flex items-center gap-2">
                                   <LuHash className="text-muted-foreground" />
                                   <span className="font-medium">
-                                    Serial Number:
+                                    {t("quality:serialNumber")}:
                                   </span>
                                   <span>
                                     {selectedGauge.serialNumber || "N/A"}
@@ -264,12 +264,12 @@ const GaugeCalibrationRecordForm = ({
                             <div className="flex flex-col gap-4">
                               <div className="flex items-center gap-2">
                                 <LuShield className="text-muted-foreground" />
-                                <span className="font-medium">Role:</span>
+                                <span className="font-medium">{t("quality:role")}:</span>
                                 <GaugeRole role={selectedGauge.gaugeRole} />
                               </div>
                               <div className="flex items-center gap-2">
                                 <LuShapes className="text-muted-foreground" />
-                                <span className="font-medium">Type:</span>
+                                <span className="font-medium">{t("quality:type")}:</span>
                                 <Enumerable
                                   value={
                                     gaugeTypes.find(
@@ -286,21 +286,21 @@ const GaugeCalibrationRecordForm = ({
                     </CardContent>
                   </Loading>
                 </Card>
-                <DatePicker name="dateCalibrated" label="Date Calibrated" />
+                <DatePicker name="dateCalibrated" label={t("quality:dateCalibrated")} />
                 <Supplier
                   name="supplierId"
-                  label="Calibration Supplier"
+                  label={t("quality:calibrationSupplier")}
                   isOptional
                 />
-                <Boolean name="requiresAction" label="Requires Action" />
+                <Boolean name="requiresAction" label={t("quality:requiresAction")} />
                 <Boolean
                   name="requiresAdjustment"
-                  label="Requires Adjustment"
+                  label={t("quality:requiresAdjustment")}
                 />
-                <Boolean name="requiresRepair" label="Requires Repair" />
+                <Boolean name="requiresRepair" label={t("quality:requiresRepair")} />
                 <Number
                   name="temperature"
-                  label="Temperature"
+                  label={t("quality:temperature")}
                   formatOptions={{
                     maximumFractionDigits: 2,
                     style: "unit",
@@ -309,7 +309,7 @@ const GaugeCalibrationRecordForm = ({
                 />
                 <Number
                   name="humidity"
-                  label="Humidity"
+                  label={t("quality:humidity")}
                   formatOptions={{
                     maximumFractionDigits: 2,
                     style: "percent",
@@ -318,10 +318,10 @@ const GaugeCalibrationRecordForm = ({
                 />
                 <Input
                   name="measurementStandard"
-                  label="Measurement Standard"
+                  label={t("quality:measurementStandard")}
                 />
                 <span className="text-xs font-medium text-muted-foreground">
-                  Calibration Attempts
+                  {t("quality:calibrationAttempts")}
                 </span>
                 <Card className="flex-grow px-0">
                   <Table>
@@ -331,13 +331,13 @@ const GaugeCalibrationRecordForm = ({
                           <Td>
                             <Number
                               name={`calibrationAttempts[${index}].reference`}
-                              label="Reference"
+                              label={t("quality:reference")}
                             />
                           </Td>
                           <Td>
                             <Number
                               name={`calibrationAttempts[${index}].actual`}
-                              label="Actual"
+                              label={t("quality:actual")}
                             />
                           </Td>
                         </Tr>
@@ -345,14 +345,14 @@ const GaugeCalibrationRecordForm = ({
                       <Tr>
                         <Td colSpan={2} className="text-right">
                           <Button onClick={addAttempt} className="mr-2">
-                            Add
+                            {t("quality:add")}
                           </Button>
                           {numAttempts > 0 ? (
                             <Button
                               onClick={removeAttempt}
                               variant="destructive"
                             >
-                              Remove
+                              {t("quality:remove")}
                             </Button>
                           ) : null}
                         </Td>
@@ -360,9 +360,9 @@ const GaugeCalibrationRecordForm = ({
                     </Tbody>
                   </Table>
                 </Card>
-                <Employee name="approvedBy" label="Approved By" />
+                <Employee name="approvedBy" label={t("quality:approvedBy")} />
                 <div className="flex flex-col gap-2 w-full">
-                  <Label>Notes</Label>
+                  <Label>{t("quality:notes")}</Label>
                   <Editor
                     initialValue={notes}
                     onUpload={onUploadImage}
@@ -386,10 +386,10 @@ const GaugeCalibrationRecordForm = ({
               <HStack>
                 {onClose && (
                   <Button size="md" variant="solid" onClick={onClose}>
-                    Cancel
+                    {t("common:cancel")}
                   </Button>
                 )}
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               </HStack>
             </ModalDrawerFooter>
           </ValidatedForm>
@@ -404,7 +404,7 @@ const GaugeCalibrationRecordForm = ({
         >
           <ModalContent>
             <ModalHeader>
-              <ModalTitle>Select Gauge</ModalTitle>
+              <ModalTitle>{t("quality:selectGauge")}</ModalTitle>
             </ModalHeader>
             <ModalBody>
               <VStack className="w-full">
@@ -437,9 +437,9 @@ const GaugeCalibrationRecordForm = ({
                     gaugeSelectionModal.onClose();
                   }}
                 >
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
-                <Button onClick={gaugeSelectionModal.onClose}>Confirm</Button>
+                <Button onClick={gaugeSelectionModal.onClose}>{t("quality:confirm")}</Button>
               </ModalFooter>
             </ModalBody>
           </ModalContent>

@@ -253,10 +253,29 @@ export const quality = {
 
   // Gauge Calibration Record Form - Formularz rekordu kalibracji
   newCalibrationRecord: "Nowy rekord kalibracji",
+  editCalibrationRecord: "Edytuj rekord kalibracji przyrządu",
+  newGaugeCalibrationRecord: "Nowy rekord kalibracji przyrządu",
+  noGaugeSelected: "Nie wybrano przyrządu",
+  selectGauge: "Wybierz przyrząd",
+  calibrationAttempts: "Próby kalibracji",
+  measurementStandard: "Standard pomiarowy",
+  reference: "Wartość referencyjna",
+  actual: "Wartość rzeczywista",
+  add: "Dodaj",
+  remove: "Usuń",
+  notes: "Notatki",
+  confirm: "Potwierdź",
 
   // Quality Document Form - Formularz dokumentu jakości
   newDocument: "Nowy dokument",
+  copyDocument: "Kopiuj dokument jakości",
+  newQualityDocument: "Nowy dokument jakości",
+  newVersionDoc: "Nowa wersja",
+  versionDoc: "Wersja",
+  newVersionDocHelper: "Nowy numer wersji dokumentu",
+  versionDocHelper: "Wersja nowego dokumentu",
 
   // Risk Register Form - Formularz rejestru ryzyk
-  newRisk: "Nowe ryzyko"
+  newRisk: "Nowe ryzyko",
+  editRiskTitle: "Edytuj {{type}}"
 } as const;
