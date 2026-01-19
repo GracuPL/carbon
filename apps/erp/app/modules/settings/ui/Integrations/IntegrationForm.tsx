@@ -42,7 +42,7 @@ export function IntegrationForm({
   metadata,
   onClose
 }: IntegrationFormProps) {
-  const { t } = useTranslation("settings");
+  const { t } = useTranslation(["settings", "common"]);
   const permissions = usePermissions();
   const isDisabled = !permissions.can("update", "settings");
   const {
@@ -57,7 +57,7 @@ export function IntegrationForm({
   const integration = availableIntegrations.find((i) => i.id === integrationId);
 
   if (!integration) {
-    toast.error(t("integrationNotFound"));
+    toast.error(t("settings:integrationNotFound"));
     return null;
   }
 
@@ -90,12 +90,12 @@ export function IntegrationForm({
                 <div className="flex items-center space-x-2">
                   <Heading size="h3">{integration.name}</Heading>
 
-                  {installed && <Badge variant="green">Installed</Badge>}
+                  {installed && <Badge variant="green">{t("settings:installed")}</Badge>}
                 </div>
 
                 <span className="text-xs text-[#878787] text-right">
                   <Badge variant="secondary">{integration.category}</Badge> •
-                  Published by Carbon
+                  {t("settings:publishedByCarbon")}
                 </span>
               </div>
             </VStack>
@@ -103,14 +103,14 @@ export function IntegrationForm({
           <DrawerBody>
             <ScrollArea className="h-[calc(100dvh-240px)] -mx-2 pb-8">
               <VStack spacing={4} className="px-2">
-                <Heading size="h3">How it works</Heading>
+                <Heading size="h3">{t("settings:howItWorks")}</Heading>
                 <div className="text-sm text-muted-foreground">
                   {integration.description}
                 </div>
 
                 {integration.setupInstructions && (
                   <>
-                    <Heading size="h3">Setup Instructions</Heading>
+                    <Heading size="h3">{t("settings:setupInstructions")}</Heading>
                     <integration.setupInstructions companyId={companyId} />
                   </>
                 )}
@@ -190,29 +190,28 @@ export function IntegrationForm({
               </VStack>
             </ScrollArea>
             <p className="text-sm text-muted-foreground">
-              Carbon Manufacturing Systems does not endorse any third-party
-              software. Report any concerns about app content or behavior.
+              {t("settings:integrationDisclaimer")}
             </p>
 
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
               className="text-sm text-red-500"
             >
-              Report integration
+              {t("settings:reportIntegration")}
             </a>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
               {integration.settings.length > 0 ? (
                 installed ? (
-                  <Submit isDisabled={isDisabled}>Update</Submit>
+                  <Submit isDisabled={isDisabled}>{t("common:update")}</Submit>
                 ) : (
-                  <Submit isDisabled={isDisabled}>Install</Submit>
+                  <Submit isDisabled={isDisabled}>{t("settings:install")}</Submit>
                 )
               ) : null}
 
               <Button variant="solid" onClick={onClose}>
-                Close
+                {t("common:close")}
               </Button>
             </HStack>
           </DrawerFooter>

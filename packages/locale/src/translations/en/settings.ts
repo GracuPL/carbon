@@ -22,9 +22,11 @@ export const settings = {
   apiKey: "API Key",
   apiKeys: "API Keys",
   key: "Key",
+  newApiKey: "New API Key",
   editApiKey: "Edit API Key",
   deleteApiKey: "Delete API Key",
   apiDocs: "API Docs",
+  apiKeyWarning: "You can only see this key once. Store it safely.",
 
   // Sequences
   sequence: "Sequence",
@@ -50,8 +52,17 @@ export const settings = {
   webhooks: "Webhooks",
   success: "Success",
   webhooksDocs: "Webhooks Docs",
+  newWebhook: "New Webhook",
   editWebhook: "Edit Webhook",
   deleteWebhook: "Delete Webhook",
+  notifications: "Notifications",
+  insert: "Insert",
+  update: "Update",
+  deleteEvent: "Delete",
+  webhookNameHelper: "This is a unique identifier for the webhook",
+  webhookUrl: "Webhook URL",
+  webhookUrlHelper: "The endpoint that receives a POST request with the updated data when the table is updated",
+  active: "Active",
 
   // Common fields
   name: "Name",
@@ -72,5 +83,37 @@ export const settings = {
   integrationNotFound: "Integration not found",
 
   // Company page
-  companyHeading: "Company"
+  companyHeading: "Company",
+
+  // Sequence Form
+  sequenceTitle: "{{name}} Sequence",
+  fullYear: "Full Year",
+  year: "Year",
+  month: "Month",
+  day: "Day",
+  hour: "Hour",
+  minute: "Minute",
+  second: "Second",
+
+  // Custom Field Form
+  newCustomField: "New Custom Field",
+  fieldName: "Field Name",
+  sortOrder: "Sort Order",
+  dataType: "Data Type",
+  listOptions: "List Options",
+  dataTypeCannotBeChanged: "Data type cannot be changed",
+  customFieldTagsHelper: "These custom fields will only be available for entities with the same tags",
+
+  // Integration Form
+  installed: "Installed",
+  publishedByCarbon: "Published by Carbon",
+  howItWorks: "How it works",
+  setupInstructions: "Setup Instructions",
+  integrationDisclaimer: "Carbon Manufacturing Systems does not endorse any third-party software. Report any concerns about app content or behavior.",
+  reportIntegration: "Report integration",
+  install: "Install",
+
+  // Theme Form
+  theme: "Theme",
+  themeDescription: "This updates the theme for all users of the application"
 } as const;

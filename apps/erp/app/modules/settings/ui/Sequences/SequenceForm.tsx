@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -28,6 +29,7 @@ type SequenceFormProps = {
 };
 
 const SequenceForm = ({ initialValues }: SequenceFormProps) => {
+  const { t } = useTranslation(["settings", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -62,7 +64,7 @@ const SequenceForm = ({ initialValues }: SequenceFormProps) => {
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{`${initialValues.name}`} Sequence</DrawerTitle>
+            <DrawerTitle>{t("settings:sequenceTitle", { name: initialValues.name })}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="table" />
@@ -71,44 +73,44 @@ const SequenceForm = ({ initialValues }: SequenceFormProps) => {
 
               <Input
                 name="prefix"
-                label="Prefix"
+                label={t("settings:prefix")}
                 onChange={(e) => setPrefix(e.target.value)}
               />
               <Number
                 name="next"
                 minValue={0}
-                label="Current"
+                label={t("settings:current")}
                 onChange={setNext}
               />
               <Number
                 name="size"
                 minValue={0}
                 maxValue={30}
-                label="Size"
+                label={t("settings:size")}
                 onChange={setSize}
               />
-              <Number name="step" minValue={0} maxValue={10000} label="Step" />
+              <Number name="step" minValue={0} maxValue={10000} label={t("settings:step")} />
               <Input
                 name="suffix"
-                label="Suffix"
+                label={t("settings:suffix")}
                 onChange={(e) => setSuffix(e.target.value)}
               />
               <VStack spacing={0}>
-                <p className="text-muted-foreground text-sm">{`%{yyyy} = Full Year`}</p>
-                <p className="text-muted-foreground text-sm">{`%{yy} = Year`}</p>
-                <p className="text-muted-foreground text-sm">{`%{mm} = Month`}</p>
-                <p className="text-muted-foreground text-sm">{`%{dd} = Day`}</p>
-                <p className="text-muted-foreground text-sm">{`%{hh} = Hour`}</p>
-                <p className="text-muted-foreground text-sm">{`%{mm} = Minute`}</p>
-                <p className="text-muted-foreground text-sm">{`%{ss} = Second`}</p>
+                <p className="text-muted-foreground text-sm">{`%{yyyy} = ${t("settings:fullYear")}`}</p>
+                <p className="text-muted-foreground text-sm">{`%{yy} = ${t("settings:year")}`}</p>
+                <p className="text-muted-foreground text-sm">{`%{mm} = ${t("settings:month")}`}</p>
+                <p className="text-muted-foreground text-sm">{`%{dd} = ${t("settings:day")}`}</p>
+                <p className="text-muted-foreground text-sm">{`%{hh} = ${t("settings:hour")}`}</p>
+                <p className="text-muted-foreground text-sm">{`%{mm} = ${t("settings:minute")}`}</p>
+                <p className="text-muted-foreground text-sm">{`%{ss} = ${t("settings:second")}`}</p>
               </VStack>
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>
