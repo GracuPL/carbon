@@ -314,5 +314,17 @@ export const items = {
   editCustomerPart: "Edytuj część klienta",
   customer: "Klient",
   customerPartId: "ID części klienta",
-  customerPartRevision: "Rewizja części klienta"
+  customerPartRevision: "Rewizja części klienta",
+
+  // Material Form - Formularz materiału
+  newMaterialTitle: "Nowy materiał",
+  materialFormDescription: "Materiał to fizyczny element używany do wytworzenia wyrobu, który może być wykorzystany w wielu zleceniach",
+  substanceLabel: "Substancja",
+  gradeLabel: "Gatunek",
+  shapeLabel: "Kształt",
+  typeLabel: "Typ",
+  finishLabel: "Wykończenie",
+  dimensionsLabel: "Wymiary",
+  inventoryUnitOfMeasure: "Magazynowa jednostka miary",
+  sizes: "Rozmiary"
 } as const;

@@ -314,5 +314,17 @@ export const items = {
   editCustomerPart: "Edit Customer Part",
   customer: "Customer",
   customerPartId: "Customer Part ID",
-  customerPartRevision: "Customer Part Revision"
+  customerPartRevision: "Customer Part Revision",
+
+  // Material Form
+  newMaterialTitle: "New Material",
+  materialFormDescription: "A material is a physical item used to make a part that can be used across multiple jobs",
+  substanceLabel: "Substance",
+  gradeLabel: "Grade",
+  shapeLabel: "Shape",
+  typeLabel: "Type",
+  finishLabel: "Finish",
+  dimensionsLabel: "Dimensions",
+  inventoryUnitOfMeasure: "Inventory Unit of Measure",
+  sizes: "Sizes"
 } as const;
