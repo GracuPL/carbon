@@ -14,7 +14,7 @@ import {
 } from "@carbon/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@carbon/locale";
 import { useFetcher } from "react-router";
 import type { z } from "zod/v3";
 import {
@@ -41,7 +41,7 @@ const UnitOfMeasureForm = ({
   type = "drawer",
   onClose
 }: UnitOfMeasureFormProps) => {
-  const { t } = useTranslation("items");
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
   const [code, setCode] = useState<string>(initialValues.code);
@@ -83,31 +83,31 @@ const UnitOfMeasureForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Unit of Measure
+                {isEditing ? t("items:editUnitOfMeasure") : t("items:newUnitOfMeasure")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Unit of Measure" />
+                <Input name="name" label={t("items:unitOfMeasure")} />
                 <InputControlled
                   name="code"
-                  label="Code"
+                  label={t("common:code")}
                   value={code}
                   onChange={(value) =>
                     setCode(value.toUpperCase().replace(/\s/g, ""))
                   }
-                  helperText="Unique, uppercase, without spaces"
+                  helperText={t("items:codeHelperText")}
                 />
                 <CustomFormFields table="unitOfMeasure" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

@@ -120,8 +120,10 @@ export const items = {
   deleteType: "Delete Type",
   editUnit: "Edit Unit",
   deleteUnit: "Delete Unit",
+  newUnitOfMeasure: "New Unit of Measure",
   editUnitOfMeasure: "Edit Unit of Measure",
   deleteUnitOfMeasure: "Delete Unit of Measure",
+  newItemGroup: "New Item Group",
   editItemGroup: "Edit Item Group",
   deleteItemGroup: "Delete Item Group",
 
