@@ -286,6 +286,8 @@ export const sales = {
   // Quote Line Form - Formularz pozycji oferty
   quoteLine: "Pozycja oferty",
   newQuoteLine: "Nowa pozycja oferty",
+  selectQuote: "Wybierz ofertę",
+  selectQuoteLine: "Wybierz pozycję oferty",
   quoteLineDescription: "Pozycja oferty zawiera ceny i czasy realizacji dla konkretnego wyrobu",
   deleteLine: "Usuń pozycję",
   viewItemMaster: "Zobacz kartotekę wyrobu",

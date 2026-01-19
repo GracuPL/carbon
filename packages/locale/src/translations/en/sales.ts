@@ -286,6 +286,8 @@ export const sales = {
   // Quote Line Form
   quoteLine: "Quote Line",
   newQuoteLine: "New Quote Line",
+  selectQuote: "Select a quote",
+  selectQuoteLine: "Select a quote line",
   quoteLineDescription: "A quote line contains pricing and lead times for a particular part",
   deleteLine: "Delete Line",
   viewItemMaster: "View Item Master",

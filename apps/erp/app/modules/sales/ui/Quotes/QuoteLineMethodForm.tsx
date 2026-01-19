@@ -1,4 +1,5 @@
 import { Combobox, Hidden, SelectControlled } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import { useMount, VStack } from "@carbon/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useMemo, useState } from "react";
@@ -7,6 +8,7 @@ import { path } from "~/utils/path";
 import type { getQuoteLinesList } from "../../sales.service";
 
 export function QuoteLineMethodForm() {
+  const { t } = useTranslation("sales");
   const quoteFetcher =
     useFetcher<
       PostgrestResponse<{ id: string; quoteId: string; revisionId: number }>
@@ -60,9 +62,9 @@ export function QuoteLineMethodForm() {
       <VStack spacing={4} className="w-full">
         <Combobox
           name="quoteId"
-          label="Quote"
+          label={t("quote")}
           options={quoteOptions}
-          placeholder="Select a quote"
+          placeholder={t("selectQuote")}
           onChange={(newValue) => {
             if (newValue) {
               setQuote(newValue.value);
@@ -72,9 +74,9 @@ export function QuoteLineMethodForm() {
         />
         <SelectControlled
           name="quoteLineId"
-          label="Quote Line"
+          label={t("quoteLine")}
           options={quoteLineOptions}
-          placeholder="Select a quote line"
+          placeholder={t("selectQuoteLine")}
           isReadOnly={!quote}
           onChange={(newValue) => {
             if (newValue) {
