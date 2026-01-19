@@ -259,7 +259,7 @@ const GaugeForm = ({
                                                       asChild
                                                     >
                                                       <IconButton
-                                                        aria-label="Open menu"
+                                                        aria-label={t("common:openMenu")}
                                                         icon={
                                                           <LuEllipsisVertical />
                                                         }
@@ -273,7 +273,7 @@ const GaugeForm = ({
                                                             record.id!
                                                           )}
                                                         >
-                                                          View
+                                                          {t("common:view")}
                                                         </Link>
                                                       </DropdownMenuItem>
                                                     </DropdownMenuContent>

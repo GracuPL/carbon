@@ -8,6 +8,7 @@ export const common = {
   add: "Add",
   remove: "Remove",
   close: "Close",
+  openMenu: "Open menu",
   back: "Back",
   next: "Next",
   previous: "Previous",
