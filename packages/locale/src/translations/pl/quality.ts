@@ -215,5 +215,32 @@ export const quality = {
   newIssue: "Nowy problem",
   issueDescription: "Zapis problemu śledzi problemy jakościowe i proces ich rozwiązywania.",
   workflow: "Przepływ pracy",
-  approvalRequirements: "Wymagania zatwierdzenia"
+  approvalRequirements: "Wymagania zatwierdzenia",
+
+  // Gauge Type Form - Formularz typu przyrządu
+  newGaugeType: "Nowy typ przyrządu",
+
+  // Issue Type Form - Formularz typu niezgodności
+  newIssueType: "Nowy typ niezgodności",
+  nonConformanceType: "Typ niezgodności",
+  failedToCreateIssueType: "Nie udało się utworzyć typu niezgodności: {{message}}",
+
+  // Issue Workflow Form - Formularz przepływu problemu
+  newIssueWorkflow: "Nowy przepływ problemu",
+
+  // Required Action Form - Formularz wymaganego działania
+  newRequiredAction: "Nowe wymagane działanie",
+  failedToCreateRequiredAction: "Nie udało się utworzyć wymaganego działania: {{message}}",
+
+  // Gauge Form - Formularz przyrządu
+  newGauge: "Nowy przyrząd",
+
+  // Gauge Calibration Record Form - Formularz rekordu kalibracji
+  newCalibrationRecord: "Nowy rekord kalibracji",
+
+  // Quality Document Form - Formularz dokumentu jakości
+  newDocument: "Nowy dokument",
+
+  // Risk Register Form - Formularz rejestru ryzyk
+  newRisk: "Nowe ryzyko"
 } as const;

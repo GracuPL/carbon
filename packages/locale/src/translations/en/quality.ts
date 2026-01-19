@@ -215,5 +215,32 @@ export const quality = {
   newIssue: "New Issue",
   issueDescription: "An issue record tracks quality issues and their resolution process.",
   workflow: "Workflow",
-  approvalRequirements: "Approval Requirements"
+  approvalRequirements: "Approval Requirements",
+
+  // Gauge Type Form
+  newGaugeType: "New Gauge Type",
+
+  // Issue Type Form
+  newIssueType: "New Non Conformance Type",
+  nonConformanceType: "Non Conformance Type",
+  failedToCreateIssueType: "Failed to create non conformance type: {{message}}",
+
+  // Issue Workflow Form
+  newIssueWorkflow: "New Issue Workflow",
+
+  // Required Action Form
+  newRequiredAction: "New Required Action",
+  failedToCreateRequiredAction: "Failed to create required action: {{message}}",
+
+  // Gauge Form
+  newGauge: "New Gauge",
+
+  // Gauge Calibration Record Form
+  newCalibrationRecord: "New Calibration Record",
+
+  // Quality Document Form
+  newDocument: "New Document",
+
+  // Risk Register Form
+  newRisk: "New Risk"
 } as const;
