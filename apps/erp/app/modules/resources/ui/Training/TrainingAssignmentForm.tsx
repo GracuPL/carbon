@@ -1,4 +1,5 @@
 import { Select, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   Button,
@@ -50,31 +51,31 @@ type TrainingAssignmentFormProps = {
   onClose: () => void;
 };
 
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status, t }: { status: string; t: (key: string) => string }) {
   switch (status) {
     case "Completed":
       return (
         <Badge variant="green">
           <LuCircleCheck className="mr-1" />
-          Completed
+          {t("resources:completed")}
         </Badge>
       );
     case "Pending":
       return (
         <Badge variant="secondary">
           <LuClock className="mr-1" />
-          Pending
+          {t("resources:pending")}
         </Badge>
       );
     case "Overdue":
       return (
         <Badge variant="red">
           <LuTriangleAlert className="mr-1" />
-          Overdue
+          {t("resources:overdue")}
         </Badge>
       );
     case "Not Required":
-      return <Badge variant="outline">Not Required</Badge>;
+      return <Badge variant="outline">{t("resources:notRequired")}</Badge>;
     default:
       return <Badge variant="secondary">{status}</Badge>;
   }
@@ -91,12 +92,14 @@ function AssignmentListItem({
   assignment,
   currentPeriod,
   disabled,
-  isLast
+  isLast,
+  t
 }: {
   assignment: TrainingAssignmentStatusItem;
   currentPeriod: string | null;
   disabled: boolean;
   isLast: boolean;
+  t: (key: string) => string;
 }) {
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state !== "idle";
@@ -113,7 +116,7 @@ function AssignmentListItem({
               <HStack spacing={1} className="text-xs text-muted-foreground">
                 <LuCalendar className="size-3" />
                 <span>
-                  Started{" "}
+                  {t("resources:started")}{" "}
                   {new Date(assignment.employeeStartDate).toLocaleDateString()}
                 </span>
               </HStack>
@@ -121,7 +124,7 @@ function AssignmentListItem({
           </VStack>
         </HStack>
         <HStack spacing={4}>
-          <StatusBadge status={assignment.status} />
+          <StatusBadge status={assignment.status} t={t} />
           {assignment.completedAt && (
             <span className="text-xs text-muted-foreground">
               <LuClock className="inline mr-1 size-3" />
@@ -149,7 +152,7 @@ function AssignmentListItem({
                 isLoading={isSubmitting}
                 leftIcon={<LuCircleCheck />}
               >
-                Mark Complete
+                {t("resources:markComplete")}
               </Button>
             </fetcher.Form>
           )}
@@ -167,6 +170,7 @@ const StatusList = memo(
     data: TrainingAssignmentStatusItem[];
     currentPeriod: string | null;
   }) => {
+    const { t } = useTranslation(["resources", "common"]);
     const permissions = usePermissions();
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("All");
@@ -201,7 +205,7 @@ const StatusList = memo(
           <div className="relative">
             <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
-              placeholder="Search employees..."
+              placeholder={t("resources:searchEmployees")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -220,7 +224,7 @@ const StatusList = memo(
               size="sm"
               value="All"
             >
-              All <Count count={data.length} />
+              {t("resources:all")} <Count count={data.length} />
             </ToggleGroupItem>
             <ToggleGroupItem
               className="flex gap-1.5 items-center"
@@ -228,7 +232,7 @@ const StatusList = memo(
               value="Completed"
             >
               <LuCircleCheck className="mr-1 size-3" />
-              Completed{" "}
+              {t("resources:completed")}{" "}
               {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
               <Count count={statusCounts["Completed"] || 0} />
             </ToggleGroupItem>
@@ -238,7 +242,7 @@ const StatusList = memo(
               value="Pending"
             >
               <LuClock className="mr-1 size-3" />
-              Pending{" "}
+              {t("resources:pending")}{" "}
               {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
               <Count count={statusCounts["Pending"] || 0} />
             </ToggleGroupItem>
@@ -248,7 +252,7 @@ const StatusList = memo(
               value="Overdue"
             >
               <LuTriangleAlert className="mr-1 size-3" />
-              Overdue{" "}
+              {t("resources:overdue")}{" "}
               {/** biome-ignore lint/complexity/useLiteralKeys: suppressed due to migration */}
               <Count count={statusCounts["Overdue"] || 0} />
             </ToggleGroupItem>
@@ -257,7 +261,7 @@ const StatusList = memo(
               size="sm"
               value="Not Required"
             >
-              Not Required <Count count={statusCounts["Not Required"] || 0} />
+              {t("resources:notRequired")} <Count count={statusCounts["Not Required"] || 0} />
             </ToggleGroupItem>
           </ToggleGroup>
         </div>
@@ -271,6 +275,7 @@ const StatusList = memo(
                   currentPeriod={currentPeriod}
                   disabled={!permissions.can("update", "resources")}
                   isLast={index === filteredAssignments.length - 1}
+                  t={t}
                 />
               ))}
             </div>
@@ -280,14 +285,14 @@ const StatusList = memo(
                 spacing={2}
                 className="w-full items-center justify-center"
               >
-                <Empty>No employees found</Empty>
+                <Empty>{t("resources:noEmployeesFound")}</Empty>
                 {search && (
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setSearch("")}
                   >
-                    Clear search
+                    {t("resources:clearSearch")}
                   </Button>
                 )}
               </VStack>
@@ -309,6 +314,7 @@ const TrainingAssignmentForm = ({
   open = true,
   onClose
 }: TrainingAssignmentFormProps) => {
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher();
 
@@ -352,15 +358,15 @@ const TrainingAssignmentForm = ({
                 <HStack className="w-full justify-between pr-8">
                   <VStack>
                     <ModalDrawerTitle>
-                      {isEditing ? "Edit Assignment" : "New Assignment"}
+                      {isEditing ? t("resources:editTrainingAssignment") : t("resources:newTrainingAssignment")}
                     </ModalDrawerTitle>
                   </VStack>
 
                   {isEditing && (
                     <div>
                       <TabsList>
-                        <TabsTrigger value="details">Details</TabsTrigger>
-                        <TabsTrigger value="status">Status</TabsTrigger>
+                        <TabsTrigger value="details">{t("resources:details")}</TabsTrigger>
+                        <TabsTrigger value="status">{t("resources:status")}</TabsTrigger>
                       </TabsList>
                     </div>
                   )}
@@ -375,6 +381,7 @@ const TrainingAssignmentForm = ({
                       <AssignmentFormContent
                         trainings={trainings}
                         isEditing={isEditing}
+                        t={t}
                       />
                     </TabsContent>
                     <TabsContent
@@ -388,7 +395,7 @@ const TrainingAssignmentForm = ({
                         />
                       ) : (
                         <div className="py-8 text-center text-muted-foreground">
-                          No employees assigned yet. Add groups to see status.
+                          {t("resources:noEmployeesAssigned")}
                         </div>
                       )}
                     </TabsContent>
@@ -397,6 +404,7 @@ const TrainingAssignmentForm = ({
                   <AssignmentFormContent
                     trainings={trainings}
                     isEditing={isEditing}
+                    t={t}
                   />
                 )}
               </ModalDrawerBody>
@@ -406,10 +414,10 @@ const TrainingAssignmentForm = ({
                     isLoading={fetcher.state !== "idle"}
                     isDisabled={fetcher.state !== "idle" || isDisabled}
                   >
-                    Save
+                    {t("common:save")}
                   </Submit>
                   <Button size="md" variant="solid" onClick={onClose}>
-                    Cancel
+                    {t("common:cancel")}
                   </Button>
                 </HStack>
               </ModalDrawerFooter>
@@ -423,16 +431,18 @@ const TrainingAssignmentForm = ({
 
 function AssignmentFormContent({
   trainings,
-  isEditing
+  isEditing,
+  t
 }: {
   trainings: TrainingListItem[];
   isEditing: boolean;
+  t: (key: string) => string;
 }) {
   return (
     <VStack spacing={4}>
       <Select
         name="trainingId"
-        label="Training"
+        label={t("resources:training")}
         isReadOnly={isEditing}
         options={trainings.map((training) => ({
           label: training.name ?? "",
@@ -441,9 +451,9 @@ function AssignmentFormContent({
       />
       <Users
         name="groupIds"
-        label="Assign to Groups"
+        label={t("resources:assignToGroups")}
         type="employee"
-        helperText="Select the groups that should complete this training"
+        helperText={t("resources:assignToGroupsHelper")}
       />
     </VStack>
   );

@@ -248,5 +248,35 @@ export const resources = {
 
   // Failure Mode Form - Formularz trybu awarii
   newFailureMode: "Nowy tryb awarii",
-  failureModeName: "Nazwa trybu awarii"
+  failureModeName: "Nazwa trybu awarii",
+
+  // Training Assignment Form - Formularz przypisania szkolenia
+  trainingAssignment: "Przypisanie szkolenia",
+  newTrainingAssignment: "Nowe przypisanie",
+  editTrainingAssignment: "Edytuj przypisanie",
+  completed: "Ukończone",
+  notRequired: "Niewymagane",
+  markComplete: "Oznacz jako ukończone",
+  searchEmployees: "Szukaj pracowników...",
+  all: "Wszystkie",
+  details: "Szczegóły",
+  assignToGroups: "Przypisz do grup",
+  assignToGroupsHelper: "Wybierz grupy, które powinny ukończyć to szkolenie",
+  noEmployeesFound: "Nie znaleziono pracowników",
+  clearSearch: "Wyczyść wyszukiwanie",
+  noEmployeesAssigned: "Brak przypisanych pracowników. Dodaj grupy, aby zobaczyć status.",
+  started: "Rozpoczęto",
+
+  // Maintenance Dispatch Form - Formularz zgłoszenia konserwacji
+  maintenanceDispatch: "Zgłoszenie konserwacji",
+  newMaintenanceDispatch: "Nowe zgłoszenie konserwacji",
+  editMaintenanceDispatch: "Edytuj zgłoszenie konserwacji",
+  maintenanceDispatchDescription: "Utwórz nowe zgłoszenie konserwacji, aby śledzić naprawy i czynności konserwacyjne sprzętu",
+  priority: "Priorytet",
+  source: "Źródło",
+  severity: "Krytyczność",
+  oeeImpact: "Wpływ na OEE",
+  suspectedFailureMode: "Podejrzewany tryb awarii",
+  plannedStartTime: "Planowany czas rozpoczęcia",
+  plannedEndTime: "Planowany czas zakończenia"
 } as const;

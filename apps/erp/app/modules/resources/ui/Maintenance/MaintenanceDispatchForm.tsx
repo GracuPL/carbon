@@ -59,7 +59,7 @@ const MaintenanceDispatchForm = ({
   initialValues,
   failureModes = []
 }: MaintenanceDispatchFormProps) => {
-  const { t } = useTranslation("resources");
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const {
     company: { id: companyId }
@@ -112,12 +112,11 @@ const MaintenanceDispatchForm = ({
       >
         <CardHeader>
           <CardTitle>
-            {isEditing ? "Edit" : "New"} Maintenance Dispatch
+            {isEditing ? t("resources:editMaintenanceDispatch") : t("resources:newMaintenanceDispatch")}
           </CardTitle>
           {!isEditing && (
             <CardDescription>
-              Create a new maintenance dispatch to track equipment repairs and
-              maintenance activities
+              {t("resources:maintenanceDispatchDescription")}
             </CardDescription>
           )}
         </CardHeader>
@@ -128,7 +127,7 @@ const MaintenanceDispatchForm = ({
           <VStack>
             <div className="grid w-full gap-x-8 gap-y-4 grid-cols-1 md:grid-cols-2">
               <div className="md:col-span-2 flex flex-col gap-2 w-full">
-                <Label>Description</Label>
+                <Label>{t("resources:description")}</Label>
                 <Editor
                   initialValue={content}
                   onUpload={onUploadImage}
@@ -140,7 +139,7 @@ const MaintenanceDispatchForm = ({
               </div>
               <Select
                 name="priority"
-                label="Priority"
+                label={t("resources:priority")}
                 options={maintenanceDispatchPriority.map((priority) => ({
                   value: priority,
                   label: (
@@ -153,7 +152,7 @@ const MaintenanceDispatchForm = ({
               />
               <Select
                 name="source"
-                label="Source"
+                label={t("resources:source")}
                 options={maintenanceSource.map((source) => ({
                   value: source,
                   label: <MaintenanceSource source={source} />
@@ -161,16 +160,16 @@ const MaintenanceDispatchForm = ({
               />
               <Select
                 name="severity"
-                label="Severity"
+                label={t("resources:severity")}
                 options={maintenanceSeverity.map((severity) => ({
                   value: severity,
                   label: <MaintenanceSeverity severity={severity} />
                 }))}
               />
-              <WorkCenter name="workCenterId" label="Work Center" />
+              <WorkCenter name="workCenterId" label={t("resources:workCenter")} />
               <Select
                 name="oeeImpact"
-                label="OEE Impact"
+                label={t("resources:oeeImpact")}
                 options={oeeImpact.map((impact) => ({
                   value: impact,
                   label: <MaintenanceOeeImpact oeeImpact={impact} />
@@ -184,7 +183,7 @@ const MaintenanceDispatchForm = ({
               {showFailureModes ? (
                 <Select
                   name="suspectedFailureModeId"
-                  label="Suspected Failure Mode"
+                  label={t("resources:suspectedFailureMode")}
                   options={failureModes.map((mode) => ({
                     value: mode.id,
                     label: mode.name
@@ -196,14 +195,14 @@ const MaintenanceDispatchForm = ({
               )}
               <DateTimePicker
                 name="plannedStartTime"
-                label="Planned Start Time"
+                label={t("resources:plannedStartTime")}
               />
-              <DateTimePicker name="plannedEndTime" label="Planned End Time" />
+              <DateTimePicker name="plannedEndTime" label={t("resources:plannedEndTime")} />
             </div>
           </VStack>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={isDisabled}>Save</Submit>
+          <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>

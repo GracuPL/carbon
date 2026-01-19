@@ -248,5 +248,35 @@ export const resources = {
 
   // Failure Mode Form
   newFailureMode: "New Failure Mode",
-  failureModeName: "Failure Mode Name"
+  failureModeName: "Failure Mode Name",
+
+  // Training Assignment Form
+  trainingAssignment: "Training Assignment",
+  newTrainingAssignment: "New Assignment",
+  editTrainingAssignment: "Edit Assignment",
+  completed: "Completed",
+  notRequired: "Not Required",
+  markComplete: "Mark Complete",
+  searchEmployees: "Search employees...",
+  all: "All",
+  details: "Details",
+  assignToGroups: "Assign to Groups",
+  assignToGroupsHelper: "Select the groups that should complete this training",
+  noEmployeesFound: "No employees found",
+  clearSearch: "Clear search",
+  noEmployeesAssigned: "No employees assigned yet. Add groups to see status.",
+  started: "Started",
+
+  // Maintenance Dispatch Form
+  maintenanceDispatch: "Maintenance Dispatch",
+  newMaintenanceDispatch: "New Maintenance Dispatch",
+  editMaintenanceDispatch: "Edit Maintenance Dispatch",
+  maintenanceDispatchDescription: "Create a new maintenance dispatch to track equipment repairs and maintenance activities",
+  priority: "Priority",
+  source: "Source",
+  severity: "Severity",
+  oeeImpact: "OEE Impact",
+  suspectedFailureMode: "Suspected Failure Mode",
+  plannedStartTime: "Planned Start Time",
+  plannedEndTime: "Planned End Time"
 } as const;
