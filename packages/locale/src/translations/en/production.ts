@@ -169,6 +169,11 @@ export const production = {
 
   // Production Quantities Table
   productionQuantities: "Production Quantities",
+  editProductionQuantity: "Edit Production Quantity",
+  quantityType: "Quantity Type",
+  productionType: "Production",
+  scrap: "Scrap",
+  rework: "Rework",
   editQuantity: "Edit Quantity",
   deleteQuantity: "Delete Quantity",
   confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone.",

@@ -169,6 +169,11 @@ export const production = {
 
   // Production Quantities Table - Tabela ilości produkcyjnych
   productionQuantities: "Ilości produkcyjne",
+  editProductionQuantity: "Edytuj ilość produkcyjną",
+  quantityType: "Typ ilości",
+  productionType: "Produkcja",
+  scrap: "Brak",
+  rework: "Przeróbka",
   editQuantity: "Edytuj ilość",
   deleteQuantity: "Usuń ilość",
   confirmDeleteQuantity: "Czy na pewno chcesz usunąć tę ilość produkcyjną? Tej operacji nie można cofnąć.",

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -33,6 +34,7 @@ type ProductionQuantityFormProps = {
 const ProductionQuantityForm = ({
   initialValues
 }: ProductionQuantityFormProps) => {
+  const { t } = useTranslation(["production", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -57,37 +59,37 @@ const ProductionQuantityForm = ({
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>Edit Production Quantity</DrawerTitle>
+            <DrawerTitle>{t("production:editProductionQuantity")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <Hidden name="jobOperationId" />
             <VStack spacing={4}>
-              <Employee name="createdBy" label="Employee" />
-              <Number name="quantity" label="Quantity" />
+              <Employee name="createdBy" label={t("production:employee")} />
+              <Number name="quantity" label={t("production:quantity")} />
               <Select
                 name="type"
-                label="Quantity Type"
+                label={t("production:quantityType")}
                 options={[
-                  { label: "Production", value: "Production" },
-                  { label: "Scrap", value: "Scrap" },
-                  { label: "Rework", value: "Rework" }
+                  { label: t("production:productionType"), value: "Production" },
+                  { label: t("production:scrap"), value: "Scrap" },
+                  { label: t("production:rework"), value: "Rework" }
                 ]}
                 onChange={(value) =>
                   setType(value?.value as "Production" | "Scrap" | "Rework")
                 }
               />
               {type === "Scrap" && (
-                <ScrapReason name="scrapReasonId" label="Scrap Reason" />
+                <ScrapReason name="scrapReasonId" label={t("production:scrapReason")} />
               )}
-              <TextArea name="notes" label="Notes" />
+              <TextArea name="notes" label={t("production:notes")} />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>
