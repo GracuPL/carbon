@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -24,6 +25,7 @@ type CustomerPartFormProps = {
 };
 
 const CustomerPartForm = ({ initialValues }: CustomerPartFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const { itemId } = useParams();
@@ -53,7 +55,7 @@ const CustomerPartForm = ({ initialValues }: CustomerPartFormProps) => {
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit" : "New"} Customer Part
+              {isEditing ? t("items:editCustomerPart") : t("items:newCustomerPart")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
@@ -61,20 +63,20 @@ const CustomerPartForm = ({ initialValues }: CustomerPartFormProps) => {
             <Hidden name="itemId" />
 
             <VStack spacing={4}>
-              <Input name="readableId" label="Part ID" isDisabled />
-              <Customer name="customerId" label="Customer" />
-              <Input name="customerPartId" label="Customer Part ID" />
+              <Input name="readableId" label={t("items:partId")} isDisabled />
+              <Customer name="customerId" label={t("items:customer")} />
+              <Input name="customerPartId" label={t("items:customerPartId")} />
               <Input
                 name="customerPartRevision"
-                label="Customer Part Revision"
+                label={t("items:customerPartRevision")}
               />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

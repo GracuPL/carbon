@@ -297,5 +297,22 @@ export const items = {
   // Item Purchasing Form - Formularz zakupów produktu
   purchasing: "Zakupy",
   preferredSupplier: "Preferowany dostawca",
-  purchasingUnitOfMeasure: "Jednostka miary zakupu"
+  purchasingUnitOfMeasure: "Jednostka miary zakupu",
+
+  // Supplier Part Form - Formularz części dostawcy
+  supplierPart: "Część dostawcy",
+  newSupplierPart: "Nowa część dostawcy",
+  editSupplierPart: "Edytuj część dostawcy",
+  supplier: "Dostawca",
+  supplierPartId: "ID części dostawcy",
+  unitPrice: "Cena jednostkowa",
+  conversionFactor: "Współczynnik konwersji",
+
+  // Customer Part Form - Formularz części klienta
+  customerPart: "Część klienta",
+  newCustomerPart: "Nowa część klienta",
+  editCustomerPart: "Edytuj część klienta",
+  customer: "Klient",
+  customerPartId: "ID części klienta",
+  customerPartRevision: "Rewizja części klienta"
 } as const;

@@ -297,5 +297,22 @@ export const items = {
   // Item Purchasing Form
   purchasing: "Purchasing",
   preferredSupplier: "Preferred Supplier",
-  purchasingUnitOfMeasure: "Purchasing Unit of Measure"
+  purchasingUnitOfMeasure: "Purchasing Unit of Measure",
+
+  // Supplier Part Form
+  supplierPart: "Supplier Part",
+  newSupplierPart: "New Supplier Part",
+  editSupplierPart: "Edit Supplier Part",
+  supplier: "Supplier",
+  supplierPartId: "Supplier Part ID",
+  unitPrice: "Unit Price",
+  conversionFactor: "Conversion Factor",
+
+  // Customer Part Form
+  customerPart: "Customer Part",
+  newCustomerPart: "New Customer Part",
+  editCustomerPart: "Edit Customer Part",
+  customer: "Customer",
+  customerPartId: "Customer Part ID",
+  customerPartRevision: "Customer Part Revision"
 } as const;

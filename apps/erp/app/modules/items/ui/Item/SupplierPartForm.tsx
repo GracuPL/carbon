@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -42,6 +43,7 @@ const SupplierPartForm = ({
   unitOfMeasureCode,
   onClose
 }: SupplierPartFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
 
   const { company } = useUser();
@@ -91,7 +93,7 @@ const SupplierPartForm = ({
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit" : "New"} Supplier Part
+              {isEditing ? t("items:editSupplierPart") : t("items:newSupplierPart")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
@@ -99,11 +101,11 @@ const SupplierPartForm = ({
             <Hidden name="itemId" />
 
             <VStack spacing={4}>
-              <Supplier name="supplierId" label="Supplier" />
-              <Input name="supplierPartId" label="Supplier Part ID" />
+              <Supplier name="supplierId" label={t("items:supplier")} />
+              <Input name="supplierPartId" label={t("items:supplierPartId")} />
               <Number
                 name="unitPrice"
-                label="Unit Price"
+                label={t("items:unitPrice")}
                 minValue={0}
                 formatOptions={{
                   style: "currency",
@@ -112,20 +114,20 @@ const SupplierPartForm = ({
               />
               <UnitOfMeasure
                 name="supplierUnitOfMeasureCode"
-                label="Unit of Measure"
+                label={t("items:unitOfMeasure")}
                 onChange={(value) => {
                   if (value) setPurchaseUnitOfMeasure(value.value);
                 }}
               />
               <ConversionFactor
                 name="conversionFactor"
-                label="Conversion Factor"
+                label={t("items:conversionFactor")}
                 inventoryCode={unitOfMeasureCode ?? undefined}
                 purchasingCode={purchaseUnitOfMeasure}
               />
               <Number
                 name="minimumOrderQuantity"
-                label="Minimum Order Quantity"
+                label={t("items:minimumOrderQuantity")}
                 minValue={0}
               />
               <CustomFormFields table="partSupplier" />
@@ -138,10 +140,10 @@ const SupplierPartForm = ({
                 isLoading={fetcher.state !== "idle"}
                 withBlocker={false}
               >
-                Save
+                {t("common:save")}
               </Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>
