@@ -59,7 +59,7 @@ const SupplierQuoteLineForm = ({
   type,
   onClose
 }: SupplierQuoteLineFormProps) => {
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const { company } = useUser();
   const { carbon } = useCarbon();
@@ -188,8 +188,8 @@ const SupplierQuoteLineForm = ({
                 <ModalCardHeader>
                   <ModalCardTitle>
                     {isEditing
-                      ? "Supplier Quote Line"
-                      : "New Supplier Quote Line"}
+                      ? t("purchasing:supplierQuoteLine")
+                      : t("purchasing:newSupplierQuoteLine")}
                   </ModalCardTitle>
                   <ModalCardDescription>
                     {isEditing ? (
@@ -202,7 +202,7 @@ const SupplierQuoteLineForm = ({
                         </div>
                       </div>
                     ) : (
-                      "A quote line contains pricing and lead times for a particular part"
+                      t("purchasing:supplierQuoteLineDescription")
                     )}
                   </ModalCardDescription>
                 </ModalCardHeader>
@@ -222,7 +222,7 @@ const SupplierQuoteLineForm = ({
                           onClick={deleteDisclosure.onOpen}
                         >
                           <DropdownMenuIcon icon={<LuTrash />} />
-                          Delete Line
+                          {t("purchasing:deleteLine")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -242,7 +242,7 @@ const SupplierQuoteLineForm = ({
                       <Item
                         autoFocus
                         name="itemId"
-                        label="Part"
+                        label={t("purchasing:part")}
                         type={itemType}
                         value={itemData.itemId}
                         includeInactive
@@ -266,13 +266,13 @@ const SupplierQuoteLineForm = ({
 
                       <InputControlled
                         name="description"
-                        label="Short Description"
+                        label={t("purchasing:shortDescription")}
                         value={itemData.description}
                       />
 
                       <InputControlled
                         name="supplierPartId"
-                        label="Supplier Part Number"
+                        label={t("purchasing:supplierPartNumber")}
                         value={itemData.supplierPartId}
                         onChange={(newValue) => {
                           setItemData((d) => ({
@@ -284,7 +284,7 @@ const SupplierQuoteLineForm = ({
                       />
                       <UnitOfMeasure
                         name="purchaseUnitOfMeasureCode"
-                        label="Purchase Unit of Measure"
+                        label={t("purchasing:purchaseUnitOfMeasure")}
                         value={itemData.purchaseUom}
                         onChange={(newValue) => {
                           if (newValue) {
@@ -313,7 +313,7 @@ const SupplierQuoteLineForm = ({
                     <div className="flex gap-y-4">
                       <ArrayNumeric
                         name="quantity"
-                        label="Quantity"
+                        label={t("purchasing:quantity")}
                         defaults={[1, 25, 50, 100]}
                         isDisabled={!isEditable}
                       />
@@ -330,7 +330,7 @@ const SupplierQuoteLineForm = ({
                       : !permissions.can("create", "purchasing"))
                   }
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </ModalCardFooter>
             </ValidatedForm>

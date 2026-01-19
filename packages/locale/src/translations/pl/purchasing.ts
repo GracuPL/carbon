@@ -231,5 +231,30 @@ export const purchasing = {
   // Purchase Order Delivery Form - Formularz dostawy zamówienia zakupu
   shippingCost: "Koszt wysyłki",
   deliveryLocation: "Miejsce dostawy",
-  trackingNumber: "Numer śledzenia"
+  trackingNumber: "Numer śledzenia",
+
+  // Purchase Order Line Form - Formularz pozycji zamówienia zakupu
+  purchaseOrderLine: "Pozycja zamówienia zakupu",
+  newPurchaseOrderLine: "Nowa pozycja zamówienia zakupu",
+  purchaseOrderLineDescription: "Pozycja zamówienia zakupu zawiera szczegóły zamówienia dla konkretnego wyrobu",
+  outsideProcessing: "Przetwarzanie zewnętrzne",
+  description: "Opis",
+  quantity: "Ilość",
+  unitOfMeasure: "Jednostka miary",
+  unitPrice: "Cena jednostkowa",
+  tax: "Podatek",
+  taxPercent: "Procent podatku",
+  shelf: "Półka",
+  job: "Zlecenie",
+  operation: "Operacja",
+
+  // Supplier Quote Line Form - Formularz pozycji oferty dostawcy
+  supplierQuoteLine: "Pozycja oferty dostawcy",
+  newSupplierQuoteLine: "Nowa pozycja oferty dostawcy",
+  supplierQuoteLineDescription: "Pozycja oferty dostawcy zawiera ceny dla konkretnego wyrobu",
+  deleteLine: "Usuń pozycję",
+  part: "Wyrób",
+  shortDescription: "Krótki opis",
+  supplierPartNumber: "Numer wyrobu dostawcy",
+  purchaseUnitOfMeasure: "Jednostka miary zakupu"
 } as const;

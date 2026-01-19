@@ -231,5 +231,30 @@ export const purchasing = {
   // Purchase Order Delivery Form
   shippingCost: "Shipping Cost",
   deliveryLocation: "Delivery Location",
-  trackingNumber: "Tracking Number"
+  trackingNumber: "Tracking Number",
+
+  // Purchase Order Line Form
+  purchaseOrderLine: "Purchase Order Line",
+  newPurchaseOrderLine: "New Purchase Order Line",
+  purchaseOrderLineDescription: "A purchase order line contains order details for a particular item",
+  outsideProcessing: "Outside Processing",
+  description: "Description",
+  quantity: "Quantity",
+  unitOfMeasure: "Unit of Measure",
+  unitPrice: "Unit Price",
+  tax: "Tax",
+  taxPercent: "Tax Percent",
+  shelf: "Shelf",
+  job: "Job",
+  operation: "Operation",
+
+  // Supplier Quote Line Form
+  supplierQuoteLine: "Supplier Quote Line",
+  newSupplierQuoteLine: "New Supplier Quote Line",
+  supplierQuoteLineDescription: "A supplier quote line contains pricing for a particular item",
+  deleteLine: "Delete Line",
+  part: "Part",
+  shortDescription: "Short Description",
+  supplierPartNumber: "Supplier Part Number",
+  purchaseUnitOfMeasure: "Purchase Unit of Measure"
 } as const;

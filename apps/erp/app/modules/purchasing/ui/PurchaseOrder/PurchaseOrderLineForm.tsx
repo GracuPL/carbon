@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { Combobox, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Badge,
   cn,
@@ -60,6 +61,7 @@ const PurchaseOrderLineForm = ({
   type,
   onClose
 }: PurchaseOrderLineFormProps) => {
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
   const [items] = useItems();
@@ -291,11 +293,11 @@ const PurchaseOrderLineForm = ({
                 >
                   {isEditing
                     ? getItemReadableId(items, itemData?.itemId) || "..."
-                    : "New Purchase Order Line"}
+                    : t("purchasing:newPurchaseOrderLine")}
                 </ModalCardTitle>
                 <ModalCardDescription>
                   {isOutsideProcessing ? (
-                    <Badge variant="default">Outside Processing</Badge>
+                    <Badge variant="default">{t("purchasing:outsideProcessing")}</Badge>
                   ) : isEditing ? (
                     <div className="flex flex-col items-start gap-1">
                       <span>{itemData?.description}</span>
@@ -313,13 +315,13 @@ const PurchaseOrderLineForm = ({
                         {initialValues?.taxPercent > 0 ? (
                           <Badge variant="red">
                             {percentFormatter.format(initialValues?.taxPercent)}{" "}
-                            Tax
+                            {t("purchasing:tax")}
                           </Badge>
                         ) : null}
                       </div>
                     </div>
                   ) : (
-                    "A purchase order line contains order details for a particular item"
+                    t("purchasing:purchaseOrderLineDescription")
                   )}
                 </ModalCardDescription>
               </ModalCardHeader>
@@ -354,7 +356,7 @@ const PurchaseOrderLineForm = ({
                     />
 
                     <FormControl className="col-span-2">
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel>{t("purchasing:description")}</FormLabel>
                       <Input
                         value={itemData.description}
                         onChange={(e) =>
@@ -373,7 +375,7 @@ const PurchaseOrderLineForm = ({
                     <NumberControlled
                       minValue={itemData.minimumOrderQuantity}
                       name="purchaseQuantity"
-                      label="Quantity"
+                      label={t("purchasing:quantity")}
                       value={itemData.purchaseQuantity}
                       onChange={(value) => {
                         setItemData((d) => ({
@@ -393,7 +395,7 @@ const PurchaseOrderLineForm = ({
                       <>
                         <UnitOfMeasure
                           name="purchaseUnitOfMeasureCode"
-                          label="Unit of Measure"
+                          label={t("purchasing:unitOfMeasure")}
                           value={itemData.purchaseUom}
                           onChange={(newValue) => {
                             if (newValue) {
@@ -420,7 +422,7 @@ const PurchaseOrderLineForm = ({
                     )}
                     <NumberControlled
                       name="supplierUnitPrice"
-                      label="Unit Price"
+                      label={t("purchasing:unitPrice")}
                       value={itemData.supplierUnitPrice}
                       formatOptions={{
                         style: "currency",
@@ -437,7 +439,7 @@ const PurchaseOrderLineForm = ({
                     />
                     <NumberControlled
                       name="supplierShippingCost"
-                      label="Shipping"
+                      label={t("purchasing:shipping")}
                       minValue={0}
                       value={itemData.supplierShippingCost}
                       formatOptions={{
@@ -455,7 +457,7 @@ const PurchaseOrderLineForm = ({
                     />
                     <NumberControlled
                       name="supplierTaxAmount"
-                      label="Tax"
+                      label={t("purchasing:tax")}
                       value={itemData.supplierTaxAmount}
                       formatOptions={{
                         style: "currency",
@@ -487,7 +489,7 @@ const PurchaseOrderLineForm = ({
                       !isOutsideProcessing && (
                         <Location
                           name="locationId"
-                          label="Location"
+                          label={t("purchasing:location")}
                           value={locationId}
                           onChange={onLocationChange}
                         />
@@ -504,7 +506,7 @@ const PurchaseOrderLineForm = ({
                       !isOutsideProcessing && (
                         <Shelf
                           name="shelfId"
-                          label="Shelf"
+                          label={t("purchasing:shelf")}
                           locationId={locationId}
                           value={itemData.shelfId ?? undefined}
                           onChange={(newValue) => {
@@ -519,7 +521,7 @@ const PurchaseOrderLineForm = ({
                       )}
                     <NumberControlled
                       name="taxPercent"
-                      label="Tax Percent"
+                      label={t("purchasing:taxPercent")}
                       value={itemData.taxPercent}
                       minValue={0}
                       maxValue={1}
@@ -548,7 +550,7 @@ const PurchaseOrderLineForm = ({
               </ModalCardBody>
               <ModalCardFooter>
                 <Submit isDisabled={isDisabled} withBlocker={false}>
-                  Save
+                  {t("common:save")}
                 </Submit>
               </ModalCardFooter>
             </ValidatedForm>
@@ -568,6 +570,7 @@ const PurchaseOrderLineForm = ({
 export default PurchaseOrderLineForm;
 
 function JobOperationSelect(initialValues: { jobId?: string }) {
+  const { t } = useTranslation("purchasing");
   const [jobId, setJobId] = useState<string | null>(
     initialValues.jobId ?? null
   );
@@ -611,7 +614,7 @@ function JobOperationSelect(initialValues: { jobId?: string }) {
     <>
       <Combobox
         name="jobId"
-        label="Job"
+        label={t("job")}
         options={jobOptions}
         onChange={(value) => {
           if (value) {
@@ -621,7 +624,7 @@ function JobOperationSelect(initialValues: { jobId?: string }) {
       />
       <Combobox
         name="jobOperationId"
-        label="Operation"
+        label={t("operation")}
         options={jobOperationOptions}
       />
     </>
