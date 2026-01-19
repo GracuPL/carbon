@@ -171,5 +171,22 @@ export const users = {
   thursday: "Thursday",
   friday: "Friday",
   saturday: "Saturday",
-  sunday: "Sunday"
+  sunday: "Sunday",
+
+  // Group Form
+  newGroup: "New Group",
+  groupMembers: "Group Members",
+
+  // Employee Type Form
+  newEmployeeType: "New Employee Type",
+  defaultPermissions: "Default Permissions",
+
+  // Bulk Edit Permissions Form
+  typeOfPermissionUpdate: "Type of Permission Update",
+  addPermissions: "Add Permissions",
+  updatePermissions: "Update Permissions",
+  usersToUpdate: "Users to Update",
+
+  // Employee Permissions Form
+  selectEmployeeType: "Select Employee Type"
 } as const;

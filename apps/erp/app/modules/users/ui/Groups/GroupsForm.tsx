@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -22,6 +23,7 @@ type GroupFormProps = {
 };
 
 const GroupForm = ({ initialValues }: GroupFormProps) => {
+  const { t } = useTranslation(["users", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -50,25 +52,25 @@ const GroupForm = ({ initialValues }: GroupFormProps) => {
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Group</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("users:editGroup") : t("users:newGroup")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack spacing={4}>
-              <Input name="name" label="Group Name" />
+              <Input name="name" label={t("users:groupName")} />
               <Users
                 name="selections"
                 selectionsMaxHeight={"calc(100vh - 330px)"}
-                label="Group Members"
+                label={t("users:groupMembers")}
                 verbose
               />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

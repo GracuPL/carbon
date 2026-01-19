@@ -171,5 +171,22 @@ export const users = {
   thursday: "Czwartek",
   friday: "Piątek",
   saturday: "Sobota",
-  sunday: "Niedziela"
+  sunday: "Niedziela",
+
+  // Group Form - Formularz grupy
+  newGroup: "Nowa grupa",
+  groupMembers: "Członkowie grupy",
+
+  // Employee Type Form - Formularz typu pracownika
+  newEmployeeType: "Nowy typ pracownika",
+  defaultPermissions: "Domyślne uprawnienia",
+
+  // Bulk Edit Permissions Form - Formularz zbiorczej edycji uprawnień
+  typeOfPermissionUpdate: "Typ aktualizacji uprawnień",
+  addPermissions: "Dodaj uprawnienia",
+  updatePermissions: "Zaktualizuj uprawnienia",
+  usersToUpdate: "Użytkownicy do aktualizacji",
+
+  // Employee Permissions Form - Formularz uprawnień pracownika
+  selectEmployeeType: "Wybierz typ pracownika"
 } as const;

@@ -31,7 +31,7 @@ const BulkEditPermissions = ({
   isOpen,
   onClose
 }: BulkEditPermissionsProps) => {
-  const { t } = useTranslation("navigation");
+  const { t } = useTranslation(["users", "common"]);
   const [permissions, setPermissions] = useState<
     Record<string, CompanyPermission>
   >({});
@@ -86,21 +86,21 @@ const BulkEditPermissions = ({
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>Edit Permissions</DrawerTitle>
+            <DrawerTitle>{t("users:editPermissions")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <VStack spacing={4}>
               <div className="border border-border p-4 w-full rounded-lg">
                 <Radios
                   name="editType"
-                  label="Type of Permission Update"
+                  label={t("users:typeOfPermissionUpdate")}
                   options={[
                     {
-                      label: "Add Permissions",
+                      label: t("users:addPermissions"),
                       value: "add"
                     },
                     {
-                      label: "Update Permissions",
+                      label: t("users:updatePermissions"),
                       value: "update"
                     }
                   ]}
@@ -110,11 +110,11 @@ const BulkEditPermissions = ({
               <Employees
                 name="userIds"
                 selectionsMaxHeight={"calc(100vh - 330px)"}
-                label="Users to Update"
+                label={t("users:usersToUpdate")}
               />
 
               <label className="block text-sm font-medium leading-none">
-                Permissions
+                {t("users:permissions")}
               </label>
               <VStack spacing={8}>
                 {Object.entries(permissions)
@@ -133,9 +133,9 @@ const BulkEditPermissions = ({
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit />
+              <Submit>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                {t("cancel")}
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>
