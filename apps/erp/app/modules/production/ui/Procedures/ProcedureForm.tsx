@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -32,6 +33,7 @@ const ProcedureForm = ({
   open = true,
   onClose
 }: ProcedureFormProps) => {
+  const { t } = useTranslation(["production", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -63,7 +65,7 @@ const ProcedureForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {type === "copy" ? "Copy" : "New"} Procedure
+                {type === "copy" ? t("production:copyProcedure") : t("production:newProcedure")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -77,19 +79,19 @@ const ProcedureForm = ({
                 </>
               )}
               <VStack spacing={4}>
-                {type === "new" && <Input name="name" label="Name" />}
+                {type === "new" && <Input name="name" label={t("production:name")} />}
                 <Number
                   name="version"
-                  label={type === "copy" ? "New Version" : "Version"}
+                  label={type === "copy" ? t("production:newVersion") : t("production:version")}
                   minValue={0}
                   helperText={
                     type === "copy"
-                      ? "The new version number of the procedure"
-                      : "The version of the new procedure"
+                      ? t("production:newVersionHelper")
+                      : t("production:versionHelper")
                   }
                 />
                 {type === "new" && (
-                  <Process name="processId" label="Process" isOptional />
+                  <Process name="processId" label={t("production:process")} isOptional />
                 )}
               </VStack>
             </ModalDrawerBody>
@@ -99,7 +101,7 @@ const ProcedureForm = ({
                   isLoading={fetcher.state !== "idle"}
                   isDisabled={fetcher.state !== "idle" || isDisabled}
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </HStack>
             </ModalDrawerFooter>

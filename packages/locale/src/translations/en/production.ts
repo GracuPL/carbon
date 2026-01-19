@@ -164,6 +164,31 @@ export const production = {
   deleteQuantity: "Delete Quantity",
   confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone.",
 
+  // Job Form
+  singleJob: "Single Job",
+  manyJobs: "Many Jobs",
+  jobDescription: "A job is a set of work to be done to fulfill an order or increase inventory",
+  shortDescription: "Short Description",
+  scrapQuantity: "Scrap Quantity",
+  bulkJobs: "Bulk Jobs",
+  bulkJobsDescription: "The bulk jobs form creates multiple jobs for the same item across multiple due dates.",
+  totalQuantity: "Total Quantity",
+  quantityPerJob: "Quantity Per Job",
+  scrapQuantityPerJob: "Scrap Quantity Per Job",
+  dueDateOfFirstJob: "Due Date of First Job",
+  dueDateOfLastJob: "Due Date of Last Job",
+
+  // Procedure Form
+  newProcedure: "New Procedure",
+  copyProcedure: "Copy Procedure",
+  newVersion: "New Version",
+  newVersionHelper: "The new version number of the procedure",
+  versionHelper: "The version of the new procedure",
+
+  // Scrap Reason Form
+  newScrapReason: "New Scrap Reason",
+  failedToCreateScrapReason: "Failed to create scrap reason: {{message}}",
+
   // Toast messages - Success
   ordersSubmitted: "Orders submitted",
   createdScrapReason: "Created scrap reason",

@@ -164,6 +164,31 @@ export const production = {
   deleteQuantity: "Usuń ilość",
   confirmDeleteQuantity: "Czy na pewno chcesz usunąć tę ilość produkcyjną? Tej operacji nie można cofnąć.",
 
+  // Job Form - Formularz zlecenia
+  singleJob: "Pojedyncze zlecenie",
+  manyJobs: "Wiele zleceń",
+  jobDescription: "Zlecenie to zestaw prac do wykonania w celu realizacji zamówienia lub zwiększenia zapasów",
+  shortDescription: "Krótki opis",
+  scrapQuantity: "Ilość braku",
+  bulkJobs: "Zlecenia zbiorcze",
+  bulkJobsDescription: "Formularz zleceń zbiorczych tworzy wiele zleceń dla tej samej pozycji z różnymi terminami.",
+  totalQuantity: "Całkowita ilość",
+  quantityPerJob: "Ilość na zlecenie",
+  scrapQuantityPerJob: "Ilość braku na zlecenie",
+  dueDateOfFirstJob: "Termin pierwszego zlecenia",
+  dueDateOfLastJob: "Termin ostatniego zlecenia",
+
+  // Procedure Form - Formularz procedury
+  newProcedure: "Nowa procedura",
+  copyProcedure: "Kopiuj procedurę",
+  newVersion: "Nowa wersja",
+  newVersionHelper: "Nowy numer wersji procedury",
+  versionHelper: "Wersja nowej procedury",
+
+  // Scrap Reason Form - Formularz przyczyny braku
+  newScrapReason: "Nowa przyczyna braku",
+  failedToCreateScrapReason: "Nie udało się utworzyć przyczyny braku: {{message}}",
+
   // Toast messages - Success - Komunikaty sukcesu
   ordersSubmitted: "Zamówienia zostały wysłane",
   createdScrapReason: "Utworzono przyczynę braku",
