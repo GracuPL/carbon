@@ -227,6 +227,12 @@ export const quality = {
 
   // Issue Workflow Form
   newIssueWorkflow: "New Issue Workflow",
+  issueWorkflowDescription: "Issue workflows defined the preset values for an issue. For example, you can have an 8D workflow or a containment workflow.",
+  issueTemplate: "Issue Template",
+  requiredActionsInOrder: "Required Actions (in order)",
+  availableActionsClickToAdd: "Available Actions (click to add):",
+  noRequiredActionsAvailable: "No required actions available",
+  inactiveActionsHelper: "Inactive actions will not appear in selection lists",
 
   // Required Action Form
   newRequiredAction: "New Required Action",
@@ -234,6 +240,16 @@ export const quality = {
 
   // Gauge Form
   newGauge: "New Gauge",
+  gaugeId: "Gauge ID",
+  details: "Details",
+  addCalibrationRecord: "Add Calibration Record",
+  calibrationRecord: "Calibration Record",
+  updated: "Updated",
+  noCalibrationRecordsFound: "No calibration records found",
+  dateAcquired: "Date Acquired",
+  lastCalibrationDate: "Last Calibration Date",
+  shelf: "Shelf",
+  calibrationIntervalMonths: "Calibration Interval (Months)",
 
   // Gauge Calibration Record Form
   newCalibrationRecord: "New Calibration Record",

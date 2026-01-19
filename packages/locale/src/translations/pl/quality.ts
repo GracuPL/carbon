@@ -227,6 +227,12 @@ export const quality = {
 
   // Issue Workflow Form - Formularz przepływu problemu
   newIssueWorkflow: "Nowy przepływ problemu",
+  issueWorkflowDescription: "Przepływy problemów definiują predefiniowane wartości dla problemu. Na przykład możesz mieć przepływ 8D lub przepływ powstrzymania.",
+  issueTemplate: "Szablon problemu",
+  requiredActionsInOrder: "Wymagane działania (w kolejności)",
+  availableActionsClickToAdd: "Dostępne działania (kliknij aby dodać):",
+  noRequiredActionsAvailable: "Brak dostępnych wymaganych działań",
+  inactiveActionsHelper: "Nieaktywne działania nie będą wyświetlane na listach wyboru",
 
   // Required Action Form - Formularz wymaganego działania
   newRequiredAction: "Nowe wymagane działanie",
@@ -234,6 +240,16 @@ export const quality = {
 
   // Gauge Form - Formularz przyrządu
   newGauge: "Nowy przyrząd",
+  gaugeId: "ID przyrządu",
+  details: "Szczegóły",
+  addCalibrationRecord: "Dodaj rekord kalibracji",
+  calibrationRecord: "Rekord kalibracji",
+  updated: "Zaktualizowano",
+  noCalibrationRecordsFound: "Nie znaleziono rekordów kalibracji",
+  dateAcquired: "Data nabycia",
+  lastCalibrationDate: "Data ostatniej kalibracji",
+  shelf: "Półka",
+  calibrationIntervalMonths: "Interwał kalibracji (miesiące)",
 
   // Gauge Calibration Record Form - Formularz rekordu kalibracji
   newCalibrationRecord: "Nowy rekord kalibracji",
