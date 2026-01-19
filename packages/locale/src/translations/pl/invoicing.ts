@@ -61,5 +61,26 @@ export const invoicing = {
   invoiceCustomerLocation: "Lokalizacja klienta na fakturze",
   invoiceCustomerContact: "Kontakt klienta na fakturze",
   dateIssued: "Data wystawienia",
-  paymentTerms: "Warunki płatności"
+  paymentTerms: "Warunki płatności",
+
+  // Invoice Line Form - Formularz pozycji faktury
+  newSalesInvoiceLine: "Nowa pozycja faktury sprzedaży",
+  newPurchaseInvoiceLine: "Nowa pozycja faktury zakupu",
+  salesInvoiceLineDescription: "Pozycja faktury sprzedaży zawiera szczegóły faktury dla konkretnego wyrobu",
+  purchaseInvoiceLineDescription: "Pozycja faktury zakupu zawiera szczegóły faktury dla konkretnego wyrobu",
+  description: "Opis",
+  method: "Metoda",
+  quantity: "Ilość",
+  unitPrice: "Cena jednostkowa",
+  supplierUnitPrice: "Cena jednostkowa dostawcy",
+  shipping: "Wysyłka",
+  addOnCost: "Koszt dodatkowy",
+  tax: "Podatek",
+  taxPercent: "Procent podatku",
+  location: "Lokalizacja",
+  shelf: "Półka",
+  unitOfMeasure: "Jednostka miary",
+  batchItemsRequireSalesOrder: "Wyroby partyjne wymagają zamówienia sprzedaży",
+  serialItemsRequireSalesOrder: "Wyroby seryjne wymagają zamówienia sprzedaży",
+  makeItemsCannotBeInvoiced: "Wyroby produkowane nie mogą być fakturowane bezpośrednio. Zmień metodę na Pobierz, aby kontynuować."
 } as const;

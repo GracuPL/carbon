@@ -61,5 +61,26 @@ export const invoicing = {
   invoiceCustomerLocation: "Invoice Customer Location",
   invoiceCustomerContact: "Invoice Customer Contact",
   dateIssued: "Date Issued",
-  paymentTerms: "Payment Terms"
+  paymentTerms: "Payment Terms",
+
+  // Invoice Line Form
+  newSalesInvoiceLine: "New Sales Invoice Line",
+  newPurchaseInvoiceLine: "New Purchase Invoice Line",
+  salesInvoiceLineDescription: "A sales invoice line contains invoice details for a particular item",
+  purchaseInvoiceLineDescription: "A purchase invoice line contains invoice details for a particular item",
+  description: "Description",
+  method: "Method",
+  quantity: "Quantity",
+  unitPrice: "Unit Price",
+  supplierUnitPrice: "Supplier Unit Price",
+  shipping: "Shipping",
+  addOnCost: "Add On Cost",
+  tax: "Tax",
+  taxPercent: "Tax Percent",
+  location: "Location",
+  shelf: "Shelf",
+  unitOfMeasure: "Unit of Measure",
+  batchItemsRequireSalesOrder: "Batch items require a sales order",
+  serialItemsRequireSalesOrder: "Serial items require a sales order",
+  makeItemsCannotBeInvoiced: "Make items cannot be invoiced directly. Change method to Pick to continue."
 } as const;

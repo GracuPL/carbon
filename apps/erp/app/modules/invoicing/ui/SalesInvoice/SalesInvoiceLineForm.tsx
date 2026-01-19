@@ -1,5 +1,6 @@
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertTitle,
@@ -66,6 +67,7 @@ const SalesInvoiceLineForm = ({
   isSalesOrderLine = false,
   onClose
 }: SalesInvoiceLineFormProps) => {
+  const { t } = useTranslation(["invoicing", "common"]);
   const permissions = usePermissions();
   const { carbon } = useCarbon();
 
@@ -191,8 +193,8 @@ const SalesInvoiceLineForm = ({
         if (trackingType === "Batch" || trackingType === "Serial") {
           const errorMessage =
             trackingType === "Batch"
-              ? "Batch items require a sales order"
-              : "Serial items require a sales order";
+              ? t("invoicing:batchItemsRequireSalesOrder")
+              : t("invoicing:serialItemsRequireSalesOrder");
           toast.error(errorMessage);
           setItemData({
             itemId: "",
@@ -290,7 +292,7 @@ const SalesInvoiceLineForm = ({
               >
                 {isEditing
                   ? (getItemReadableId(items, itemData?.itemId) ?? "...")
-                  : "New Sales Invoice Line"}
+                  : t("invoicing:newSalesInvoiceLine")}
               </ModalCardTitle>
               <ModalCardDescription>
                 {isEditing ? (
@@ -315,13 +317,13 @@ const SalesInvoiceLineForm = ({
                       {initialValues?.taxPercent > 0 ? (
                         <Badge variant="red">
                           {percentFormatter.format(initialValues?.taxPercent)}{" "}
-                          Tax
+                          {t("invoicing:tax")}
                         </Badge>
                       ) : null}
                     </div>
                   </div>
                 ) : (
-                  "A sales invoice line contains invoice details for a particular item"
+                  t("invoicing:salesInvoiceLineDescription")
                 )}
               </ModalCardDescription>
             </ModalCardHeader>
@@ -344,8 +346,7 @@ const SalesInvoiceLineForm = ({
                   <Alert variant="destructive" className="mb-4">
                     <LuCircleAlert className="w-4 h-4" />
                     <AlertTitle>
-                      Make items cannot be invoiced directly. Change method to
-                      Pick to continue.
+                      {t("invoicing:makeItemsCannotBeInvoiced")}
                     </AlertTitle>
                   </Alert>
                 )}
@@ -362,7 +363,7 @@ const SalesInvoiceLineForm = ({
                   />
 
                   <FormControl className="col-span-2">
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t("invoicing:description")}</FormLabel>
                     <Input
                       value={itemData.description}
                       onChange={(e) =>
@@ -381,7 +382,7 @@ const SalesInvoiceLineForm = ({
                       <div className="space-y-2">
                         <SelectControlled
                           name="methodType"
-                          label="Method"
+                          label={t("invoicing:method")}
                           options={
                             methodType.map((m) => ({
                               label: (
@@ -406,7 +407,7 @@ const SalesInvoiceLineForm = ({
 
                       <NumberControlled
                         name="quantity"
-                        label="Quantity"
+                        label={t("invoicing:quantity")}
                         value={itemData.quantity}
                         onChange={(value) => {
                           setItemData((d) => ({
@@ -418,7 +419,7 @@ const SalesInvoiceLineForm = ({
 
                       <NumberControlled
                         name="unitPrice"
-                        label="Unit Price"
+                        label={t("invoicing:unitPrice")}
                         value={itemData.unitPrice}
                         formatOptions={{
                           style: "currency",
@@ -435,7 +436,7 @@ const SalesInvoiceLineForm = ({
                       />
                       <NumberControlled
                         name="shippingCost"
-                        label="Shipping"
+                        label={t("invoicing:shipping")}
                         value={itemData.shippingCost}
                         minValue={0}
                         formatOptions={{
@@ -454,7 +455,7 @@ const SalesInvoiceLineForm = ({
 
                       <Number
                         name="addOnCost"
-                        label="Add On Cost"
+                        label={t("invoicing:addOnCost")}
                         formatOptions={{
                           style: "currency",
                           currency:
@@ -465,7 +466,7 @@ const SalesInvoiceLineForm = ({
 
                       <NumberControlled
                         name="taxAmount"
-                        label="Tax"
+                        label={t("invoicing:tax")}
                         value={itemData.taxAmount}
                         formatOptions={{
                           style: "currency",
@@ -487,13 +488,13 @@ const SalesInvoiceLineForm = ({
 
                       <Location
                         name="locationId"
-                        label="Location"
+                        label={t("invoicing:location")}
                         value={locationId}
                         onChange={onLocationChange}
                       />
                       <Shelf
                         name="shelfId"
-                        label="Shelf"
+                        label={t("invoicing:shelf")}
                         locationId={locationId}
                         value={itemData.shelfId ?? undefined}
                         onChange={(newValue) => {
@@ -509,7 +510,7 @@ const SalesInvoiceLineForm = ({
                   )}
                   <NumberControlled
                     name="taxPercent"
-                    label="Tax Percent"
+                    label={t("invoicing:taxPercent")}
                     value={itemData.taxPercent}
                     minValue={0}
                     maxValue={1}
@@ -536,7 +537,7 @@ const SalesInvoiceLineForm = ({
             </ModalCardBody>
             <ModalCardFooter>
               <Submit isDisabled={isDisabled} withBlocker={false}>
-                Save
+                {t("common:save")}
               </Submit>
             </ModalCardFooter>
           </ValidatedForm>
