@@ -46,7 +46,7 @@ const PaymentTermForm = ({
   type = "drawer",
   onClose
 }: PaymentTermFormProps) => {
-  const { t } = useTranslation("accounting");
+  const { t } = useTranslation(["accounting", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
   const [selectedCalculationMethod, setSelectedCalculationMethod] =
@@ -57,13 +57,13 @@ const PaymentTermForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdPaymentTerm"));
+      toast.success(t("accounting:createdPaymentTerm"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        t("failedToCreatePaymentTerm", { message: fetcher.data.error.message })
+        t("accounting:failedToCreatePaymentTerm", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
@@ -98,17 +98,17 @@ const PaymentTermForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Payment Term
+                {isEditing ? t("accounting:editPaymentTerm") : t("accounting:newPaymentTerm")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("accounting:name")} />
                 <Select
                   name="calculationMethod"
-                  label="After"
+                  label={t("accounting:after")}
                   options={calculationMethodOptions}
                   onChange={(value) => {
                     setSelectedCalculationMethod(
@@ -118,29 +118,29 @@ const PaymentTermForm = ({
                 />
                 <Number
                   name="daysDue"
-                  label={`Due Days after ${selectedCalculationMethod}`}
+                  label={t("accounting:dueDaysAfter", { calculationMethod: selectedCalculationMethod })}
                   minValue={0}
-                  helperText="The amount of days after the calculation method that the payment is due"
+                  helperText={t("accounting:dueDaysHelper")}
                 />
                 <Number
                   name="daysDiscount"
-                  label={`Discount Days after ${selectedCalculationMethod}`}
+                  label={t("accounting:discountDaysAfter", { calculationMethod: selectedCalculationMethod })}
                   minValue={0}
-                  helperText="The amount of days after the calculation method that the cash discount is available"
+                  helperText={t("accounting:discountDaysHelper")}
                 />
                 <Number
                   name="discountPercentage"
-                  label="Discount Percent"
+                  label={t("accounting:discountPercent")}
                   minValue={0}
                   maxValue={100}
-                  helperText="The percentage of the cash discount. Use 0 for no discount."
+                  helperText={t("accounting:discountPercentHelper")}
                 />
                 <CustomFormFields table="paymentTerm" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               </HStack>
             </ModalDrawerFooter>
           </ValidatedForm>

@@ -173,5 +173,29 @@ export const accounting = {
   editCurrencyTitle: "Edit Currency",
   decimalPlaces: "Decimal Places",
   baseCurrencyHelper: "This is the base currency. Exchange rate is always 1.",
-  exchangeRateHelper: "One {{baseCurrency}} is equal to how many {{currency}}?"
+  exchangeRateHelper: "One {{baseCurrency}} is equal to how many {{currency}}?",
+
+  // Payment Term Form
+  newPaymentTerm: "New Payment Term",
+  after: "After",
+  dueDaysAfter: "Due Days after {{calculationMethod}}",
+  dueDaysHelper: "The amount of days after the calculation method that the payment is due",
+  discountDaysAfter: "Discount Days after {{calculationMethod}}",
+  discountDaysHelper: "The amount of days after the calculation method that the cash discount is available",
+  discountPercent: "Discount Percent",
+  discountPercentHelper: "The percentage of the cash discount. Use 0 for no discount.",
+
+  // Account Category Form
+  newAccountCategory: "New Account Category",
+  categoryName: "Category Name",
+
+  // Account Subcategory Form
+  subcategoryName: "Subcategory Name",
+
+  // Fiscal Year Form
+  fiscalYearSettings: "Fiscal Year Settings",
+  fiscalYearStart: "Start of Fiscal Year",
+  fiscalYearStartHelper: "This is the month your fiscal year starts.",
+  taxYearStart: "Start of Tax Year",
+  taxYearStartHelper: "This is the month your tax year starts."
 } as const;
