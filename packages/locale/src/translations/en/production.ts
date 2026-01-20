@@ -119,6 +119,11 @@ export const production = {
 
   // Demand Projections
   demandProjections: "Demand Projections",
+  newProductionProjection: "New Production Projection",
+  editProductionProjection: "Edit Production Projection",
+  demandProjectionDescription: "Set demand projection values for each week",
+  createProjection: "Create Projection",
+  updateProjection: "Update Projection",
   part: "Part",
   edit: "Edit",
   delete: "Delete",

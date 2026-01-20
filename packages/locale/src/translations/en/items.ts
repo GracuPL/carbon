@@ -67,6 +67,15 @@ export const items = {
   confirmDeletePart: "Are you sure you want to delete {{name}}? This cannot be undone.",
   versions: "Versions",
   revision: "Revision",
+  newRevision: "New Revision",
+  editRevision: "Edit Revision",
+  newRevisionDescription: "A new revision will be created using a copy of the current revision",
+  revisionHelperText: "The revision number of the part",
+  size: "Size",
+  newSize: "New Size",
+  editSize: "Edit Size",
+  newSizeDescription: "A new size will be created using a copy of the current size",
+  sizeHelperText: "The size of the part",
   update: "Update",
 
   // Tracking types

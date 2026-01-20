@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -33,6 +34,7 @@ const RevisionForm = ({
   open = true,
   onClose
 }: RevisionFormProps) => {
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<
     { success: false; message: string } | { success: true; link: string }
@@ -78,14 +80,15 @@ const RevisionForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"}{" "}
-                {hasSizesInsteadOfRevisions ? "Size" : "Revision"}
+                {isEditing
+                  ? (hasSizesInsteadOfRevisions ? t("items:editSize") : t("items:editRevision"))
+                  : (hasSizesInsteadOfRevisions ? t("items:newSize") : t("items:newRevision"))}
               </ModalDrawerTitle>
               {!isEditing && (
                 <ModalDrawerDescription>
-                  A new {hasSizesInsteadOfRevisions ? "size" : "revision"} will
-                  be created using a copy of the current
-                  {hasSizesInsteadOfRevisions ? "size" : "revision"}
+                  {hasSizesInsteadOfRevisions
+                    ? t("items:newSizeDescription")
+                    : t("items:newRevisionDescription")}
                 </ModalDrawerDescription>
               )}
             </ModalDrawerHeader>
@@ -97,11 +100,11 @@ const RevisionForm = ({
               <VStack spacing={4}>
                 <Input
                   name="revision"
-                  label={hasSizesInsteadOfRevisions ? "Size" : "Revision"}
+                  label={hasSizesInsteadOfRevisions ? t("items:size") : t("items:revision")}
                   helperText={
                     hasSizesInsteadOfRevisions
-                      ? "The size of the part"
-                      : "The revision number of the part"
+                      ? t("items:sizeHelperText")
+                      : t("items:revisionHelperText")
                   }
                 />
               </VStack>
@@ -112,7 +115,7 @@ const RevisionForm = ({
                   isLoading={fetcher.state !== "idle"}
                   isDisabled={fetcher.state !== "idle" || isDisabled}
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </HStack>
             </ModalDrawerFooter>

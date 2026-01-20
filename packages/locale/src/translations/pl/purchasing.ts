@@ -116,6 +116,14 @@ export const purchasing = {
   editSupplierType: "Edytuj typ dostawcy",
   deleteSupplierType: "Usuń typ dostawcy",
 
+  // Supplier Process - Proces dostawcy
+  supplierProcess: "Proces dostawcy",
+  newSupplierProcess: "Nowy proces dostawcy",
+  editSupplierProcess: "Edytuj proces dostawcy",
+  process: "Proces",
+  minimumCost: "Minimalny koszt",
+  standardLeadTime: "Standardowy czas realizacji",
+
   // Planning - Planowanie
   planning: "Planowanie",
   partId: "ID wyrobu",

@@ -67,6 +67,15 @@ export const items = {
   confirmDeletePart: "Czy na pewno chcesz usunąć {{name}}? Tej operacji nie można cofnąć.",
   versions: "Wersje",
   revision: "Rewizja",
+  newRevision: "Nowa rewizja",
+  editRevision: "Edytuj rewizję",
+  newRevisionDescription: "Nowa rewizja zostanie utworzona jako kopia bieżącej rewizji",
+  revisionHelperText: "Numer rewizji wyrobu",
+  size: "Rozmiar",
+  newSize: "Nowy rozmiar",
+  editSize: "Edytuj rozmiar",
+  newSizeDescription: "Nowy rozmiar zostanie utworzony jako kopia bieżącego rozmiaru",
+  sizeHelperText: "Rozmiar wyrobu",
   update: "Aktualizuj",
 
   // Tracking types - Typy śledzenia
