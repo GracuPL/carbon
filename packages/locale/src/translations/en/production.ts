@@ -119,6 +119,11 @@ export const production = {
 
   // Demand Projections
   demandProjections: "Demand Projections",
+  newProductionProjection: "New Production Projection",
+  editProductionProjection: "Edit Production Projection",
+  demandProjectionDescription: "Set demand projection values for each week",
+  createProjection: "Create Projection",
+  updateProjection: "Update Projection",
   part: "Part",
   edit: "Edit",
   delete: "Delete",
@@ -132,6 +137,9 @@ export const production = {
   materials: "Materials",
   removeTransfer: "Remove Transfer",
   removeOrder: "Remove Order",
+  methodType: "Method Type",
+  quantityPerParent: "Quantity per Parent",
+  unitCost: "Unit Cost",
 
   // Job Operations Table
   description: "Description",
@@ -154,15 +162,51 @@ export const production = {
   notes: "Notes",
   productionEvent: "Production Event",
   productionEvents: "Production Events",
+  newProductionEvent: "Create Production Event",
+  editProductionEvent: "Edit Production Event",
   editEvent: "Edit Event",
   deleteEvent: "Delete Event",
   confirmDeleteEvent: "Are you sure you want to delete this production event? This action cannot be undone.",
+  eventType: "Event Type",
+  labor: "Labor",
+  machine: "Machine",
+  setup: "Setup",
 
   // Production Quantities Table
   productionQuantities: "Production Quantities",
+  editProductionQuantity: "Edit Production Quantity",
+  quantityType: "Quantity Type",
+  productionType: "Production",
+  scrap: "Scrap",
+  rework: "Rework",
   editQuantity: "Edit Quantity",
   deleteQuantity: "Delete Quantity",
   confirmDeleteQuantity: "Are you sure you want to delete this production quantity? This action cannot be undone.",
+
+  // Job Form
+  singleJob: "Single Job",
+  manyJobs: "Many Jobs",
+  jobDescription: "A job is a set of work to be done to fulfill an order or increase inventory",
+  shortDescription: "Short Description",
+  scrapQuantity: "Scrap Quantity",
+  bulkJobs: "Bulk Jobs",
+  bulkJobsDescription: "The bulk jobs form creates multiple jobs for the same item across multiple due dates.",
+  totalQuantity: "Total Quantity",
+  quantityPerJob: "Quantity Per Job",
+  scrapQuantityPerJob: "Scrap Quantity Per Job",
+  dueDateOfFirstJob: "Due Date of First Job",
+  dueDateOfLastJob: "Due Date of Last Job",
+
+  // Procedure Form
+  newProcedure: "New Procedure",
+  copyProcedure: "Copy Procedure",
+  newVersion: "New Version",
+  newVersionHelper: "The new version number of the procedure",
+  versionHelper: "The version of the new procedure",
+
+  // Scrap Reason Form
+  newScrapReason: "New Scrap Reason",
+  failedToCreateScrapReason: "Failed to create scrap reason: {{message}}",
 
   // Toast messages - Success
   ordersSubmitted: "Orders submitted",

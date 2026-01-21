@@ -35,8 +35,7 @@ const CustomerStatusForm = ({
   type = "drawer",
   onClose
 }: CustomerStatusFormProps) => {
-  const { t } = useTranslation("sales");
-  const { t: tNav } = useTranslation("navigation");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -81,22 +80,22 @@ const CustomerStatusForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Customer Status
+                {isEditing ? t("sales:editCustomerStatus") : t("sales:newCustomerStatus")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Customer Status" />
+                <Input name="name" label={t("sales:customerStatus")} />
                 <CustomFormFields table="customerStatus" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled} />
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  {tNav("cancel")}
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

@@ -44,7 +44,7 @@ const SupplierProcessForm = ({
   open = true,
   onClose
 }: SupplierProcessFormProps) => {
-  const { t } = useTranslation("purchasing");
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<SupplierProcess>>();
   const { supplierId } = useParams();
@@ -99,7 +99,7 @@ const SupplierProcessForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Supplier Process
+                {isEditing ? t("purchasing:editSupplierProcess") : t("purchasing:newSupplierProcess")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -110,14 +110,14 @@ const SupplierProcessForm = ({
                 {supplierId === undefined && (
                   <Supplier
                     name="supplierId"
-                    label="Supplier"
+                    label={t("purchasing:supplier")}
                     onChange={(newValue) => setSupplier(newValue?.value)}
                   />
                 )}
-                <Process name="processId" label="Process" />
+                <Process name="processId" label={t("purchasing:process")} />
                 <Number
                   name="minimumCost"
-                  label="Minimum Cost"
+                  label={t("purchasing:minimumCost")}
                   formatOptions={{
                     style: "currency",
                     currency: baseCurrency
@@ -126,7 +126,7 @@ const SupplierProcessForm = ({
                 />
                 <Number
                   name="leadTime"
-                  label="Standard Lead Time"
+                  label={t("purchasing:standardLeadTime")}
                   minValue={0}
                 />
 
@@ -135,9 +135,9 @@ const SupplierProcessForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose?.()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

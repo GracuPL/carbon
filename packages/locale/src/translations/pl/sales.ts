@@ -90,7 +90,10 @@ export const sales = {
   location: "Lokalizacja",
 
   // Quote fields - Pola oferty
+  quoteId: "ID oferty",
   quoteNumber: "Numer oferty",
+  quoteLocation: "Lokalizacja oferty",
+  quoteDescription: "Oferta to zestaw cen dla określonych wyrobów i ilości.",
   customerRfq: "Zapytanie klienta",
   salesPerson: "Handlowiec",
   estimator: "Kosztorysant",
@@ -112,24 +115,30 @@ export const sales = {
   salesOrders: "Zamówienia sprzedaży",
 
   // RFQ fields - Pola zapytania
+  rfqId: "ID zapytania",
   rfqNumber: "Numer zapytania",
+  rfqLocation: "Lokalizacja zapytania",
   rfqDate: "Data zapytania",
+  rfqFormDescription: "Zapytanie ofertowe (RFQ) to zapytanie klienta o wycenę zestawu wyrobów i ilości. Może skutkować ofertą.",
 
   // Customer Status - Status klienta
   customerStatus: "Status klienta",
   customerStatuses: "Statusy klientów",
   viewCustomers: "Zobacz klientów",
+  newCustomerStatus: "Nowy status klienta",
   editCustomerStatus: "Edytuj status klienta",
   deleteCustomerStatus: "Usuń status klienta",
 
   // Customer Type - Typ klienta
   customerType: "Typ klienta",
+  newCustomerType: "Nowy typ klienta",
   editCustomerType: "Edytuj typ klienta",
   deleteCustomerType: "Usuń typ klienta",
 
   // No Quote Reasons - Powody braku oferty
   reason: "Powód",
   reasons: "Powody",
+  newNoQuoteReason: "Nowy powód braku oferty",
   editReason: "Edytuj powód",
   deleteReason: "Usuń powód",
 
@@ -137,6 +146,7 @@ export const sales = {
   customerPortal: "Portal klienta",
   customerPortals: "Portale klientów",
   portalLink: "Link do portalu",
+  newCustomerPortal: "Nowy portal klienta",
   editPortal: "Edytuj portal",
   deletePortal: "Usuń portal",
 
@@ -250,6 +260,9 @@ export const sales = {
   shippingCustomer: "Klient do wysyłki",
   shippingLocation: "Lokalizacja do wysyłki",
   shippingContact: "Kontakt do wysyłki",
+  shipmentLocation: "Lokalizacja wysyłki",
+  shipmentDate: "Data wysyłki",
+  trackingNumber: "Numer przesyłki",
 
   // Customer Contact Form - Formularz kontaktu klienta
   newContact: "Nowy kontakt",
@@ -268,5 +281,40 @@ export const sales = {
   editLocation: "Edytuj lokalizację",
 
   // Quote Payment Form - Formularz płatności oferty
-  payment: "Płatność"
+  payment: "Płatność",
+
+  // Quote Line Form - Formularz pozycji oferty
+  quoteLine: "Pozycja oferty",
+  newQuoteLine: "Nowa pozycja oferty",
+  selectQuote: "Wybierz ofertę",
+  selectQuoteLine: "Wybierz pozycję oferty",
+  quoteLineDescription: "Pozycja oferty zawiera ceny i czasy realizacji dla konkretnego wyrobu",
+  deleteLine: "Usuń pozycję",
+  viewItemMaster: "Zobacz kartotekę wyrobu",
+  part: "Wyrób",
+  shortDescription: "Krótki opis",
+  method: "Metoda",
+  lineStatus: "Status pozycji",
+  customerPartNumber: "Numer wyrobu klienta",
+  customerPartRevision: "Rewizja wyrobu klienta",
+  noQuoteReason: "Powód braku oferty",
+  quantity: "Ilość",
+  tax: "Podatek",
+  configureItem: "Konfiguruj",
+
+  // Sales Order Line Form - Formularz pozycji zamówienia
+  salesOrderLine: "Pozycja zamówienia",
+  newSalesOrderLine: "Nowa pozycja zamówienia",
+  salesOrderLineDescription: "Pozycja zamówienia zawiera szczegóły zamówienia dla konkretnego wyrobu",
+  unitOfMeasure: "Jednostka miary",
+  unitPrice: "Cena jednostkowa",
+  shippingCost: "Koszt wysyłki",
+  addOnCost: "Koszt dodatkowy",
+  shelf: "Półka",
+
+  // Sales RFQ Line Form - Formularz pozycji zapytania
+  rfqLine: "Pozycja zapytania",
+  newRfqLine: "Nowa pozycja zapytania",
+  rfqLineDescription: "Pozycja zapytania zawiera informacje o wyrobie i ilości żądanego wyrobu",
+  description: "Opis"
 } as const;

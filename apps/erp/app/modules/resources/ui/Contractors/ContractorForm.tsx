@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -31,6 +32,7 @@ type ContractorFormProps = {
 };
 
 const ContractorForm = ({ initialValues }: ContractorFormProps) => {
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const location = useLocation();
@@ -65,17 +67,16 @@ const ContractorForm = ({ initialValues }: ContractorFormProps) => {
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Contractor</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("resources:editContractor") : t("resources:newContractor")}</DrawerTitle>
             <DrawerDescription>
-              A contractor is a supplier contact with particular abilities and
-              available hours
+              {t("resources:contractorDescription")}
             </DrawerDescription>
           </DrawerHeader>
           <DrawerBody>
             <VStack spacing={4}>
               <Supplier
                 name="supplierId"
-                label="Supplier"
+                label={t("resources:supplier")}
                 isReadOnly={isEditing}
                 onChange={(value) => setSupplier(value?.value as string)}
               />
@@ -87,8 +88,8 @@ const ContractorForm = ({ initialValues }: ContractorFormProps) => {
               {/* <Abilities name="abilities" label="Abilities" /> */}
               <Number
                 name="hoursPerWeek"
-                label="Hours per Week"
-                helperText="The number of hours per week the contractor is available to work."
+                label={t("resources:hoursPerWeek")}
+                helperText={t("resources:hoursPerWeekHelper")}
                 minValue={0}
                 maxValue={10000}
               />
@@ -97,9 +98,9 @@ const ContractorForm = ({ initialValues }: ContractorFormProps) => {
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

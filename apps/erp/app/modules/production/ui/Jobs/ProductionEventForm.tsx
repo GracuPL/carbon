@@ -1,4 +1,5 @@
 import { TextArea, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -43,6 +44,7 @@ const ProductionEventForm = ({
   initialValues,
   operationOptions
 }: ProductionEventFormProps) => {
+  const { t } = useTranslation(["production", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -79,7 +81,7 @@ const ProductionEventForm = ({
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit Production Event" : "Create Production Event"}
+              {isEditing ? t("production:editProductionEvent") : t("production:newProductionEvent")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
@@ -88,44 +90,44 @@ const ProductionEventForm = ({
             <VStack spacing={4}>
               <Select
                 name="jobOperationId"
-                label="Operation"
+                label={t("production:operation")}
                 options={operationOptions ?? []}
               />
-              <Employee name="employeeId" label="Employee" />
+              <Employee name="employeeId" label={t("production:employee")} />
               <WorkCenter
                 name="workCenterId"
-                label="Work Center"
+                label={t("production:workCenter")}
                 processId={initialValues.jobOperationId}
               />
               <Select
                 name="type"
-                label="Event Type"
+                label={t("production:eventType")}
                 options={[
-                  { label: "Labor", value: "Labor" },
-                  { label: "Machine", value: "Machine" },
-                  { label: "Setup", value: "Setup" }
+                  { label: t("production:labor"), value: "Labor" },
+                  { label: t("production:machine"), value: "Machine" },
+                  { label: t("production:setup"), value: "Setup" }
                 ]}
               />
               <DateTimePicker
                 name="startTime"
-                label="Start Time"
+                label={t("production:startTime")}
                 maxValue={endTime}
                 onChange={setStartTime}
               />
               <DateTimePicker
                 name="endTime"
-                label="End Time"
+                label={t("production:endTime")}
                 minValue={startTime}
                 onChange={setEndTime}
               />
-              <TextArea name="notes" label="Notes" />
+              <TextArea name="notes" label={t("production:notes")} />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

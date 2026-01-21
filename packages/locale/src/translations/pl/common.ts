@@ -8,6 +8,7 @@ export const common = {
   add: "Dodaj",
   remove: "Usuń",
   close: "Zamknij",
+  openMenu: "Otwórz menu",
   back: "Wstecz",
   next: "Dalej",
   previous: "Poprzedni",

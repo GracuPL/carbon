@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ type SupplierPaymentFormProps = {
 const SupplierAccountingForm = ({
   initialValues
 }: SupplierPaymentFormProps) => {
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
 
   const isDisabled = !permissions.can("update", "purchasing");
@@ -31,22 +33,22 @@ const SupplierAccountingForm = ({
     >
       <Card>
         <CardHeader>
-          <CardTitle>Supplier Accounting</CardTitle>
+          <CardTitle>{t("purchasing:supplierAccounting")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="id" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
-            <Input name="taxId" label="Tax ID" />
+            <Input name="taxId" label={t("purchasing:taxId")} />
             <SupplierType
               name="supplierTypeId"
-              label="Posting Group"
-              placeholder="Select Posting Group"
+              label={t("purchasing:postingGroup")}
+              placeholder={t("purchasing:selectPostingGroup")}
             />
           </div>
         </CardContent>
         <CardFooter>
           <HStack>
-            <Submit isDisabled={isDisabled}>Save</Submit>
+            <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
           </HStack>
         </CardFooter>
       </Card>

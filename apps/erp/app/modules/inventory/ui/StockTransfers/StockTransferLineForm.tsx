@@ -39,7 +39,7 @@ const StockTransferLineForm = ({
   type = "drawer",
   onClose
 }: StockTransferLineFormProps) => {
-  const { t } = useTranslation("inventory");
+  const { t } = useTranslation(["inventory", "common"]);
   const { id } = useParams();
   if (!id) throw new Error("id not found");
 
@@ -127,7 +127,7 @@ const StockTransferLineForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Line
+                {isEditing ? t("inventory:editLine") : t("inventory:newLine")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -155,20 +155,20 @@ const StockTransferLineForm = ({
                 />
                 <Number
                   name="quantity"
-                  label="Quantity"
+                  label={t("inventory:quantity")}
                   minValue={itemTrackingType === "Serial" ? 1 : 0}
                   maxValue={itemTrackingType === "Serial" ? 1 : undefined}
                   defaultValue={itemTrackingType === "Serial" ? 1 : undefined}
                 />
                 <Shelf
                   name="fromShelfId"
-                  label="From Shelf"
+                  label={t("inventory:fromShelf")}
                   locationId={locationId}
                   itemId={itemId ?? undefined}
                 />
                 <Shelf
                   name="toShelfId"
-                  label="To Shelf"
+                  label={t("inventory:toShelf")}
                   locationId={locationId}
                   itemId={itemId ?? undefined}
                 />
@@ -176,7 +176,7 @@ const StockTransferLineForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               </HStack>
             </ModalDrawerFooter>
           </ValidatedForm>

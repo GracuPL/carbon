@@ -42,7 +42,7 @@ const LocationForm = ({
   type = "drawer",
   onClose
 }: LocationFormProps) => {
-  const { t } = useTranslation("resources");
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -51,9 +51,9 @@ const LocationForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdLocation"));
+      toast.success(t("resources:createdLocation"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(t("failedToCreateLocation", { message: fetcher.data.error.message }));
+      toast.error(t("resources:failedToCreateLocation", { message: fetcher.data.error.message }));
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
 
@@ -85,16 +85,16 @@ const LocationForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Location
+                {isEditing ? t("resources:editLocation") : t("resources:newLocation")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Location Name" />
+                <Input name="name" label={t("resources:locationName")} />
                 <AddressAutocomplete />
-                <Timezone name="timezone" label="Timezone" />
+                <Timezone name="timezone" label={t("resources:timezone")} />
                 {/* <Number name="latitude" label="Latitude" minValue={-90} maxValue={90} />
               <Number name="longitude" label="Longitude" minVale={-180} maxValue={180} /> */}
                 <CustomFormFields table="location" />
@@ -102,9 +102,9 @@ const LocationForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose?.()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

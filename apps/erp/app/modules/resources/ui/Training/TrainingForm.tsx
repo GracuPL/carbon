@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   HStack,
   ModalDrawer,
@@ -29,6 +30,7 @@ const TrainingForm = ({
   open = true,
   onClose
 }: TrainingFormProps) => {
+  const { t } = useTranslation(["resources", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -60,13 +62,13 @@ const TrainingForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Training
+                {isEditing ? t("resources:editTraining") : t("resources:newTraining")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("resources:name")} />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
@@ -75,7 +77,7 @@ const TrainingForm = ({
                   isLoading={fetcher.state !== "idle"}
                   isDisabled={fetcher.state !== "idle" || isDisabled}
                 >
-                  Save
+                  {t("common:save")}
                 </Submit>
               </HStack>
             </ModalDrawerFooter>

@@ -215,5 +215,67 @@ export const quality = {
   newIssue: "Nowy problem",
   issueDescription: "Zapis problemu śledzi problemy jakościowe i proces ich rozwiązywania.",
   workflow: "Przepływ pracy",
-  approvalRequirements: "Wymagania zatwierdzenia"
+  approvalRequirements: "Wymagania zatwierdzenia",
+
+  // Gauge Type Form - Formularz typu przyrządu
+  newGaugeType: "Nowy typ przyrządu",
+
+  // Issue Type Form - Formularz typu niezgodności
+  newIssueType: "Nowy typ niezgodności",
+  nonConformanceType: "Typ niezgodności",
+  failedToCreateIssueType: "Nie udało się utworzyć typu niezgodności: {{message}}",
+
+  // Issue Workflow Form - Formularz przepływu problemu
+  newIssueWorkflow: "Nowy przepływ problemu",
+  issueWorkflowDescription: "Przepływy problemów definiują predefiniowane wartości dla problemu. Na przykład możesz mieć przepływ 8D lub przepływ powstrzymania.",
+  issueTemplate: "Szablon problemu",
+  requiredActionsInOrder: "Wymagane działania (w kolejności)",
+  availableActionsClickToAdd: "Dostępne działania (kliknij aby dodać):",
+  noRequiredActionsAvailable: "Brak dostępnych wymaganych działań",
+  inactiveActionsHelper: "Nieaktywne działania nie będą wyświetlane na listach wyboru",
+
+  // Required Action Form - Formularz wymaganego działania
+  newRequiredAction: "Nowe wymagane działanie",
+  failedToCreateRequiredAction: "Nie udało się utworzyć wymaganego działania: {{message}}",
+
+  // Gauge Form - Formularz przyrządu
+  newGauge: "Nowy przyrząd",
+  gaugeId: "ID przyrządu",
+  details: "Szczegóły",
+  addCalibrationRecord: "Dodaj rekord kalibracji",
+  calibrationRecord: "Rekord kalibracji",
+  updated: "Zaktualizowano",
+  noCalibrationRecordsFound: "Nie znaleziono rekordów kalibracji",
+  dateAcquired: "Data nabycia",
+  lastCalibrationDate: "Data ostatniej kalibracji",
+  shelf: "Półka",
+  calibrationIntervalMonths: "Interwał kalibracji (miesiące)",
+
+  // Gauge Calibration Record Form - Formularz rekordu kalibracji
+  newCalibrationRecord: "Nowy rekord kalibracji",
+  editCalibrationRecord: "Edytuj rekord kalibracji przyrządu",
+  newGaugeCalibrationRecord: "Nowy rekord kalibracji przyrządu",
+  noGaugeSelected: "Nie wybrano przyrządu",
+  selectGauge: "Wybierz przyrząd",
+  calibrationAttempts: "Próby kalibracji",
+  measurementStandard: "Standard pomiarowy",
+  reference: "Wartość referencyjna",
+  actual: "Wartość rzeczywista",
+  add: "Dodaj",
+  remove: "Usuń",
+  notes: "Notatki",
+  confirm: "Potwierdź",
+
+  // Quality Document Form - Formularz dokumentu jakości
+  newDocument: "Nowy dokument",
+  copyDocument: "Kopiuj dokument jakości",
+  newQualityDocument: "Nowy dokument jakości",
+  newVersionDoc: "Nowa wersja",
+  versionDoc: "Wersja",
+  newVersionDocHelper: "Nowy numer wersji dokumentu",
+  versionDocHelper: "Wersja nowego dokumentu",
+
+  // Risk Register Form - Formularz rejestru ryzyk
+  newRisk: "Nowe ryzyko",
+  editRiskTitle: "Edytuj {{type}}"
 } as const;

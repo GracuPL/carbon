@@ -22,9 +22,11 @@ export const settings = {
   apiKey: "Klucz API",
   apiKeys: "Klucze API",
   key: "Klucz",
+  newApiKey: "Nowy klucz API",
   editApiKey: "Edytuj klucz API",
   deleteApiKey: "Usuń klucz API",
   apiDocs: "Dokumentacja API",
+  apiKeyWarning: "Ten klucz zobaczysz tylko raz. Przechowuj go bezpiecznie.",
 
   // Sequences - Sekwencje
   sequence: "Sekwencja",
@@ -50,8 +52,17 @@ export const settings = {
   webhooks: "Webhooki",
   success: "Sukces",
   webhooksDocs: "Dokumentacja webhooków",
+  newWebhook: "Nowy webhook",
   editWebhook: "Edytuj webhook",
   deleteWebhook: "Usuń webhook",
+  notifications: "Powiadomienia",
+  insert: "Wstawienie",
+  update: "Aktualizacja",
+  deleteEvent: "Usunięcie",
+  webhookNameHelper: "To jest unikalny identyfikator webhooka",
+  webhookUrl: "URL webhooka",
+  webhookUrlHelper: "Endpoint, który otrzymuje żądanie POST z zaktualizowanymi danymi po aktualizacji tabeli",
+  active: "Aktywny",
 
   // Common fields - Wspólne pola
   name: "Nazwa",
@@ -72,5 +83,37 @@ export const settings = {
   integrationNotFound: "Nie znaleziono integracji",
 
   // Company page - Strona firmy
-  companyHeading: "Firma"
+  companyHeading: "Firma",
+
+  // Sequence Form - Formularz sekwencji
+  sequenceTitle: "Sekwencja {{name}}",
+  fullYear: "Pełny rok",
+  year: "Rok",
+  month: "Miesiąc",
+  day: "Dzień",
+  hour: "Godzina",
+  minute: "Minuta",
+  second: "Sekunda",
+
+  // Custom Field Form - Formularz pola niestandardowego
+  newCustomField: "Nowe pole niestandardowe",
+  fieldName: "Nazwa pola",
+  sortOrder: "Kolejność sortowania",
+  dataType: "Typ danych",
+  listOptions: "Opcje listy",
+  dataTypeCannotBeChanged: "Typ danych nie może być zmieniony",
+  customFieldTagsHelper: "Te pola niestandardowe będą dostępne tylko dla encji z tymi samymi tagami",
+
+  // Integration Form - Formularz integracji
+  installed: "Zainstalowany",
+  publishedByCarbon: "Opublikowany przez Carbon",
+  howItWorks: "Jak to działa",
+  setupInstructions: "Instrukcje konfiguracji",
+  integrationDisclaimer: "Carbon Manufacturing Systems nie popiera żadnego oprogramowania firm trzecich. Zgłoś wszelkie obawy dotyczące zawartości lub zachowania aplikacji.",
+  reportIntegration: "Zgłoś integrację",
+  install: "Instaluj",
+
+  // Theme Form - Formularz motywu
+  theme: "Motyw",
+  themeDescription: "Ta zmiana aktualizuje motyw dla wszystkich użytkowników aplikacji"
 } as const;

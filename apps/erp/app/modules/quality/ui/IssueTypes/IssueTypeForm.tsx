@@ -35,7 +35,7 @@ const IssueTypeForm = ({
   type = "drawer",
   onClose
 }: IssueTypeFormProps) => {
-  const { t } = useTranslation("quality");
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -44,10 +44,10 @@ const IssueTypeForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdIssueType"));
+      toast.success(t("quality:createdIssueType"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        t("failedToCreateGaugeType", { message: fetcher.data.error.message })
+        t("quality:failedToCreateIssueType", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
@@ -80,22 +80,22 @@ const IssueTypeForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Non Conformance Type
+                {isEditing ? t("quality:editIssueType") : t("quality:newIssueType")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Non Conformance Type" />
+                <Input name="name" label={t("quality:nonConformanceType")} />
                 <CustomFormFields table="nonConformanceType" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

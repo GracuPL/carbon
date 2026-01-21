@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -69,6 +70,7 @@ const WarehouseTransferLineForm = ({
   warehouseTransfer,
   onClose
 }: WarehouseTransferLineFormProps) => {
+  const { t } = useTranslation(["inventory", "common"]);
   const permissions = usePermissions();
   const { transferId } = useParams();
 
@@ -121,7 +123,7 @@ const WarehouseTransferLineForm = ({
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit" : "New"} Transfer Line
+              {isEditing ? t("inventory:editTransferLine") : t("inventory:newTransferLine")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
@@ -134,7 +136,7 @@ const WarehouseTransferLineForm = ({
             <VStack spacing={4}>
               <Item
                 name="itemId"
-                label="Item"
+                label={t("inventory:item")}
                 type={itemType}
                 onTypeChange={(t) => setItemType(t as MethodItemType)}
                 value={itemId}
@@ -144,23 +146,23 @@ const WarehouseTransferLineForm = ({
               />
               <Number
                 name="quantity"
-                label="Quantity"
+                label={t("inventory:quantity")}
                 minValue={0.0001}
                 step={0.0001}
               />
               <Shelf
                 name="fromShelfId"
-                label="From Shelf"
+                label={t("inventory:fromShelf")}
                 itemId={itemId ?? undefined}
                 locationId={warehouseTransfer.fromLocationId}
               />
               <Shelf
                 name="toShelfId"
-                label="To Shelf"
+                label={t("inventory:toShelf")}
                 itemId={itemId ?? undefined}
                 locationId={warehouseTransfer.toLocationId}
               />
-              <TextArea name="notes" label="Notes" rows={3} />
+              <TextArea name="notes" label={t("inventory:notes")} rows={3} />
               <CustomFormFields table="warehouseTransferLine" />
             </VStack>
           </DrawerBody>
@@ -171,10 +173,10 @@ const WarehouseTransferLineForm = ({
                 isLoading={fetcher.state !== "idle"}
                 withBlocker={false}
               >
-                Save
+                {t("common:save")}
               </Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

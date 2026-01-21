@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -47,6 +48,7 @@ const AttributeForm = ({
   dataTypes,
   onClose
 }: AttributeFormProps) => {
+  const { t } = useTranslation(["users", "common"]);
   const permissions = usePermissions();
 
   const options =
@@ -95,39 +97,39 @@ const AttributeForm = ({
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Attribute</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("users:editAttribute") : t("users:newAttribute")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack spacing={4}>
-              <Input name="name" label="Name" />
+              <Input name="name" label={t("users:name")} />
               <Hidden name="userAttributeCategoryId" />
 
               <Select
                 name="attributeDataTypeId"
-                label="Data Type"
+                label={t("users:dataType")}
                 isReadOnly={isEditing}
                 helperText={
-                  isEditing ? "Data type cannot be changed" : undefined
+                  isEditing ? t("users:dataTypeCannotBeChanged") : undefined
                 }
                 options={options}
                 onChange={onChangeCheckForListType}
               />
-              {isList && <Array name="listOptions" label="List Options" />}
+              {isList && <Array name="listOptions" label={t("users:listOptions")} />}
               <Boolean
                 name="canSelfManage"
-                label="Self Managed"
-                description="Users can update this value for themselves"
+                label={t("users:selfManaged")}
+                description={t("users:selfManagedDescription")}
               />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
               <Submit withBlocker={false} isDisabled={isDisabled}>
-                Save
+                {t("common:save")}
               </Submit>
             </HStack>
           </DrawerFooter>

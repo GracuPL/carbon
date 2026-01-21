@@ -78,7 +78,7 @@ const IssueWorkflowForm = ({
   requiredActions,
   onClose
 }: IssueWorkflowFormProps) => {
-  const { t } = useTranslation("quality");
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
 
   const [content, setContent] = useState<JSONContent>(
@@ -136,12 +136,12 @@ const IssueWorkflowForm = ({
     const result = await carbon?.storage.from("private").upload(fileName, file);
 
     if (result?.error) {
-      toast.error(t("failedToUploadImage"));
+      toast.error(t("quality:failedToUploadImage"));
       throw new Error(result.error.message);
     }
 
     if (!result?.data) {
-      throw new Error(t("failedToUploadImage"));
+      throw new Error(t("quality:failedToUploadImage"));
     }
 
     return getPrivateUrl(result.data.path);
@@ -172,22 +172,20 @@ const IssueWorkflowForm = ({
         <HStack className="w-full justify-between">
           <VStack spacing={0}>
             <Heading size="h3">
-              {isEditing ? "Edit" : "New"}{" "}
-              <span className="hidden md:inline">Issue</span> Workflow
+              {isEditing ? t("quality:editIssueWorkflow") : t("quality:newIssueWorkflow")}
             </Heading>
             <p className="text-sm text-muted-foreground">
-              Issue workflows defined the preset values for an issue. For
-              example, you can have an 8D workflow or a containment workflow.
+              {t("quality:issueWorkflowDescription")}
             </p>
           </VStack>
         </HStack>
-        <Input name="name" label="Name" />
+        <Input name="name" label={t("quality:name")} />
         <VStack spacing={2}>
           <label
             htmlFor="content"
             className="text-xs text-muted-foreground font-medium"
           >
-            Issue Template
+            {t("quality:issueTemplate")}
           </label>
           <Card className="p-0 bg-transparent dark:from-transparent  dark:via-transparent dark:to-transparent">
             <CardContent className="flex flex-col gap-0 p-6">
@@ -214,7 +212,7 @@ const IssueWorkflowForm = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <Select
             name="priority"
-            label="Priority"
+            label={t("quality:priority")}
             options={nonConformancePriority.map((priority) => ({
               label: (
                 <div className="flex gap-1 items-center">
@@ -227,7 +225,7 @@ const IssueWorkflowForm = ({
           />
           <Select
             name="source"
-            label="Source"
+            label={t("quality:source")}
             options={nonConformanceSource.map((source) => ({
               label: source,
               value: source
@@ -239,7 +237,7 @@ const IssueWorkflowForm = ({
             htmlFor="requiredActions"
             className="text-xs text-muted-foreground font-medium"
           >
-            Required Actions (in order)
+            {t("quality:requiredActionsInOrder")}
           </label>
 
           {orderedActions.length > 0 && (
@@ -262,7 +260,7 @@ const IssueWorkflowForm = ({
           {availableActions.length > 0 && (
             <VStack spacing={2} className="mt-2">
               <p className="text-xs text-muted-foreground">
-                Available Actions (click to add):
+                {t("quality:availableActionsClickToAdd")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {availableActions.map((action) => (
@@ -286,14 +284,14 @@ const IssueWorkflowForm = ({
 
           {orderedActions.length === 0 && availableActions.length === 0 && (
             <p className="text-sm text-muted-foreground italic">
-              No required actions available
+              {t("quality:noRequiredActionsAvailable")}
             </p>
           )}
         </VStack>
 
         <MultiSelect
           name="approvalRequirements"
-          label="Approval Requirements"
+          label={t("quality:approvalRequirements")}
           options={nonConformanceApprovalRequirement.map((requirement) => ({
             label: requirement,
             value: requirement
@@ -302,9 +300,9 @@ const IssueWorkflowForm = ({
 
         <HStack className="w-full justify-end">
           <Button variant="secondary" onClick={onClose}>
-            Cancel
+            {t("common:cancel")}
           </Button>
-          <Submit isDisabled={isDisabled}>Save</Submit>
+          <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
         </HStack>
       </VStack>
     </ValidatedForm>

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -26,6 +27,7 @@ type SupplierPaymentFormProps = {
 };
 
 const SupplierPaymentForm = ({ initialValues }: SupplierPaymentFormProps) => {
+  const { t } = useTranslation(["purchasing", "common"]);
   const permissions = usePermissions();
   const [supplier, setSupplier] = useState<string | undefined>(
     initialValues.invoiceSupplierId
@@ -41,34 +43,34 @@ const SupplierPaymentForm = ({ initialValues }: SupplierPaymentFormProps) => {
     >
       <Card>
         <CardHeader>
-          <CardTitle>Payment Terms</CardTitle>
+          <CardTitle>{t("purchasing:paymentTerms")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="supplierId" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Supplier
               name="invoiceSupplierId"
-              label="Invoice Supplier"
+              label={t("purchasing:invoiceSupplier")}
               onChange={(value) => setSupplier(value?.value as string)}
             />
             <SupplierLocation
               name="invoiceSupplierLocationId"
-              label="Invoice Location"
+              label={t("purchasing:invoiceLocation")}
               supplier={supplier}
             />
             <SupplierContact
               name="invoiceSupplierContactId"
-              label="Invoice Contact"
+              label={t("purchasing:invoiceContact")}
               supplier={supplier}
             />
 
-            <PaymentTerm name="paymentTermId" label="Payment Term" />
+            <PaymentTerm name="paymentTermId" label={t("purchasing:paymentTerm")} />
             <CustomFormFields table="supplierPayment" />
           </div>
         </CardContent>
         <CardFooter>
           <HStack>
-            <Submit isDisabled={isDisabled}>Save</Submit>
+            <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
           </HStack>
         </CardFooter>
       </Card>

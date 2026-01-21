@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Alert,
   AlertTitle,
@@ -32,6 +33,7 @@ type ApiKeyFormProps = {
 };
 
 const ApiKeyForm = ({ initialValues, onClose }: ApiKeyFormProps) => {
+  const { t } = useTranslation(["settings", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<{ key: string }>();
 
@@ -67,19 +69,19 @@ const ApiKeyForm = ({ initialValues, onClose }: ApiKeyFormProps) => {
             className="flex flex-col h-full"
           >
             <ModalHeader>
-              <ModalTitle>{isEditing ? "Edit" : "New"} API Key</ModalTitle>
+              <ModalTitle>{isEditing ? t("settings:editApiKey") : t("settings:newApiKey")}</ModalTitle>
             </ModalHeader>
             <ModalBody>
               <Hidden name="id" />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
+                <Input name="name" label={t("common:name")} />
               </VStack>
             </ModalBody>
             <ModalFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalFooter>
@@ -99,6 +101,7 @@ type ApiKeyViewProps = {
 };
 
 function ApiKeyView({ apiKey, onClose }: ApiKeyViewProps) {
+  const { t } = useTranslation(["settings", "common"]);
   const [copied, setCopied] = useState(false);
   useEffect(() => {
     if (!copied) return;
@@ -115,21 +118,21 @@ function ApiKeyView({ apiKey, onClose }: ApiKeyViewProps) {
     >
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>API Key</ModalTitle>
+          <ModalTitle>{t("settings:apiKey")}</ModalTitle>
         </ModalHeader>
         <ModalBody>
           <VStack spacing={4}>
             <Alert variant="warning">
               <LuLock className="w-4 h-4" />
               <AlertTitle>
-                You can only see this key once. Store it safely.
+                {t("settings:apiKeyWarning")}
               </AlertTitle>
             </Alert>
             <InputGroup>
               <InputBase value={apiKey} />
               <InputRightElement className="w-[2.75rem]">
                 <IconButton
-                  aria-label="Copy"
+                  aria-label={t("common:copy")}
                   icon={copied ? <LuCheck /> : <LuClipboard />}
                   variant="ghost"
                   onClick={() => {
@@ -151,7 +154,7 @@ function ApiKeyView({ apiKey, onClose }: ApiKeyViewProps) {
                 onClose();
               }}
             >
-              Close
+              {t("common:close")}
             </Button>
           </HStack>
         </ModalFooter>

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -30,6 +31,7 @@ const AccountSubcategoryForm = ({
   initialValues,
   onClose
 }: AccountSubcategoryFormProps) => {
+  const { t } = useTranslation(["accounting", "common"]);
   const params = useParams();
   const permissions = usePermissions();
 
@@ -68,7 +70,7 @@ const AccountSubcategoryForm = ({
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit" : "New"} Account Subcategory
+              {isEditing ? t("accounting:editAccountSubcategory") : t("accounting:newAccountSubcategory")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
@@ -76,18 +78,18 @@ const AccountSubcategoryForm = ({
             <Hidden name="accountCategoryId" />
             <VStack>
               <FormControl>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>{t("accounting:category")}</FormLabel>
                 <InputBase value={category} isReadOnly />
               </FormControl>
-              <Input name="name" label="Name" />
+              <Input name="name" label={t("common:name")} />
               <CustomFormFields table="accountSubcategory" />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

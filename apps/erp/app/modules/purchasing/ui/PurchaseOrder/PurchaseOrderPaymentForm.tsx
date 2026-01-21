@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -32,6 +33,7 @@ type PurchaseOrderPaymentFormProps = {
 const PurchaseOrderPaymentForm = ({
   initialValues
 }: PurchaseOrderPaymentFormProps) => {
+  const { t } = useTranslation(["purchasing", "common"]);
   const { orderId } = useParams();
   if (!orderId) {
     throw new Error("orderId not found");
@@ -54,36 +56,36 @@ const PurchaseOrderPaymentForm = ({
         fetcher={fetcher}
       >
         <CardHeader>
-          <CardTitle>Payment</CardTitle>
+          <CardTitle>{t("purchasing:payment")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="id" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Supplier
               name="invoiceSupplierId"
-              label="Invoice Supplier"
+              label={t("purchasing:invoiceSupplier")}
               onChange={(value) => setSupplier(value?.value as string)}
             />
             <SupplierLocation
               name="invoiceSupplierLocationId"
-              label="Invoice Location"
+              label={t("purchasing:invoiceLocation")}
               supplier={supplier}
             />
             <SupplierContact
               name="invoiceSupplierContactId"
-              label="Invoice Contact"
+              label={t("purchasing:invoiceContact")}
               supplier={supplier}
             />
 
-            <PaymentTerm name="paymentTermId" label="Payment Terms" />
+            <PaymentTerm name="paymentTermId" label={t("purchasing:paymentTerms")} />
 
-            <Boolean name="paymentComplete" label="Payment Complete" />
+            <Boolean name="paymentComplete" label={t("purchasing:paymentComplete")} />
             <CustomFormFields table="purchaseOrderPayment" />
           </div>
         </CardContent>
         <CardFooter>
           <Submit isDisabled={!permissions.can("update", "purchasing")}>
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

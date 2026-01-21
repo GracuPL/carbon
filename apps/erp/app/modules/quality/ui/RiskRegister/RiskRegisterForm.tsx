@@ -57,7 +57,7 @@ const RiskRegisterForm = ({
   type = "drawer",
   onClose
 }: RiskRegisterFormProps) => {
-  const { t } = useTranslation("quality");
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const {
     company: { id: companyId }
@@ -148,7 +148,7 @@ const RiskRegisterForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} {selectedType}
+                {isEditing ? t("quality:editRiskTitle", { type: selectedType }) : `${t("quality:newRisk")}`}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
@@ -159,36 +159,36 @@ const RiskRegisterForm = ({
               <Hidden name="notes" value={JSON.stringify(notes)} />
 
               <VStack spacing={4}>
-                <Input name="title" label="Title" />
+                <Input name="title" label={t("quality:title")} />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
                   <SelectControlled
                     name="type"
-                    label="Type"
+                    label={t("quality:type")}
                     value={selectedType}
                     onChange={(value) =>
                       setSelectedType(value?.value ?? "Risk")
                     }
-                    options={riskRegisterType.map((t) => ({
-                      value: t,
-                      label: t
+                    options={riskRegisterType.map((riskType) => ({
+                      value: riskType,
+                      label: riskType
                     }))}
                   />
 
                   <Select
                     name="status"
-                    label="Status"
+                    label={t("quality:status")}
                     options={riskStatus.map((s) => ({
                       value: s,
                       label: <RiskStatus status={s} />
                     }))}
                   />
                 </div>
-                <TextArea name="description" label="Description" />
+                <TextArea name="description" label={t("quality:description")} />
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
                   <Select
                     name="severity"
-                    label="Severity"
+                    label={t("quality:severity")}
                     options={Array.from({ length: 5 }, (_, index) => ({
                       value: (index + 1).toString(),
                       label: <RiskRating rating={index + 1} />
@@ -196,7 +196,7 @@ const RiskRegisterForm = ({
                   />
                   <Select
                     name="likelihood"
-                    label="Likelihood"
+                    label={t("quality:likelihood")}
                     options={Array.from({ length: 5 }, (_, index) => ({
                       value: (index + 1).toString(),
                       label: <RiskRating rating={index + 1} />
@@ -204,10 +204,10 @@ const RiskRegisterForm = ({
                   />
                 </div>
 
-                <Employee name="assignee" label="Assignee" />
+                <Employee name="assignee" label={t("quality:assignee")} />
 
                 <div className="flex flex-col gap-2 w-full">
-                  <Label>Notes</Label>
+                  <Label>{t("quality:notes")}</Label>
                   <Editor
                     initialValue={notes}
                     onUpload={onUploadImage}
@@ -221,14 +221,14 @@ const RiskRegisterForm = ({
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button
                   size="md"
                   variant="solid"
                   onClick={() => onClose?.()}
                   isDisabled={fetcher.state !== "idle"}
                 >
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

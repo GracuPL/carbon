@@ -42,7 +42,7 @@ const RequiredActionForm = ({
   type = "drawer",
   onClose
 }: RequiredActionFormProps) => {
-  const { t } = useTranslation("quality");
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -51,10 +51,10 @@ const RequiredActionForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdRequiredAction"));
+      toast.success(t("quality:createdRequiredAction"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        t("failedToCreateGaugeType", { message: fetcher.data.error.message })
+        t("quality:failedToCreateRequiredAction", { message: fetcher.data.error.message })
       );
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
@@ -87,27 +87,27 @@ const RequiredActionForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Required Action
+                {isEditing ? t("quality:editRequiredAction") : t("quality:newRequiredAction")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Required Action" />
+                <Input name="name" label={t("quality:requiredAction")} />
                 <Boolean
                   name="active"
-                  label="Active"
-                  description="Inactive actions will not appear in selection lists"
+                  label={t("quality:active")}
+                  description={t("quality:inactiveActionsHelper")}
                 />
                 <CustomFormFields table="nonConformanceRequiredAction" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -33,6 +34,7 @@ type EmployeeTypeFormProps = {
 };
 
 const EmployeeTypeForm = ({ initialValues }: EmployeeTypeFormProps) => {
+  const { t } = useTranslation(["users", "common"]);
   const userPermissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -74,13 +76,13 @@ const EmployeeTypeForm = ({ initialValues }: EmployeeTypeFormProps) => {
         >
           <DrawerHeader>
             <DrawerTitle>
-              {isEditing ? "Edit" : "New"} Employee Type
+              {isEditing ? t("users:editEmployeeType") : t("users:newEmployeeType")}
             </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack spacing={4}>
-              <Input name="name" label="Employee Type" />
+              <Input name="name" label={t("users:employeeType")} />
               <Hidden
                 name="data"
                 value={JSON.stringify(Object.values(permissions))}
@@ -88,7 +90,7 @@ const EmployeeTypeForm = ({ initialValues }: EmployeeTypeFormProps) => {
             </VStack>
             <VStack>
               <label className="block text-sm font-medium leading-none">
-                Default Permissions
+                {t("users:defaultPermissions")}
               </label>
               <VStack spacing={8}>
                 {Object.entries(permissions)
@@ -106,9 +108,9 @@ const EmployeeTypeForm = ({ initialValues }: EmployeeTypeFormProps) => {
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

@@ -35,7 +35,7 @@ const ScrapReasonForm = ({
   type = "drawer",
   onClose
 }: ScrapReasonFormProps) => {
-  const { t } = useTranslation("production");
+  const { t } = useTranslation(["production", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -44,13 +44,13 @@ const ScrapReasonForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdScrapReason"));
+      toast.success(t("production:createdScrapReason"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
       toast.error(
-        `Failed to create scrap reason: ${fetcher.data.error.message}`
+        t("production:failedToCreateScrapReason", { message: fetcher.data.error.message })
       );
     }
-  }, [fetcher.data, fetcher.state, onClose, type]);
+  }, [fetcher.data, fetcher.state, onClose, type, t]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
@@ -80,22 +80,22 @@ const ScrapReasonForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Scrap Reason
+                {isEditing ? t("production:editScrapReason") : t("production:newScrapReason")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Scrap Reason" />
+                <Input name="name" label={t("production:scrapReason")} />
                 <CustomFormFields table="scrapReason" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

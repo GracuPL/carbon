@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -44,6 +45,7 @@ const PurchaseOrderDeliveryForm = forwardRef<
   PurchaseOrderDeliveryFormRef,
   PurchaseOrderDeliveryFormProps
 >(({ initialValues, currencyCode, defaultCollapsed = true }, ref) => {
+  const { t } = useTranslation(["purchasing", "sales", "common"]);
   const { orderId } = useParams();
   if (!orderId) {
     throw new Error("orderId not found");
@@ -98,14 +100,14 @@ const PurchaseOrderDeliveryForm = forwardRef<
         fetcher={fetcher}
       >
         <CardHeader>
-          <CardTitle>Shipping</CardTitle>
+          <CardTitle>{t("purchasing:shipping")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="id" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Number
               name="supplierShippingCost"
-              label="Shipping Cost"
+              label={t("purchasing:shippingCost")}
               minValue={0}
               formatOptions={{
                 style: "currency",
@@ -115,32 +117,32 @@ const PurchaseOrderDeliveryForm = forwardRef<
             />
             <Location
               name="locationId"
-              label="Delivery Location"
+              label={t("purchasing:deliveryLocation")}
               isReadOnly={isSupplier}
               isClearable
             />
-            <ShippingMethod name="shippingMethodId" label="Shipping Method" />
+            <ShippingMethod name="shippingMethodId" label={t("purchasing:shippingMethod")} />
 
-            <DatePicker name="receiptRequestedDate" label="Requested Date" />
-            <DatePicker name="receiptPromisedDate" label="Promised Date" />
-            <DatePicker name="deliveryDate" label="Delivery Date" />
+            <DatePicker name="receiptRequestedDate" label={t("purchasing:requestedDate")} />
+            <DatePicker name="receiptPromisedDate" label={t("purchasing:promisedDate")} />
+            <DatePicker name="deliveryDate" label={t("purchasing:deliveryDate")} />
 
-            <Input name="trackingNumber" label="Tracking Number" />
+            <Input name="trackingNumber" label={t("purchasing:trackingNumber")} />
             <Boolean
               name="dropShipment"
-              label="Drop Shipment"
+              label={t("purchasing:dropShipment")}
               onChange={setDropShip}
             />
             {dropShip && (
               <>
                 <Customer
                   name="customerId"
-                  label="Customer"
+                  label={t("sales:customer")}
                   onChange={(value) => setCustomer(value?.value as string)}
                 />
                 <CustomerLocation
                   name="customerLocationId"
-                  label="Location"
+                  label={t("purchasing:location")}
                   customer={customer}
                 />
               </>
@@ -152,7 +154,7 @@ const PurchaseOrderDeliveryForm = forwardRef<
           <Submit
             isDisabled={!permissions.can("update", "purchasing") || !isEditable}
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

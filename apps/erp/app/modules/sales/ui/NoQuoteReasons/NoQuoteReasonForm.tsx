@@ -35,8 +35,7 @@ const NoQuoteReasonForm = ({
   type = "drawer",
   onClose
 }: NoQuoteReasonFormProps) => {
-  const { t } = useTranslation("sales");
-  const { t: tNav } = useTranslation("navigation");
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -81,22 +80,22 @@ const NoQuoteReasonForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} No Quote Reason
+                {isEditing ? t("sales:editReason") : t("sales:newNoQuoteReason")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="No Quote Reason" />
+                <Input name="name" label={t("sales:noQuoteReason")} />
                 <CustomFormFields table="noQuoteReason" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled} />
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  {tNav("cancel")}
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

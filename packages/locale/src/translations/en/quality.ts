@@ -215,5 +215,67 @@ export const quality = {
   newIssue: "New Issue",
   issueDescription: "An issue record tracks quality issues and their resolution process.",
   workflow: "Workflow",
-  approvalRequirements: "Approval Requirements"
+  approvalRequirements: "Approval Requirements",
+
+  // Gauge Type Form
+  newGaugeType: "New Gauge Type",
+
+  // Issue Type Form
+  newIssueType: "New Non Conformance Type",
+  nonConformanceType: "Non Conformance Type",
+  failedToCreateIssueType: "Failed to create non conformance type: {{message}}",
+
+  // Issue Workflow Form
+  newIssueWorkflow: "New Issue Workflow",
+  issueWorkflowDescription: "Issue workflows defined the preset values for an issue. For example, you can have an 8D workflow or a containment workflow.",
+  issueTemplate: "Issue Template",
+  requiredActionsInOrder: "Required Actions (in order)",
+  availableActionsClickToAdd: "Available Actions (click to add):",
+  noRequiredActionsAvailable: "No required actions available",
+  inactiveActionsHelper: "Inactive actions will not appear in selection lists",
+
+  // Required Action Form
+  newRequiredAction: "New Required Action",
+  failedToCreateRequiredAction: "Failed to create required action: {{message}}",
+
+  // Gauge Form
+  newGauge: "New Gauge",
+  gaugeId: "Gauge ID",
+  details: "Details",
+  addCalibrationRecord: "Add Calibration Record",
+  calibrationRecord: "Calibration Record",
+  updated: "Updated",
+  noCalibrationRecordsFound: "No calibration records found",
+  dateAcquired: "Date Acquired",
+  lastCalibrationDate: "Last Calibration Date",
+  shelf: "Shelf",
+  calibrationIntervalMonths: "Calibration Interval (Months)",
+
+  // Gauge Calibration Record Form
+  newCalibrationRecord: "New Calibration Record",
+  editCalibrationRecord: "Edit Gauge Calibration Record",
+  newGaugeCalibrationRecord: "New Gauge Calibration Record",
+  noGaugeSelected: "No Gauge Selected",
+  selectGauge: "Select Gauge",
+  calibrationAttempts: "Calibration Attempts",
+  measurementStandard: "Measurement Standard",
+  reference: "Reference",
+  actual: "Actual",
+  add: "Add",
+  remove: "Remove",
+  notes: "Notes",
+  confirm: "Confirm",
+
+  // Quality Document Form
+  newDocument: "New Document",
+  copyDocument: "Copy Quality Document",
+  newQualityDocument: "New Quality Document",
+  newVersionDoc: "New Version",
+  versionDoc: "Version",
+  newVersionDocHelper: "The new version number of the document",
+  versionDocHelper: "The version of the new document",
+
+  // Risk Register Form
+  newRisk: "New Risk",
+  editRiskTitle: "Edit {{type}}"
 } as const;

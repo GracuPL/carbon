@@ -119,6 +119,11 @@ export const production = {
 
   // Demand Projections - Projekcje popytu
   demandProjections: "Projekcje popytu",
+  newProductionProjection: "Nowa projekcja produkcji",
+  editProductionProjection: "Edytuj projekcję produkcji",
+  demandProjectionDescription: "Ustaw wartości projekcji popytu dla każdego tygodnia",
+  createProjection: "Utwórz projekcję",
+  updateProjection: "Aktualizuj projekcję",
   part: "Wyrób",
   edit: "Edytuj",
   delete: "Usuń",
@@ -132,6 +137,9 @@ export const production = {
   materials: "Materiały",
   removeTransfer: "Usuń przesunięcie",
   removeOrder: "Usuń zamówienie",
+  methodType: "Typ metody",
+  quantityPerParent: "Ilość na jednostkę nadrzędną",
+  unitCost: "Koszt jednostkowy",
 
   // Job Operations Table - Tabela operacji zlecenia
   description: "Opis",
@@ -154,15 +162,51 @@ export const production = {
   notes: "Notatki",
   productionEvent: "Zdarzenie produkcyjne",
   productionEvents: "Zdarzenia produkcyjne",
+  newProductionEvent: "Utwórz zdarzenie produkcyjne",
+  editProductionEvent: "Edytuj zdarzenie produkcyjne",
   editEvent: "Edytuj zdarzenie",
   deleteEvent: "Usuń zdarzenie",
   confirmDeleteEvent: "Czy na pewno chcesz usunąć to zdarzenie produkcyjne? Tej operacji nie można cofnąć.",
+  eventType: "Typ zdarzenia",
+  labor: "Robocizna",
+  machine: "Maszyna",
+  setup: "Przygotowanie",
 
   // Production Quantities Table - Tabela ilości produkcyjnych
   productionQuantities: "Ilości produkcyjne",
+  editProductionQuantity: "Edytuj ilość produkcyjną",
+  quantityType: "Typ ilości",
+  productionType: "Produkcja",
+  scrap: "Brak",
+  rework: "Przeróbka",
   editQuantity: "Edytuj ilość",
   deleteQuantity: "Usuń ilość",
   confirmDeleteQuantity: "Czy na pewno chcesz usunąć tę ilość produkcyjną? Tej operacji nie można cofnąć.",
+
+  // Job Form - Formularz zlecenia
+  singleJob: "Pojedyncze zlecenie",
+  manyJobs: "Wiele zleceń",
+  jobDescription: "Zlecenie to zestaw prac do wykonania w celu realizacji zamówienia lub zwiększenia zapasów",
+  shortDescription: "Krótki opis",
+  scrapQuantity: "Ilość braku",
+  bulkJobs: "Zlecenia zbiorcze",
+  bulkJobsDescription: "Formularz zleceń zbiorczych tworzy wiele zleceń dla tej samej pozycji z różnymi terminami.",
+  totalQuantity: "Całkowita ilość",
+  quantityPerJob: "Ilość na zlecenie",
+  scrapQuantityPerJob: "Ilość braku na zlecenie",
+  dueDateOfFirstJob: "Termin pierwszego zlecenia",
+  dueDateOfLastJob: "Termin ostatniego zlecenia",
+
+  // Procedure Form - Formularz procedury
+  newProcedure: "Nowa procedura",
+  copyProcedure: "Kopiuj procedurę",
+  newVersion: "Nowa wersja",
+  newVersionHelper: "Nowy numer wersji procedury",
+  versionHelper: "Wersja nowej procedury",
+
+  // Scrap Reason Form - Formularz przyczyny braku
+  newScrapReason: "Nowa przyczyna braku",
+  failedToCreateScrapReason: "Nie udało się utworzyć przyczyny braku: {{message}}",
 
   // Toast messages - Success - Komunikaty sukcesu
   ordersSubmitted: "Zamówienia zostały wysłane",

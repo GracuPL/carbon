@@ -1,4 +1,5 @@
 import { SelectControlled, ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   cn,
@@ -43,6 +44,7 @@ const CustomFieldForm = ({
   dataTypes,
   onClose
 }: CustomFieldFormProps) => {
+  const { t } = useTranslation(["settings", "common"]);
   const permissions = usePermissions();
   const { table } = useParams();
   if (!table) throw new Error("table is not found");
@@ -92,20 +94,20 @@ const CustomFieldForm = ({
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Custom Field</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("settings:editCustomField") : t("settings:newCustomField")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack spacing={4}>
-              <Input name="name" label="Name" />
+              <Input name="name" label={t("common:name")} />
               <Hidden name="table" />
 
               <SelectControlled
                 name="dataTypeId"
-                label="Data Type"
+                label={t("settings:dataType")}
                 isReadOnly={isEditing}
                 helperText={
-                  isEditing ? "Data type cannot be changed" : undefined
+                  isEditing ? t("settings:dataTypeCannotBeChanged") : undefined
                 }
                 options={options}
                 value={dataType.toString()}
@@ -115,14 +117,14 @@ const CustomFieldForm = ({
                   }
                 }}
               />
-              {isList && <Array name="listOptions" label="List Options" />}
+              {isList && <Array name="listOptions" label={t("settings:listOptions")} />}
 
               {tablesWithTags.includes(table) && (
                 <Tags
                   table={table}
                   name="tags"
                   availableTags={routeData?.tags ?? []}
-                  helperText="These custom fields will only be available for entities with the same tags"
+                  helperText={t("settings:customFieldTagsHelper")}
                 />
               )}
             </VStack>
@@ -130,10 +132,10 @@ const CustomFieldForm = ({
           <DrawerFooter>
             <HStack>
               <Submit withBlocker={false} isDisabled={isDisabled}>
-                Save
+                {t("common:save")}
               </Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

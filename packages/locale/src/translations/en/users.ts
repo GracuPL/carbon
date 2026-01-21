@@ -148,5 +148,45 @@ export const users = {
   // Department Form
   newDepartment: "New Department",
   departmentName: "Department Name",
-  parentDepartment: "Parent Department"
+  parentDepartment: "Parent Department",
+
+  // Attribute Form
+  editAttribute: "Edit Attribute",
+  dataType: "Data Type",
+  dataTypeCannotBeChanged: "Data type cannot be changed",
+  listOptions: "List Options",
+  selfManaged: "Self Managed",
+  selfManagedDescription: "Users can update this value for themselves",
+
+  // Holiday Form
+  newHoliday: "New Holiday",
+  holidayName: "Holiday Name",
+
+  // Shift Form
+  newShift: "New Shift",
+  shiftName: "Shift Name",
+  monday: "Monday",
+  tuesday: "Tuesday",
+  wednesday: "Wednesday",
+  thursday: "Thursday",
+  friday: "Friday",
+  saturday: "Saturday",
+  sunday: "Sunday",
+
+  // Group Form
+  newGroup: "New Group",
+  groupMembers: "Group Members",
+
+  // Employee Type Form
+  newEmployeeType: "New Employee Type",
+  defaultPermissions: "Default Permissions",
+
+  // Bulk Edit Permissions Form
+  typeOfPermissionUpdate: "Type of Permission Update",
+  addPermissions: "Add Permissions",
+  updatePermissions: "Update Permissions",
+  usersToUpdate: "Users to Update",
+
+  // Employee Permissions Form
+  selectEmployeeType: "Select Employee Type"
 } as const;

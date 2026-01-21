@@ -46,7 +46,7 @@ const QuoteMaterialForm = ({
   initialValues,
   operations
 }: QuoteMaterialFormProps) => {
-  const { t } = useTranslation("sales");
+  const { t } = useTranslation(["sales", "items", "common"]);
   const fetcher = useFetcher<{ id: string; methodType: MethodType }>();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -183,7 +183,7 @@ const QuoteMaterialForm = ({
               />
               <InputControlled
                 name="description"
-                label="Description"
+                label={t("common:description")}
                 value={itemData.description}
                 onChange={(newValue) => {
                   setItemData((d) => ({ ...d, description: newValue }));
@@ -191,7 +191,7 @@ const QuoteMaterialForm = ({
               />
               <Select
                 name="quoteOperationId"
-                label="Operation"
+                label={t("items:operation")}
                 isClearable
                 options={operations.map((o) => ({
                   value: o.id!,
@@ -201,11 +201,11 @@ const QuoteMaterialForm = ({
 
               <DefaultMethodType
                 name="methodType"
-                label="Method Type"
+                label={t("items:methodType")}
                 value={itemData.methodType}
                 replenishmentSystem="Buy and Make"
               />
-              <Number name="quantity" label="Quantity per Parent" />
+              <Number name="quantity" label={t("items:qtyPerParent")} />
               <UnitOfMeasure
                 name="unitOfMeasureCode"
                 value={itemData.unitOfMeasureCode}
@@ -219,7 +219,7 @@ const QuoteMaterialForm = ({
               {itemData.methodType !== "Make" && (
                 <NumberControlled
                   name="unitCost"
-                  label="Unit Cost"
+                  label={t("items:unitCost")}
                   value={itemData.unitCost}
                   minValue={0}
                 />
@@ -228,7 +228,7 @@ const QuoteMaterialForm = ({
           </VStack>
         </CardContent>
         <CardFooter>
-          <Submit isDisabled={!permissions.can("update", "sales")}>Save</Submit>
+          <Submit isDisabled={!permissions.can("update", "sales")}>{t("common:save")}</Submit>
         </CardFooter>
       </ValidatedForm>
     </Card>

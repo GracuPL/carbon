@@ -148,5 +148,45 @@ export const users = {
   // Department Form - Formularz działu
   newDepartment: "Nowy dział",
   departmentName: "Nazwa działu",
-  parentDepartment: "Dział nadrzędny"
+  parentDepartment: "Dział nadrzędny",
+
+  // Attribute Form - Formularz atrybutu
+  editAttribute: "Edytuj atrybut",
+  dataType: "Typ danych",
+  dataTypeCannotBeChanged: "Typ danych nie może być zmieniony",
+  listOptions: "Opcje listy",
+  selfManaged: "Samozarządzanie",
+  selfManagedDescription: "Użytkownicy mogą sami aktualizować tę wartość",
+
+  // Holiday Form - Formularz dnia wolnego
+  newHoliday: "Nowy dzień wolny",
+  holidayName: "Nazwa dnia wolnego",
+
+  // Shift Form - Formularz zmiany
+  newShift: "Nowa zmiana",
+  shiftName: "Nazwa zmiany",
+  monday: "Poniedziałek",
+  tuesday: "Wtorek",
+  wednesday: "Środa",
+  thursday: "Czwartek",
+  friday: "Piątek",
+  saturday: "Sobota",
+  sunday: "Niedziela",
+
+  // Group Form - Formularz grupy
+  newGroup: "Nowa grupa",
+  groupMembers: "Członkowie grupy",
+
+  // Employee Type Form - Formularz typu pracownika
+  newEmployeeType: "Nowy typ pracownika",
+  defaultPermissions: "Domyślne uprawnienia",
+
+  // Bulk Edit Permissions Form - Formularz zbiorczej edycji uprawnień
+  typeOfPermissionUpdate: "Typ aktualizacji uprawnień",
+  addPermissions: "Dodaj uprawnienia",
+  updatePermissions: "Zaktualizuj uprawnienia",
+  usersToUpdate: "Użytkownicy do aktualizacji",
+
+  // Employee Permissions Form - Formularz uprawnień pracownika
+  selectEmployeeType: "Wybierz typ pracownika"
 } as const;

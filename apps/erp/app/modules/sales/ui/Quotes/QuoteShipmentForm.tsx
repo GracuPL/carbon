@@ -7,6 +7,7 @@ import {
   CardTitle
 } from "@carbon/react";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { useTranslation } from "@carbon/locale";
 import { useFetcher, useParams } from "react-router";
 import type { z } from "zod/v3";
 import {
@@ -36,6 +37,7 @@ const QuoteShipmentForm = forwardRef<
   QuoteShipmentFormRef,
   QuoteShipmentFormProps
 >(({ initialValues, defaultCollapsed = true }, ref) => {
+  const { t } = useTranslation(["sales", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<{}>();
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
@@ -83,14 +85,14 @@ const QuoteShipmentForm = forwardRef<
         fetcher={fetcher}
       >
         <CardHeader>
-          <CardTitle>Shipping</CardTitle>
+          <CardTitle>{t("sales:shipping")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Hidden name="id" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-4 w-full">
             <Number
               name="shippingCost"
-              label="Shipping Cost"
+              label={t("sales:shippingCost")}
               formatOptions={{
                 style: "currency",
                 currency: company?.baseCurrencyCode
@@ -100,20 +102,20 @@ const QuoteShipmentForm = forwardRef<
             />
             <Location
               name="locationId"
-              label="Shipment Location"
+              label={t("sales:shipmentLocation")}
               isReadOnly={isCustomer}
               isClearable
             />
-            <ShippingMethod name="shippingMethodId" label="Shipping Method" />
+            <ShippingMethod name="shippingMethodId" label={t("sales:shippingMethod")} />
 
-            <DatePicker name="receiptRequestedDate" label="Requested Date" />
+            <DatePicker name="receiptRequestedDate" label={t("sales:requestedDate")} />
           </div>
         </CardContent>
         <CardFooter>
           <Submit
             isDisabled={!permissions.can("update", "sales") || !isEditable}
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Card,
   CardContent,
@@ -21,6 +22,7 @@ type FiscalYearSettingsFormProps = {
 const FiscalYearSettingsForm = ({
   initialValues
 }: FiscalYearSettingsFormProps) => {
+  const { t } = useTranslation(["accounting", "common"]);
   const permissions = usePermissions();
   return (
     <Card>
@@ -31,21 +33,21 @@ const FiscalYearSettingsForm = ({
         validator={fiscalYearSettingsValidator}
       >
         <CardHeader>
-          <CardTitle>Fiscal Year Settings</CardTitle>
+          <CardTitle>{t("accounting:fiscalYearSettings")}</CardTitle>
         </CardHeader>
         <CardContent>
           <VStack spacing={4} className="my-4 w-full max-w-[440px]">
             <Select
               name="startMonth"
-              label="Start of Fiscal Year"
+              label={t("accounting:fiscalYearStart")}
               options={months.map((month) => ({ label: month, value: month }))}
-              helperText="This is the month your fiscal year starts."
+              helperText={t("accounting:fiscalYearStartHelper")}
             />
             <Select
               name="taxStartMonth"
-              label="Start of Tax Year"
+              label={t("accounting:taxYearStart")}
               options={months.map((month) => ({ label: month, value: month }))}
-              helperText="This is the month your tax year starts."
+              helperText={t("accounting:taxYearStartHelper")}
             />
           </VStack>
         </CardContent>
@@ -56,7 +58,7 @@ const FiscalYearSettingsForm = ({
               !permissions.is("employee")
             }
           >
-            Save
+            {t("common:save")}
           </Submit>
         </CardFooter>
       </ValidatedForm>

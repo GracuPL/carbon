@@ -90,7 +90,10 @@ export const sales = {
   location: "Location",
 
   // Quote fields
+  quoteId: "Quote ID",
   quoteNumber: "Quote Number",
+  quoteLocation: "Quote Location",
+  quoteDescription: "A quote is a set of prices for specific parts and quantities.",
   customerRfq: "Customer RFQ",
   salesPerson: "Sales Person",
   estimator: "Estimator",
@@ -112,24 +115,30 @@ export const sales = {
   salesOrders: "Sales Orders",
 
   // RFQ fields
+  rfqId: "RFQ ID",
   rfqNumber: "RFQ Number",
+  rfqLocation: "RFQ Location",
   rfqDate: "RFQ Date",
+  rfqFormDescription: "A sales request for quote (RFQ) is a customer inquiry for pricing on a set of parts and quantities. It may result in a quote.",
 
   // Customer Status
   customerStatus: "Customer Status",
   customerStatuses: "Customer Statuses",
   viewCustomers: "View Customers",
+  newCustomerStatus: "New Customer Status",
   editCustomerStatus: "Edit Customer Status",
   deleteCustomerStatus: "Delete Customer Status",
 
   // Customer Type
   customerType: "Customer Type",
+  newCustomerType: "New Customer Type",
   editCustomerType: "Edit Customer Type",
   deleteCustomerType: "Delete Customer Type",
 
   // No Quote Reasons
   reason: "Reason",
   reasons: "Reasons",
+  newNoQuoteReason: "New No Quote Reason",
   editReason: "Edit Reason",
   deleteReason: "Delete Reason",
 
@@ -137,6 +146,7 @@ export const sales = {
   customerPortal: "Customer Portal",
   customerPortals: "Customer Portals",
   portalLink: "Portal Link",
+  newCustomerPortal: "New Customer Portal",
   editPortal: "Edit Portal",
   deletePortal: "Delete Portal",
 
@@ -250,6 +260,9 @@ export const sales = {
   shippingCustomer: "Shipping Customer",
   shippingLocation: "Shipping Location",
   shippingContact: "Shipping Contact",
+  shipmentLocation: "Shipment Location",
+  shipmentDate: "Shipment Date",
+  trackingNumber: "Tracking Number",
 
   // Customer Contact Form
   newContact: "New Contact",
@@ -268,5 +281,40 @@ export const sales = {
   editLocation: "Edit Location",
 
   // Quote Payment Form
-  payment: "Payment"
+  payment: "Payment",
+
+  // Quote Line Form
+  quoteLine: "Quote Line",
+  newQuoteLine: "New Quote Line",
+  selectQuote: "Select a quote",
+  selectQuoteLine: "Select a quote line",
+  quoteLineDescription: "A quote line contains pricing and lead times for a particular part",
+  deleteLine: "Delete Line",
+  viewItemMaster: "View Item Master",
+  part: "Part",
+  shortDescription: "Short Description",
+  method: "Method",
+  lineStatus: "Line Status",
+  customerPartNumber: "Customer Part Number",
+  customerPartRevision: "Customer Part Revision",
+  noQuoteReason: "No Quote Reason",
+  quantity: "Quantity",
+  tax: "Tax",
+  configureItem: "Configure",
+
+  // Sales Order Line Form
+  salesOrderLine: "Sales Order Line",
+  newSalesOrderLine: "New Sales Order Line",
+  salesOrderLineDescription: "A sales order line contains order details for a particular item",
+  unitOfMeasure: "Unit of Measure",
+  unitPrice: "Unit Price",
+  shippingCost: "Shipping Cost",
+  addOnCost: "Add-On Cost",
+  shelf: "Shelf",
+
+  // Sales RFQ Line Form
+  rfqLine: "RFQ Line",
+  newRfqLine: "New RFQ Line",
+  rfqLineDescription: "An RFQ line contains part and quantity information about the requested item",
+  description: "Description"
 } as const;

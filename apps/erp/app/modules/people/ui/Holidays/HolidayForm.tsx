@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Drawer,
@@ -28,6 +29,7 @@ type HolidayFormProps = {
 };
 
 const HolidayForm = ({ initialValues }: HolidayFormProps) => {
+  const { t } = useTranslation(["users", "common"]);
   const permissions = usePermissions();
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -55,21 +57,21 @@ const HolidayForm = ({ initialValues }: HolidayFormProps) => {
           className="flex flex-col h-full"
         >
           <DrawerHeader>
-            <DrawerTitle>{isEditing ? "Edit" : "New"} Holiday</DrawerTitle>
+            <DrawerTitle>{isEditing ? t("users:editHoliday") : t("users:newHoliday")}</DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <Hidden name="id" />
             <VStack spacing={4}>
-              <Input name="name" label="Holiday Name" />
-              <DatePicker name="date" label="Date" />
+              <Input name="name" label={t("users:holidayName")} />
+              <DatePicker name="date" label={t("users:date")} />
               <CustomFormFields table="holiday" />
             </VStack>
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit isDisabled={isDisabled}>Save</Submit>
+              <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                Cancel
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

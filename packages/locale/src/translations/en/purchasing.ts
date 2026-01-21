@@ -106,13 +106,23 @@ export const purchasing = {
 
   // Supplier Status
   viewSuppliers: "View Suppliers",
+  newSupplierStatus: "New Supplier Status",
   editSupplierStatus: "Edit Supplier Status",
   deleteSupplierStatus: "Delete Supplier Status",
 
   // Supplier Type
   supplierType: "Supplier Type",
+  newSupplierType: "New Supplier Type",
   editSupplierType: "Edit Supplier Type",
   deleteSupplierType: "Delete Supplier Type",
+
+  // Supplier Process
+  supplierProcess: "Supplier Process",
+  newSupplierProcess: "New Supplier Process",
+  editSupplierProcess: "Edit Supplier Process",
+  process: "Process",
+  minimumCost: "Minimum Cost",
+  standardLeadTime: "Standard Lead Time",
 
   // Planning
   planning: "Planning",
@@ -188,5 +198,73 @@ export const purchasing = {
   supplierQuoteDescription: "A supplier quote is a set of prices for specific parts and quantities.",
   supplierQuoteId: "Supplier Quote ID",
   supplierRefNumber: "Supplier Ref. Number",
-  newSupplierQuote: "New Supplier Quote"
+  newSupplierQuote: "New Supplier Quote",
+
+  // Supplier Accounting Form
+  supplierAccounting: "Supplier Accounting",
+  taxId: "Tax ID",
+  postingGroup: "Posting Group",
+  selectPostingGroup: "Select Posting Group",
+
+  // Supplier Payment Form
+  invoiceSupplier: "Invoice Supplier",
+  invoiceLocation: "Invoice Location",
+  invoiceContact: "Invoice Contact",
+  paymentTerm: "Payment Term",
+
+  // Supplier Shipping Form
+  shipping: "Shipping",
+  shippingSupplier: "Shipping Supplier",
+  shippingLocation: "Shipping Location",
+  shippingContact: "Shipping Contact",
+
+  // Supplier Contact Form
+  newContact: "New Contact",
+  editContact: "Edit Contact",
+  email: "Email",
+  firstName: "First Name",
+  lastName: "Last Name",
+  title: "Title",
+  mobilePhone: "Mobile Phone",
+  homePhone: "Home Phone",
+  workPhone: "Work Phone",
+  notes: "Notes",
+
+  // Supplier Location Form
+  newLocation: "New Location",
+  editLocation: "Edit Location",
+
+  // Purchase Order Payment Form
+  payment: "Payment",
+  paymentComplete: "Payment Complete",
+
+  // Purchase Order Delivery Form
+  shippingCost: "Shipping Cost",
+  deliveryLocation: "Delivery Location",
+  trackingNumber: "Tracking Number",
+
+  // Purchase Order Line Form
+  purchaseOrderLine: "Purchase Order Line",
+  newPurchaseOrderLine: "New Purchase Order Line",
+  purchaseOrderLineDescription: "A purchase order line contains order details for a particular item",
+  outsideProcessing: "Outside Processing",
+  description: "Description",
+  quantity: "Quantity",
+  unitOfMeasure: "Unit of Measure",
+  unitPrice: "Unit Price",
+  tax: "Tax",
+  taxPercent: "Tax Percent",
+  shelf: "Shelf",
+  job: "Job",
+  operation: "Operation",
+
+  // Supplier Quote Line Form
+  supplierQuoteLine: "Supplier Quote Line",
+  newSupplierQuoteLine: "New Supplier Quote Line",
+  supplierQuoteLineDescription: "A supplier quote line contains pricing for a particular item",
+  deleteLine: "Delete Line",
+  part: "Part",
+  shortDescription: "Short Description",
+  supplierPartNumber: "Supplier Part Number",
+  purchaseUnitOfMeasure: "Purchase Unit of Measure"
 } as const;

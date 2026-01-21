@@ -1,3 +1,4 @@
+import { useTranslation } from "@carbon/locale";
 import {
   Button,
   Card,
@@ -23,6 +24,7 @@ type ThemeFormProps = {
 };
 
 const ThemeForm = ({ theme: defaultValues }: ThemeFormProps) => {
+  const { t } = useTranslation("settings");
   const mode = useMode();
   const fetcher = useFetcher<Action>();
 
@@ -40,9 +42,9 @@ const ThemeForm = ({ theme: defaultValues }: ThemeFormProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Theme</CardTitle>
+        <CardTitle>{t("theme")}</CardTitle>
         <CardDescription>
-          This updates the theme for all users of the application
+          {t("themeDescription")}
         </CardDescription>
       </CardHeader>
       <CardContent>

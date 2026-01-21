@@ -225,5 +225,58 @@ export const resources = {
   saturday: "Sobota",
   sunday: "Niedziela",
   skipHolidays: "Pomiń dni wolne",
-  skipHolidaysDescription: "Pomiń planowaną konserwację w dni wolne firmy"
+  skipHolidaysDescription: "Pomiń planowaną konserwację w dni wolne firmy",
+
+  // Location Form - Formularz lokalizacji
+  newLocation: "Nowa lokalizacja",
+  locationName: "Nazwa lokalizacji",
+  timezone: "Strefa czasowa",
+
+  // Contractor Form - Formularz wykonawcy
+  newContractor: "Nowy wykonawca",
+  abilityId: "Umiejętność",
+  contractorDescription: "Wykonawca to kontakt dostawcy z określonymi umiejętnościami i dostępnymi godzinami",
+  hoursPerWeekHelper: "Liczba godzin tygodniowo, w których wykonawca jest dostępny do pracy.",
+
+  // Training Form - Formularz szkolenia
+  newTraining: "Nowe szkolenie",
+  trainingType: "Typ szkolenia",
+  durationHours: "Czas trwania (godziny)",
+
+  // Partner Form - Formularz partnera
+  newPartner: "Nowy partner",
+
+  // Failure Mode Form - Formularz trybu awarii
+  newFailureMode: "Nowy tryb awarii",
+  failureModeName: "Nazwa trybu awarii",
+
+  // Training Assignment Form - Formularz przypisania szkolenia
+  trainingAssignment: "Przypisanie szkolenia",
+  newTrainingAssignment: "Nowe przypisanie",
+  editTrainingAssignment: "Edytuj przypisanie",
+  completed: "Ukończone",
+  notRequired: "Niewymagane",
+  markComplete: "Oznacz jako ukończone",
+  searchEmployees: "Szukaj pracowników...",
+  all: "Wszystkie",
+  details: "Szczegóły",
+  assignToGroups: "Przypisz do grup",
+  assignToGroupsHelper: "Wybierz grupy, które powinny ukończyć to szkolenie",
+  noEmployeesFound: "Nie znaleziono pracowników",
+  clearSearch: "Wyczyść wyszukiwanie",
+  noEmployeesAssigned: "Brak przypisanych pracowników. Dodaj grupy, aby zobaczyć status.",
+  started: "Rozpoczęto",
+
+  // Maintenance Dispatch Form - Formularz zgłoszenia konserwacji
+  maintenanceDispatch: "Zgłoszenie konserwacji",
+  newMaintenanceDispatch: "Nowe zgłoszenie konserwacji",
+  editMaintenanceDispatch: "Edytuj zgłoszenie konserwacji",
+  maintenanceDispatchDescription: "Utwórz nowe zgłoszenie konserwacji, aby śledzić naprawy i czynności konserwacyjne sprzętu",
+  priority: "Priorytet",
+  source: "Źródło",
+  severity: "Krytyczność",
+  oeeImpact: "Wpływ na OEE",
+  suspectedFailureMode: "Podejrzewany tryb awarii",
+  plannedStartTime: "Planowany czas rozpoczęcia",
+  plannedEndTime: "Planowany czas zakończenia"
 } as const;

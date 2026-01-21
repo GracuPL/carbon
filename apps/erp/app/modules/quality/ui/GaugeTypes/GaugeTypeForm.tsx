@@ -35,7 +35,7 @@ const GaugeTypeForm = ({
   type = "drawer",
   onClose
 }: GaugeTypeFormProps) => {
-  const { t } = useTranslation("quality");
+  const { t } = useTranslation(["quality", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 
@@ -44,9 +44,9 @@ const GaugeTypeForm = ({
 
     if (fetcher.state === "loading" && fetcher.data?.data) {
       onClose?.();
-      toast.success(t("createdGaugeType"));
+      toast.success(t("quality:createdGaugeType"));
     } else if (fetcher.state === "idle" && fetcher.data?.error) {
-      toast.error(t("failedToCreateGaugeType", { message: fetcher.data.error.message }));
+      toast.error(t("quality:failedToCreateGaugeType", { message: fetcher.data.error.message }));
     }
   }, [fetcher.data, fetcher.state, onClose, type, t]);
 
@@ -78,22 +78,22 @@ const GaugeTypeForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Gauge Type
+                {isEditing ? t("quality:editGaugeType") : t("quality:newGaugeType")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Gauge Type" />
+                <Input name="name" label={t("quality:gaugeType")} />
                 <CustomFormFields table="gaugeType" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

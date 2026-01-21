@@ -14,7 +14,7 @@ import {
 } from "@carbon/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@carbon/locale";
 import { useFetcher } from "react-router";
 import type { z } from "zod/v3";
 import { Hidden, Input, InputControlled, Submit } from "~/components/Form";
@@ -37,7 +37,7 @@ const MaterialTypeForm = ({
   type = "drawer",
   onClose
 }: MaterialTypeFormProps) => {
-  const { t } = useTranslation("items");
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string; name: string }>>();
   const [code, setCode] = useState<string>(initialValues.code);
@@ -83,32 +83,32 @@ const MaterialTypeForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Material Type
+                {isEditing ? t("items:editMaterialType") : t("items:newMaterialType")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Substance name="materialSubstanceId" label="Substance" />
-                <Shape name="materialFormId" label="Shape" />
-                <Input name="name" label="Name" />
+                <Substance name="materialSubstanceId" label={t("items:substance")} />
+                <Shape name="materialFormId" label={t("items:shape")} />
+                <Input name="name" label={t("common:name")} />
                 <InputControlled
                   name="code"
-                  label="Code"
+                  label={t("common:code")}
                   value={code}
                   onChange={(value) =>
                     setCode(value.toUpperCase().replace(/\s/g, ""))
                   }
-                  helperText="Unique, uppercase, without spaces"
+                  helperText={t("items:codeHelperText")}
                 />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

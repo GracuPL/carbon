@@ -173,5 +173,31 @@ export const accounting = {
   editCurrencyTitle: "Edytuj walutę",
   decimalPlaces: "Miejsca dziesiętne",
   baseCurrencyHelper: "To jest waluta bazowa. Kurs wymiany zawsze wynosi 1.",
-  exchangeRateHelper: "Jeden {{baseCurrency}} równa się ile {{currency}}?"
+  exchangeRateHelper: "Jeden {{baseCurrency}} równa się ile {{currency}}?",
+
+  // Payment Term Form - Formularz warunków płatności
+  newPaymentTerm: "Nowe warunki płatności",
+  after: "Po",
+  dueDaysAfter: "Dni do zapłaty po {{calculationMethod}}",
+  dueDaysHelper: "Liczba dni po metodzie obliczania, w których płatność jest wymagana",
+  discountDaysAfter: "Dni rabatu po {{calculationMethod}}",
+  discountDaysHelper: "Liczba dni po metodzie obliczania, w których rabat gotówkowy jest dostępny",
+  discountPercent: "Procent rabatu",
+  discountPercentHelper: "Procent rabatu gotówkowego. Użyj 0 dla braku rabatu.",
+
+  // Account Category Form - Formularz kategorii konta
+  newAccountCategory: "Nowa kategoria konta",
+  categoryName: "Nazwa kategorii",
+
+  // Account Subcategory Form - Formularz podkategorii konta
+  newAccountSubcategory: "Nowa podkategoria konta",
+  editAccountSubcategory: "Edytuj podkategorię konta",
+  subcategoryName: "Nazwa podkategorii",
+
+  // Fiscal Year Form - Formularz roku obrotowego
+  fiscalYearSettings: "Ustawienia roku obrotowego",
+  fiscalYearStart: "Początek roku obrotowego",
+  fiscalYearStartHelper: "To jest miesiąc, w którym zaczyna się Twój rok obrotowy.",
+  taxYearStart: "Początek roku podatkowego",
+  taxYearStartHelper: "To jest miesiąc, w którym zaczyna się Twój rok podatkowy."
 } as const;

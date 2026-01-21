@@ -41,7 +41,7 @@ const ItemPostingGroupForm = ({
   type = "drawer",
   onClose
 }: ItemPostingGroupFormProps) => {
-  const { t } = useTranslation("items");
+  const { t } = useTranslation(["items", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string; name: string }>>();
 
@@ -84,23 +84,23 @@ const ItemPostingGroupForm = ({
           >
             <ModalDrawerHeader>
               <ModalDrawerTitle>
-                {isEditing ? "Edit" : "New"} Item Group
+                {isEditing ? t("items:editItemGroup") : t("items:newItemGroup")}
               </ModalDrawerTitle>
             </ModalDrawerHeader>
             <ModalDrawerBody>
               <Hidden name="id" />
               <Hidden name="type" value={type} />
               <VStack spacing={4}>
-                <Input name="name" label="Name" />
-                <TextArea name="description" label="Description" />
+                <Input name="name" label={t("common:name")} />
+                <TextArea name="description" label={t("common:description")} />
                 <CustomFormFields table="itemPostingGroup" />
               </VStack>
             </ModalDrawerBody>
             <ModalDrawerFooter>
               <HStack>
-                <Submit isDisabled={isDisabled}>Save</Submit>
+                <Submit isDisabled={isDisabled}>{t("common:save")}</Submit>
                 <Button size="md" variant="solid" onClick={() => onClose()}>
-                  Cancel
+                  {t("common:cancel")}
                 </Button>
               </HStack>
             </ModalDrawerFooter>

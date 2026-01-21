@@ -34,7 +34,7 @@ const EmployeePermissionsForm = ({
   employeeTypes,
   initialValues
 }: EmployeePermissionsFormProps) => {
-  const { t } = useTranslation("navigation");
+  const { t } = useTranslation(["users", "common"]);
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
 
@@ -74,12 +74,12 @@ const EmployeePermissionsForm = ({
             <VStack spacing={4}>
               <Select
                 name="employeeType"
-                label="Employee Type"
+                label={t("users:employeeType")}
                 options={employeeTypeOptions}
-                placeholder="Select Employee Type"
+                placeholder={t("users:selectEmployeeType")}
               />
               <label className="block text-sm font-medium leading-none">
-                Permissions
+                {t("users:permissions")}
               </label>
               <VStack spacing={8}>
                 {Object.entries(permissions)
@@ -99,9 +99,9 @@ const EmployeePermissionsForm = ({
           </DrawerBody>
           <DrawerFooter>
             <HStack>
-              <Submit />
+              <Submit>{t("common:save")}</Submit>
               <Button size="md" variant="solid" onClick={onClose}>
-                {t("cancel")}
+                {t("common:cancel")}
               </Button>
             </HStack>
           </DrawerFooter>

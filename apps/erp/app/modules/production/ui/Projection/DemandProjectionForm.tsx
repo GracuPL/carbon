@@ -1,4 +1,5 @@
 import { ValidatedForm } from "@carbon/form";
+import { useTranslation } from "@carbon/locale";
 import {
   CardDescription,
   CardTitle,
@@ -35,6 +36,7 @@ const DemandProjectionsForm = ({
   isEditing = false,
   onClose
 }: DemandProjectionsFormProps) => {
+  const { t } = useTranslation(["production", "common"]);
   const permissions = usePermissions();
   const fetcher = useFetcher<{ id: string }>();
   const loaderData = useLoaderData<LoaderData>();
@@ -84,10 +86,10 @@ const DemandProjectionsForm = ({
         >
           <DrawerHeader>
             <CardTitle>
-              {isEditing ? "Edit" : "New"} Production Projection
+              {isEditing ? t("production:editProductionProjection") : t("production:newProductionProjection")}
             </CardTitle>
             <CardDescription>
-              Set demand projection values for each week
+              {t("production:demandProjectionDescription")}
             </CardDescription>
           </DrawerHeader>
           <DrawerBody>
@@ -104,14 +106,14 @@ const DemandProjectionsForm = ({
             <VStack spacing={4}>
               <Item
                 name="itemId"
-                label="Item"
+                label={t("common:item")}
                 type="Part"
                 replenishmentSystem="Make"
                 isReadOnly={isEditing}
               />
               <Location
                 name="locationId"
-                label="Location"
+                label={t("common:location")}
                 isReadOnly={isEditing}
               />
 
@@ -132,7 +134,7 @@ const DemandProjectionsForm = ({
                 isLoading={fetcher.state !== "idle"}
                 isDisabled={fetcher.state !== "idle" || isDisabled}
               >
-                {isEditing ? "Update" : "Create"} Projection
+                {isEditing ? t("production:updateProjection") : t("production:createProjection")}
               </Submit>
             </HStack>
           </DrawerFooter>
